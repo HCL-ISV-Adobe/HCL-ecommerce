@@ -1,6 +1,6 @@
 # HCL eCommrece Project 6
 test edit
-This is a project template for AEM-based applications. It is intended as a best-practice set of examples as well as a potential starting point to develop your own functionality.
+This is a project template for AEM-based applications. It is intended as a best-practice set of examples as well as a potential starting point to develop your own functionality. Updated from HCL laptop using SSH
 
 ## Modules
 
