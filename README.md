@@ -1,17 +1,22 @@
-# Sample AEM project template
+# Hclecomm Project
 
-This is a project template for AEM-based applications. It is intended as a best-practice set of examples as well as a potential starting point to develop your own functionality.
+This project is generated using the AEM Editables template featured by AEM to provide the online ecommerce functionality such as View Projects, Adding products to the cart and Checkout using all the new features provideed by the AEM 6.5. 
+
+
+**This project should be deployed to AEM 6.5 on Java 1.8**
+
+##Components
+
+features of Core components are used extensively in this project
+
 
 ## Modules
 
 The main parts of the template are:
 
-* core: Java bundle containing all core functionality like OSGi services, listeners or schedulers, as well as component-related Java code such as servlets or request filters.
-* ui.apps: contains the /apps (and /etc) parts of the project, ie JS&CSS clientlibs, components, templates, runmode specific configs as well as Hobbes-tests
+* core: Java bundle containing all core functionality like OSGi services, listeners or schedulers, as well as component-related Java code such as Models, Services and servlets etc.
+* ui.apps: contains the /apps (and /etc) parts of the project, ie JS&CSS clientlibs, components, templates, runmode specific configs etc
 * ui.content: contains sample content using the components from the ui.apps
-* ui.tests: Java bundle containing JUnit tests that are executed server-side. This bundle is not to be deployed onto production.
-* ui.launcher: contains glue code that deploys the ui.tests bundle (and dependent bundles) to the server and triggers the remote JUnit execution
-* ui.frontend: an optional dedicated front-end build mechanism based on Webpack
 
 ## How to build
 
@@ -56,3 +61,8 @@ There are three levels of testing contained in the project:
 The project comes with the auto-public repository configured. To setup the repository in your Maven settings, refer to:
 
     http://helpx.adobe.com/experience-manager/kb/SetUpTheAdobeMavenRepository.html
+	
+
+
+
+
