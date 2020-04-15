@@ -4,16 +4,16 @@
     <jcr:content
         cq:allowedTemplates="[/conf/hclecomm/settings/wcm/templates/.*]"
         cq:deviceGroups="[/etc/mobile/groups/responsive]"
-        jcr:primaryType="nt:unstructured"
-        jcr:title="HCLeCommerce"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="HCLECOMM Site"
         sling:redirect="{Boolean}true"
         sling:redirectStatus="{Long}302"
         sling:resourceType="foundation/components/redirect"
-        redirectTarget="/content/hclecomm/en">
+        redirectTarget="/content/hclecomm/us/en">
         <image jcr:primaryType="nt:unstructured">
             <file/>
         </image>
     </jcr:content>
-    <en/>
-    <fr/>
+    <language-masters/>
+    <us/>
 </jcr:root>

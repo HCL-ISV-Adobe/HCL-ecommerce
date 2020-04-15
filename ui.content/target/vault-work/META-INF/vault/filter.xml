@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <workspaceFilter version="1.0">
-    <filter root="/conf/hclecomm" />
-    <filter root="/content/hclecomm" />
-    <filter root="/content/dam/hclecomm" />
+    <filter root="/conf/hclecomm" mode="merge"/>
+    <filter root="/content/hclecomm" mode="merge"/>
+    <filter root="/content/dam/hclecomm" mode="merge"/>
+    <filter root="/content/experience-fragments/hclecomm" mode="merge"/>
 </workspaceFilter>

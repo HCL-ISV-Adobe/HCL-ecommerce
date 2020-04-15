@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-<comment>hclecomm - UI apps</comment>
-<entry key="createdBy">rishabh_behl</entry>
+<comment>HCLECOMM Project-DcomponentGroupName=Hclecomm - UI apps</comment>
+<entry key="createdBy">DeepaliA</entry>
+<entry key="allowIndexDefinitions">false</entry>
 <entry key="name">hclecomm.ui.apps</entry>
-<entry key="created">2019-09-10T15:16:31.948+0530</entry>
+<entry key="acHandling">merge</entry>
+<entry key="created">2020-04-15T15:47:25.702+05:30</entry>
 <entry key="groupId">com.hcl.ecomm</entry>
-<entry key="version">1.0-SNAPSHOT</entry>
+<entry key="version">0.0.1-SNAPSHOT</entry>
+<entry key="packageType">application</entry>
 <entry key="requiresRoot">false</entry>
-<entry key="group">hclecomm</entry>
-<entry key="description">UI apps package for hclecomm</entry>
+<entry key="dependencies">adobe/cq60:core.wcm.components.content:2.7.0,adobe/cq60:core.wcm.components.config:2.7.0</entry>
+<entry key="cloudManagerTarget">none</entry>
+<entry key="group">com.hcl.ecomm</entry>
+<entry key="description">UI apps package for HCLECOMM Project-DcomponentGroupName=Hclecomm</entry>
 <entry key="artifactId">hclecomm.ui.apps</entry>
-<entry key="path">/etc/packages/hclecomm/hclecomm.ui.apps.zip</entry>
 </properties>

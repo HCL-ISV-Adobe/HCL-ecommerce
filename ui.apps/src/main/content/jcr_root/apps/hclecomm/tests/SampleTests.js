@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-new hobs.TestSuite("hclecomm Tests", {path:"/apps/hclecomm/tests/SampleTests.js", register: true})
+new hobs.TestSuite("HCLECOMM Project-DcomponentGroupName=Hclecomm Tests", {path:"/apps/hclecomm/tests/SampleTests.js", register: true})
 
     .addTestCase(new hobs.TestCase("Hello World component on english page")
         .navigateTo("/content/hclecomm/en.html")
