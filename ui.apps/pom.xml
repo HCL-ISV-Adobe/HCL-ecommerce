@@ -56,12 +56,7 @@
                     <properties>
                         <cloudManagerTarget>none</cloudManagerTarget>>
                     </properties>
-                    <repositoryStructurePackages>
-                        <repositoryStructurePackage>
-                            <groupId>com.hcl.ecomm</groupId>
-                            <artifactId>hclecomm.repository-structure</artifactId>
-                        </repositoryStructurePackage>
-                    </repositoryStructurePackages>
+                   
                     <embeddeds>
                         <embedded>
                             <groupId>com.adobe.cq</groupId>
@@ -113,24 +108,14 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.hcl.ecomm</groupId>
-            <artifactId>hclecomm.ui.frontend</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <type>zip</type>
-        </dependency>
+       
 
         <dependency>
             <groupId>com.adobe.cq</groupId>
             <artifactId>core.wcm.components.core</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.hcl.ecomm</groupId>
-            <artifactId>hclecomm.repository-structure</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <type>zip</type>
-        </dependency>
+       
 
         <dependency>
             <groupId>com.adobe.cq</groupId>
