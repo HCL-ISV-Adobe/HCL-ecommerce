@@ -3,40 +3,39 @@
     jcr:primaryType="cq:Page">
     <jcr:content
         cq:deviceGroups="[/etc/mobile/groups/responsive]"
-        cq:lastModified="{Date}2020-04-16T14:28:14.929+05:30"
+        cq:lastModified="{Date}2020-04-17T09:47:10.633+05:30"
         cq:lastModifiedBy="admin"
-        cq:template="/conf/hclecomm/settings/wcm/templates/hclecomm-site-basepage-template"
+        cq:template="/conf/hclecomm/settings/wcm/templates/hclecomm-base-page-template"
         jcr:primaryType="cq:PageContent"
         sling:resourceType="hclecomm/components/structure/page">
         <root
+            jcr:lastModified="{Date}2020-04-16T19:55:05.320+05:30"
+            jcr:lastModifiedBy="admin"
             jcr:primaryType="nt:unstructured"
             sling:resourceType="wcm/foundation/components/responsivegrid">
-            <experiencefragment
-                jcr:created="{Date}2020-04-16T14:16:12.978+05:30"
+            <headercontainer
+                jcr:created="{Date}2020-04-17T09:46:52.346+05:30"
                 jcr:createdBy="admin"
-                jcr:lastModified="{Date}2020-04-16T14:17:32.698+05:30"
+                jcr:lastModified="{Date}2020-04-17T09:46:52.346+05:30"
                 jcr:lastModifiedBy="admin"
                 jcr:primaryType="nt:unstructured"
-                sling:resourceType="hclecomm/components/content/experiencefragment"
-                fragmentVariationPath="/content/experience-fragments/hclecomm/us/en/site/header/master"/>
+                sling:resourceType="hclecomm/components/structure/headercontainer"/>
             <responsivegrid
-                jcr:created="{Date}2020-04-16T14:28:07.854+05:30"
+                jcr:created="{Date}2020-04-17T09:47:02.765+05:30"
                 jcr:createdBy="admin"
-                jcr:lastModified="{Date}2020-04-16T14:28:07.854+05:30"
+                jcr:lastModified="{Date}2020-04-17T09:47:02.765+05:30"
                 jcr:lastModifiedBy="admin"
                 jcr:primaryType="nt:unstructured"
-                sling:resourceType="wcm/foundation/components/responsivegrid"
-                editable="{Boolean}true">
+                sling:resourceType="wcm/foundation/components/responsivegrid">
                 <cq:responsive jcr:primaryType="nt:unstructured"/>
             </responsivegrid>
-            <experiencefragment_1703160806
-                jcr:created="{Date}2020-04-16T14:19:25.698+05:30"
+            <footercontainer
+                jcr:created="{Date}2020-04-17T09:47:10.623+05:30"
                 jcr:createdBy="admin"
-                jcr:lastModified="{Date}2020-04-16T14:19:47.794+05:30"
+                jcr:lastModified="{Date}2020-04-17T09:47:10.623+05:30"
                 jcr:lastModifiedBy="admin"
                 jcr:primaryType="nt:unstructured"
-                sling:resourceType="hclecomm/components/content/experiencefragment"
-                fragmentVariationPath="/content/experience-fragments/hclecomm/us/en/site/footer/master"/>
+                sling:resourceType="hclecomm/components/structure/footercontainer"/>
         </root>
     </jcr:content>
 </jcr:root>
