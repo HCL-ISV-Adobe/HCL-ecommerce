@@ -3,7 +3,6 @@
     jcr:mixinTypes="[rep:AccessControllable]"
     jcr:primaryType="cq:Page">
     <empty-experience-fragment/>
-    <empty-page/>
     <rep:policy/>
-    <hclecomm-empty-page/>
+    <hclecomm-blank-page/>
 </jcr:root>
