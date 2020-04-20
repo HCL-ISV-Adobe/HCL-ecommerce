@@ -4,7 +4,7 @@
     jcr:primaryType="cq:Template"
     ranking="{Long}1">
     <jcr:content
-        jcr:description="Generic template for web pages"
+        jcr:description="Blank page template for hclecomm project"
         jcr:primaryType="cq:PageContent"
-        jcr:title="hclecomm Empty Page"/>
+        jcr:title="hclecomm Blank Page"/>
 </jcr:root>
