@@ -5,4 +5,5 @@
     <content-page-template/>
     <experience-fragment-web-variation-template/>
     <rep:policy/>
+    <hclecomm-base-page-template/>
 </jcr:root>

@@ -2,27 +2,19 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="cq:Page">
     <jcr:content
-        cq:contextHubPath="/etc/cloudsettings/default/contexthub"
-        cq:contextHubSegmentsPath="/etc/segmentation/contexthub"
-        cq:template="/conf/hclecomm/settings/wcm/templates/content-page-template"
+        cq:lastModified="{Date}2020-04-21T13:59:01.110+05:30"
+        cq:lastModifiedBy="admin"
+        cq:template="/conf/hclecomm/settings/wcm/templates/hclecomm-base-page-template"
         jcr:primaryType="cq:PageContent"
-        jcr:title="en"
-        sling:resourceType="hclecomm/components/structure/page"
-        pageTitle="New Project"
-        socialMedia="[facebook]">
+        sling:resourceType="hclecomm/components/structure/page">
         <root
             jcr:primaryType="nt:unstructured"
             sling:resourceType="wcm/foundation/components/responsivegrid">
             <responsivegrid
+                jcr:lastModified="{Date}2020-04-21T14:02:28.639+05:30"
                 jcr:lastModifiedBy="admin"
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="wcm/foundation/components/responsivegrid"/>
         </root>
-        <cq:LiveSyncConfig
-            cq:isDeep="{Boolean}true"
-            cq:master="/content/hclecomm/language-masters/en"
-            cq:rolloutConfigs="[/libs/msm/wcm/rolloutconfigs/default]"
-            jcr:primaryType="cq:LiveCopy"/>
     </jcr:content>
-    <HomePage/>
 </jcr:root>
