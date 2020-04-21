@@ -4,7 +4,7 @@ This is a HCL eCommerce AEM project. Features of Core components are used extens
 
 ## Modules
 
-The main parts of the template are:
+The main parts of the template are: Tets
 
 * core: Java bundle containing all core functionality like OSGi services, listeners or schedulers, as well as component-related Java code such as Sling Models, servlets or request filters.
 * ui.apps: contains the /apps (and /etc) parts of the project, ie JS&CSS clientlibs, components, templates, runmode specific configs as well as Hobbes-tests
