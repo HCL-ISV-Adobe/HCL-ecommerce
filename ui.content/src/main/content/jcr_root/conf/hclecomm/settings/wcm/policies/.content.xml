@@ -31,35 +31,6 @@
                             jcr:primaryType="nt:unstructured"
                             mergeList="{Boolean}true"/>
                     </content-default>
-                    <policy_xfm
-                        jcr:primaryType="nt:unstructured"
-                        jcr:title="hclecomm Experience Fragment"
-                        sling:resourceType="wcm/core/components/policy/policy"
-                        components="[/libs/wcm/foundation/components/responsivegrid,group:hclecomm.Content,group:hclecomm.Form,group:hclecomm.Structure]">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
-                        <cq:authoring jcr:primaryType="nt:unstructured">
-                            <assetToComponentMapping jcr:primaryType="nt:unstructured">
-                                <mapping_1568417184586
-                                    jcr:primaryType="nt:unstructured"
-                                    assetGroup="media"
-                                    assetMimetype="image/*"
-                                    droptarget="image"
-                                    resourceType="hclecomm/components/content/image"/>
-                                <mapping_1570048100274
-                                    jcr:primaryType="nt:unstructured"
-                                    assetGroup="content"
-                                    assetMimetype="text/html"
-                                    droptarget="experiencefragment"
-                                    resourceType="hclecomm/components/content/experiencefragment"/>
-                                <mapping_1570048111074
-                                    jcr:primaryType="nt:unstructured"
-                                    assetGroup="media"
-                                    assetMimetype="[text/html,application/vnd.adobe.contentfragment]"
-                                    droptarget="contentfragment"
-                                    resourceType="hclecomm/components/content/contentfragment"/>
-                            </assetToComponentMapping>
-                        </cq:authoring>
-                    </policy_xfm>
                     <policy_600116016309972
                         jcr:lastModified="{Date}2020-04-23T16:01:50.387+05:30"
                         jcr:lastModifiedBy="admin"
