@@ -2,11 +2,11 @@
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Template">
     <jcr:content
-        cq:lastModified="{Date}2020-04-22T21:30:23.843+05:30"
+        cq:lastModified="{Date}2020-04-23T16:02:08.251+05:30"
         cq:lastModifiedBy="admin"
         cq:templateType="/conf/hclecomm/settings/wcm/template-types/hclecomm-base-page"
-        jcr:description="This is the base page template for hclecomm project"
+        jcr:description="This is the content page template of hclecomm project"
         jcr:primaryType="cq:PageContent"
-        jcr:title="Hclecomm Base Page Template"
-        status="enabled"/>
+        jcr:title="hclecomm-content-page-template"
+        status="draft"/>
 </jcr:root>
