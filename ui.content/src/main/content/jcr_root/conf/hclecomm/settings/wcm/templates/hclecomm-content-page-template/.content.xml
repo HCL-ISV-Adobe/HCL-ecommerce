@@ -8,5 +8,5 @@
         jcr:description="This is the content page template of hclecomm project"
         jcr:primaryType="cq:PageContent"
         jcr:title="hclecomm-content-page-template"
-        status="draft"/>
+        status="enabled"/>
 </jcr:root>
