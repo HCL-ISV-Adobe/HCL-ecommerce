@@ -7,23 +7,12 @@
         <foundation jcr:primaryType="nt:unstructured">
             <components jcr:primaryType="nt:unstructured">
                 <responsivegrid jcr:primaryType="nt:unstructured">
-                    <policy_97222330617899
-                        jcr:lastModified="{Date}2020-04-21T14:02:13.092+05:30"
-                        jcr:lastModifiedBy="admin"
-                        jcr:primaryType="nt:unstructured"
-                        jcr:title="Hclecomm content policy"
-                        sling:resourceType="wcm/core/components/policy/policy"
-                        components="[/libs/wcm/foundation/components/responsivegrid,group:hclecomm.Content,/apps/hclecomm/components/structure/logo]">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
-                    </policy_97222330617899>
                     <content-default
                         jcr:description="Policy for editable layout containers"
-                        jcr:lastModified="{Date}2020-04-21T12:44:51.668+05:30"
-                        jcr:lastModifiedBy="admin"
                         jcr:primaryType="nt:unstructured"
                         jcr:title="hclecomm Default"
                         sling:resourceType="wcm/core/components/policy/policy"
-                        components="[/libs/wcm/foundation/components/responsivegrid,group:hclecomm.Content,/apps/hclecomm/components/form/container,group:hclecomm.Structure]"
+                        components="[group:hclecomm.Content,/apps/hclecomm/components/form/container,group:hclecomm.Structure]"
                         policyResourceType="wcm/foundation/components/responsivegrid">
                         <cq:authoring jcr:primaryType="nt:unstructured">
                             <assetToComponentMapping jcr:primaryType="nt:unstructured">
@@ -69,24 +58,6 @@
                             </assetToComponentMapping>
                         </cq:authoring>
                     </policy_xfm>
-                    <policy_190319883911327
-                        jcr:lastModified="{Date}2020-04-17T16:22:17.373+05:30"
-                        jcr:lastModifiedBy="admin"
-                        jcr:primaryType="nt:unstructured"
-                        jcr:title="hclecomm policy"
-                        sling:resourceType="wcm/core/components/policy/policy"
-                        components="group:hclecomm.Structure">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
-                    </policy_190319883911327>
-                    <policy_440040586017963
-                        jcr:lastModified="{Date}2020-04-20T13:45:28.837+05:30"
-                        jcr:lastModifiedBy="admin"
-                        jcr:primaryType="nt:unstructured"
-                        jcr:title="new hcecomm Policy"
-                        sling:resourceType="wcm/core/components/policy/policy"
-                        components="group:hclecomm.Content">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
-                    </policy_440040586017963>
                 </responsivegrid>
             </components>
         </foundation>
@@ -310,7 +281,7 @@
                         jcr:title="hclecomm Experience Fragment - Footer"
                         sling:resourceType="wcm/core/components/policy/policy">
                         <jcr:content jcr:primaryType="nt:unstructured"/>
-                    </policy_footer>
+                </policy_footer>
                 </experiencefragment>
             </content>
             <structure jcr:primaryType="nt:unstructured">
@@ -332,18 +303,6 @@
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_content_page>
                 </page>
-                <footer jcr:primaryType="nt:unstructured"/>
-                <header jcr:primaryType="nt:unstructured">
-                    <policy_1587457316235
-                        jcr:lastModified="{Date}2020-04-21T13:54:44.017+05:30"
-                        jcr:lastModifiedBy="admin"
-                        jcr:primaryType="nt:unstructured"
-                        jcr:title="Header component policy"
-                        sling:resourceType="wcm/core/components/policy/policy"
-                        components="[/apps/hclecomm/components/content/text,/apps/hclecomm/components/content/title,/apps/hclecomm/components/structure/logo,/apps/hclecomm/components/structure/navigation,/apps/hclecomm/components/structure/search]">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
-                    </policy_1587457316235>
-                </header>
             </structure>
         </components>
     </hclecomm>
