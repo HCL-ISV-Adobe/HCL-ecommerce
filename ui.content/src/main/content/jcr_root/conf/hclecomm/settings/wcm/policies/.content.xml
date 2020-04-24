@@ -88,6 +88,7 @@
                         components="[/apps/hclecomm/components/content/image,/apps/hclecomm/components/content/separator,/apps/hclecomm/components/content/text,/apps/hclecomm/components/structure/navigation]">
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_1587530568542>
+
                 </footer>
                 <header jcr:primaryType="nt:unstructured">
                     <policy_1587530274257
@@ -99,6 +100,16 @@
                         components="[/apps/hclecomm/components/content/title,/apps/hclecomm/components/structure/navigation,/apps/hclecomm/components/structure/search]">
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_1587530274257>
+                    <policy_header
+                            jcr:description="This is the Hclecomm footer component Policy"
+                            jcr:lastModified="{Date}2020-04-23T16:02:08.234+05:30"
+                            jcr:lastModifiedBy="admin"
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Hclecomm Header Policy-Test"
+                            sling:resourceType="wcm/core/components/policy/policy"
+                            components="[/apps/hclecomm/components/content/image,/apps/hclecomm/components/content/separator,/apps/hclecomm/components/content/text,/apps/hclecomm/components/structure/navigation]">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                    </policy_header>
                 </header>
             </structure>
         </components>
