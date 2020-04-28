@@ -1,5 +1,4 @@
-<div data-sly-use.btnModel="com.hcl.ecomm.core.models.ButtonModel"
-	 class='${btnModel.buttonType}'>
+<div class='${properties.buttonType}${properties.disabledButton}'>
 <button data-sly-use.button="com.adobe.cq.wcm.core.components.models.Button"
         data-sly-element="${button.link ? 'a' : 'button'}"
         class="cmp-button"

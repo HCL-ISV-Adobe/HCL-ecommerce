@@ -57,13 +57,13 @@
                                                         value="link-primary"/>
                                                 </items>
                                             </buttonType>
-											<isButtonDisable
+											<disabledButton
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
                                                 fieldDescription="Checkbox to disable the button"
-                                                name="./isButtonDisable"
+                                                name="./disabledButton"
 												text="Disable Button"
-												value="true"/>
+												value="__disabled"/>
                                         </items>
                                     </column>
                                 </items>
