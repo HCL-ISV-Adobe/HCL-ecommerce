@@ -188,10 +188,5 @@ Bundle-DocURL:
             <groupId>uk.org.lidalia</groupId>
             <artifactId>slf4j-test</artifactId>
         </dependency>
-		<!-- core component dependency added in core pom -->
-		<dependency>
-			<groupId>com.adobe.cq</groupId>
-			<artifactId>core.wcm.components.core</artifactId>
-		</dependency>		
     </dependencies>
 </project>
