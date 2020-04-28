@@ -29,7 +29,9 @@
                                     <column
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/container">
-                                        <items jcr:primaryType="nt:unstructured">
+                                        <items 
+											jcr:primaryType="nt:unstructured"
+											sling:hideChildren="icon">
                                             <buttonType
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:orderBefore="text"
@@ -55,6 +57,13 @@
                                                         value="link-primary"/>
                                                 </items>
                                             </buttonType>
+											<isButtonDisable
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                                fieldDescription="Checkbox to disable the button"
+                                                name="./isButtonDisable"
+												text="Disable Button"
+												value="true"/>
                                         </items>
                                     </column>
                                 </items>
