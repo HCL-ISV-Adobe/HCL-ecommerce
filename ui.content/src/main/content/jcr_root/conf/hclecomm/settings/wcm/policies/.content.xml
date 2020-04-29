@@ -177,6 +177,66 @@
                         </rtePlugins>
                     </policy_1587978894650>
                 </text>
+                <button jcr:primaryType="nt:unstructured">
+                    <policy_1588076880690
+                        cq:styleDefaultClasses="btn-primary"
+                        jcr:lastModified="{Date}2020-04-29T00:59:05.439+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Button Policy"
+                        sling:resourceType="wcm/core/components/policy/policy">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <cq:styleGroups jcr:primaryType="nt:unstructured">
+                            <item0
+                                cq:styleGroupLabel="Active Button  "
+                                jcr:primaryType="nt:unstructured">
+                                <cq:styles jcr:primaryType="nt:unstructured">
+                                    <item0
+                                        cq:styleClasses="btn-primary"
+                                        cq:styleId="1588078046992"
+                                        cq:styleLabel="Primary"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item1
+                                        cq:styleClasses="btn-secondary"
+                                        cq:styleId="1588078073530"
+                                        cq:styleLabel="Secondry"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item2
+                                        cq:styleClasses="btn-ternary"
+                                        cq:styleId="1588078077235"
+                                        cq:styleLabel="Ternary"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item3
+                                        cq:styleClasses="link-primary"
+                                        cq:styleId="1588078079745"
+                                        cq:styleLabel="Link"
+                                        jcr:primaryType="nt:unstructured"/>
+                                </cq:styles>
+                            </item0>
+                            <item1
+                                cq:styleGroupLabel="Disable Button"
+                                jcr:primaryType="nt:unstructured">
+                                <cq:styles jcr:primaryType="nt:unstructured">
+                                    <item0
+                                        cq:styleClasses="btn-primary__disabled"
+                                        cq:styleId="1588078154761"
+                                        cq:styleLabel="Primary"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item1
+                                        cq:styleClasses="btn-secondary__disabled"
+                                        cq:styleId="1588078156240"
+                                        cq:styleLabel="Secondary"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item2
+                                        cq:styleClasses="btn-ternary__disabled"
+                                        cq:styleId="1588078157214"
+                                        cq:styleLabel="Ternary"
+                                        jcr:primaryType="nt:unstructured"/>
+                                </cq:styles>
+                            </item1>
+                        </cq:styleGroups>
+                    </policy_1588076880690>
+                </button>
             </content>
             <structure jcr:primaryType="nt:unstructured">
                 <page jcr:primaryType="nt:unstructured">
