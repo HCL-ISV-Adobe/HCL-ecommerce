@@ -60,7 +60,7 @@
             <content jcr:primaryType="nt:unstructured">
                 <text jcr:primaryType="nt:unstructured">
                     <policy_1587978894650
-                        jcr:lastModified="{Date}2020-04-28T15:42:11.536+05:30"
+                        jcr:lastModified="{Date}2020-04-29T11:42:25.514+05:30"
                         jcr:lastModifiedBy="admin"
                         jcr:primaryType="nt:unstructured"
                         jcr:title="text policy"
@@ -117,7 +117,7 @@
                             </paraformat>
                             <misctools
                                 jcr:primaryType="nt:unstructured"
-                                features="-">
+                                features="sourceedit">
                                 <specialCharsConfig jcr:primaryType="nt:unstructured">
                                     <chars
                                         jcr:primaryType="nt:unstructured"
