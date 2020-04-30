@@ -24,6 +24,10 @@
                                 cq:policy="hclecomm/components/content/text/policy_1587978894650"
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="wcm/core/components/policies/mapping"/>
+                            <accordion
+                                cq:policy="hclecomm/components/content/accordion/policy_1588258216814"
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="wcm/core/components/policies/mapping"/>
                         </content>
                     </components>
                 </hclecomm>
