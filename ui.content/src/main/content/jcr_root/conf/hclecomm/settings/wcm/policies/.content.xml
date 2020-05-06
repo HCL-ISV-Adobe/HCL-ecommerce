@@ -250,6 +250,21 @@
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_1588258216814>
                 </accordion>
+				<container jcr:primaryType="nt:unstructured">
+                    <policy_1588584656785
+                        jcr:lastModified="{Date}2020-05-05T10:50:04.972+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="containerpolicy"
+                        sling:resourceType="wcm/core/components/policy/policy"
+                        allowedColorSwatches="rgb(180,127,127)"
+                        backgroundColorEnabled="true"
+                        backgroundImageEnabled="true"
+                        columns="12"
+                        components="[/libs/wcm/foundation/components/responsivegrid,group:hclecomm.Content]">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                    </policy_1588584656785>
+                </container>
             </content>
             <structure jcr:primaryType="nt:unstructured">
                 <page jcr:primaryType="nt:unstructured">
