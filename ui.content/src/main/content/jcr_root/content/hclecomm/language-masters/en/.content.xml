@@ -4,7 +4,7 @@
     <jcr:content
         cq:contextHubPath="/etc/cloudsettings/default/contexthub"
         cq:contextHubSegmentsPath="/etc/segmentation/contexthub"
-        cq:template="/conf/hclecomm/settings/wcm/templates/content-page-template"
+        cq:template="/conf/hclecomm/settings/wcm/templates/hclecomm-content-page-template"
         jcr:primaryType="cq:PageContent"
         jcr:title="en"
         sling:resourceType="hclecomm/components/structure/page"
