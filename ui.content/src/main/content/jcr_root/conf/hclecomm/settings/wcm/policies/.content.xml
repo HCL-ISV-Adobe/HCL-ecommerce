@@ -265,17 +265,6 @@
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_1588584656785>
                 </container>
-				<teaser jcr:primaryType="nt:unstructured">
-                    <policy_1588926494157
-                        jcr:lastModified="{Date}2020-05-08T15:27:31.381+05:30"
-                        jcr:lastModifiedBy="admin"
-                        jcr:primaryType="nt:unstructured"
-                        jcr:title="Teaser policy"
-                        sling:resourceType="wcm/core/components/policy/policy"
-                        titleLinkHidden="true">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
-                    </policy_1588926494157>
-                </teaser>
             </content>
             <structure jcr:primaryType="nt:unstructured">
                 <page jcr:primaryType="nt:unstructured">
