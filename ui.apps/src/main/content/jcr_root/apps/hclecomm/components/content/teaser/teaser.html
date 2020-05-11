@@ -24,7 +24,7 @@
     <sly data-sly-call="${imageTemplate.image @ teaser=teaser}"></sly>
 
     <div class="cmp-teaser__content">
-        <div>${properties.preTitle}</div>
+        <div class="cmp-teaser__pretitle">${properties.preTitle}</div>
         <sly data-sly-call="${titleTemplate.title @ teaser=teaser}"></sly>
         <sly data-sly-call="${descriptionTemplate.description @ teaser=teaser}"></sly>
         <sly data-sly-call="${actionsTemplate.actions @ teaser=teaser}"></sly>
