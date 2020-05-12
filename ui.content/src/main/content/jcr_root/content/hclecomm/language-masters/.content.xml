@@ -5,7 +5,7 @@
         cq:lastModified="{Date}2015-10-12T23:10:09.098+02:00"
         cq:lastModifiedBy="admin"
         cq:redirectTarget="/content/hclecomm/us/en"
-        cq:template="/conf/hclecomm/settings/wcm/templates/content-page-template"
+        cq:template="/conf/hclecomm/settings/wcm/templates/hclecomm-content-page-template"
         jcr:primaryType="cq:PageContent"
         jcr:title="Language Masters"
         sling:resourceType="foundation/components/redirect"
