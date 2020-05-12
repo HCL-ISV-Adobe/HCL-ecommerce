@@ -1,93 +1,98 @@
 .btn {
-	margin: 10px 0;
-	padding: 10px 20px;
-	font-size: 14px;
-	cursor: pointer;
-	display: inline-block;
-	text-align: center;
-	text-decoration: none;
-	width: 250px;
-	box-sizing: border-box;
-	word-break: break-all;
-	font-family: sans-serif;
+    margin: 10px 0;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    width: 250px;
+    box-sizing: border-box;
+    word-break: break-all;
+    font-family: sans-serif;
 }
 
 .btn-primary {
-	.cmp-button {
-		.btn();
-		background: #2979be;
-		border: 1px solid #165fab;
-		color: #fff;
-		&:hover {
-			background: #0c4f95;
-		}
-	}
+
+    .cmp-button {
+        .btn();
+        background: #2979be;
+        border: 1px solid #165fab;
+        color: #fff;
+        &:hover {
+            background: #0c4f95;
+        }
+    }
 }
 
 .btn-primary__disabled {
-	.cmp-button {
-		background: #9fbbd9;
-		border: 1px solid #9fbbd9;
-		color: #fff;
-		.btn();
-		&:hover {
-			cursor: auto;
-		}
-	}
+
+    .cmp-button {
+        background: #9fbbd9;
+        border: 1px solid #9fbbd9;
+        color: #fff;
+        .btn();
+        &:hover {
+            cursor: auto;
+        }
+    }
 }
 
 .btn-secondary {
-	.cmp-button {
-		.btn();
-		border: 1px solid #666666;
-		color: #666666;
-		background: #ffffff;
-		&:hover {
-			background: #666;
-			color: #ffffff;
-		}
-	}
+
+    .cmp-button {
+        .btn();
+        border: 1px solid #666666;
+        color: #666666;
+        background: #ffffff;
+        &:hover {
+            background: #666;
+            color: #ffffff;
+        }
+    }
 }
 
 .btn-secondary__disabled {
-	.cmp-button {
-		.btn();
-		border: 1px solid #666666;
-		color: #666666;
-		background: #ddd8d829;
-		&:hover {
-			cursor: auto;
-		}
-	}
+
+    .cmp-button {
+        .btn();
+        border: 1px solid #666666;
+        color: #666666;
+        background: #ddd8d829;
+        &:hover {
+            cursor: auto;
+        }
+    }
 }
 
-.btn-ternary .cmp-button {
-	.btn();
-	border: 1px solid #ff471e;
-	background: #ff471e;
-	color: #ffffff;
+.btn-ternary  {
+
+    .cmp-button {
+    .btn();
+    border: 1px solid #ff471e;
+    background: #ff471e;
+    color: #ffffff;
+	}
 }
 
 .btn-ternary__disabled {
-	.cmp-button {
-        .btn();
-		border: 1px solid #efaa9b;
-		color: #ffffff;
-		background: #efaa9b;
-	}
-}
-
-.btn-ternary__disabled  {
     .cmp-button {
-    &:hover{
-	cursor: auto;
-            }
-        }
+        .btn();
+        border: 1px solid #efaa9b;
+        color: #ffffff;
+        background: #efaa9b;
+    }
 }
-
-link-primary {
-    .cmp-button{
-       color: #2979be;
-       text-decoration: none;
+.btn-ternary__disabled {
+    .cmp-button {
+        &:hover {
+            cursor: auto;
         }
+    }
+}
+link-primary {
+    .cmp-button {
+        color: #2979be;
+        text-decoration: none;
+    }
 }
