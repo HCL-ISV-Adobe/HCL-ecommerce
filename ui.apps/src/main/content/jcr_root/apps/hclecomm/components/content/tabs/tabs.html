@@ -14,7 +14,10 @@
                 class="cmp-tabs__tab${isActive ? ' cmp-tabs__tab--active' : ''}"
                 tabindex="${isActive ? '0' : '-1'}"
                 data-cmp-hook-tabs="tab">
-					<!--<i class="fa fa-bookmark"></i>-->
+                	<sly data-sly-test="${properties.tabIcon}">
+                    	<i class="fa fa-${properties.tabIcon}"></i>
+                    </sly>
+
                     <span class="tabicon"></span>
 					<span class="spantitle">${tab.title}</span>
 			</li>
