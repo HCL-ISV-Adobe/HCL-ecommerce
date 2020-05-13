@@ -56,7 +56,6 @@ public class ProductServlet extends SlingSafeMethodsServlet {
 		}
 		catch (Exception e){
 			LOG.error("error in product servlet {} ",e.getMessage());
-			e.printStackTrace();
 
 		}
 

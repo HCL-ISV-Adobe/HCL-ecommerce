@@ -42,7 +42,6 @@ public class ProductUtility {
 			}
 		} catch (Exception e) {
 			LOG.error("Caught exception : " + e.getMessage());
-			e.printStackTrace();
 		}
 
 		return productMap;

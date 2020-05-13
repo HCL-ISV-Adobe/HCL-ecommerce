@@ -79,7 +79,6 @@ public class LoginServiceImpl implements LoginService {
 
 		} catch (Exception e) {
 			LOG.error("getToken method caught an exception " + e.getMessage());
-			e.printStackTrace();
 
 		}
 
