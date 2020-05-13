@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 @ServiceDescription("Login service")
 @ServiceRanking(1001)
-@ServiceVendor("Nithesh")
+@ServiceVendor("HCL")
 
 public class LoginServiceImpl implements LoginService {
 
@@ -66,14 +66,11 @@ public class LoginServiceImpl implements LoginService {
 
 		try {
 
-			LOG.info("inside LoginServiceImpl getToken method ");
-
+			
 			CloseableHttpClient httpClient = HttpClients.createDefault();
 
 			HttpPost httppost = new HttpPost(url);
-			LOG.info("httPut : " + httppost);
 			CloseableHttpResponse httpResponse = httpClient.execute(httppost);
-			LOG.info("httpResponse : " + httpResponse);
 			token = EntityUtils.toString(httpResponse.getEntity());
 			LOG.info("Response Token : " + token);
 

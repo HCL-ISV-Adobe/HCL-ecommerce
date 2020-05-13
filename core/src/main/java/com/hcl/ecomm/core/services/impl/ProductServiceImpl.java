@@ -63,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public JsonArray getAllProductDetails() {
 
-		LOG.info("inside getAllProductDetails method");
+		
 		String token = loginService.getToken();
 		String domainName = getDomainName();
 		String servicePath = getServicePath();
@@ -119,7 +119,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public JsonArray getProductDetail(String sku) {
 
-		LOG.info("inside getProductDetail method");
+		
 		String token = loginService.getToken();
 		String domainName = getDomainName();
 		String servicePath = getServicePath();

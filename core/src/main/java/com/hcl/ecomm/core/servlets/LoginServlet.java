@@ -32,7 +32,7 @@ public class LoginServlet extends SlingSafeMethodsServlet{
 	
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
-		LOG.info("inside doGET method");
+		
 		
 		LOG.info("loginService : " + loginService);
 		

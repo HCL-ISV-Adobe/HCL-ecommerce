@@ -31,7 +31,7 @@ public class ProductServlet extends SlingSafeMethodsServlet {
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
 
-		LOG.info("inside ProductServlet doGET method");
+		
 		try {
 
 			
