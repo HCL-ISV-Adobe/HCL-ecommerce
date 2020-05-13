@@ -279,6 +279,36 @@
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_1588584656785>
                 </container>
+                <tabs jcr:primaryType="nt:unstructured">
+                    <policy_1588573168739
+                        cq:styleDefaultClasses="tabs_type1"
+                        jcr:lastModified="{Date}2020-05-12T11:18:20.977+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Tab Component"
+                        sling:resourceType="wcm/core/components/policy/policy"
+                        components="[/libs/wcm/foundation/components/responsivegrid,group:hclecomm.Content]">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <cq:styleGroups jcr:primaryType="nt:unstructured">
+                            <item0
+                                cq:styleGroupLabel="Tab Type"
+                                jcr:primaryType="nt:unstructured">
+                                <cq:styles jcr:primaryType="nt:unstructured">
+                                    <item0
+                                        cq:styleClasses="tabs_type1"
+                                        cq:styleId="1588829754895"
+                                        cq:styleLabel="Grey Tab"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item1
+                                        cq:styleClasses="tabs_type2"
+                                        cq:styleId="1588829767768"
+                                        cq:styleLabel="Blue Tab"
+                                        jcr:primaryType="nt:unstructured"/>
+                                </cq:styles>
+                            </item0>
+                        </cq:styleGroups>
+                    </policy_1588573168739>
+                </tabs>
             </content>
             <structure jcr:primaryType="nt:unstructured">
                 <page jcr:primaryType="nt:unstructured">
