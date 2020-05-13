@@ -132,12 +132,15 @@
                                                     <subsuperscript
                                                         jcr:primaryType="nt:unstructured"
                                                         features="subscript,superscript"/>
+													<colorformat
+                                                        jcr:primaryType="nt:unstructured"
+                                                        features="*"/>
                                                 </rtePlugins>
                                                 <uiSettings jcr:primaryType="nt:unstructured">
                                                     <cui jcr:primaryType="nt:unstructured">
                                                         <inline
                                                             jcr:primaryType="nt:unstructured"
-                                                            toolbar="[format#bold,format#italic,format#underline,#justify,#lists,links#modifylink,links#unlink,#paraformat,findreplace#find]">
+                                                            toolbar="[format#bold,format#italic,format#underline,#justify,#lists,links#modifylink,links#unlink,#paraformat,findreplace#find,colorformat#colorPicker]">
                                                             <popovers jcr:primaryType="nt:unstructured">
                                                                 <justify
                                                                     jcr:primaryType="nt:unstructured"
@@ -155,7 +158,7 @@
                                                         </inline>
                                                         <dialogFullScreen
                                                             jcr:primaryType="nt:unstructured"
-                                                            toolbar="[format#bold,format#italic,format#underline,justify#justifyleft,justify#justifycenter,justify#justifyright,lists#unordered,lists#ordered,lists#outdent,lists#indent,links#modifylink,links#unlink,#paraformat,image#imageProps,findreplace,spellcheck#checktext,subsuperscript#subscript,subsuperscript#superscript,table,findreplace#find,findreplace#replace,table#createoredit,misctools#sourceedit]">
+                                                            toolbar="[format#bold,format#italic,format#underline,justify#justifyleft,justify#justifycenter,justify#justifyright,lists#unordered,lists#ordered,lists#outdent,lists#indent,links#modifylink,links#unlink,#paraformat,image#imageProps,findreplace,spellcheck#checktext,subsuperscript#subscript,subsuperscript#superscript,table,findreplace#find,findreplace#replace,table#createoredit,misctools#sourceedit,colorformat#colorPicker]">
                                                             <popovers jcr:primaryType="nt:unstructured">
                                                                 <paraformat
                                                                     jcr:primaryType="nt:unstructured"
