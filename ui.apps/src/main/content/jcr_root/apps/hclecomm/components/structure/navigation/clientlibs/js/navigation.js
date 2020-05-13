@@ -16,6 +16,7 @@ const toggleMenuIcon = (selectedNavigationITEM, event) => {
 
 $(document).ready(manageNav);
 $(window).on('resize', manageNav);
+
 function manageNav() {
     if ($(window).width() <= 1023) {
         $('li.cmp-navigation__item').children('ul.cmp-navigation__group').prev().css('pointer-events', 'none');
@@ -33,10 +34,13 @@ function appendChildToNav() {
                 const copyParent = parent.children[1].cloneNode(true);
                 copyParent.removeAttribute('style');
                 let parentLi = document.createElement("li");
-                parentLi.className = 'cmp-navigation__item cmp-navigation__item--level-1'
+                parentLi.className = 'cmp-navigation__item cmp-navigation__item--level-1';
                 parentLi.append(copyParent)
-                parent.lastElementChild.appendChild(parentLi);
+                parent.lastElementChild.prepend(parentLi);
             }
+
         });
+
     }
+
 }
