@@ -40,15 +40,6 @@
                         components="[group:hclecomm.Content]">
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_600116016309972>
-		    <policy_414135893823493
-                        jcr:lastModified="{Date}2020-05-12T13:09:28.033+05:30"
-                        jcr:lastModifiedBy="admin"
-                        jcr:primaryType="nt:unstructured"
-                        jcr:title="hclecomm Experience Fragment"
-                        sling:resourceType="wcm/core/components/policy/policy"
-                        components="[group:hclecomm.Content]">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
-                    </policy_414135893823493>
                 </responsivegrid>
             </components>
         </foundation>
