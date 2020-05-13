@@ -4,7 +4,9 @@
     <jcr:content
         cq:contextHubPath="/etc/cloudsettings/default/contexthub"
         cq:contextHubSegmentsPath="/etc/segmentation/contexthub"
-        cq:template="/conf/hclecomm/settings/wcm/templates/content-page-template"
+        cq:lastModified="{Date}2020-05-06T20:00:59.714+05:30"
+        cq:lastModifiedBy="admin"
+        cq:template="/conf/hclecomm/settings/wcm/templates/hclecomm-content-page-template"
         jcr:primaryType="cq:PageContent"
         jcr:title="en"
         sling:resourceType="hclecomm/components/structure/page"
@@ -24,5 +26,4 @@
             cq:rolloutConfigs="[/libs/msm/wcm/rolloutconfigs/default]"
             jcr:primaryType="cq:LiveCopy"/>
     </jcr:content>
-    <HomePage/>
 </jcr:root>
