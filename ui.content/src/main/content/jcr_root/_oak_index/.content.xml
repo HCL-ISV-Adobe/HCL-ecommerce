@@ -2,6 +2,17 @@
 <jcr:root xmlns:oak="http://jackrabbit.apache.org/oak/ns/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:rep="internal"
     jcr:mixinTypes="[rep:AccessControllable]"
     jcr:primaryType="nt:unstructured">
+    <socialLucene/>
+    <workflowDataLucene/>
+    <slingeventJob/>
+    <jcrLanguage/>
+    <versionStoreIndex/>
+    <repMembers/>
+    <cqReportsLucene/>
+    <commerceLucene/>
+    <counter/>
+    <authorizables/>
+    <enablementResourceName/>
     <hclecommLuceneIndex
         jcr:primaryType="oak:QueryIndexDefinition"
         async="async"
@@ -11,10 +22,11 @@
         fulltextEnabled="{Boolean}true"
         includedPaths="/content/hclecomm"
         indexPath="/oak:index/hclecommLuceneIndex"
+        isRegexp="{Boolean}false"
         name="hclecommLuceneIndex"
         queryPaths="/content/hclecomm"
         reindex="{Boolean}false"
-        reindexCount="{Long}5"
+        reindexCount="{Long}1"
         seed="{Long}1636749256649033006"
         type="lucene">
         <aggregates jcr:primaryType="nt:unstructured">
@@ -57,21 +69,38 @@
             </cq:PageContent>
         </aggregates>
         <indexRules jcr:primaryType="nt:unstructured">
-            <nt:base
-                jcr:primaryType="nt:unstructured"
-                includePropertyTypes="all">
+            <cq:Page jcr:primaryType="nt:unstructured">
                 <properties jcr:primaryType="nt:unstructured">
-                    <prop0
+                    <jcrTitle
                         jcr:primaryType="nt:unstructured"
-                        analyzed="{Boolean}true"
-                        isRegexp="{Boolean}true"
-                        name="^[^\\/]*$"
+                        name="jcr:content/jcr:title"
                         nodeScopeIndex="{Boolean}true"
-                        propertyIndex="{Boolean}false"
-                        useInExcerpt="{Boolean}true"/>
+                        propertyIndex="{Boolean}true"
+                        type="String"
+                        useInSpellcheck="{Boolean}true"
+                        useInSuggest="{Boolean}true"/>
                 </properties>
-            </nt:base>
+            </cq:Page>
         </indexRules>
     </hclecommLuceneIndex>
-
+    <externalPrincipalNames/>
+    <cmLucene/>
+    <cqProjectLucene/>
+    <ntFolderDamLucene/>
+    <acPrincipalName/>
+    <uuid/>
+    <damAssetLucene/>
+    <rep:policy/>
+    <cqPayloadPath/>
+    <nodetypeLucene/>
+    <nodetype/>
+    <ntBaseLucene/>
+    <reference/>
+    <principalName/>
+    <cqTagLucene/>
+    <lucene/>
+    <repTokenIndex/>
+    <externalId/>
+    <authorizableId/>
+    <cqPageLucene/>
 </jcr:root>
