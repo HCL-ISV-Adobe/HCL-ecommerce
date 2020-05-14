@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:oak="http://jackrabbit.apache.org/oak/ns/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:rep="internal"
+    jcr:mixinTypes="[rep:AccessControllable]"
+    jcr:primaryType="nt:unstructured">
+    <socialLucene/>
+    <workflowDataLucene/>
+    <slingeventJob/>
+    <jcrLanguage/>
+    <versionStoreIndex/>
+    <repMembers/>
+    <cqReportsLucene/>
+    <commerceLucene/>
+    <counter/>
+    <authorizables/>
+    <enablementResourceName/>
+    <hclecommLuceneIndex
+        jcr:primaryType="oak:QueryIndexDefinition"
+        async="async"
+        compatVersion="{Long}2"
+        evaluatePathRestrictions="{Boolean}true"
+        excludedPaths="[/var,/etc/replication,/etc/workflow/instances,/jcr:system]"
+        fulltextEnabled="{Boolean}true"
+        includedPaths="/content/hclecomm"
+        indexPath="/oak:index/hclecommLuceneIndex"
+        isRegexp="{Boolean}false"
+        name="hclecommLuceneIndex"
+        queryPaths="/content/hclecomm"
+        reindex="{Boolean}false"
+        reindexCount="{Long}1"
+        seed="{Long}1636749256649033006"
+        type="lucene">
+        <aggregates jcr:primaryType="nt:unstructured">
+            <cq:Page jcr:primaryType="nt:unstructured">
+                <include0
+                    jcr:primaryType="nt:unstructured"
+                    path="jcr:content"
+                    relativeNode="{Boolean}true"/>
+            </cq:Page>
+            <nt:file jcr:primaryType="nt:unstructured">
+                <include0
+                    jcr:primaryType="nt:unstructured"
+                    path="jcr:content"/>
+            </nt:file>
+            <cq:PageContent jcr:primaryType="nt:unstructured">
+                <include0
+                    jcr:primaryType="nt:unstructured"
+                    path="*"/>
+                <include1
+                    jcr:primaryType="nt:unstructured"
+                    path="*/*"/>
+                <include2
+                    jcr:primaryType="nt:unstructured"
+                    path="*/*/*"/>
+                <include3
+                    jcr:primaryType="nt:unstructured"
+                    path="*/*/*/*"/>
+                <include4
+                    jcr:primaryType="nt:unstructured"
+                    path="*/*/*/*/*"/>
+                <include5
+                    jcr:primaryType="nt:unstructured"
+                    path="*/*/*/*/*/*"/>
+                <include6
+                    jcr:primaryType="nt:unstructured"
+                    path="*/*/*/*/*/*/*"/>
+                <include7
+                    jcr:primaryType="nt:unstructured"
+                    path="*/*/*/*/*/*/*/*"/>
+            </cq:PageContent>
+        </aggregates>
+        <indexRules jcr:primaryType="nt:unstructured">
+            <cq:Page jcr:primaryType="nt:unstructured">
+                <properties jcr:primaryType="nt:unstructured">
+                    <jcrTitle
+                        jcr:primaryType="nt:unstructured"
+                        name="jcr:content/jcr:title"
+                        nodeScopeIndex="{Boolean}true"
+                        propertyIndex="{Boolean}true"
+                        type="String"
+                        useInSpellcheck="{Boolean}true"
+                        useInSuggest="{Boolean}true"/>
+                </properties>
+            </cq:Page>
+        </indexRules>
+    </hclecommLuceneIndex>
+    <externalPrincipalNames/>
+    <cmLucene/>
+    <cqProjectLucene/>
+    <ntFolderDamLucene/>
+    <acPrincipalName/>
+    <uuid/>
+    <damAssetLucene/>
+    <rep:policy/>
+    <cqPayloadPath/>
+    <nodetypeLucene/>
+    <nodetype/>
+    <ntBaseLucene/>
+    <reference/>
+    <principalName/>
+    <cqTagLucene/>
+    <lucene/>
+    <repTokenIndex/>
+    <externalId/>
+    <authorizableId/>
+    <cqPageLucene/>
+</jcr:root>
