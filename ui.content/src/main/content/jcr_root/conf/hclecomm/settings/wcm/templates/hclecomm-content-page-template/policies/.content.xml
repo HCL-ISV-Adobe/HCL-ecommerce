@@ -41,6 +41,10 @@
                                 cq:policy="hclecomm/components/content/container/policy_1588584656785"
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="wcm/core/components/policies/mapping"/>
+                            <tabs
+                                cq:policy="hclecomm/components/content/tabs/policy_1588573168739"
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="wcm/core/components/policies/mapping"/>
                         </content>
                     </components>
                 </hclecomm>
