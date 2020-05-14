@@ -62,14 +62,14 @@
     }
     &:hover {
       .cmp-navigation__group {
-        @media screen and (min-width:787px){
-        background: #ffffff;
-        display: block;
-        position: absolute;
-        padding-left: 0;
-        width: 200px;
-        left: 200px;
-        top: 0;
+        @media screen and (min-width: 787px) {
+          background: #ffffff;
+          display: block;
+          position: absolute;
+          padding-left: 0;
+          width: 200px;
+          left: 200px;
+          top: 0;
         }
       }
     }
@@ -90,6 +90,10 @@
       width: 200px;
       left: 0;
       margin-top: 20px;
+    }
+
+    & > span.fa-chevron-down {
+      color: #fff;
     }
   }
 
@@ -158,12 +162,6 @@
         background: #333333;
         padding: 0;
         border-top: 1px solid white;
-
-        &:hover {
-          & > .cmp-navigation__item-link {
-            color: #2979be;
-          }
-        }
       }
 
       .cmp-navigation__item--level-1,
@@ -187,12 +185,17 @@
         }
       }
 
-      .toggle-sub-menu > .cmp-navigation__group {
-        position: static;
-        display: block;
-        width: 100%;
-        margin-top: 0;
-        background: #333333;
+      .toggle-sub-menu {
+        & > .cmp-navigation__group {
+          position: static;
+          display: block;
+          width: 100%;
+          margin-top: 0;
+          background: #333333;
+        }
+        & > .cmp-navigation__item-link {
+          text-decoration: underline;
+        }
       }
       .cmp-navigation__item--level-1
         .toggle-sub-menu:hover
@@ -262,3 +265,4 @@
     }
   }
 }
+
