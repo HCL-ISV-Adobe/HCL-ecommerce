@@ -1,0 +1,70 @@
+.teaser{
+    position:relative;
+    .cmp-teaser__image{
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 0;
+        }
+    } 
+    .cmp-teaser__content{               
+        position: absolute;
+        z-index: 99;
+        top: 10%;
+        font-family: sans-serif, Arial;
+        color: #fff;
+        left: 7%;
+        width:65%;        
+        .cmp-teaser__title{
+            text-transform:uppercase;
+            font-size:58px;
+            font-weight:700;
+            margin: 0;
+            line-height: 1.2;
+            padding: 0;  
+                    @media screen and (min-width: 768px) and (max-width: 1024px) {
+                        font-size:42px;
+                    } 
+                    @media screen and (min-width: 319px) and (max-width: 767px) {
+                        font-size:34px;
+                    } 
+                    .cmp-teaser__title-link{
+                        color:#fff;
+                        text-decoration:none; 
+                        &:hover{
+                            color:#fff;
+                            text-decoration:none;
+                        }
+                    }
+        }        
+        .cmp-teaser__description{
+            font-size:32px; 
+                    @media screen and (min-width: 768px) and (max-width: 1024px) {
+                        font-size:28px;
+                    }
+					@media screen and (min-width: 319px) and (max-width: 767px) {
+                        font-size:20px;
+                    }            
+            p{
+                margin: 20px 0; 
+                        @media screen and (min-width: 768px) and (max-width: 1024px) {
+							margin: 10px 0 15px 0;
+                    }
+            }
+        }        
+        .cmp-teaser__action-container{
+            a.cmp-teaser__action-link{
+                display: inline-block;
+                background: #333;
+                color: #fff;
+                text-decoration: none;
+                padding: 10px 25px;
+                border: 1px solid #fff;
+                max-width: 150px; 
+                &:hover{
+                    background:#000;
+                }
+            }
+        }
+    }
+}
