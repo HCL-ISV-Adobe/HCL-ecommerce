@@ -140,7 +140,7 @@
                                                     <cui jcr:primaryType="nt:unstructured">
                                                         <inline
                                                             jcr:primaryType="nt:unstructured"
-                                                            toolbar="[format#bold,format#italic,format#underline,#justify,#lists,links#modifylink,links#unlink,#paraformat,findreplace#find,colorformat#colorPicker]">
+                                                            toolbar="[format#bold,format#italic,format#underline,#justify,#lists,links#modifylink,links#unlink,#paraformat,findreplace#find]">
                                                             <popovers jcr:primaryType="nt:unstructured">
                                                                 <justify
                                                                     jcr:primaryType="nt:unstructured"
