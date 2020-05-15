@@ -352,6 +352,19 @@
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_1587530274257>
                 </header>
+                <search jcr:primaryType="nt:unstructured">
+                    <policy_1589453975454
+                        jcr:lastModified="{Date}2020-05-14T16:30:28.067+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Search Policy"
+                        sling:resourceType="wcm/core/components/policy/policy"
+                        resultsSize="10"
+                        searchRoot="/content/hclecomm"
+                        searchTermMinimumLength="3">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                    </policy_1589453975454>
+                </search>				
             </structure>
         </components>
     </hclecomm>
