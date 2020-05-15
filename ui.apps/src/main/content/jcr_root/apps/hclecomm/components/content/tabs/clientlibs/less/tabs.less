@@ -1,232 +1,225 @@
 /* tabs style */
-
-
 .tabs{
-      .get_type1_tab(@color,@bgcolor) {
-            margin: 5px 5px 2px 0px;
-            text-transform: uppercase;
-            width: 180px;
-            cursor: default;
-            font-weight:bold;
-            color: @color;
-            border: 1px solid #ddd;
-            background-color: @bgcolor;
-            border-bottom-color: transparent;
-            text-align: center;
-            padding: 10px;
-        }
-    
-         .get_mobiletype1_tab(@color,@bgcolor) {
-    
-            width: 100%;
-    
-        }
-    
-    
-        .get_type1_tabImage1(){
-                width: 45px;
-                height: 35px;    
-        }
-        .get_tyle1_tabTitle(@color){
-            padding: 0px;
-            display: inline-block;
-            text-align:center;
-            color: @color;
-            padding: 0.5rem;
-            font-family:sans-serif;
-        }
-    
-        .get_type1_tabPanel() {
-            box-sizing:border-box;
-            margin-top:1px;
-            padding:10px;
-            width:100%;    
-            color:#888;
-            font-size:12px;
-            font-family: sans-serif;
-            background-color:#EEEEEE;
-            border:0px 1px 1px 1px;
-            border-color:#ddd;
-        }
-    
-    
-        &.tabs_type1{
-    
-                .cmp-tabs {
-                .cmp-tabs__tablist {
-                    margin: 0px;
-                    padding: 0px;
-                    box-sizing: border-box;
-                .cmp-tabs__tab{
-    
-                                .get_type1_tab(#FFF,#2979BE); 
-    
-                                &:hover, &.cmp-tabs__tab--active ,fa{
-    
-                                            color:#777;    
-                                            background:#EEE;
-    
-    
-                                            .spantitle{
-                                                color:#777;
-                                            }
-    
-                                        }
-    
-    
-                            /* .get_type2_tab(#FFF,#2979BE); */
-    
-                                .img {
-                                    .get_type1_tabImage1();
-                                } 
-                                .spantitle{
-                                    .get_tyle1_tabTitle(#FFF);
-                                }
-                            }
-                    }
-    
-                }
-    
-                             @media screen and (max-width:600px){
-    
-                                                    .cmp-tabs {
-                                                            .cmp-tabs__tablist {
-    
-                                                            .cmp-tabs__tab {
-    
-                                                                .get_mobiletype1_tab(#FFF,#2979BE); 
-    
-    
-                                                                }
-                                                            }
-                                            }
-    
-                                        }
-    
-    
-            }
-    
-    
-    &.tabs_type2 {
-                .cmp-tabs {
-                .cmp-tabs__tablist {
-                    margin: 0px;
-                    padding: 0px;
-                    box-sizing: border-box;
-                .cmp-tabs__tab {
-                                .get_type1_tab(#777,#EEEEEE);
-    
-                                    &:hover ,  &.cmp-tabs__tab--active,fa{
-                                            color: #fff;
-                                            background:#2979BE;
-    
-    
-                                            @media screen and (max-width:600px){
-                                                                color: #fff;
-                                                                background:#2979BE    ;
-                                            }
-    
-    
-                                            .spantitle{
-                                                color:#fff;
-                                            }
-    
-                                        }
-    
-    
-                                .img {
-                                    .get_type1_tabImage1();
-                                } 
-                                .spantitle{
-                                    .get_tyle1_tabTitle(#777);
-                                }
-                            }
-                    }
-    
-                }
-    
-                                @media screen and (max-width:600px){
-    
-                                                    .cmp-tabs {
-                                                            .cmp-tabs__tablist {
-    
-                                                            .cmp-tabs__tab {
-    
-                                                                .get_mobiletype1_tab(#777,#EEE); 
-    
-    
-                                                                }
-                                                            }
-                                            }
-    
-                                        }
-    
-            }  
-    
-    
-    &.tabs_type3 {
-                .cmp-tabs {
-                .cmp-tabs__tablist {
-                    margin: 0px;
-                    padding: 0px;
-                    box-sizing: border-box;
-                .cmp-tabs__tab {
-                                .get_type1_tab(#777,#EEEEEE);
-    
-                                    &:hover ,  &.cmp-tabs__tab--active{
-                                            color: #fff;
-                                            background:#2979BE;
-    
-                                  .spantitle{
-                                                color:#fff;
-    
-                                            }
-    
-                                        }
-    
-    
-                                .img {
-                                    .get_type1_tabImage1();
-                                } 
-                                .spantitle{
-                                     text-align :right;
-                                    .get_tyle1_tabTitle(#777);
-                                }
-                            }
-                    }
-    
-                }
-    
-                 @media screen and (max-width:600px){
-    
-                                                    .cmp-tabs {
-                                                            .cmp-tabs__tablist {
-    
-                                                            .cmp-tabs__tab , &.cmp-tabs__tab--active{
-    
-                                                                                color: #fff;
-                                                                                background:#2979BE;
-    
-                                                                .get_mobiletype1_tab(#777,#EEE);
-                                                                .spantitle{
-                                                                                text-align: right;
-                                                                                flex:1;     
-                                    
-                                                                            }
-    
-    
-                                                                }
-                                                            }
-                                            }
-    
-                                        }
-     
+    .get_type1_tab(@color,@bgcolor) {
+        margin: 5px 5px 2px 0px;
+        text-transform: uppercase;
+        width: 180px;
+        cursor: default;
+        font-weight:bold;
+        color: @color;
+        border: 1px solid #ddd;
+        border-bottom-style:none;
+        background-color: @bgcolor;
+        border-bottom-color: transparent;
+        text-align: center;
+        padding: 10px;
     }
-    
-    .cmp-tabs__tabpanel {
-    .get_type1_tabPanel();
+
+     .get_mobiletype1_tab(@color,@bgcolor) {
+        width: 100%;
+
     }
-    
+
+
+    .get_type1_tabImage1(){
+            width: 45px;
+            height: 35px;    
     }
-    
-    
+    .get_tyle1_tabTitle(@color){
+        padding: 0px;
+        display: inline-block;
+        text-align:center;
+        color: @color;
+        padding: 0.5rem;
+        font-family:sans-serif;
+    }
+
+    .get_type1_tabPanel1(@color) {
+        outline: none;
+        box-sizing:border-box;
+        margin-top:-3px;
+        padding:10px;
+        width:100%;    
+        color:#888;
+        font-size:12px;
+        font-family: sans-serif;
+        background-color:@color;
+        border: solid 1px #ddd;
+
+
+    }
+
+    .get_type1_tabPane2(@color) {
+        outline: none;
+        box-sizing:border-box;
+        margin-top:1px;
+        padding:10px;
+        width:100%;    
+        color:#888;
+        font-size:12px;
+        font-family: sans-serif;
+        background-color:@color;
+        border: solid 1px #2979BE;
+
+    }
+
+    &.tabs_type1{
+            .cmp-tabs {
+            .cmp-tabs__tablist {
+                margin: 0px;
+                padding: 0px;
+                box-sizing: border-box;
+            .cmp-tabs__tab{
+                            .get_type1_tab(#FFF,#2979BE); 
+                            &:hover, &.cmp-tabs__tab--active{
+                        				border-bottom-color: #EEE;
+                                        outline: none;
+										color:#777;
+                                        background:#EEE;
+                                        .spantitle{
+                                            color:#777;
+                                        }
+                                    }
+                        /* .get_type2_tab(#FFF,#2979BE); */
+                            .img {
+                                .get_type1_tabImage1();
+                            } 
+                            .spantitle{
+                                .get_tyle1_tabTitle(#FFF);
+                            }
+                        }
+               
+                }
+            }
+
+        .cmp-tabs__tabpanel{
+			.get_type1_tabPanel1(#eee);
+		}
+
+        @media screen and (max-width:600px){
+                                               .cmp-tabs {
+                                                        .cmp-tabs__tablist {
+                                                        .cmp-tabs__tab {
+                                                            .get_mobiletype1_tab(#FFF,#2979BE); 
+                                                            }
+                                                        }
+                                        }
+
+                                    }
+        }
+
+
+&.tabs_type2 {
+            .cmp-tabs {
+            .cmp-tabs__tablist {
+                margin: 0px;
+                padding: 0px;
+                box-sizing: border-box;
+            .cmp-tabs__tab {
+                            .get_type1_tab(#777,#EEEEEE);
+
+                                &:hover ,  &.cmp-tabs__tab--active{
+                        				border: 1px 1px 0px 1px;
+                                        outline: none;
+                                        color: #fff;
+                                        background:#2979BE;
+                                        @media screen and (max-width:600px){
+                                                            color: #fff;
+                                                            background:#2979BE	;
+                                        }
+
+                                        .spantitle{
+                                            color:#fff;
+                                        }
+
+                                    }
+
+
+                            .img {
+                                    .get_type1_tabImage1();
+                            } 
+                            .spantitle{
+                                    .get_tyle1_tabTitle(#777);
+                            }
+                        }
+                }
+
+            }
+
+        .cmp-tabs__tabpanel{
+
+			.get_type1_tabPane2(#fff);
+		}
+
+        @media screen and (max-width:600px){
+                                                .cmp-tabs {
+                                                        .cmp-tabs__tablist {
+
+                                                        .cmp-tabs__tab {
+
+                                                            .get_mobiletype1_tab(#777,#EEE); 
+
+                                                            }
+                                                        }
+                                        }
+
+                                    }
+        }  
+
+
+&.tabs_type3 {
+            .cmp-tabs {
+            .cmp-tabs__tablist {
+                margin: 0px;
+                padding: 0px;
+                box-sizing: border-box;
+            .cmp-tabs__tab {
+                            .get_type1_tab(#777,#EEEEEE);
+
+                                &:hover ,  &.cmp-tabs__tab--active{
+                                        color: #fff;
+                                        background:#2979BE;
+
+                              .spantitle{
+                                            color:#fff;
+
+                                        }
+
+                                    }
+                              .img {
+                                    .get_type1_tabImage1();
+                                    } 
+                              .spantitle{
+                                     text-align :right;
+                                    .get_tyle1_tabTitle(#777);
+                            }
+                        }
+                }
+
+            }
+
+             @media screen and (max-width:600px){
+
+                                                .cmp-tabs {
+                                                        .cmp-tabs__tablist {
+
+                                                        .cmp-tabs__tab , &.cmp-tabs__tab--active{
+
+                                                                            color: #fff;
+                                                                            background:#2979BE;
+
+                                                            .get_mobiletype1_tab(#777,#EEE);
+                                                            .spantitle{
+                                                                            text-align: right;
+                                                                            flex:1; 	
+                           
+                                                                        }
+                                                            }
+                                                        }
+                                        }
+
+                                    }
+}
+
+
+}
