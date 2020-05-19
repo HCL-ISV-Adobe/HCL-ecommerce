@@ -1,0 +1,60 @@
+package com.hcl.ecomm.core.servlets;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+
+import com.google.gson.JsonObject;
+import com.hcl.ecomm.core.services.CartService;
+import org.apache.sling.api.SlingHttpServletResponse;
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.osgi.service.component.annotations.Component;
+import org.apache.sling.api.servlets.HttpConstants;
+import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.servlet.Servlet;
+import javax.servlet.ServletException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+@Component(service = Servlet.class,
+        property = { "sling.servlet.paths=/bin/hclecomm/cartsItems",
+        "sling.servlet.method=" + HttpConstants.METHOD_GET,
+        "sling.servlet.extensions=json" })
+
+public class CartFetchServlet extends SlingSafeMethodsServlet
+{
+    private static final long serialVersionUID = 4016057296495129474L;
+    private static final Logger LOG = LoggerFactory.getLogger(CartFetchServlet.class);
+
+    @Reference
+    CartService cartService;
+
+    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
+            throws ServletException, IOException {
+        LOG.info("Inside CartFetchServlet :");
+        try {
+            String cartId = request.getParameter("cartId");
+            LOG.info("Cart Id id : " + cartId);
+            String jsonResponse = cartService.getCartDetails(cartId);
+            /*JsonArray itemsarr= responseStream.getAsJsonArray();
+            LOG.info("itemsarr is {}", itemsarr.toString());
+
+            JsonObject cartDetails = itemsarr.get(0).getAsJsonObject();
+            LOG.info("productobject is {}", cartDetails);*/
+            LOG.info("JsonResponse : " + jsonResponse);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF8");
+            response.getWriter().write(jsonResponse);
+        }
+        catch(Exception e)
+        {
+            LOG.error("Exception while fetching cart details: " + e.getMessage());
+        }
+    }
+}
+
