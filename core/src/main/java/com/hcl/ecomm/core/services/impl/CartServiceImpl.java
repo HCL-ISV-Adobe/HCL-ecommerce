@@ -1,6 +1,9 @@
 package com.hcl.ecomm.core.services.impl;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.hcl.ecomm.core.config.CartServiceConfig;
 import com.hcl.ecomm.core.services.CartService;
 import com.hcl.ecomm.core.services.LoginService;
@@ -31,6 +34,7 @@ public class CartServiceImpl implements CartService {
 
     private JsonArray cartResponse= null;
     private String responseStream = null;
+    private String schema = "http";
 
     private static final Logger LOG = LoggerFactory.getLogger(CartServiceImpl.class);
 
@@ -45,10 +49,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public String getCartDetails(String cartId) {
+    public JsonArray getCartItemsDetails(String cartId) {
         String token = loginService.getToken();
-        String url = "http://" + getDomainName() + getServicePath() + cartId;
-        //String url = "http://localhost:8081/magento/rest/V1/guest-carts/" + cartId;
+        JsonArray cartItems = null;
+        String url = schema + "://" + getDomainName() + getServicePath() + cartId + "/items";
+        //sample url generated = "http://localhost:8081/magento/rest/us/V1/guest-carts/<cart-id>/items";
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url);
@@ -63,22 +68,31 @@ public class CartServiceImpl implements CartService {
             if(httpResponse.getStatusLine().getStatusCode() == 200)
             {
                 responseStream = EntityUtils.toString(httpResponse.getEntity());
-                LOG.info( "Cart Fetch Response : " + responseStream);
+                LOG.info( "Cart Item Response json String : " + responseStream);
             }
             else
             {
                 responseStream = "Failed to fetch cart details.";
                 LOG.info( "Failed to fetch cart details.");
             }
+            cartItems = new Gson().fromJson(responseStream, JsonArray.class);
+            LOG.info( "Cart Items Response in Json Array : " + cartItems);
+
         }
         catch (Exception e)
         {
             LOG.error("Exception while fetching cart details : " + e.getMessage());
         }
+        return cartItems;
+    }
 
-        cartResponse = ProductUtility.fromStringToJsonArray(responseStream);
-        LOG.info("Json Array formed : " + cartResponse);
-
-        return responseStream;
+    @Override
+    public int getCartItemCount(String cartId) {
+        int cartItemCount = 0;
+        LOG.info("inside CartItemCount: ");
+       JsonArray cartItemsArray = getCartItemsDetails(cartId);
+       cartItemCount = cartItemsArray.size();
+        LOG.info("Item Count : " + cartItemCount);
+        return cartItemCount;
     }
 }

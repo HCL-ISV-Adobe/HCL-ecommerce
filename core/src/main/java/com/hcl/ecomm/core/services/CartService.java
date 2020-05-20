@@ -8,5 +8,6 @@ public interface CartService {
 
     String getServicePath();
 
-    public String getCartDetails(String cartId);
+    public int getCartItemCount(String cartId);
+    public JsonArray getCartItemsDetails(String cartId);
 }

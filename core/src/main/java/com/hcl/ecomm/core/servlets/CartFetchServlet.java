@@ -37,19 +37,22 @@ public class CartFetchServlet extends SlingSafeMethodsServlet
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
         LOG.info("Inside CartFetchServlet :");
+        String  cartItemResponse = "";
         try {
             String cartId = request.getParameter("cartId");
             LOG.info("Cart Id id : " + cartId);
-            String jsonResponse = cartService.getCartDetails(cartId);
-            /*JsonArray itemsarr= responseStream.getAsJsonArray();
-            LOG.info("itemsarr is {}", itemsarr.toString());
-
-            JsonObject cartDetails = itemsarr.get(0).getAsJsonObject();
-            LOG.info("productobject is {}", cartDetails);*/
-            LOG.info("JsonResponse : " + jsonResponse);
-            response.setContentType("application/json");
+            if(cartId!=null || !"".equals(cartId))
+            {
+                int cartItemCount = cartService.getCartItemCount(cartId);
+                LOG.info("cartItemCount : " + cartItemCount);
+                cartItemResponse = String.valueOf(cartItemCount);
+            }
+            else{
+                cartItemResponse = "Cart Id not found";
+            }
+            response.setContentType("text/html");
             response.setCharacterEncoding("UTF8");
-            response.getWriter().write(jsonResponse);
+            response.getWriter().write(cartItemResponse);
         }
         catch(Exception e)
         {

@@ -31,13 +31,13 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                 fieldLabel="Cart Title"
-                                                name="./jcr:title"/>
+                                                name="./title"/>
                                             <linkURL
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="cq/gui/components/coral/common/form/pagefield"
                                                 fieldDescription="Links the title. Path to a content page, external URL or page anchor."
                                                 fieldLabel="Link"
-                                                name="./linkURL"
+                                                name="./cartUrl"
                                                 rootPath="/content">
                                                 <granite:rendercondition
                                                     jcr:primaryType="nt:unstructured"
