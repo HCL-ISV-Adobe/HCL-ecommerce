@@ -17,19 +17,16 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 @Component(service = Servlet.class,
-        property = { "sling.servlet.paths=/bin/hclecomm/cartsItems",
-        "sling.servlet.method=" + HttpConstants.METHOD_GET,
-        "sling.servlet.extensions=json" })
+        property = { "sling.servlet.paths=/bin/hclecomm/cartItemsCount",
+                "sling.servlet.method=" + HttpConstants.METHOD_GET,
+                "sling.servlet.extensions=json" })
 
-public class CartFetchServlet extends SlingSafeMethodsServlet
+public class CartItemCountServlet extends SlingSafeMethodsServlet
 {
     private static final long serialVersionUID = 4016057296495129474L;
-    private static final Logger LOG = LoggerFactory.getLogger(CartFetchServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CartItemCountServlet.class);
 
     @Reference
     CartService cartService;

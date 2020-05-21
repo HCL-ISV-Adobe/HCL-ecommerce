@@ -39,20 +39,16 @@ public class CartServiceImpl implements CartService {
     private static final Logger LOG = LoggerFactory.getLogger(CartServiceImpl.class);
 
     @Override
-    public String getDomainName() {
-        return config.domainName_string();
-    }
-
-    @Override
     public String getServicePath() {
         return config.servicePath_string();
     }
 
     @Override
     public JsonArray getCartItemsDetails(String cartId) {
-        String token = loginService.getToken();
+        String token = loginService.getToken();  // get magento Admin token
+        String domainName = loginService.getDomainName();
         JsonArray cartItems = null;
-        String url = schema + "://" + getDomainName() + getServicePath() + cartId + "/items";
+        String url = schema + "://" + domainName + getServicePath() + cartId + "/items";
         //sample url generated = "http://localhost:8081/magento/rest/us/V1/guest-carts/<cart-id>/items";
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
