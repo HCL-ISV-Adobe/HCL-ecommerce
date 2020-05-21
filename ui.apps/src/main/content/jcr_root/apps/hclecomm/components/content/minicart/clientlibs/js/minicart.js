@@ -19,7 +19,7 @@ $(document).ready(function() {
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     if (this.responseText > 0) {
-                        getCountEle.style.display = 'inline-block';
+                        getCountEle.style.display = 'inline-flex';
                         getCountEle.innerHTML =
                             this.responseText;
                     }
@@ -28,7 +28,7 @@ $(document).ready(function() {
                     }
                 }
             };
-            xhttp.open("GET", "/bin/hclecomm/cartsItems?cartId=" + cartId, true);
+            xhttp.open("GET", "/bin/hclecomm/cartItemsCount?cartId=" + cartId, true);
             xhttp.send();
         }
 
@@ -36,14 +36,14 @@ $(document).ready(function() {
 });
 
 
-// method to show notification on empty cart 
+// method to show notification on empty cart
 
 const redirectToCart = () => {
-    const getItemCount = $('.min-cart-text-count').text();
+    const getItemCount = $('#total-item-count').text();
     if (getItemCount === '0') {
     $("#notification").empty();
         $("#notification").css({display: 'inline-block'}).append('Cart is empty');
         $("#notification").delay(5000).fadeOut("slow");
-    } 
+    }
 
 }
