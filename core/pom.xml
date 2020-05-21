@@ -45,7 +45,7 @@
                             <bnd><![CDATA[
 Bundle-Category: hclecomm
 Import-Package: javax.annotation;version=0.0.0,*
--exportcontents: ${packages;VERSIONED}
+-exportcontents: ${packages;}
 Sling-Model-Packages: com.hcl.ecomm.core.models
 -snapshot: ${tstamp;yyyyMMddHHmmssSSS}
 Bundle-DocURL:
