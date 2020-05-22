@@ -5,16 +5,11 @@ $(document).ready(function () {
     const getCookies = document.cookie;
     if (getCookies.indexOf('cartId') > -1) {
         const cookiesCartID = getCookies.split(';');
+        const currentCookiesIndex = getCookies.indexOf('cartId');
         if (cookiesCartID && cookiesCartID.length > 0) {
-            cookiesCartID.forEach(function (cookiesCartIDItem) {
-                if ((cookiesCartIDItem).indexOf(cartId) > -1) {
-                    const cartIdArr = cookiesCartIDItem.split('=')
-                    cartId = cartIdArr[1];
-                }
-            })
+            const cartIdArr = cookiesCartID[currentCookiesIndex].split('=')
+            cartId = cartIdArr[1];
         }
-
- 
 
     } else {
         /// standard  cart id if cookies are not avliable
@@ -38,8 +33,6 @@ $(document).ready(function () {
         xhttp.send();
     }
 
- 
-
 
 });
 // method to show notification on empty cart 
@@ -52,8 +45,6 @@ const showEmptyCartNotification = () => {
         }).append('Cart is empty');
         $("#notification").delay(5000).fadeOut("slow");
     }
-
- 
 
 
 }
