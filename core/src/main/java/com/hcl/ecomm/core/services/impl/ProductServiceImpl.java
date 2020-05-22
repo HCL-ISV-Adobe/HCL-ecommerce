@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component(immediate = true, enabled = true, service = ProductService.class)
-@Designate(ocd = ProductServiceConfig.class)
+@Designate(ocd = MagentoServiceConfig.class)
 public class ProductServiceImpl implements ProductService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ProductServiceImpl.class);
