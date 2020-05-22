@@ -49,10 +49,10 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 	private static final Logger LOG = LoggerFactory.getLogger(AddToCartServlet.class);
 	
 	@Reference
-	private AddToCartService cartService;
+	private AddToCartService addToCartService;
 	
 	@Override
-	public void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) {
+	protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		JSONObject responseObject = new JSONObject();
@@ -69,16 +69,19 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 			}
 			String payload = buffer.toString();
 			if (StringUtils.isNotEmpty(payload)) {
-				JSONObject jsonObject =  new JSONObject(payload);
-				if (StringUtils.isNotEmpty(jsonObject.getString("cartid"))) {
-					JSONObject cartItem = createCartItem( jsonObject);
-					JSONObject addToCartResponse = cartService.addToCart(cartItem);
-					
-					responseObject.put("message", addToCartResponse);
-					responseObject.put("status", Boolean.TRUE);
+				JSONObject jsonPayload =  new JSONObject(payload);
+				if (isValidProduct(jsonPayload)) {
+					JSONObject cartItem = createCartItem( jsonPayload);
+					JSONObject addToCartResponse = addToCartService.addToCart(cartItem);
+					if (addToCartResponse.has("statusCode") && addToCartResponse.getInt("statusCode") == 200) {
+						responseObject.put("message", addToCartResponse.getJSONObject("message"));
+						responseObject.put("status", Boolean.TRUE);
+					} else {
+						responseObject.put("message", "something went wrong while add to cart.");
+					}
 				}
 			} else {
-				responseObject.put("message", "Missing Parameter in payload");
+				responseObject.put("message", "Missing Parameter in payload.");
 				responseObject.put("status", Boolean.FALSE);
 			}
 			response.getWriter().print(responseObject);
@@ -87,8 +90,13 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 		}
 	}
 	
-	private boolean isValidProduct(JSONObject product) {
-		boolean isValidData=Boolean.FALSE;
+	
+	private boolean isValidProduct(JSONObject jsonPayload) {
+		boolean isValidData=Boolean.TRUE;
+				
+		if(!jsonPayload.has("cartid") && !jsonPayload.has("sku") && !jsonPayload.has("qty")){
+			isValidData = Boolean.FALSE;
+		}
 		
 		return isValidData;
 	}

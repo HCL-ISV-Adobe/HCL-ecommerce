@@ -3,48 +3,39 @@ package com.hcl.ecomm.core.services.impl;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.json.JSONObject;
 
-import com.hcl.ecomm.core.config.CartServiceConfig;
-import com.hcl.ecomm.core.config.LoginServiceConfig;
-import com.hcl.ecomm.core.config.ProductServiceConfig;
+import com.hcl.ecomm.core.config.AddToCartServiceConfig;
 import com.hcl.ecomm.core.services.AddToCartService;
-import com.hcl.ecomm.core.services.ProductService;
 
 @Component(
 		immediate = true,
 		enabled = true, 
 		service = AddToCartService.class)
-@Designate(ocd = CartServiceConfig.class)
+@Designate(ocd = AddToCartServiceConfig.class)
 public class AddToCartServiceImpl implements AddToCartService{
 
 	private static final Logger LOG = LoggerFactory.getLogger(AddToCartServiceImpl.class);
 
 	@Activate
-	private CartServiceConfig config;
+	private AddToCartServiceConfig config;
 
 	@Override
 	public String getDomainName() {
 		return config.cartService_domainName();
 	}
 
-	@Override
-	public String getEmptyCartPath() {
-		return config.cartService_emptyCartPath();
-	}
 
 	@Override
 	public String getAddToCartPath() {
@@ -54,10 +45,10 @@ public class AddToCartServiceImpl implements AddToCartService{
 	
 	@Override
 	public JSONObject addToCart(JSONObject product) {
-
+		LOG.debug("addToCart method start  product={}: " + product);
 		String scheme = "http";
-		String token = null;
 		JSONObject addToCartResponse = new JSONObject();
+		
 
 		try {
 			String domainName = getDomainName();
@@ -65,22 +56,27 @@ public class AddToCartServiceImpl implements AddToCartService{
 			String cartid = product.getJSONObject("cartItem").getString("quote_id");
 			addToCartPath = addToCartPath.replace("{cartId}", cartid);
 			String url = scheme + "://" + domainName + addToCartPath;
-			LOG.debug("addToCartPath  : " + url);
+			LOG.info("addToCartPath  : " + url);
 			
 			Integer statusCode;
+			JSONObject response = new JSONObject();
 			StringEntity input = new StringEntity(product.toString(),ContentType.APPLICATION_JSON);
 			CloseableHttpClient httpClient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost(url);
 			httppost.setEntity(input);
 			CloseableHttpResponse httpResponse = httpClient.execute(httppost);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
+			
 			LOG.info("add to cart: magento statusCode ={}",statusCode);
+			
 			if(200 == statusCode){
 				BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
 				String output;
 				while ((output = br.readLine()) != null) {
-					addToCartResponse = new JSONObject(output);
+					response = new JSONObject(output);
 				}
+				addToCartResponse.put("statusCode", statusCode);
+				addToCartResponse.put("message", response);
 			}else if((401 == statusCode || 400 == statusCode)){
 				addToCartResponse.put("statusCode", statusCode);
 				addToCartResponse.put("message", httpResponse.getEntity().getContent().toString());
@@ -89,16 +85,13 @@ public class AddToCartServiceImpl implements AddToCartService{
 				LOG.error("Error while add to cart. status code:{}",statusCode);
 			}
 		} catch (Exception e) {
-			LOG.error("getToken method caught an exception " + e.getMessage());
+			LOG.error("addToCart method caught an exception " + e.getMessage());
 		}
+		LOG.debug("addToCart method end  product={}: " + product);
 		return addToCartResponse;
 	}
 
-	@Override
-	public String createGuestCart(JSONObject product) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 
 
