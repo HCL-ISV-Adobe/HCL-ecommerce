@@ -17,7 +17,7 @@ import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Component(service =CartService.class)
+@Component(service =CartService.class, immediate = true)
 public class CartServiceImpl implements CartService {
 
     @Reference

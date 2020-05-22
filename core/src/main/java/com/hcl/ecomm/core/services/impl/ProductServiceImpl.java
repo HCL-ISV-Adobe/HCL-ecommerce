@@ -37,12 +37,6 @@ public class ProductServiceImpl implements ProductService {
 	@Activate
 	private MagentoServiceConfig config;
 
-	
-	@Override
-	public String getDomainName() {
-		return config.productService_domainName();
-	}
-
 	@Override
 	public String getServicePath() {
 		return config.productService_servicePath();
@@ -65,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
 
 		
 		String token = loginService.getToken();
-		String domainName = getDomainName();
+		String domainName = loginService.getDomainName();
 		String servicePath = getServicePath();
 		String searchCriteriaField = getSearchCriteriaField();
 		String searchCriteriaValue = getSearchCriteriaValue();
@@ -119,9 +113,8 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public JsonArray getProductDetail(String sku) {
 
-		
 		String token = loginService.getToken();
-		String domainName = getDomainName();
+		String domainName = loginService.getDomainName();
 		String servicePath = getServicePath();
 		String searchFirstCriteriaField = getSearchCriteriaField();
 		String searchFirstCriteriaValue = getSearchCriteriaValue();

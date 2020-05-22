@@ -16,7 +16,7 @@ import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Component(service = { LoginService.class })
+@Component(service = LoginService.class, immediate = true)
 @Designate(ocd = LoginServiceConfig.class)
 
 @ServiceDescription("Login service")
