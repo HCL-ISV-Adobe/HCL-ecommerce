@@ -46,5 +46,4 @@ const showEmptyCartNotification = () => {
         $("#notification").delay(5000).fadeOut("slow");
     }
 
-
 }
