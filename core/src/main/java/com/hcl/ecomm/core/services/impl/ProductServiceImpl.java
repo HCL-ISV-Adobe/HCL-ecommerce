@@ -2,7 +2,7 @@ package com.hcl.ecomm.core.services.impl;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.hcl.ecomm.core.config.ProductServiceConfig;
+import com.hcl.ecomm.core.config.MagentoServiceConfig;
 import com.hcl.ecomm.core.services.LoginService;
 import com.hcl.ecomm.core.services.ProductService;
 import com.hcl.ecomm.core.utility.ProductUtility;
@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
 	JsonArray productJsonArray = null;
 
 	@Activate
-	private ProductServiceConfig config;
+	private MagentoServiceConfig config;
 
 	
 	@Override

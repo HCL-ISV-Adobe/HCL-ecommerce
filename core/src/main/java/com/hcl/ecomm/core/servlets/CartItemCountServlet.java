@@ -33,7 +33,6 @@ public class CartItemCountServlet extends SlingSafeMethodsServlet
 
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
-        LOG.info("Inside CartFetchServlet :");
         String  cartItemResponse = "";
         try {
             String cartId = request.getParameter("cartId");
