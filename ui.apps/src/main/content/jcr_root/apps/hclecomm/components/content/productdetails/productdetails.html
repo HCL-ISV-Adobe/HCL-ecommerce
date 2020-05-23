@@ -1,0 +1,11 @@
+productdetails
+<img src="${properties.fileReference}" alt="image"/>
+ <h4>${properties.productName} </h4>
+ <h4>${properties.description @ context='html'} </h4>
+ <h4>${properties.returnPolicy @ context='html'} </h4>
+  <div data-sly-use.productsize="productdetails.js">
+<h4>${properties.fashionSize} </h4>
+    <li data-sly-list.product="${productsize.sizeSelect.listChildren}">
+    ${product.size}
+    </li>
+</div>

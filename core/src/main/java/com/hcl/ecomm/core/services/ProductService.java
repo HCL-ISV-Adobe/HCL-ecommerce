@@ -1,6 +1,7 @@
 package com.hcl.ecomm.core.services;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface ProductService {
 
 	public List<String> getAllProductSkus(JsonArray productJson);
 
-	public JsonArray getProductDetail(String sku);
+	public JsonObject getProductDetail(String sku);
 
 
 }
