@@ -1,0 +1,34 @@
+.product-details-cmp{
+	display:flex;
+    .product-details-cmp__prduct-name{
+		font-size: 18px;
+        color:#333333;
+
+    }
+    .product-details-cmp__prduct-price{
+		font-size: 18px;
+        color:#2979be;
+
+    }
+    .product-details-cmp__product-size{
+		display: flex;
+        padding: 0; 
+
+    }
+    .product-details-cmp__product-size--item{
+		list-style: none;
+    	padding: 15px;
+    	border: 1px solid #333333;
+    	margin: 0 10px;
+    	cursor: pointer;
+        &:first-child{
+		margin-left: 0;
+		}
+        &:hover{
+		background-color:#333333;
+        color:#ffffff;
+
+		}
+    }
+
+}
