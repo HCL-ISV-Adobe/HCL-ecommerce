@@ -8,4 +8,7 @@ productdetails
     <li data-sly-list.product="${productsize.sizeSelect.listChildren}">
     ${product.size}
     </li>
+	<h4>${properties.selectedFashionSize} </h4>
 </div>
+<h4>${properties.quantity} </h4>
+<sly data-sly-resource="${'btn' @ resourceType='hclecomm/components/content/button', decoration=true}"> </sly>

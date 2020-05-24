@@ -355,6 +355,18 @@
                                                     </items>
                                                 </field>
                                             </productSize>
+											 <selectedFashionSize
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldDescription="Display the selected fashion size text"
+                                                fieldLabel="Selected Fashion Size"
+                                                name="./selectedFashionSize"/>
+                                            <Quantity
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldDescription="Display quantity text"
+                                                fieldLabel="Quantity"
+                                                name="./quantity"/>
                                         </items>
                                     </column>
                                 </items>
