@@ -324,7 +324,7 @@
                         jcr:primaryType="nt:unstructured"
                         jcr:title="hclecomm Page Policy"
                         sling:resourceType="wcm/core/components/policy/policy"
-                        clientlibs="[hclecomm.dependencies,hclecomm.site]"
+                        clientlibs="[hclecomm.site]"
                         clientlibsJsHead="hclecomm.dependencies">
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_content_page>
