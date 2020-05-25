@@ -2,7 +2,7 @@ package com.hcl.ecomm.core.services.impl;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.hcl.ecomm.core.config.ProductServiceConfig;
+import com.hcl.ecomm.core.config.MagentoServiceConfig;
 import com.hcl.ecomm.core.services.LoginService;
 import com.hcl.ecomm.core.services.ProductService;
 import com.hcl.ecomm.core.utility.ProductUtility;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component(immediate = true, enabled = true, service = ProductService.class)
-@Designate(ocd = ProductServiceConfig.class)
+@Designate(ocd = MagentoServiceConfig.class)
 public class ProductServiceImpl implements ProductService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ProductServiceImpl.class);
@@ -35,13 +35,7 @@ public class ProductServiceImpl implements ProductService {
 	JsonArray productJsonArray = null;
 
 	@Activate
-	private ProductServiceConfig config;
-
-	
-	@Override
-	public String getDomainName() {
-		return config.productService_domainName();
-	}
+	private MagentoServiceConfig config;
 
 	@Override
 	public String getServicePath() {
@@ -65,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
 
 		
 		String token = loginService.getToken();
-		String domainName = getDomainName();
+		String domainName = loginService.getDomainName();
 		String servicePath = getServicePath();
 		String searchCriteriaField = getSearchCriteriaField();
 		String searchCriteriaValue = getSearchCriteriaValue();
@@ -119,9 +113,8 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public JsonArray getProductDetail(String sku) {
 
-		
 		String token = loginService.getToken();
-		String domainName = getDomainName();
+		String domainName = loginService.getDomainName();
 		String servicePath = getServicePath();
 		String searchFirstCriteriaField = getSearchCriteriaField();
 		String searchFirstCriteriaValue = getSearchCriteriaValue();
