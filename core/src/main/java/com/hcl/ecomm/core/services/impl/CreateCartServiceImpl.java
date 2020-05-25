@@ -12,12 +12,14 @@ import org.eclipse.jetty.http.HttpStatus;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.hcl.ecomm.core.config.CreateCartServiceConfig;
 import com.hcl.ecomm.core.services.CreateCartService;
+import com.hcl.ecomm.core.services.LoginService;
 
 @Component(
 		immediate = true,
@@ -27,7 +29,10 @@ import com.hcl.ecomm.core.services.CreateCartService;
 public class CreateCartServiceImpl implements CreateCartService{
 
 	private static final Logger LOG = LoggerFactory.getLogger(CreateCartServiceImpl.class);
-
+	
+	@Reference
+	LoginService loginService;
+	
 	@Activate
 	private CreateCartServiceConfig config;
 
@@ -50,6 +55,7 @@ public class CreateCartServiceImpl implements CreateCartService{
 		
 
 		try {
+			String authToken = loginService.getToken();
 			String domainName = getDomainName();
 			String createGuestCartPath = getEmptyCartPath();
 			String url = scheme + "://" + domainName + createGuestCartPath;
@@ -58,6 +64,8 @@ public class CreateCartServiceImpl implements CreateCartService{
 			Integer statusCode;
 			CloseableHttpClient httpClient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost(url);
+			httppost.setHeader("Content-Type", "application/json");
+			httppost.setHeader("Authorization", authToken);
 			CloseableHttpResponse httpResponse = httpClient.execute(httppost);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
 			

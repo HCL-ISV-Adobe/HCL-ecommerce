@@ -56,7 +56,7 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 	private AddToCartService addToCartService;
 	
     /**
-     * doPost posts add the item in the Magento cart so that it can be persisted at their end.
+     * doPost add the item in the Magento cart so that it can be persisted at their end.
      *
      * @param request
      *            - sling servlet request object
@@ -65,6 +65,7 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
      */
 	@Override
 	protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) {
+		LOG.debug("addtocart Post()  method start.");
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		JSONObject responseObject = new JSONObject();
@@ -101,6 +102,7 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 			LOG.error("Error Occured while executing AddToCartServlet Post - add item in cart. responseObject={} ", responseObject);
 			LOG.error("Full Error={} ", e);
 		}
+		LOG.debug("addtocart Post()  method end.");
 	}
 	
     /**
@@ -111,7 +113,6 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
      * @param response
      *            - sling servlet response object
      */
-	
 	@Override
 	protected void doPut(SlingHttpServletRequest request, SlingHttpServletResponse response) {
 		LOG.debug("addtocart PUT()  method start.");
@@ -151,6 +152,7 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 			LOG.error("Error Occured while executing AddToCartServlet Put- update item quantity. responseObject={}", responseObject);
 			LOG.error("Full Error={} ", e);
 		}
+		LOG.debug("addtocart PUT()  method end.");
 	}
 	
 	

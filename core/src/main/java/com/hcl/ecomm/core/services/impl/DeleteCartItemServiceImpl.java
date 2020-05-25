@@ -11,12 +11,14 @@ import org.eclipse.jetty.http.HttpStatus;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.hcl.ecomm.core.config.DeleteCartItemServiceConfig;
 import com.hcl.ecomm.core.services.DeleteCartItemService;
+import com.hcl.ecomm.core.services.LoginService;
 
 @Component(
 		immediate = true,
@@ -27,6 +29,9 @@ public class DeleteCartItemServiceImpl implements DeleteCartItemService{
 
 	private static final Logger LOG = LoggerFactory.getLogger(DeleteCartItemServiceImpl.class);
 
+	@Reference
+	LoginService loginService;
+	
 	@Activate
 	private DeleteCartItemServiceConfig config;
 	
@@ -46,6 +51,7 @@ public class DeleteCartItemServiceImpl implements DeleteCartItemService{
 		String scheme = "http";
 		JSONObject deleteCartItemRes = new JSONObject();
 		try {
+			String authToken = loginService.getToken();
 			String domainName = getDomainName();
 			String itemDeletePath = getGuestCartItemDeletePath();
 			itemDeletePath= itemDeletePath.replace("{cartId}", cartId).replace("{itemId}", itemId);
@@ -55,6 +61,8 @@ public class DeleteCartItemServiceImpl implements DeleteCartItemService{
 			Integer statusCode;
 			CloseableHttpClient httpClient = HttpClients.createDefault();
 			HttpDelete httppost = new HttpDelete(url);
+			httppost.setHeader("Content-Type", "application/json");
+			httppost.setHeader("Authorization", authToken);
 			CloseableHttpResponse httpResponse = httpClient.execute(httppost);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
 			

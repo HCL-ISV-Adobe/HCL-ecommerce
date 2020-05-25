@@ -14,12 +14,14 @@ import org.apache.http.impl.client.HttpClients;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.hcl.ecomm.core.config.AddToCartServiceConfig;
 import com.hcl.ecomm.core.services.AddToCartService;
+import com.hcl.ecomm.core.services.LoginService;
 
 @Component(
 		immediate = true,
@@ -30,6 +32,9 @@ public class AddToCartServiceImpl implements AddToCartService{
 
 	private static final Logger LOG = LoggerFactory.getLogger(AddToCartServiceImpl.class);
 
+	@Reference
+	LoginService loginService;
+	
 	@Activate
 	private AddToCartServiceConfig config;
 
@@ -56,6 +61,7 @@ public class AddToCartServiceImpl implements AddToCartService{
 		JSONObject addToCartResponse = new JSONObject();
 
 		try {
+			String authToken = loginService.getToken();
 			String domainName = getDomainName();
 			String addToCartPath = getAddToCartPath();
 			String cartid = product.getJSONObject("cartItem").getString("quote_id");
@@ -68,6 +74,8 @@ public class AddToCartServiceImpl implements AddToCartService{
 			StringEntity input = new StringEntity(product.toString(),ContentType.APPLICATION_JSON);
 			CloseableHttpClient httpClient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost(url);
+			httppost.setHeader("Content-Type", "application/json");
+			httppost.setHeader("Authorization", authToken);
 			httppost.setEntity(input);
 			CloseableHttpResponse httpResponse = httpClient.execute(httppost);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
@@ -104,6 +112,7 @@ public class AddToCartServiceImpl implements AddToCartService{
 		JSONObject updatedItem = new JSONObject();
 
 		try {
+			String authToken = loginService.getToken();
 			String domainName = getDomainName();
 			String updateCartItemPath = updateItemQtytPath();
 			String cartId = item.getJSONObject("cartItem").getString("quote_id");
@@ -115,6 +124,8 @@ public class AddToCartServiceImpl implements AddToCartService{
 			StringEntity input = new StringEntity(item.toString(),ContentType.APPLICATION_JSON);
 			CloseableHttpClient httpClient = HttpClients.createDefault();
 			HttpPut httput = new HttpPut(url);
+			httput.setHeader("Content-Type", "application/json");
+			httput.setHeader("Authorization", authToken);
 			httput.setEntity(input);
 			CloseableHttpResponse httpResponse = httpClient.execute(httput);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
