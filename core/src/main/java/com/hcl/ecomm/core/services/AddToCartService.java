@@ -8,7 +8,7 @@ public interface AddToCartService {
 	
 	public String getAddToCartPath();
 	
-	public String updateItemQtytPath();
+	public String updateCartItemPath();
 	
 	public JSONObject addToCart(JSONObject product);
 	

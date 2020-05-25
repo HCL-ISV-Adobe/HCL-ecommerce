@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.hcl.ecomm.core.config.DeleteCartItemServiceConfig;
+import com.hcl.ecomm.core.config.MagentoServiceConfig;
 import com.hcl.ecomm.core.services.DeleteCartItemService;
 import com.hcl.ecomm.core.services.LoginService;
 
@@ -33,16 +34,16 @@ public class DeleteCartItemServiceImpl implements DeleteCartItemService{
 	LoginService loginService;
 	
 	@Activate
-	private DeleteCartItemServiceConfig config;
+	private MagentoServiceConfig config;
 	
 	@Override
 	public String getDomainName() {
-		return config.deleteCartService_domainName();
+		return config.magentoService_domainName();
 	}
 
 	@Override
 	public String getGuestCartItemDeletePath() {
-		return config.deleteCartService_guestCartItemDeletePath();
+		return config.magentoService_guestCartItemDeletePath();
 	}
 
 	@Override
@@ -62,7 +63,7 @@ public class DeleteCartItemServiceImpl implements DeleteCartItemService{
 			CloseableHttpClient httpClient = HttpClients.createDefault();
 			HttpDelete httppost = new HttpDelete(url);
 			httppost.setHeader("Content-Type", "application/json");
-			httppost.setHeader("Authorization", authToken);
+			httppost.setHeader("Authorization", "Bearer " +authToken);
 			CloseableHttpResponse httpResponse = httpClient.execute(httppost);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
 			

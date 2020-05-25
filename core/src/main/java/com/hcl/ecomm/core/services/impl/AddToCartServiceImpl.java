@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.hcl.ecomm.core.config.AddToCartServiceConfig;
+import com.hcl.ecomm.core.config.MagentoServiceConfig;
 import com.hcl.ecomm.core.services.AddToCartService;
 import com.hcl.ecomm.core.services.LoginService;
 
@@ -36,22 +37,22 @@ public class AddToCartServiceImpl implements AddToCartService{
 	LoginService loginService;
 	
 	@Activate
-	private AddToCartServiceConfig config;
+	private MagentoServiceConfig config;
 
 	@Override
 	public String getDomainName() {
-		return config.addToCartService_domainName();
+		return config.magentoService_domainName();
 	}
 
 
 	@Override
 	public String getAddToCartPath() {
-		return config.addToCartService_addToCartPath();
+		return config.magentoService_addToCartPath();
 	}
 	
 	@Override
-	public String updateItemQtytPath() {
-		return config.addToCartService_updateCartItemPath();
+	public String updateCartItemPath() {
+		return config.magentoService_updateCartItemPath();
 	}
 	
 	@Override
@@ -75,7 +76,7 @@ public class AddToCartServiceImpl implements AddToCartService{
 			CloseableHttpClient httpClient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost(url);
 			httppost.setHeader("Content-Type", "application/json");
-			httppost.setHeader("Authorization", authToken);
+			httppost.setHeader("Authorization", "Bearer " +authToken);
 			httppost.setEntity(input);
 			CloseableHttpResponse httpResponse = httpClient.execute(httppost);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
@@ -114,7 +115,7 @@ public class AddToCartServiceImpl implements AddToCartService{
 		try {
 			String authToken = loginService.getToken();
 			String domainName = getDomainName();
-			String updateCartItemPath = updateItemQtytPath();
+			String updateCartItemPath = updateCartItemPath();
 			String cartId = item.getJSONObject("cartItem").getString("quote_id");
 			updateCartItemPath = updateCartItemPath.replace("{cartId}", cartId).replace("{ItemId}", itemId);
 			String url = scheme + "://" + domainName + updateCartItemPath;
@@ -125,7 +126,7 @@ public class AddToCartServiceImpl implements AddToCartService{
 			CloseableHttpClient httpClient = HttpClients.createDefault();
 			HttpPut httput = new HttpPut(url);
 			httput.setHeader("Content-Type", "application/json");
-			httput.setHeader("Authorization", authToken);
+			httput.setHeader("Authorization", "Bearer " +authToken);
 			httput.setEntity(input);
 			CloseableHttpResponse httpResponse = httpClient.execute(httput);
 			statusCode = httpResponse.getStatusLine().getStatusCode();

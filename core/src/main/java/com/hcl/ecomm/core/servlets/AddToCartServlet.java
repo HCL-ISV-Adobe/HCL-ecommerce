@@ -5,6 +5,7 @@ import javax.servlet.Servlet;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.eclipse.jetty.http.HttpStatus;
 import org.json.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,7 +66,7 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
      */
 	@Override
 	protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) {
-		LOG.debug("addtocart Post()  method start.");
+		LOG.debug("addtocart doPost()  method start.");
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		JSONObject responseObject = new JSONObject();
@@ -86,7 +87,7 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 				if (isValidPayload(jsonPayload)) {
 					JSONObject cartItem = jsonItemObj( jsonPayload);
 					JSONObject addToCartResponse = addToCartService.addToCart(cartItem);
-					if (addToCartResponse.has("statusCode") && addToCartResponse.getInt("statusCode") == 200) {
+					if (addToCartResponse.has("statusCode") && addToCartResponse.getInt("statusCode") == HttpStatus.OK_200) {
 						responseObject.put("message", addToCartResponse.getJSONObject("message"));
 						responseObject.put("status", Boolean.TRUE);
 					} else {
@@ -99,10 +100,10 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 			}
 			response.getWriter().print(responseObject);
 		} catch (Exception e) {
-			LOG.error("Error Occured while executing AddToCartServlet Post - add item in cart. responseObject={} ", responseObject);
+			LOG.error("Error Occured while executing AddToCartServlet doPost() - add item in cart. responseObject={} ", responseObject);
 			LOG.error("Full Error={} ", e);
 		}
-		LOG.debug("addtocart Post()  method end.");
+		LOG.debug("addtocart doPost()  method end.");
 	}
 	
     /**
@@ -115,7 +116,7 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
      */
 	@Override
 	protected void doPut(SlingHttpServletRequest request, SlingHttpServletResponse response) {
-		LOG.debug("addtocart PUT()  method start.");
+		LOG.debug("addtocart doPut()  method start.");
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		JSONObject responseObject = new JSONObject();
@@ -132,12 +133,12 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 			String payload = buffer.toString();
 			if (StringUtils.isNotEmpty(payload)) {
 				JSONObject jsonPayload =  new JSONObject(payload);
-				LOG.info("addtocart PUT()  payload={}",jsonPayload);
+				LOG.info("addtocart Put()  payload={}",jsonPayload);
 				if (isValidPayload(jsonPayload) && jsonPayload.has("itemid")) {
 					JSONObject cartItem = jsonItemObj( jsonPayload);
-					JSONObject addToCartResponse = addToCartService.updateCartItem(cartItem, jsonPayload.getString("itemid"));
-					if (addToCartResponse.has("statusCode") && addToCartResponse.getInt("statusCode") == 200) {
-						responseObject.put("message", addToCartResponse.getJSONObject("message"));
+					JSONObject updateCartItemResponse = addToCartService.updateCartItem(cartItem, jsonPayload.getString("itemid"));
+					if (updateCartItemResponse.has("statusCode") && updateCartItemResponse.getInt("statusCode") == HttpStatus.OK_200) {
+						responseObject.put("message", updateCartItemResponse.getJSONObject("message"));
 						responseObject.put("status", Boolean.TRUE);
 					} else {
 						responseObject.put("message", "something went wrong while add to cart.");
@@ -152,7 +153,7 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 			LOG.error("Error Occured while executing AddToCartServlet Put- update item quantity. responseObject={}", responseObject);
 			LOG.error("Full Error={} ", e);
 		}
-		LOG.debug("addtocart PUT()  method end.");
+		LOG.debug("addtocart doPut()  method end.");
 	}
 	
 	

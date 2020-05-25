@@ -3,6 +3,7 @@ package com.hcl.ecomm.core.services.impl;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -18,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.hcl.ecomm.core.config.CreateCartServiceConfig;
+import com.hcl.ecomm.core.config.MagentoServiceConfig;
 import com.hcl.ecomm.core.services.CreateCartService;
 import com.hcl.ecomm.core.services.LoginService;
 
@@ -34,16 +36,16 @@ public class CreateCartServiceImpl implements CreateCartService{
 	LoginService loginService;
 	
 	@Activate
-	private CreateCartServiceConfig config;
+	private MagentoServiceConfig config;
 
 	@Override
 	public String getDomainName() {
-		return config.cartService_domainName();
+		return config.magentoService_domainName();
 	}
 
 	@Override
 	public String getEmptyCartPath() {
-		return config.cartService_emptyCartPath();
+		return config.magentoService_emptyCartPath();
 	}
 	
 
@@ -65,7 +67,7 @@ public class CreateCartServiceImpl implements CreateCartService{
 			CloseableHttpClient httpClient = HttpClients.createDefault();
 			HttpPost httppost = new HttpPost(url);
 			httppost.setHeader("Content-Type", "application/json");
-			httppost.setHeader("Authorization", authToken);
+			httppost.setHeader("Authorization", "Bearer " +authToken);
 			CloseableHttpResponse httpResponse = httpClient.execute(httppost);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
 			
@@ -79,6 +81,9 @@ public class CreateCartServiceImpl implements CreateCartService{
 					str += output;
 				}
 				JSONObject cartid = new JSONObject();
+				if (StringUtils.isNotEmpty("str")) {
+					str = str.replace("\"", "");
+				}
 				cartid.put("cartid", str);
 				createGuestCartRes.put("statusCode", statusCode);
 				createGuestCartRes.put("message", cartid);

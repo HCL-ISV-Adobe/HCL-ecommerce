@@ -9,6 +9,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.eclipse.jetty.http.HttpStatus;
 import org.json.JSONObject;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
@@ -53,7 +54,7 @@ public class CreateCartServlet extends SlingSafeMethodsServlet {
 		JSONObject responseObject = new JSONObject();
 		try {
 			JSONObject createCartResponse = createCartService.createGuestCart();
-			if (createCartResponse.has("statusCode") && createCartResponse.getInt("statusCode") == 200) {
+			if (createCartResponse.has("statusCode") && createCartResponse.getInt("statusCode") == HttpStatus.OK_200) {
 				responseObject.put("message", createCartResponse.getJSONObject("message"));
 				responseObject.put("status", Boolean.TRUE);
 			} else {

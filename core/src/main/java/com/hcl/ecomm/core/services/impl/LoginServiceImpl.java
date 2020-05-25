@@ -2,6 +2,8 @@ package com.hcl.ecomm.core.services.impl;
 
 import com.hcl.ecomm.core.config.LoginServiceConfig;
 import com.hcl.ecomm.core.services.LoginService;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -72,6 +74,10 @@ public class LoginServiceImpl implements LoginService {
 			HttpPost httppost = new HttpPost(url);
 			CloseableHttpResponse httpResponse = httpClient.execute(httppost);
 			token = EntityUtils.toString(httpResponse.getEntity());
+			
+			if (StringUtils.isNotEmpty(token)) {
+				token = token.replace("\"", "");
+			}
 			LOG.info("Response Token : " + token);
 
 		} catch (Exception e) {
