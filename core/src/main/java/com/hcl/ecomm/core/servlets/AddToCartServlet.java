@@ -93,6 +93,7 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 	
 	@Override
 	protected void doPut(SlingHttpServletRequest request, SlingHttpServletResponse response) {
+		LOG.debug("addtocart PUT()  method start.");
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		JSONObject responseObject = new JSONObject();
@@ -109,9 +110,10 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 			String payload = buffer.toString();
 			if (StringUtils.isNotEmpty(payload)) {
 				JSONObject jsonPayload =  new JSONObject(payload);
+				LOG.info("addtocart PUT()  payload={}",jsonPayload);
 				if (isValidPayload(jsonPayload) && jsonPayload.has("itemid")) {
 					JSONObject cartItem = jsonItemObj( jsonPayload);
-					JSONObject addToCartResponse = addToCartService.addToCart(cartItem);
+					JSONObject addToCartResponse = addToCartService.updateCartItem(cartItem, jsonPayload.getString("itemid"));
 					if (addToCartResponse.has("statusCode") && addToCartResponse.getInt("statusCode") == 200) {
 						responseObject.put("message", addToCartResponse.getJSONObject("message"));
 						responseObject.put("status", Boolean.TRUE);
@@ -152,6 +154,6 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 		}
 		return item;
 	}
-	
+
 
 }
