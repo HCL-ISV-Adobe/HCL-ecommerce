@@ -1,10 +1,7 @@
-$( document ).ready(function() {
-    constxhttp = new XMLHttpRequest();
-  	xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("demo").innerHTML = this.responseText;
-    }
-  };
-  xhttp.open("GET", "demo_get.asp", true);
-  xhttp.send();
+"use strict";
+use(function() {
+    var resourceResolver = resource.getResourceResolver();
+    return {
+      sizeSelect : resourceResolver.getResource(currentNode.getPath() + "/productSize"),
+    };
 });
