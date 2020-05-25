@@ -21,19 +21,18 @@ import org.slf4j.LoggerFactory;
 
 import com.hcl.ecomm.core.services.DeleteCartItemService;
 
-
+/**
+ * Servlet that delete the existing cart item by hitting the Magento service.
+ */
 @Component(
 		service = Servlet.class,
 		property = { 
 				Constants.SERVICE_DESCRIPTION + "= Delete Cart Item Servlet",
-				"sling.servlet.paths=/bin/hclecomm/deletecartitem", 
+				"sling.servlet.paths=/bin/hclecomm/deleteCartItem", 
 				"sling.servlet.method=" + HttpConstants.METHOD_PUT,
 			    "sling.servlet.extensions=json" })
 public class DeleteCartItemServlet extends SlingAllMethodsServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7980975418220422865L;
 
 	private static final Logger LOG = LoggerFactory.getLogger(DeleteCartItemServlet.class);
@@ -41,6 +40,14 @@ public class DeleteCartItemServlet extends SlingAllMethodsServlet {
 	@Reference
 	private DeleteCartItemService deleteCartItemService;
 
+    /**
+     * doPut to  delete the cart item in magento.
+     *
+     * @param request
+     *            - sling servlet request object
+     * @param response
+     *            - sling servlet response object
+     */
 	@Override
 	protected void doPut(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {

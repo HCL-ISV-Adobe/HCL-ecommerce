@@ -17,19 +17,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.hcl.ecomm.core.services.CreateCartService;
-
+/**
+ * Servlet that get created the cart in Magento by hitting the Magento service.
+ */
 @Component(
 		service = Servlet.class,
 		property = { 
 				Constants.SERVICE_DESCRIPTION + "= Create Cart Servlet",
-				"sling.servlet.paths=/bin/hclecomm/createcart", 
+				"sling.servlet.paths=/bin/hclecomm/createCart", 
 				"sling.servlet.method=" + HttpConstants.METHOD_GET,
 			    "sling.servlet.extensions=json" })
 public class CreateCartServlet extends SlingSafeMethodsServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7980975418220422865L;
 
 	private static final Logger LOG = LoggerFactory.getLogger(CreateCartServlet.class);
@@ -37,6 +36,15 @@ public class CreateCartServlet extends SlingSafeMethodsServlet {
 	@Reference
 	private CreateCartService createCartService;
 
+	
+    /**
+     * doGet gets to create cart in Magento and returned alphnumeric cart hashcode from Magento service.
+     *
+     * @param request
+     *            - sling servlet request object
+     * @param response
+     *            - sling servlet response object
+     */
 	@Override
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {

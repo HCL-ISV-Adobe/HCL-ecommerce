@@ -36,11 +36,15 @@ import java.io.IOException;
 import java.util.*;
 import org.osgi.framework.Constants;
 
+/**
+ * Servlet that gets cart add item and update item related data by hitting the Magento service.
+ */
+
 @Component(
 		service = Servlet.class, 
 		property = { 
 				 Constants.SERVICE_DESCRIPTION + "= Add to Cart Servlet",
-				"sling.servlet.paths=/bin/hclecomm/addtocart",
+				"sling.servlet.paths=/bin/hclecomm/addToCart",
 				"sling.servlet.method=" + HttpConstants.METHOD_POST,
 				"sling.servlet.extensions=json"})
 public class AddToCartServlet extends SlingAllMethodsServlet{
@@ -51,6 +55,14 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 	@Reference
 	private AddToCartService addToCartService;
 	
+    /**
+     * doPost posts add the item in the Magento cart so that it can be persisted at their end.
+     *
+     * @param request
+     *            - sling servlet request object
+     * @param response
+     *            - sling servlet response object
+     */
 	@Override
 	protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) {
 		response.setContentType("application/json");
@@ -90,6 +102,15 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 			LOG.error("Full Error={} ", e);
 		}
 	}
+	
+    /**
+     * doPut posts update the item details in the Magento cart so that it can be persisted at their end.
+     *
+     * @param request
+     *            - sling servlet request object
+     * @param response
+     *            - sling servlet response object
+     */
 	
 	@Override
 	protected void doPut(SlingHttpServletRequest request, SlingHttpServletResponse response) {
