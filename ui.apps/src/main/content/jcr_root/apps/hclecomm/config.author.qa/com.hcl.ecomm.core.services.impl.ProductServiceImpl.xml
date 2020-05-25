@@ -2,7 +2,7 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="sling:OsgiConfig"
     cartFetch.servicePath.string="/V1/guest-carts/"
-    productService.domainName="localhost/magento/rest"
+    productService.domainName="localhost/magento2/rest"
     productService.searchCriteriaField="store_id"
-    productService.searchCriteriaValue="4"
-    productService.servicePath="/us/V1/products"/>
+    productService.searchCriteriaValue="2"
+    productService.servicePath="/V1/products"/>
