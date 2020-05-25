@@ -9,13 +9,17 @@ public @interface AddToCartServiceConfig {
 
 	String domainNameDefaultValue = "127.0.0.1/magento2";
 	String addToCartPath = "/rest/us/V1/guest-carts/{cartId}/items";
+	String updateCartItemPath = "/rest/us/V1/guest-carts/{cartId}/items/{ItemId}";
 	
 
 	@AttributeDefinition(name = "DOMAIN NAME", description = "This is domain name", defaultValue = domainNameDefaultValue, type = AttributeType.STRING)
-	String cartService_domainName() default domainNameDefaultValue;
+	String addToCartService_domainName() default domainNameDefaultValue;
 
-	@AttributeDefinition(name = "SERVICE_PATH", description = "This is add to cart API path", defaultValue = addToCartPath, type = AttributeType.STRING)
-	String cartService_addToCartPath() default addToCartPath;
+	@AttributeDefinition(name = "ADD_TO_CART_SERVICE_PATH", description = "This is add to cart API path", defaultValue = addToCartPath, type = AttributeType.STRING)
+	String addToCartService_addToCartPath() default addToCartPath;
+	
+	@AttributeDefinition(name = "UPDATE_ITEM_QUANTITY_SERVICE_PATH", description = "This is update cart item API path", defaultValue = updateCartItemPath, type = AttributeType.STRING)
+	String addToCartService_updateCartItemPath() default updateCartItemPath;
 
 
 

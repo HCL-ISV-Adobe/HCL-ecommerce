@@ -22,7 +22,7 @@ import com.hcl.ecomm.core.services.CreateCartService;
 		service = Servlet.class,
 		property = { 
 				Constants.SERVICE_DESCRIPTION + "= Create Cart Servlet",
-				"sling.servlet.paths=/bin/hclecomm/cart", 
+				"sling.servlet.paths=/bin/hclecomm/createcart", 
 				"sling.servlet.method=" + HttpConstants.METHOD_GET,
 			    "sling.servlet.extensions=json" })
 public class CreateCartServlet extends SlingSafeMethodsServlet {

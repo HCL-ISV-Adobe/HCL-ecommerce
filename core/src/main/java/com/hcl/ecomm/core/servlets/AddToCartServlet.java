@@ -70,8 +70,8 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 			String payload = buffer.toString();
 			if (StringUtils.isNotEmpty(payload)) {
 				JSONObject jsonPayload =  new JSONObject(payload);
-				if (isValidProduct(jsonPayload)) {
-					JSONObject cartItem = createCartItem( jsonPayload);
+				if (isValidPayload(jsonPayload)) {
+					JSONObject cartItem = jsonItemObj( jsonPayload);
 					JSONObject addToCartResponse = addToCartService.addToCart(cartItem);
 					if (addToCartResponse.has("statusCode") && addToCartResponse.getInt("statusCode") == 200) {
 						responseObject.put("message", addToCartResponse.getJSONObject("message"));
@@ -86,32 +86,72 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 			}
 			response.getWriter().print(responseObject);
 		} catch (Exception e) {
-			LOG.info("Error Occured while executing AddToCartServlet Post. Full Error={} ", e);
+			LOG.error("Error Occured while executing AddToCartServlet Post - add item in cart. responseObject={} ", responseObject);
+			LOG.error("Full Error={} ", e);
+		}
+	}
+	
+	@Override
+	protected void doPut(SlingHttpServletRequest request, SlingHttpServletResponse response) {
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		JSONObject responseObject = new JSONObject();
+		try {
+			responseObject.put("message", "Request failed");
+			responseObject.put("status", Boolean.FALSE);
+			
+			StringBuilder buffer = new StringBuilder();
+			BufferedReader reader = request.getReader();
+			String line;
+			while ((line = reader.readLine()) != null) {
+				buffer.append(line);
+			}
+			String payload = buffer.toString();
+			if (StringUtils.isNotEmpty(payload)) {
+				JSONObject jsonPayload =  new JSONObject(payload);
+				if (isValidPayload(jsonPayload) && jsonPayload.has("itemid")) {
+					JSONObject cartItem = jsonItemObj( jsonPayload);
+					JSONObject addToCartResponse = addToCartService.addToCart(cartItem);
+					if (addToCartResponse.has("statusCode") && addToCartResponse.getInt("statusCode") == 200) {
+						responseObject.put("message", addToCartResponse.getJSONObject("message"));
+						responseObject.put("status", Boolean.TRUE);
+					} else {
+						responseObject.put("message", "something went wrong while add to cart.");
+					}
+				}
+			} else {
+				responseObject.put("message", "Missing Parameter in payload.");
+				responseObject.put("status", Boolean.FALSE);
+			}
+			response.getWriter().print(responseObject);
+		} catch (Exception e) {
+			LOG.error("Error Occured while executing AddToCartServlet Put- update item quantity. responseObject={}", responseObject);
+			LOG.error("Full Error={} ", e);
 		}
 	}
 	
 	
-	private boolean isValidProduct(JSONObject jsonPayload) {
+	private boolean isValidPayload(JSONObject jsonPayload) {
 		boolean isValidData=Boolean.TRUE;
-				
 		if(!jsonPayload.has("cartid") && !jsonPayload.has("sku") && !jsonPayload.has("qty")){
 			isValidData = Boolean.FALSE;
 		}
-		
 		return isValidData;
 	}
 	
-	private JSONObject createCartItem(JSONObject product) {
+	private JSONObject jsonItemObj(JSONObject itemData) {
 		JSONObject item = new JSONObject();
 		JSONObject cartItem = new JSONObject();
 		try {
-			cartItem.put("quote_id", product.getString("cartid"));
-			cartItem.put("sku", product.getString("sku"));
-			cartItem.put("qty", product.getInt("qty"));
+			cartItem.put("quote_id", itemData.getString("cartid"));
+			cartItem.put("sku", itemData.getString("sku"));
+			cartItem.put("qty", itemData.getInt("qty"));
 			item.put("cartItem", cartItem);
 		} catch (JSONException e) {
 			LOG.error("Error while executing. Error={}",e);
 		}
 		return item;
 	}
+	
+
 }
