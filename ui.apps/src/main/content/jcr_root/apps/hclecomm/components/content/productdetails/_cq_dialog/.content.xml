@@ -367,6 +367,12 @@
                                                 fieldDescription="Display quantity text"
                                                 fieldLabel="Quantity"
                                                 name="./quantity"/>
+											<noProductAvilable
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldDescription="Display no product avilable"
+                                                fieldLabel="No Product avilable"
+                                                name="./noProductAvilable"/>
                                         </items>
                                     </column>
                                 </items>

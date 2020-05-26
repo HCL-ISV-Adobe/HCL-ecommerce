@@ -34,8 +34,10 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
         LOG.info("Inside  ProductDetailsServlet doGet Method");
 
         try {
-
-        JsonObject productResponse = productService.getProductDetail("24-WG085");
+         
+		String  sku = request.getParameter("sku");
+		
+        JsonObject productResponse = productService.getProductDetail(sku);
         LOG.info(" productResponse is {}", productResponse.toString());
         List<HashMap<String, String>> productList = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> productMap = new HashMap<String, String>();
