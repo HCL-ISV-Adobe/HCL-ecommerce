@@ -31,11 +31,12 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
-        LOG.info("Inside  ProductDetailsServlet doGet Method");
+        LOG.debug("Inside  ProductDetailsServlet doGet Method");
 
         try {
          
 		String  sku = request.getParameter("sku");
+        if(sku!=null && !"".equals(sku)) {
 		
         JsonObject productResponse = productService.getProductDetail(sku);
         LOG.info(" productResponse is {}", productResponse.toString());
@@ -47,13 +48,19 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
         productMap.put("stock", productResponse.get("extension_attributes").getAsJsonObject().get("stock_item").getAsJsonObject().get("is_in_stock").getAsString());
         productMap.put("qty",  productResponse.get("extension_attributes").getAsJsonObject().get("stock_item").getAsJsonObject().get("qty").getAsString());
         productList.add(productMap);
-        LOG.info("ProductDetails  list is {}",productList.toString());
+        LOG.debug("ProductDetails  list is {}",productList.toString());
 
         String productDetailsJson = new Gson().toJson(productList);
 
 
         response.setContentType("application/json");
         response.getWriter().write(productDetailsJson);
+		 }
+
+        else{
+            String productSku= "product sku not found";
+            response.getWriter().write(productSku);
+        }
 
         }
         catch (Exception e){
