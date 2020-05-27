@@ -55,7 +55,7 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
 
         response.setContentType("application/json");
         response.getWriter().write(productDetailsJson);
-	response.setStatus(500);
+	response.setStatus(200);
 		 }
 
         else{
