@@ -2,11 +2,16 @@ package com.hcl.ecomm.core.services.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.hcl.ecomm.core.config.MagentoServiceConfig;
 import com.hcl.ecomm.core.services.CartService;
 import com.hcl.ecomm.core.services.LoginService;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -79,4 +84,54 @@ public class CartServiceImpl implements CartService {
        cartItemCount = cartItemsArray.size();
        return cartItemCount;
     }
+
+    @Override
+    public String updateCartDetails(String payload) {
+        String token = loginService.getToken();
+        String domainName = loginService.getDomainName();
+        String servicePath = config.cartUpdate_servicePath_string();
+        LOG.info("String payload : " + payload);
+
+        JsonObject jsonObject = new JsonParser().parse(payload).getAsJsonObject();
+        LOG.info("JsonObject : " +jsonObject);
+        JsonObject cartItems = jsonObject.get("cartItem").getAsJsonObject();
+        String cartId = cartItems.get("quote_id").getAsString();
+        LOG.info("cartId : " +cartId);
+        String url = schema + "://" + domainName + servicePath + cartId + "/items";
+        LOG.info("url : " + url);
+
+        try {
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            HttpPost httpPost = new HttpPost(url);
+            String bearerToken = "Bearer" + token;
+            String finalToken = bearerToken.replaceAll("\"","");
+            LOG.info("final Bearer Token : " + finalToken);
+
+            StringEntity input = new StringEntity(jsonObject.toString(),ContentType.APPLICATION_JSON);
+            //StringEntity input = new StringEntity(payload, ContentType.APPLICATION_JSON);
+            LOG.info("input : " + input);
+            httpPost.setHeader("Authorization", finalToken);
+            httpPost.setHeader("Content-Type", "application/json");
+            httpPost.setEntity(input);
+
+            CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
+            if(httpResponse.getStatusLine().getStatusCode() == 200)
+            {
+                responseStream = EntityUtils.toString(httpResponse.getEntity());
+            }
+            else
+            {
+                responseStream = "Failed to fetch cart details.";
+            }
+            LOG.info( "Cart Items Response in Json Array : " + responseStream);
+
+        }
+        catch (Exception e)
+        {
+            LOG.error("Exception while fetching cart details : " + e.getMessage());
+        }
+        return responseStream;
+    }
+
+
 }

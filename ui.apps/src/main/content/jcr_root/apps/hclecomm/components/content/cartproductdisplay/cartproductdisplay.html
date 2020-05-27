@@ -2,16 +2,17 @@
 <span>${properties.couponSectionHeading}</span>
 
     <div class='apply-coupons'>
-		<input type ='text'/ value ='' class ='cart-detail-container__apply-coupon'>
+		<input type ='text' value ='' class ='cart-detail-container__apply-coupon' placeholder='Apply Coupon'>
         <div class= 'apply-coupon-button' onclick = 'onApplyCoupon()' data-sly-resource="${'./button1' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+		<div class = 'coupon-message'> <p class ='apply-coupon-validation'> </p> </div>
 	</div>
-    <div> <p class ='apply-coupon-validation'> </p> </div>
+
 
     <div class='price-details'>
         <b>${properties.priceDeailHeading}</b>
         <div>
             <span>${properties.bagTotalLabel}</span>
-            <span>155</span>
+            <span class = 'total-bag-count'>155</span>
         </div>
         <div>
             <span>${properties.bagDiscountLabel}</span>
@@ -23,15 +24,18 @@
         </div>
         <div>
             <span>${properties.orderTotalLabel}</span>
-            <span>20</span>
+            <span class = 'order-price'>20</span>
         </div>
-
         <div>
             <span>${properties.deliveryChargesLabel}</span>
-            <span>160</span>
+            <span class = 'delivery-charges'>160</span>
+        </div>
+		 <div>
+            <span>${properties.totalLabel}</span>
+            <span class='total-price'></span>
         </div>
     </div>
-	<div onClick= 'onClickUpdateItem()'  data-sly-resource="${'./button2' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+	<div class="place-order-button" onClick= 'onClickUpdateItem()'  data-sly-resource="${'./button2' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
 
 </div>
 

@@ -1,6 +1,7 @@
 const totalBagPrice = Number($('.total-bag-count').text());
 const bagDiscount = 15;
 const deliveryCharges = Number($('.delivery-charges').text());
+let placeOrderRedirection = null;
 
 let allowCouponOnce = true;
 
@@ -42,26 +43,25 @@ function onApplyCoupon(){
 $(document).ready(function (){
    	 $('.order-price').text(totalBagPrice - bagDiscount);
      $('.total-price').text(totalBagPrice - bagDiscount + deliveryCharges);
+	 placeOrderRedirection = $('.place-order-button').children().children().attr('href');
+	 $('.place-order-button').children().children().removeAttr("href");
+    //window.location.replace(placeOrderRedirection);
 
-    $.event.trigger({
-    		type: "newMessage",
-    		message: "Test"
-
-			});
 
 });
 
 function onClickUpdateItem() {
 
-    console.log("place order");
-	const object = { "cartItem": { "quote_id": "4522ebc7d219rre415a8ad1eewr22f73b55", "sku": "Item SKU", "qty": 1 } }
+	const object = {"cartItem":{"quote_id": "AR93aupnz6KYQL786ZEdOAtEtL73lYQq","item_id": 5, "sku": "24-MB01", "qty": 20}}
 	const xhttp = new XMLHttpRequest();
   	xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      /// redirect code here
+        placeOrderRedirection ? window.location.href = placeOrderRedirection : null;
     }
   };
-  xhttp.open("POST", "demo_post.asp", true);
-  xhttp.send(object );
+  xhttp.open("GET", "/bin/hclecomm/updateCartItems?payload=" +JSON.stringify(object) , true);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	//xhttp.send(JSON.stringify(object));
+  xhttp.send();
 }
 
