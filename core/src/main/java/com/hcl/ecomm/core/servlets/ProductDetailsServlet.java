@@ -55,7 +55,6 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
 
         response.setContentType("application/json");
         response.getWriter().write(productDetailsJson);
-	response.setStatus(200);
 		 }
 
         else{
@@ -66,7 +65,6 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
         }
         catch (Exception e){
             LOG.error("error in ProductDetailsServlet {} ",e.getMessage());
-	    response.setStatus(500);
         }
     }
 }
