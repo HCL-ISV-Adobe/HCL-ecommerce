@@ -3,6 +3,7 @@ package com.hcl.ecomm.core.servlets;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.hcl.ecomm.core.services.CartService;
 import com.hcl.ecomm.core.services.ProductService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
@@ -22,13 +23,13 @@ import java.util.List;
 
 @Component(service = Servlet.class, property = { "sling.servlet.paths=/bin/hclecomm/cartproducts",
 		"sling.servlet.method=" + HttpConstants.METHOD_GET, "sling.servlet.extensions=json" })
-public class CartFetchServlet extends SlingSafeMethodsServlet {
+public class CartItemServlet extends SlingSafeMethodsServlet {
 
 	private static final long serialVersionUID = 4016057296495129474L;
-	private static final Logger LOG = LoggerFactory.getLogger(CartFetchServlet.class);
+	private static final Logger LOG = LoggerFactory.getLogger(CartItemServlet.class);
 
 	@Reference
-    CartService cartService;
+	CartService cartService;
 
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
@@ -38,7 +39,7 @@ public class CartFetchServlet extends SlingSafeMethodsServlet {
 
 			String cartItems = null;
 			String cartId = request.getParameter("cartId");
-			JsonArray responseStream = cartService.getCartDetails(cartId);
+			JsonArray responseStream = cartService.getCartItemsDetails(cartId);
 			LOG.info("responseStream is {}", responseStream.toString());
 
 			JsonArray itemsarr= responseStream.getAsJsonArray();
@@ -47,16 +48,17 @@ public class CartFetchServlet extends SlingSafeMethodsServlet {
 			JsonArray cartArray=new JsonArray();
 
 			for(int i=0; i<itemsarr.size();i++){
-				HashMap<String, Object> cartMap = new HashMap<String, Object>();
+				HashMap<String, Object> productMap = new HashMap<String, Object>();
 				JsonObject cartObj = itemsarr.get(i).getAsJsonObject();
 				LOG.info("cartObj is {}", cartObj);
-				cartMap.put("item_id",itemsarr.get(i).getAsJsonObject().get("item_id").getAsInt());
-				cartMap.put("sku", itemsarr.get(i).getAsJsonObject().get("sku").getAsString());
-				cartMap.put("qty",itemsarr.get(i).getAsJsonObject().get("qty").getAsInt());
-				cartMap.put("name", itemsarr.get(i).getAsJsonObject().get("name").getAsString());
-				cartMap.put("price",itemsarr.get(i).getAsJsonObject().get("price").getAsInt());
-				cartMap.put("image_url", itemsarr.get(i).getAsJsonObject().get("extension_attributes").getAsJsonObject().get("image_url").getAsString());
-				list.add(cartMap);
+				productMap.put("item_id",itemsarr.get(i).getAsJsonObject().get("item_id").getAsInt());
+				productMap.put("sku", itemsarr.get(i).getAsJsonObject().get("sku").getAsString());
+				productMap.put("qty",itemsarr.get(i).getAsJsonObject().get("qty").getAsInt());
+				productMap.put("name", itemsarr.get(i).getAsJsonObject().get("name").getAsString());
+				productMap.put("price",itemsarr.get(i).getAsJsonObject().get("price").getAsInt());
+				productMap.put("quote_id",itemsarr.get(i).getAsJsonObject().get("quote_id").getAsString());
+				productMap.put("image_url", itemsarr.get(i).getAsJsonObject().get("extension_attributes").getAsJsonObject().get("image_url").getAsString());
+				list.add(productMap);
 				 cartArray = new Gson().toJsonTree(list).getAsJsonArray();
 
 

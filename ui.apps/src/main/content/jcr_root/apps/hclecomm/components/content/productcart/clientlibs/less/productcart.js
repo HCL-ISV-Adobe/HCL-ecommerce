@@ -1,219 +1,202 @@
-  $(document).ready(function() {
+$(document).ready(function () {
+	var value = $('#mydiv').data('custom-property');
+	let cartId = '';
 
-	/*var productData = [
-                    {
-                        "item_id": 5,
-                        "sku": "24-WG085",
-                        "qty": 1,
-                        "name": "Sprite Yoga Strap 6 foot",
-                        "price": 14,
-                        "product_type": "simple",
-                        "quote_id": "j7KaMe1zWFfopDFOVTdFZV0rokpjwzam",
-                        "extension_attributes": {
-                            "image_url": "http://127.0.0.1/magento2/pub/static/version1589967585/webapi_rest/_view/en_US/Magento_Catalog/images/product/placeholder/.jpg"
-                        }
-                    },
-                    {
-                        "item_id": 7,
-                        "sku": "mehiwiext",
-                        "qty": 1,
-                        "name": "Expedition Tech Long-Sleeved Shirt",
-                        "price": 54,
-                        "product_type": "simple",
-                        "quote_id": "j7KaMe1zWFfopDFOVTdFZV0rokpjwzam",
-                        "extension_attributes": {
-                            "image_url": "http://127.0.0.1/magento2/pub/media/catalog/product\\cache\\84e3ec616dfeead44f09ae682858fa68\\//t/h/thumnail-swiss-polo-tshirt.jpg"
-                        }
-                    },
-        {
-                        "item_id": 5,
-                        "sku": "24-WG085",
-                        "qty": 1,
-                        "name": "Sprite Yoga Strap 6 foot",
-                        "price": 14,
-                        "product_type": "simple",
-                        "quote_id": "j7KaMe1zWFfopDFOVTdFZV0rokpjwzam",
-                        "extension_attributes": {
-                            "image_url": "http://127.0.0.1/magento2/pub/static/version1589967585/webapi_rest/_view/en_US/Magento_Catalog/images/product/placeholder/.jpg"
-                        }
-                    },
-                    {
-                        "item_id": 7,
-                        "sku": "mehiwiext",
-                        "qty": 1,
-                        "name": "Expedition Tech Long-Sleeved Shirt",
-                        "price": 54,
-                        "product_type": "simple",
-                        "quote_id": "j7KaMe1zWFfopDFOVTdFZV0rokpjwzam",
-                        "extension_attributes": {
-                            "image_url": "http://127.0.0.1/magento2/pub/media/catalog/product\\cache\\84e3ec616dfeead44f09ae682858fa68\\//t/h/thumnail-swiss-polo-tshirt.jpg"
-                        }
-                    }
-               ];
-*/
+	const getCookies = document.cookie;
+	const getCountEle = document.getElementById("total-item-count");
+
+	if (getCookies.indexOf('cartId') > -1) {
+
+		const cookiesCartID = getCookies.split(';');
+		if (cookiesCartID && cookiesCartID.length > 0) {
+
+			cookiesCartID.forEach(function (cookiesCartIDItem) {
+				if ((cookiesCartIDItem).indexOf(cartId) > -1) {
+					const cartIdArr = cookiesCartIDItem.split('=')
+					cartId = cartIdArr[1];
+
+				}
+			})
+		}
+
+	} else {
+
+		document.cookie = "cartId = j7KaMe1zWFfopDFOVTdFZV0rokpjwzam";
+		cartId = 'j7KaMe1zWFfopDFOVTdFZV0rokpjwzam';
+	}
 
 
+	if (cartId) {
 
-      			let cartId = '';
+		function getLoad(url, callBack) {
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function () {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					//console.log('response ', xmlhttp.responseText);
+					try {
+						var data = JSON.parse(xmlhttp.responseText);
+					} catch (err) {
+						console.log("Error ", err.message);
+						return;
+					}
+					callBack(data);
+				}
+			};
+			xmlhttp.open("GET", url, true);
+			xmlhttp.send();
+		}
+	}
 
-                const getCookies = document.cookie;
+	getLoad("/bin/hclecomm/cartproducts?cartId=" + cartId, function (data) {
 
-                if (getCookies.indexOf('cartId') > -1) {
-
-                    const cookiesCartID = getCookies.split(';');
-                    if (cookiesCartID && cookiesCartID.length > 0) {
-
-                        cookiesCartID.forEach(function (cookiesCartIDItem) {
-                            if ((cookiesCartIDItem).indexOf(cartId) > -1) {
-                                const cartIdArr = cookiesCartIDItem.split('=')
-                                cartId = cartIdArr[1];
-
-                            }
-                        })
-                    }
-
-                 } else {
-
-                    document.cookie = "cartId = j7KaMe1zWFfopDFOVTdFZV0rokpjwzam";
-                    cartId = 'j7KaMe1zWFfopDFOVTdFZV0rokpjwzam';
-                }
-
-
-
-       			if (cartId) {
-
-                    	var xhttp = new XMLHttpRequest();
-						xhttp.open("GET", "/bin/hclecomm/cartproducts?cartId=" + cartId, true);
-      					xhttp.onreadystatechange = getResponse();
-        				xhttp.send();
-    				}
+		let target = document.querySelector(".product");
 
 
-
-
-                function getResponse(){
-
-
-                        if (this.readyState == 4 || this.status == 200) 
-                        {
-                               // document.getElementById('productDataLoad').innerHTML = xhttp.responseText;
-                                var response = 	this.responseText;
-
-
-                                if(response) {
-
-									var productData =  response;
-									alert(productData);
-
-                                    var productHtml = productData.map(function(p){
-
-
-							return `<div id="productDataLoad" class="cmp-cart-items">
-                            			<div class="cmp-cart-row">
+		let result = data.map((item) => {
+			return (
+				`<div class="cmp-cart-items"  id=PID${item.item_id}>
+				<div class="cmp-cart-row">
                                 			<div class="cmp-cart-item">
 
                                             <div class="cmp-item-left">
-                                                <img class="cmp-cart-item-image" src=${p.image_url}>
+                                                <img class="cmp-cart-item-image" src=${item.image_url}>
                                             </div>
                                             <div class="cmp-item-right">
-                                                <span class="cmp-cart-item-title">${p.name}</span>
-                                                <span class="cmp-cart-item-size">Size : ${p.product_type}</span>
-                                                <span class="cmp-cart-item-code">Code : ${p.sku}</span>
+                                                <span class="cmp-cart-item-title">${item.name}</span>
+                                                <span class="cmp-cart-item-size">Size : ${item.product_type}</span>
+                                                <span class="cmp-cart-item-code">Code : ${item.sku}</span>
                                             </div>
 
                                         </div>
-
-                                        <div class="cmp-cart-quantity">
-                                            <span class="fa fa-minus"  onclick="decrementValue()"></span>	
-                                                <input class="cmp-cart-qty-input" type="number" value="1" id="number" />                                    
-                                             <span class="fa fa-plus"  onclick="incrementValue()"></span>   
+										<div class="cmp-cart-quantity">
+                                            <span class="fa fa-minus"></span>	
+                                                <input class="cmp-cart-qty-input" type="text" value=${item.qty} id="number" />                                    
+                                             <span class="fa fa-plus"></span>   
                                         </div>
-                                        <div class="cmp-cart-price">${p.price}</div>
-                                        <div class="cmp-cart-button"> <button class="cmp-btn-danger" type="button"><i class="fa fa-trash"></i></button> </div>
-                                    </div>
-                        		</div>`; 
+                            			<div class="cmp-cart-price" style="display:none">${item.price}</div>
+                            			<div class="cmp-cart-total"><i class="fa fa-inr">${(item.price*item.qty).toFixed(2)}</i></div>
+                                        <div class="cmp-cart-button"> <button class="cmp-btn-danger" type="button" onclick="deleteproduct(event,'${item.item_id}','${item.quote_id}');"><i class="fa fa-trash" ></i></button> </div>
 
-      				});
-                                    $('#productDataLoad').append(productHtml);
+                            </div>
 
+								</div><br />`
+			);
 
-                                }
+		}).join('');
+		target.innerHTML = result;
+		data.map((it, key) => {
+			document.querySelectorAll(".cmp-cart-items input")[key].addEventListener('keyup', qty);
 
-                        }
+		});
+		var mybagcount = bagCount(data);
+		console.log(mybagcount);
 
+		$(".productcart").prepend(("<h4><span >" + value + "</span>(" + mybagcount + " items)</h4>"));
 
-
-
-                }
-
-
-
-
-      				var removeCartItemsButtons =  document.getElementsByClassName('cmp-btn-danger');
-
-      				//console.log("333",removeCartItemsButtons);
-
-      				for(var i=0;i<removeCartItemsButtons.length;i++) {
-
-						var delButton = removeCartItemsButtons[i];
-                        delButton.addEventListener('click',function(event){
-							var delButtonclicked = event.target;
-                            	delButtonclicked.parentElement.parentElement.remove();
-                        });
-
-                        updateCartTotal();
-
-                	}
+		for (var k = 0; document.querySelectorAll(".cmp-cart-items span.fa").length > k; k++) {
+			document.querySelectorAll(".cmp-cart-items span.fa")[k].addEventListener('click', qty);
+			console.log("k", k)
 
 
+		}
 
 
+	});
 
-                });
+	function qty(evt) {
+		console.log("inp", this.parentNode.parentNode.parentNode.id)
+		var tgt = this.getAttribute("class"),
+			inp = document.querySelector("#" + this.parentNode.parentNode.parentNode.id + " input"),
+			inpV;
 
+		if (tgt == "fa fa-minus") {
+			var inpValue = parseInt(inp.value);
+			inpValue--;
+			(inpValue == 0) ? inpValue = 1: inp.value = inpValue;
+			inpV = inpValue;
+		} else if (tgt == "fa fa-plus") {
+			var inpValue = parseInt(inp.value);
+			console.log("val ", inpValue);
+			inpValue++;
+			(inpValue > 9999) ? inpValue = 9999: inp.value = inpValue;
+			inp.value = inpValue;
+			inpV = inpValue;
+		} else {
+			var inVa = inp.value;
+			if (inVa == 0) {
+				inVa = 1;
+			}
+			if (inVa > 9999) {
+				inVa = 9999;
+			}
 
-                    function incrementValue()
-                    {
-                        var value = parseInt(document.getElementById('number').value, 99);
-                        value = isNaN(value) ? 0 : value;
-                        if(value<99){
-                            value++;
-                                document.getElementById('number').value = value;
-                        }
-                    }
-
-
-                    function decrementValue()
-                    {
-
-                        var value = parseInt(document.getElementById('number').value, 99);
-                        value = isNaN(value) ? 0 : value;
-                        if(value>1){
-                            value--;
-                                document.getElementById('number').value = value;
-                        }
-
-                    }
-
-
-						function updateCartTotal() {
-
-						var cartItemContainer = document.getElementsByClassName('cmp-cart-items')[0];
-                        var cartrows = cartItemContainer.getElementsByClassName('cmp-cart-row');
-
-                        for(var i=0;i<cartrows.length;i++) {
-							var cartInvididualRow = cartrows[i];
-                            var priceElement = cartInvididualRow.getElementsByClassName('cmp-cart-price')[0];
-
-                            var qtyElement   = cartInvididualRow.getElementsByClassName('cmp-cart-qty-input')[0];
-                            console.log(priceElement,qtyElement);
+			document.querySelector("#" + this.parentNode.parentNode.parentNode.id + " input").value = inVa;
+			inpV = inVa;
+		}
+		pTotal(inpV, document.querySelector("#" + this.parentNode.parentNode.parentNode.id + " .cmp-cart-price").innerHTML, this.parentNode.parentNode.parentNode.id);
+	}
 
 
-                        }
-      				}
+	function pTotal(inpV, price, id) {
+		document.querySelector("#" + id + " .cmp-cart-total").innerHTML = (inpV * price).toFixed(2);
+	}
 
 
+	function updateCartTotal() {
+
+		var cartItemContainer = document.getElementsByClassName('cmp-cart-items')[0];
+		var cartrows = cartItemContainer.getElementsByClassName('cmp-cart-row');
+
+		for (var i = 0; i < cartrows.length; i++) {
+			var cartInvididualRow = cartrows[i];
+			var priceElement = cartInvididualRow.getElementsByClassName('cmp-cart-price')[0];
+
+			var qtyElement = cartInvididualRow.getElementsByClassName('cmp-cart-qty-input')[0];
+			console.log(priceElement, qtyElement);
 
 
+		}
+	}
 
 
+});
+
+function bagCount(data) {
+
+
+	console.log("111", data.length);
+	var totalitems = data.length;
+	$.event.trigger({
+		type: "newMessage",
+		message: totalitems
+
+	});
+
+	return totalitems;
+
+
+}
+
+
+function deleteproduct(event, itemId, cartId) {
+	$('#PID' + itemId).remove();
+
+	var qs = {
+		"cartId": cartId,
+		"itemId": itemId
+	};
+	jQuery.ajax({
+		url: '/bin/hclecomm/deleteCartItem',
+		type: 'PUT',
+		data: JSON.stringify(qs),
+		contentType: 'application/json',
+		success: function (respHTML) {
+
+
+			window.location.reload(true);
+		}
+
+	});
+
+
+}
