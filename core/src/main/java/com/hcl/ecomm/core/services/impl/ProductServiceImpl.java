@@ -1,7 +1,9 @@
 package com.hcl.ecomm.core.services.impl;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.hcl.ecomm.core.config.MagentoServiceConfig;
 import com.hcl.ecomm.core.services.LoginService;
 import com.hcl.ecomm.core.services.ProductService;
@@ -33,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
 	String scheme = "http";
 	String responseStream = null;
 	JsonArray productJsonArray = null;
+	JsonObject productJsonObject = null;
 
 	@Activate
 	private MagentoServiceConfig config;
@@ -111,21 +114,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public JsonArray getProductDetail(String sku) {
+	public JsonObject getProductDetail(String sku) {
 
 		String token = loginService.getToken();
 		String domainName = loginService.getDomainName();
 		String servicePath = getServicePath();
-		String searchFirstCriteriaField = getSearchCriteriaField();
-		String searchFirstCriteriaValue = getSearchCriteriaValue();
-		String searchSecondCriteriaField = "SKU";
-		String searchSecondCriteriaValue = sku;
-
-		String productUrl = scheme + "://" + domainName + servicePath
-				+ "?searchCriteria[filterGroups][0][filters][0][field]=" + searchFirstCriteriaField
-				+ "&searchCriteria[filterGroups][0][filters][0][value]=" + searchFirstCriteriaValue
-				+ "&searchCriteria[filterGroups][0][filters][1][field]=" + searchSecondCriteriaField
-				+ "&searchCriteria[filterGroups][0][filters][1][value]=" + searchSecondCriteriaValue;
+		
+        String productUrl = scheme + "://" + domainName + servicePath + "/" + sku;
+		
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(productUrl);
@@ -141,18 +137,18 @@ public class ProductServiceImpl implements ProductService {
 
 			if (httpResponse.getStatusLine().getStatusCode() == 200) {
 				responseStream = EntityUtils.toString(httpResponse.getEntity());
-				LOG.info("Product Response Json : " + responseStream);
+				LOG.info("Product Details Response Json : " + responseStream);
 			} else {
-				responseStream = "Failed to fetch products from the store";
-				LOG.error("Failed to fetch products from the store");
+				responseStream = "Failed to fetch product details from the store";
+				LOG.error("Failed to fetch products details from the store");
 			}
+			productJsonObject = new Gson().fromJson(responseStream, JsonObject.class);
+			LOG.info("product details Response in Json object : " + productJsonObject);
 		} catch (Exception e) {
 			LOG.error(" getProductDetail method caught an exception" + e.getMessage());
 		}
-		productJsonArray = ProductUtility.fromStringToJsonArray(responseStream);
-		LOG.info("Json Array formed : " + productJsonArray);
-
-		return productJsonArray;
+		
+		return productJsonObject;
 	}
 
 
