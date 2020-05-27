@@ -2,11 +2,11 @@
 <span>${properties.couponSectionHeading}</span>
 
     <div class='apply-coupons'>
-		<input type ='text' value ='' class ='cart-detail-container__apply-coupon' placeholder='Apply Coupon'>
+		<input type ='text' value ='' class ='cart-detail-container__apply-coupon' placeholder=placeholder=${properties.applyCouponInputLabel}>
         <div class= 'apply-coupon-button' onclick = 'onApplyCoupon()' data-sly-resource="${'./button1' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
 		<div class = 'coupon-message'> <p class ='apply-coupon-validation'> </p> </div>
 	</div>
-
+    <sly data-sly-resource="${'./separator' @ resourceType='hclecomm/components/content/separator', decoration=true}"> </sly>
 
     <div class='price-details'>
         <b>${properties.priceDeailHeading}</b>
