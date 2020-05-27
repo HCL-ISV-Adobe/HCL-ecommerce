@@ -5,7 +5,7 @@ $(document).ready(function () {
     const getCountEle = document.getElementById("total-item-count");
     const href = $('#cart-item-count').attr('href');
     $("#cart-item-count").removeAttr("href");
-    getCountEle.style.display = 'none';
+
     const getCookies = document.cookie;
     if (getCookies.indexOf('cartId') > -1) {
         const cookiesCartID = getCookies.split(';');
@@ -44,7 +44,7 @@ $(document).ready(function () {
 // method to show notification on empty cart 
 const showEmptyCartNotification = () => {
     const getItemCount = $('#total-item-count').text();
-    if (getItemCount === '0' && allowToShowNotification) {
+    if ((getItemCount === '0' || getItemCount==="") && allowToShowNotification) {
         $("#notification").empty();
         $("#notification").css({
             display: 'inline-block'
