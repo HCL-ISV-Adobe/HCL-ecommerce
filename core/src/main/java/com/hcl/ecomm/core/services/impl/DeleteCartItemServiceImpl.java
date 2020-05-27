@@ -15,26 +15,28 @@ import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.hcl.ecomm.core.config.DeleteCartItemServiceConfig;
 import com.hcl.ecomm.core.services.DeleteCartItemService;
 
 @Component(
 		immediate = true,
 		enabled = true, 
 		service = DeleteCartItemService.class)
-@Designate(ocd = DeleteCartItemServiceConfig.class)
+@Designate(ocd = MagentoServiceConfig.class)
 public class DeleteCartItemServiceImpl implements DeleteCartItemService{
 
 	private static final Logger LOG = LoggerFactory.getLogger(DeleteCartItemServiceImpl.class);
 
 	@Activate
-	private DeleteCartItemServiceConfig config;
-	
-	@Override
-	public String getDomainName() {
-		return config.deleteCartService_domainName();
-	}
+	private MagentoServiceConfig config;
 
+	@Reference
+	LoginService loginService;
+
+	@Override
+	public String getGuestCartItemDeletePath() {
+		return config.deleteCartService_guestCartItemDeletePath();
+	}
+	
 	@Override
 	public String getGuestCartItemDeletePath() {
 		return config.deleteCartService_guestCartItemDeletePath();
@@ -46,7 +48,7 @@ public class DeleteCartItemServiceImpl implements DeleteCartItemService{
 		String scheme = "http";
 		JSONObject deleteCartItemRes = new JSONObject();
 		try {
-			String domainName = getDomainName();
+			String domainName = loginService.getDomainName();
 			String itemDeletePath = getGuestCartItemDeletePath();
 			itemDeletePath= itemDeletePath.replace("{cartId}", cartId).replace("{itemId}", itemId);
 			String url = scheme + "://" + domainName + itemDeletePath;

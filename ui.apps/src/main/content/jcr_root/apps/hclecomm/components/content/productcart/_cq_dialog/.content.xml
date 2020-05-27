@@ -31,7 +31,7 @@
                                             <productcart
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                fieldDescription="Display product cart"
+                                                fieldDescription="Enter Cart Item Text"
                                                 fieldLabel="Product Cart"
                                                 name="./productcart"/>
                                         </items>

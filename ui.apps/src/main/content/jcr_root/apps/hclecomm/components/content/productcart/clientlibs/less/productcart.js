@@ -63,7 +63,6 @@ $(document).ready(function () {
                                             </div>
                                             <div class="cmp-item-right">
                                                 <span class="cmp-cart-item-title">${item.name}</span>
-                                                <span class="cmp-cart-item-size">Size : ${item.product_type}</span>
                                                 <span class="cmp-cart-item-code">Code : ${item.sku}</span>
                                             </div>
 

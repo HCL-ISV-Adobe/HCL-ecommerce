@@ -56,7 +56,7 @@ public class DeleteCartItemServlet extends SlingAllMethodsServlet {
 		JSONObject responseObject = new JSONObject();
 
 		try {
-			responseObject.put("message", "Request failed");
+			responseObject.put("message", "Response");
 			responseObject.put("status", Boolean.FALSE);
 			
 			StringBuilder buffer = new StringBuilder();
