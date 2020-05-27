@@ -36,7 +36,7 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
         try {
          
 		String  sku = request.getParameter("sku");
-        if(sku!=null && !"".equals(sku)) {
+        if(sku!=null || !"".equals(sku)) {
 		
         JsonObject productResponse = productService.getProductDetail(sku);
         LOG.info(" productResponse is {}", productResponse.toString());
@@ -55,16 +55,18 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
 
         response.setContentType("application/json");
         response.getWriter().write(productDetailsJson);
+	response.setStatus(500);
 		 }
 
         else{
-            String productSku= "product sku not found";
+            String productSku= "passing empty  sku parameter";
             response.getWriter().write(productSku);
         }
 
         }
         catch (Exception e){
             LOG.error("error in ProductDetailsServlet {} ",e.getMessage());
+	    response.setStatus(500);
         }
     }
 }
