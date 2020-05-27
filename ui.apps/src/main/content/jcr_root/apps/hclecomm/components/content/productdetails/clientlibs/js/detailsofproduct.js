@@ -20,7 +20,7 @@ $(document).ready(function () {
 				$('.product-details-cmp--no-product').css("display", "block");
 			} else {
 				$('.cmp-button').removeClass("btn-product-card-disabled");
-				$(".cmp-button").removeattr('disabled');
+				$(".cmp-button").removeAttr('disabled');
 				$('.product-details-cmp--no-product').css("display", "none");
 
 			}

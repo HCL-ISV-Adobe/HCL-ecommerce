@@ -36,7 +36,7 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
         try {
          
 		String  sku = request.getParameter("sku");
-        if(sku!=null || !"".equals(sku)) {
+        if(StringUtils.isNotEmpty(sku)) {
 		
         JsonObject productResponse = productService.getProductDetail(sku);
         LOG.info(" productResponse is {}", productResponse.toString());
