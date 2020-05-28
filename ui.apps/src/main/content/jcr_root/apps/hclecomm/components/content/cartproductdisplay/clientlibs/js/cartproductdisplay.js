@@ -52,7 +52,6 @@ $(document).ready(function (){
      $('.total-price').text(totalBagPrice - bagDiscount + deliveryCharges);
 	 placeOrderRedirection = $('.place-order-button').children().children().attr('href');
 	 $('.place-order-button').children().children().removeAttr("href");
-    //window.location.replace(placeOrderRedirection);
 
     if(Number($('.bag-discount-amount').text())>0)
 		$('.bag-discount').css("display","flex");
@@ -63,11 +62,6 @@ $(document).ready(function (){
 		$('.coupon-discount').css("display","flex");
     else
 		$('.coupon-discount').css("display","none");
-
-
-
-
-
 });
 
 function onClickUpdateItem() {
@@ -82,8 +76,6 @@ function onClickUpdateItem() {
  	xhttp.open("GET", "/bin/hclecomm/updateCartItems?payload=" +  JSON.stringify(object) , true);
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhttp.send();
-
-
 
 }
 
