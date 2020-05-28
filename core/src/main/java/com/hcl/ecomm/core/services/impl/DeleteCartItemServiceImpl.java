@@ -2,7 +2,6 @@ package com.hcl.ecomm.core.services.impl;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
 import com.hcl.ecomm.core.config.MagentoServiceConfig;
 import com.hcl.ecomm.core.services.LoginService;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -17,7 +16,6 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.hcl.ecomm.core.services.DeleteCartItemService;
 
 @Component(
@@ -57,7 +55,6 @@ public class DeleteCartItemServiceImpl implements DeleteCartItemService{
 			HttpDelete httppost = new HttpDelete(url);
 			CloseableHttpResponse httpResponse = httpClient.execute(httppost);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
-
 			LOG.info("Delete guest cart item: magento statusCode ={}",statusCode);
 
 			if(HttpStatus.OK_200 == statusCode){
@@ -84,14 +81,5 @@ public class DeleteCartItemServiceImpl implements DeleteCartItemService{
 		LOG.debug("createGuestCart method end  createGuestCartRes={}: " + deleteCartItemRes);
 		return deleteCartItemRes;
 	}
-
-
-
-
-
-
-
-
-
 
 }
