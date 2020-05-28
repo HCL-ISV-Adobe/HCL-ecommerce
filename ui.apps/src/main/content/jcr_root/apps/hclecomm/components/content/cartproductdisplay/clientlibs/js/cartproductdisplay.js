@@ -9,8 +9,8 @@ let allowCouponOnce = true;
 function onApplyCoupon(){
 
     $(document).on('newMessage', function(e, eventInfo) {
-  		console.log(eventInfo);
-        console.log(e);
+//  	   console.log(eventInfo);
+//        console.log(e);
 	});
 
     const getApppliedCoupon = $('.cart-detail-container__apply-coupon').val();
