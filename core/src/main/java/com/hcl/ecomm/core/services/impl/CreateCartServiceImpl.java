@@ -38,7 +38,7 @@ public class CreateCartServiceImpl implements CreateCartService{
 
 	@Override
 	public String getDomainName() {
-		return config.magentoService_domainName();
+		return loginService.getDomainName();
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class AddToCartServiceImpl implements AddToCartService{
 
 	@Override
 	public String getDomainName() {
-		return config.magentoService_domainName();
+		return loginService.getDomainName();
 	}
 
 

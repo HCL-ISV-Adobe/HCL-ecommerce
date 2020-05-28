@@ -11,11 +11,10 @@ public @interface MagentoServiceConfig {
     String searchFieldDefaultValue = "store_id";
     String searchFieldValueDefaultValue = "2";
     String servicePathCartFetchItems = "/us/V1/guest-carts/";
-	String addToCartPath = "/rest/us/V1/guest-carts/{cartId}/items";
-	String updateCartItemPath = "/rest/us/V1/guest-carts/{cartId}/items/{ItemId}";
-	String emptyCartPah = "/rest/us/V1/guest-carts";
-	String guestCartItemDeletePah = "/rest/us/V1/guest-carts/{cartId}/items/{itemId}";
-	String domainNameDefaultValue = "127.0.0.1/magento2";
+	String addToCartPath = "/us/V1/guest-carts/{cartId}/items";
+	String updateCartItemPath = "/us/V1/guest-carts/{cartId}/items/{ItemId}";
+	String emptyCartPah = "/us/V1/guest-carts";
+	String guestCartItemDeletePah = "/us/V1/guest-carts/{cartId}/items/{itemId}";
 
     @AttributeDefinition(name = "All Products Service Path", description = "This is the API path for getting all products for a store", defaultValue = servicePathDefaultValue, type = AttributeType.STRING)
     String productService_servicePath() default servicePathDefaultValue;
@@ -41,8 +40,5 @@ public @interface MagentoServiceConfig {
 	@AttributeDefinition(name = "GUEST_CART_ITEM_DELETE_SERVICE_PATH", description = "This is guest cart item delete API path", defaultValue = guestCartItemDeletePah, type = AttributeType.STRING)
 	String magentoService_guestCartItemDeletePath() default guestCartItemDeletePah;
 
-	@AttributeDefinition(name = "DOMAIN NAME", description = "This is domain name", defaultValue = domainNameDefaultValue, type = AttributeType.STRING)
-	String magentoService_domainName() default domainNameDefaultValue;
-	
 }
 

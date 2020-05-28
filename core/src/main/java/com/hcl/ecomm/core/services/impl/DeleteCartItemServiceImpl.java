@@ -37,7 +37,7 @@ public class DeleteCartItemServiceImpl implements DeleteCartItemService{
 	
 	@Override
 	public String getDomainName() {
-		return config.magentoService_domainName();
+		return loginService.getDomainName();
 	}
 
 	@Override
