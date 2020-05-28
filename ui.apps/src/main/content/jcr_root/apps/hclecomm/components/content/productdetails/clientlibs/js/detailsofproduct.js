@@ -1,3 +1,4 @@
+var sku = "24-WG085";
 $(document).ready(function () {
 	$('.quantity').val("1");
 	$('.product-details-cmp__prduct-price-sign').css("display", "none");
@@ -27,7 +28,7 @@ $(document).ready(function () {
 
 		}
 	};
-	xhttp.open("GET", "/bin/hclecomm/productDetails?sku=" + "24-WG087", true);
+	xhttp.open("GET", "/bin/hclecomm/productDetails?sku=" + sku, true);
 	xhttp.send();
 
 
@@ -69,4 +70,48 @@ function onQuantityKeyUp(event) {
 	const getCount = event.target.value;
 	getCount < 0 ? $('.quantity').val(0) : null;
 	getCount > 999 ? $('.quantity').val(999) : null;
+}
+function getCookie(name) {
+        var cookieArr = document.cookie.split(";");
+        for(var i = 0; i < cookieArr.length; i++) {
+            var cookiePair = cookieArr[i].split("=");
+            if(name == cookiePair[0].trim()) {
+                return decodeURIComponent(cookiePair[1]);
+            }
+
+
+        }
+
+        /// standard  cart id if cookies are not avliable
+        document.cookie = "cartId = j7KaMe1zWFfopDFOVTdFZV0rokpjwzam";
+        cartId = 'j7KaMe1zWFfopDFOVTdFZV0rokpjwzam';
+
+        return cartId;
+
+
+
+    }
+
+function addtoCart(sku){
+var inpValue=parseInt(document.querySelector(".productdetails .qty input[type='text']").value),
+sku=sku,
+cartID=getCookie('cartId');
+var data={
+  "sku": sku,
+  "cartid": cartID,
+  "qty": inpValue
+}
+console.log("data ",data);
+
+//sending data to server
+var xhr = new XMLHttpRequest();
+var url = "http://localhost:4502/bin/hclecomm/addToCart";
+xhr.open("POST", url, true);
+xhr.setRequestHeader("Content-Type", "application/json");
+xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        console.log("response ",xhr.responseText);
+}
+}; 
+xhr.send(JSON.stringify(data)); 
 }
