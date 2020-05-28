@@ -73,7 +73,7 @@ $(document).ready(function (){
 function onClickUpdateItem() {
 
 	const object = {"cartItem":{"quote_id": "AR93aupnz6KYQL786ZEdOAtEtL73lYQq","item_id": 5, "sku": "24-MB01", "qty": 20}}
-	/*const xhttp = new XMLHttpRequest();
+	const xhttp = new XMLHttpRequest();
   	xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         placeOrderRedirection ? window.location.href = placeOrderRedirection : null;
@@ -83,23 +83,7 @@ function onClickUpdateItem() {
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhttp.send();
 
-    //xhttp.open("POST", "/bin/hclecomm/updateCartItems"  , true);
-    //xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-    //xhttp.send( JSON.stringify(object));
-    */
 
-    jQuery.ajax({
-		url: '/bin/hclecomm/updateCartItems',
-		type: 'POST',
-		data: JSON.stringify(object),
-		contentType: 'application/json',
-		success: function (respHTML) {
-
-
-			console.log("responseHTml" +respHTML );
-		}
-
-	});
 
 }
 
