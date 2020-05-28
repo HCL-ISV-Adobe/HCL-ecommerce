@@ -24,7 +24,6 @@ import com.hcl.ecomm.core.services.LoginService;
 		immediate = true,
 		enabled = true, 
 		service = DeleteCartItemService.class)
-@Designate(ocd = MagentoServiceConfig.class)
 public class DeleteCartItemServiceImpl implements DeleteCartItemService{
 
 	private static final Logger LOG = LoggerFactory.getLogger(DeleteCartItemServiceImpl.class);

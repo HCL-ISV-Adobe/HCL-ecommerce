@@ -27,7 +27,6 @@ import com.hcl.ecomm.core.services.LoginService;
 		immediate = true,
 		enabled = true, 
 		service = AddToCartService.class)
-@Designate(ocd = MagentoServiceConfig.class)
 public class AddToCartServiceImpl implements AddToCartService{
 
 	private static final Logger LOG = LoggerFactory.getLogger(AddToCartServiceImpl.class);
