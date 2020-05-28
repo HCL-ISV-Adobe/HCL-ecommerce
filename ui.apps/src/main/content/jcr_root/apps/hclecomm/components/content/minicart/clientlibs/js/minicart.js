@@ -15,16 +15,6 @@ $(document).ready(function () {
             cartId = cartIdArr[1];
         }
 
-    } else {
-        /// standard  cart id if cookies are not avliable
-        //document.cookie = "cartId = RntVBlSqoTTYDj3BepTMQybULNvY6Wbl";
-        //cartId = 'RntVBlSqoTTYDj3BepTMQybULNvY6Wbl';
-
-getLoad(' http://localhost:4503/bin/hclecomm/createCart',function(data){
-document.cookie="cartID="+data.message.cartid;
-cartId = 'data.message.cartid;
-
-});
     }
     if (cartId) {
         const xhttp = new XMLHttpRequest();
@@ -38,7 +28,7 @@ cartId = 'data.message.cartid;
                     getCountEle.innerHTML =
                         this.responseText;
 
-                } 
+                }
             }
         };
         xhttp.open("GET", "/bin/hclecomm/cartItemsCount?cartId=" + cartId, true);
@@ -47,7 +37,7 @@ cartId = 'data.message.cartid;
 
 
 });
-// method to show notification on empty cart 
+// method to show notification on empty cart
 const showEmptyCartNotification = () => {
     const getItemCount = $('#total-item-count').text();
     if ((getItemCount === '0' || getItemCount==="") && allowToShowNotification) {
@@ -59,23 +49,4 @@ const showEmptyCartNotification = () => {
     }
 
 
-}
-
-//Ajax method
-function getLoad(url,callBack){
-var xmlhttp= new XMLHttpRequest();
-xmlhttp.onreadystatechange=function(){
-if(xmlhttp.readyState==4 && xmlhttp.status==200){
-//console.log('response ', xmlhttp.responseText);
-try{
-var data=JSON.parse(xmlhttp.responseText);
-}catch(err){
-console.log("Error ",err.message);
-return;
-}
-callBack(data);
-}
-};
-xmlhttp.open("GET",url,true);
-xmlhttp.send();
 }

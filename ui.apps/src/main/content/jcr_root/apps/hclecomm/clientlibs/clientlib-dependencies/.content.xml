@@ -3,4 +3,4 @@
     jcr:primaryType="cq:ClientLibraryFolder"
     allowProxy="{Boolean}true"
     categories="[hclecomm.dependencies]"
-    embed="[hclecomm.vendor]"/>
+    embed="[hclecomm.vendor,granite.csrf.standalone]"/>
