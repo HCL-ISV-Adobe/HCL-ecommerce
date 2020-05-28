@@ -7,24 +7,28 @@
     <jcr:content
         cq:name="simplefragment"
         cq:parentPath="/content/dam/hclecomm"
+        cq:versionCreator="admin"
         dam:assetState="processed"
         jcr:description=""
-        jcr:lastModified="{Date}2020-05-07T15:24:51.699+05:30"
+        jcr:lastModified="{Date}2020-05-12T16:01:04.971+05:30"
         jcr:lastModifiedBy="admin"
         jcr:primaryType="dam:AssetContent"
         jcr:title="SimpleFragment"
         contentFragment="{Boolean}true"
-        lastFragmentSave="{Date}2020-05-07T15:24:51.699+05:30">
+        lastFragmentSave="{Date}2020-05-12T15:58:26.192+05:30">
         <associated
             jcr:primaryType="nt:unstructured"
             sling:resourceType="sling/collection">
             <sling:members jcr:primaryType="nt:unstructured"/>
         </associated>
         <metadata
-            dam:extracted="{Date}2020-05-07T15:23:28.253+05:30"
-            dam:sha1="a707bbbd119ddee44b14a7dbc17c1004223951de"
-            dam:size="{Long}319"
+            dam:extracted="{Date}2020-05-12T16:01:04.922+05:30"
+            dam:sha1="eea05b3274b5fd857c6fe0c3ad885f41680863b8"
+            dam:size="{Long}5563"
             dc:format="text/html"
+            dc:modified="{Date}2020-05-07T18:53:07.218+05:30"
+            jcr:lastModified="{Date}2020-05-12T16:01:04.814+05:30"
+            jcr:lastModifiedBy="admin"
             jcr:mixinTypes="[cq:Taggable]"
             jcr:primaryType="nt:unstructured"/>
         <model

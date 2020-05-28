@@ -1,0 +1,31 @@
+<div class ='product-details-cmp'>
+<div class ='product-details-cmp__img aem-Grid aem-Grid--9 aem-Grid--default--12'>
+   <img class ='product-details-cmp--product-img' src="${properties.fileReference}" alt="image"/>
+</div>
+<div class ='product-details-cmp__product-details aem-Grid aem-Grid--3 aem-Grid--default--12'>
+   <b class ='product-details-cmp__prduct-name'>${properties.productName} </b>
+   <div class='product-price-container'>
+      <span class="product-details-cmp__prduct-price-sign">$</span>
+      <p class ='product-details-cmp__prduct-price'></p>
+   </div>
+   <div class ='product-details-cmp__prduct--description'>${properties.description @ context='html'}</div>
+   <sly data-sly-resource="${'accordion' @ resourceType='hclecomm/components/content/accordion', decoration=true}"> </sly>
+   <p class="heading-product-item">${properties.fashionSize} </p>
+   <div data-sly-use.productsize="productdetailsuseapi.js">
+      <ul data-sly-list.product="${productsize.sizeSelect.listChildren}" class ='product-details-cmp__product-size'>
+         <li class ='product-details-cmp__product-size--item' onclick="onSizeSelection()">${product.size}</li>
+      </ul>
+      <p class="heading-product-item">${properties.selectedFashionSize} <span class ='select-size heading-product-item '></span> 
+      <p>
+   </div>
+   <p class="heading-product-item">${properties.quantity} </p>
+   <div class="qty">
+      <div>
+         <span class="minus" onclick = "onQuantityChnage('-')">-</span><input type="text"  class="quantity" 
+            onkeyup="onQuantityKeyUp(event)"
+            /><span class="plus" onclick = "onQuantityChnage('+')">+</span>
+      </div>
+      <div class ='btn-product-card'data-sly-resource="${'btn' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+      <p class ='product-details-cmp--no-product'>${properties.noProductAvailable}</p>
+   </div>
+</div>
