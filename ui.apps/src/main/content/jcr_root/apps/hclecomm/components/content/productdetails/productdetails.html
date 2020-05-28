@@ -25,7 +25,7 @@
             onkeyup="onQuantityKeyUp(event)"
             /><span class="plus" onclick = "onQuantityChnage('+')">+</span>
       </div>
-      <div class ='btn-product-card'data-sly-resource="${'btn' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+      <div class ='btn-product-card' onClick="addtoCart(sku)" data-sly-resource="${'btn' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
       <p class ='product-details-cmp--no-product'>${properties.noProductAvailable}</p>
    </div>
 </div>
