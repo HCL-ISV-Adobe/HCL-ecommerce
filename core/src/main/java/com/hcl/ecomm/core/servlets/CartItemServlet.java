@@ -58,7 +58,7 @@ public class CartItemServlet extends SlingSafeMethodsServlet {
 				productMap.put("price",itemsarr.get(i).getAsJsonObject().get("price").getAsInt());
 				productMap.put("quote_id",itemsarr.get(i).getAsJsonObject().get("quote_id").getAsString());
 				//productMap.put("image_url", checkNullString(itemsarr.get(i).getAsJsonObject().get("extension_attributes").getAsJsonObject().get("image_url").getAsString()));
-				productMap.put("image_url", "https://www.hcl.com/sites/default/files/main-logo.png");
+				productMap.put("image_url", "https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png");
 				list.add(productMap);
 				 cartArray = new Gson().toJsonTree(list).getAsJsonArray();
 
