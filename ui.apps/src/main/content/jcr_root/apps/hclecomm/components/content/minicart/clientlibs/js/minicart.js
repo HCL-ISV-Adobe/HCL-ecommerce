@@ -28,9 +28,11 @@ $(document).ready(function () {
                 if (this.responseText > 0) {
                     //$("#cart-item-count").addAttr("href");
                     $("#cart-item-count").attr('href', href);
-                    getCountEle.style.display = 'inline-flex';
-                    getCountEle.innerHTML =
-                        this.responseText;
+                    if(getCountEle)
+                    {
+                    	getCountEle.style.display = 'inline-flex';
+                    	getCountEle.innerHTML = this.responseText;
+                    }
 
                 } 
             }
