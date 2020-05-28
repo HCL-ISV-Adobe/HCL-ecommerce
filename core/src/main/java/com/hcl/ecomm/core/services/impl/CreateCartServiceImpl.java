@@ -8,7 +8,6 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.eclipse.jetty.http.HttpStatus;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
@@ -18,7 +17,6 @@ import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.hcl.ecomm.core.config.CreateCartServiceConfig;
 import com.hcl.ecomm.core.config.MagentoServiceConfig;
 import com.hcl.ecomm.core.services.CreateCartService;
 import com.hcl.ecomm.core.services.LoginService;
@@ -27,7 +25,7 @@ import com.hcl.ecomm.core.services.LoginService;
 		immediate = true,
 		enabled = true, 
 		service = CreateCartService.class)
-@Designate(ocd = CreateCartServiceConfig.class)
+@Designate(ocd = MagentoServiceConfig.class)
 public class CreateCartServiceImpl implements CreateCartService{
 
 	private static final Logger LOG = LoggerFactory.getLogger(CreateCartServiceImpl.class);

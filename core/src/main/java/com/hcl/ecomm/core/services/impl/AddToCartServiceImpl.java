@@ -19,7 +19,6 @@ import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.hcl.ecomm.core.config.AddToCartServiceConfig;
 import com.hcl.ecomm.core.config.MagentoServiceConfig;
 import com.hcl.ecomm.core.services.AddToCartService;
 import com.hcl.ecomm.core.services.LoginService;
@@ -28,7 +27,7 @@ import com.hcl.ecomm.core.services.LoginService;
 		immediate = true,
 		enabled = true, 
 		service = AddToCartService.class)
-@Designate(ocd = AddToCartServiceConfig.class)
+@Designate(ocd = MagentoServiceConfig.class)
 public class AddToCartServiceImpl implements AddToCartService{
 
 	private static final Logger LOG = LoggerFactory.getLogger(AddToCartServiceImpl.class);
