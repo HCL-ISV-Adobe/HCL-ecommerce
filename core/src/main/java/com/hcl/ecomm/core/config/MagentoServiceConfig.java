@@ -11,7 +11,9 @@ public @interface MagentoServiceConfig {
     String searchFieldDefaultValue = "store_id";
     String searchFieldValueDefaultValue = "2";
     String servicePathCartFetchItems = "/us/V1/guest-carts/";
-    String servicePathCartUpdateItems = "/V1/guest-carts/";
+	String guestCartItemDeletePah = "/us/V1/guest-carts/{cartId}/items/{itemId}";
+	String servicePathCartUpdateItems = "V1/guest-carts/";
+
 
     @AttributeDefinition(name = "All Products Service Path", description = "This is the API path for getting all products for a store", defaultValue = servicePathDefaultValue, type = AttributeType.STRING)
     String productService_servicePath() default servicePathDefaultValue;
@@ -24,6 +26,9 @@ public @interface MagentoServiceConfig {
 
     @AttributeDefinition(name = "Get Cart Items Service Path", description = "This is the API path for getting cart item details", defaultValue = servicePathCartFetchItems, type = AttributeType.STRING )
     String cartFetch_servicePath_string() default servicePathCartFetchItems;
+	
+	@AttributeDefinition(name = "GUEST CART ITEM DELETE SERVICE PATH", description = "This is guest cart item delete API path", defaultValue = guestCartItemDeletePah, type = AttributeType.STRING)
+    String deleteCartService_guestCartItemDeletePath() default guestCartItemDeletePah;
 
     @AttributeDefinition(name = "Update Cart Items Service Path", description = "This is the API path for getting cart item details", defaultValue = servicePathCartUpdateItems, type = AttributeType.STRING )
     String cartUpdate_servicePath_string() default servicePathCartUpdateItems;
