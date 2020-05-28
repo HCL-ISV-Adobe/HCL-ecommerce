@@ -93,6 +93,8 @@
 	}
 }
 
+
+
 @media only screen and (max-width: 768px) {
   .btn-secondary__disabled {
 	.cmp-button {
@@ -101,6 +103,34 @@
 
 	}
 }
+}
+
+.quaternary .cmp-button {
+    .btn();
+    padding: 5px 10px;
+    width: 100px;
+    border: 1px solid #666666;
+    color: #666666;
+    background: #ffffff;
+
+    &:hover {
+			background: #666;
+			color: #ffffff;
+		}
+}
+
+.quaternary__disabled {
+	.cmp-button {
+		.btn();
+        padding: 5px 10px;
+    	width: 100px;
+		border: 1px solid #666666;
+		color: #666666;
+		background: #ddd8d829;
+		&:hover {
+			cursor: auto;
+		}
+	}
 }
 
 .btn-ternary .cmp-button {
