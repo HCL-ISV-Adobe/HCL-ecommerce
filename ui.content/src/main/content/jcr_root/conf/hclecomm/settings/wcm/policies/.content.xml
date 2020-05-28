@@ -6,7 +6,7 @@
     <wcm jcr:primaryType="nt:unstructured">
         <foundation jcr:primaryType="nt:unstructured">
             <components jcr:primaryType="nt:unstructured">
-                <responsivegrid jcr:primaryType="nt:unstructured">
+                <responsivegrid jcr:primaryType="nt:unstructubred">
                     <content-default
                         jcr:description="Policy for editable layout containers"
                         jcr:lastModified="{Date}2020-04-21T12:44:51.668+05:30"
@@ -194,7 +194,7 @@
                 <button jcr:primaryType="nt:unstructured">
                     <policy_1588076880690
                         cq:styleDefaultClasses="btn-primary"
-                        jcr:lastModified="{Date}2020-04-29T00:59:05.439+05:30"
+                        jcr:lastModified="{Date}2020-05-26T22:28:12.306+05:30"
                         jcr:lastModifiedBy="admin"
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Button Policy"
@@ -225,6 +225,11 @@
                                         cq:styleId="1588078079745"
                                         cq:styleLabel="Link"
                                         jcr:primaryType="nt:unstructured"/>
+                                    <item4
+                                        cq:styleClasses="quaternary"
+                                        cq:styleId="1590511875429"
+                                        cq:styleLabel="Quaternary"
+                                        jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item0>
                             <item1
@@ -245,6 +250,11 @@
                                         cq:styleClasses="btn-ternary__disabled"
                                         cq:styleId="1588078157214"
                                         cq:styleLabel="Ternary"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item3
+                                        cq:styleClasses="quaternary__disabled"
+                                        cq:styleId="1590512272517"
+                                        cq:styleLabel="Quaternary"
                                         jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item1>
@@ -343,12 +353,12 @@
                 </footer>
                 <header jcr:primaryType="nt:unstructured">
                     <policy_1587530274257
-                        jcr:lastModified="{Date}2020-04-29T15:51:01.651+05:30"
+                        jcr:lastModified="{Date}2020-05-28T14:25:53.962+05:30"
                         jcr:lastModifiedBy="admin"
                         jcr:primaryType="nt:unstructured"
                         jcr:title="hclecomm header policy"
                         sling:resourceType="wcm/core/components/policy/policy"
-                        components="[/apps/hclecomm/components/content/title,/apps/hclecomm/components/content/button,group:hclecomm.Structure]">
+                        components="[/apps/hclecomm/components/content/button,/apps/hclecomm/components/content/minicart,/apps/hclecomm/components/content/title,group:hclecomm.Structure]">
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_1587530274257>
                 </header>
