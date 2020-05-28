@@ -343,12 +343,12 @@
                 </footer>
                 <header jcr:primaryType="nt:unstructured">
                     <policy_1587530274257
-                        jcr:lastModified="{Date}2020-04-29T15:51:01.651+05:30"
+                        jcr:lastModified="{Date}2020-05-28T14:25:53.962+05:30"
                         jcr:lastModifiedBy="admin"
                         jcr:primaryType="nt:unstructured"
                         jcr:title="hclecomm header policy"
                         sling:resourceType="wcm/core/components/policy/policy"
-                        components="[/apps/hclecomm/components/content/title,group:hclecomm.Structure]">
+                        components="[/apps/hclecomm/components/content/button,/apps/hclecomm/components/content/minicart,/apps/hclecomm/components/content/title,group:hclecomm.Structure]">
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_1587530274257>
                 </header>
