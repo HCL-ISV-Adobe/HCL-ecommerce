@@ -2,8 +2,9 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="cq:Page">
     <jcr:content
-        cq:lastModified="{Date}2020-04-28T15:42:11.579+05:30"
+        cq:lastModified="{Date}2020-05-25T14:04:08.551+05:30"
         cq:lastModifiedBy="admin"
+        cq:policy="hclecomm/components/structure/page/policy_content_page"
         jcr:primaryType="nt:unstructured"
         sling:resourceType="wcm/core/components/policies/mappings">
         <root
@@ -12,7 +13,12 @@
             <header
                 cq:policy="hclecomm/components/structure/header/policy_1587530274257"
                 jcr:primaryType="nt:unstructured"
-                sling:resourceType="wcm/core/components/policies/mapping"/>
+                sling:resourceType="wcm/core/components/policies/mapping">
+                <search
+                    cq:policy="hclecomm/components/structure/search/policy_1589453975454"
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="wcm/core/components/policies/mapping"/>
+            </header>
             <responsivegrid
                 cq:policy="wcm/foundation/components/responsivegrid/policy_600116016309972"
                 jcr:primaryType="nt:unstructured"
@@ -20,10 +26,34 @@
                 <hclecomm jcr:primaryType="nt:unstructured">
                     <components jcr:primaryType="nt:unstructured">
                         <content jcr:primaryType="nt:unstructured">
+                            <teaser
+                                cq:policy="hclecomm/components/content/teaser/policy_1588926494157"
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="wcm/core/components/policies/mapping"/>
+                            <carousel
+                                cq:policy="hclecomm/components/content/carousel/policy_1588575545478"
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="wcm/core/components/policies/mapping"/>
                             <text
                                 cq:policy="hclecomm/components/content/text/policy_1587978894650"
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="wcm/core/components/policies/mapping"/>
+                            <accordion
+                                cq:policy="hclecomm/components/content/accordion/policy_1588258216814"
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="wcm/core/components/policies/mapping"/>
+                            <container
+                                cq:policy="hclecomm/components/content/container/policy_1588584656785"
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="wcm/core/components/policies/mapping"/>
+                            <tabs
+                                cq:policy="hclecomm/components/content/tabs/policy_1588573168739"
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="wcm/core/components/policies/mapping"/>
+							<button 
+								jcr:primaryType="nt:unstructured" 
+								cq:policy="hclecomm/components/content/button/policy_1588076880690" 
+								sling:resourceType="wcm/core/components/policies/mapping"/>
                         </content>
                     </components>
                 </hclecomm>

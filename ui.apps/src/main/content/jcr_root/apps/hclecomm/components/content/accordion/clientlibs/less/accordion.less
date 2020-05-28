@@ -1,0 +1,61 @@
+.cmp-accordion__header {
+	margin: 0;
+	background-color: #4293f5;
+	/*background-color: #0060F0;*/
+	border-radius: 3px;
+}
+
+.cmp-accordion .cmp-accordion__button {
+	font-weight: bold;
+	font-size: 13px;
+	font-family: ns-serif;
+	color: #fff;
+	border: none;
+	border-bottom: 2px solid #ebebeb;
+	padding: 1em;
+	cursor: pointer;
+	background: none;
+	transition: 0.4s;
+	display: flex;
+	flex-direction: row;
+}
+
+.cmp-accordion .cmp-accordion__button--expanded .cmp-accordion__icon.fa.fa-plus:before {
+	content: '\f068';
+}
+
+.cmp-accordion .cmp-accordion__icon:before {
+	/*content : '\002B';*/
+	color: #fff;
+	font-size: 14px;
+	display: inline-block;
+	box-size: border-box;
+	padding: 6px;
+	font-weight: bold;
+}
+
+.cmp-accordion .cmp-accordion__title {
+	font-family: Source Sans Pro, Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-size: 1pc;
+	text-transform: uppercase;
+	font-weight: 600;
+	padding-left: .5em;
+	padding: 6px;
+	flex: 1;
+	text-align: left;
+}
+
+.cmp-accordion__button {
+	display: block;
+	width: 100%;
+	text-align: left;
+}
+
+.cmp-accordion__panel {
+	&--hidden {
+		display: none;
+	}
+	&--expanded {
+		display: block;
+	}
+}

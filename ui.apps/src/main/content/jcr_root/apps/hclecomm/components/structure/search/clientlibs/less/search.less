@@ -1,0 +1,80 @@
+/* search style */
+.search {
+    font-family: sans serif, Arial;
+	font-size:12px;
+ /* width: 96% !important; */
+  .cmp-search {
+    .cmp-search__field {
+      height: 38px;
+      i {
+        &.cmp-search__icon {
+          right: 0;
+          left: inherit;
+          background-image: none;
+          width: 45px;
+          height: 38px;
+          background: #333;
+          top: 0;
+          font-style: inherit;
+          display: block !important;
+
+          &:after {
+            content: "\f002";
+            font-family: FontAwesome;
+            color: #fff;
+            font-size: 18px;
+            position: absolute;
+            font-size: 18px;
+            font-weight: normal;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+
+      .cmp-search__input {
+        box-sizing: border-box;
+        padding-left: 10px;
+        padding-right: 45px;
+        border: 1px solid #e1e1e1;
+      }
+
+      .cmp-search__clear {
+        // display: none !important;
+        i {
+          &.cmp-search__clear-icon {
+            right: 52px;
+            top: 10px;
+          }
+        }
+      }
+    }
+
+    .cmp-search__results {
+      box-sizing: border-box;
+      width: 96.5%; 
+      min-width: inherit;
+      border-top: none;
+      padding: 5px 10px;
+
+      a {
+        &.cmp-search__item {
+          color: #333;
+          text-decoration: none;
+          cursor: pointer;
+          padding-bottom: 8px;
+
+          &:hover {
+            color: #333;
+            text-decoration: underline;
+          }
+                    .cmp-search__item-mark{
+						background-color: #2979be;
+                        color:#fff;
+                    }
+        }
+      }
+    }
+  }
+}

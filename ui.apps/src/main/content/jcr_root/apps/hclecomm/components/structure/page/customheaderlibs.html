@@ -1,6 +1,11 @@
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
 <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-     data-sly-call="${clientlib.css @ categories='hclecomm.base'}"/>
+     <sly data-sly-call="${clientlib.css @ categories='hclecomm.base'}" />
+     <sly data-sly-call="${clientlib.all @ categories='hclecomm.dependencies'}" />
+</sly>
 
+<!--/* Favicon */-->
+<sly data-sly-include="/apps/hclecomm/components/structure/page/favicons.html"></sly>
 <!--/* Include Context Hub */-->
-<sly data-sly-resource="${'contexthub' @ resourceType='granite/contexthub/components/contexthub'}"/>
+<!--<sly data-sly-resource="${'contexthub' @ resourceType='granite/contexthub/components/contexthub'}"/> -->

@@ -3,11 +3,10 @@
     jcr:primaryType="cq:Page">
     <en/>
     <jcr:content
-        cq:lastModified="{Date}2016-03-07T17:32:10.926+01:00"
+        cq:lastModified="{Date}2020-05-06T19:59:12.441+05:30"
         cq:lastModifiedBy="admin"
-        cq:redirectTarget="/content/hclecomm/us/en"
-        cq:template="/conf/hclecomm/settings/wcm/templates/content-page-template"
+        cq:template="/conf/hclecomm/settings/wcm/templates/hclecomm-content-page-template"
         jcr:primaryType="cq:PageContent"
         jcr:title="us"
-        sling:resourceType="foundation/components/redirect"/>
+        sling:resourceType="hclecomm/components/structure/page"/>
 </jcr:root>

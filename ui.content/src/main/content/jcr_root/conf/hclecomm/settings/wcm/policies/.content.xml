@@ -6,7 +6,7 @@
     <wcm jcr:primaryType="nt:unstructured">
         <foundation jcr:primaryType="nt:unstructured">
             <components jcr:primaryType="nt:unstructured">
-                <responsivegrid jcr:primaryType="nt:unstructured">
+                <responsivegrid jcr:primaryType="nt:unstructubred">
                     <content-default
                         jcr:description="Policy for editable layout containers"
                         jcr:lastModified="{Date}2020-04-21T12:44:51.668+05:30"
@@ -58,6 +58,20 @@
                 </container>
             </form>
             <content jcr:primaryType="nt:unstructured">
+                <carousel jcr:primaryType="nt:unstructured">
+                    <policy_1588575545478
+                        jcr:lastModified="{Date}2020-05-05T11:10:24.063+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="carousel policy"
+                        sling:resourceType="wcm/core/components/policy/policy"
+                        autopauseDisabled="true"
+                        autoplay="true"
+                        components="[/apps/hclecomm/components/content/image,/apps/hclecomm/components/content/teaser,/apps/hclecomm/components/content/text]"
+                        delay="5000">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                    </policy_1588575545478>
+                </carousel>
                 <text jcr:primaryType="nt:unstructured">
                     <policy_1587978894650
                         jcr:lastModified="{Date}2020-04-29T11:42:25.514+05:30"
@@ -180,7 +194,7 @@
                 <button jcr:primaryType="nt:unstructured">
                     <policy_1588076880690
                         cq:styleDefaultClasses="btn-primary"
-                        jcr:lastModified="{Date}2020-04-29T00:59:05.439+05:30"
+                        jcr:lastModified="{Date}2020-05-26T22:28:12.306+05:30"
                         jcr:lastModifiedBy="admin"
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Button Policy"
@@ -211,6 +225,11 @@
                                         cq:styleId="1588078079745"
                                         cq:styleLabel="Link"
                                         jcr:primaryType="nt:unstructured"/>
+                                    <item4
+                                        cq:styleClasses="quaternary"
+                                        cq:styleId="1590511875429"
+                                        cq:styleLabel="Quaternary"
+                                        jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item0>
                             <item1
@@ -232,11 +251,74 @@
                                         cq:styleId="1588078157214"
                                         cq:styleLabel="Ternary"
                                         jcr:primaryType="nt:unstructured"/>
+                                    <item3
+                                        cq:styleClasses="quaternary__disabled"
+                                        cq:styleId="1590512272517"
+                                        cq:styleLabel="Quaternary"
+                                        jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item1>
                         </cq:styleGroups>
                     </policy_1588076880690>
                 </button>
+                <accordion jcr:primaryType="nt:unstructured">
+                    <policy_1588258216814
+                        jcr:lastModified="{Date}2020-04-30T22:27:30.627+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Accordion Policy"
+                        sling:resourceType="wcm/core/components/policy/policy"
+                        allowedHeadingElements="[h2,h3,h4,h5,h6]"
+                        components="[/libs/wcm/foundation/components/responsivegrid,group:hclecomm.Content]"
+                        headingElement="h3">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                    </policy_1588258216814>
+                </accordion>
+				<container jcr:primaryType="nt:unstructured">
+                    <policy_1588584656785
+                        jcr:lastModified="{Date}2020-05-05T10:50:04.972+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="containerpolicy"
+                        sling:resourceType="wcm/core/components/policy/policy"
+                        allowedColorSwatches="rgb(180,127,127)"
+                        backgroundColorEnabled="true"
+                        backgroundImageEnabled="true"
+                        columns="12"
+                        components="[/libs/wcm/foundation/components/responsivegrid,group:hclecomm.Content]">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                    </policy_1588584656785>
+                </container>
+                <tabs jcr:primaryType="nt:unstructured">
+                    <policy_1588573168739
+                        cq:styleDefaultClasses="tabs_type1"
+                        jcr:lastModified="{Date}2020-05-12T11:18:20.977+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Tab Component"
+                        sling:resourceType="wcm/core/components/policy/policy"
+                        components="[/libs/wcm/foundation/components/responsivegrid,group:hclecomm.Content]">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <cq:styleGroups jcr:primaryType="nt:unstructured">
+                            <item0
+                                cq:styleGroupLabel="Tab Type"
+                                jcr:primaryType="nt:unstructured">
+                                <cq:styles jcr:primaryType="nt:unstructured">
+                                    <item0
+                                        cq:styleClasses="tabs_type1"
+                                        cq:styleId="1588829754895"
+                                        cq:styleLabel="Grey Tab"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item1
+                                        cq:styleClasses="tabs_type2"
+                                        cq:styleId="1588829767768"
+                                        cq:styleLabel="Blue Tab"
+                                        jcr:primaryType="nt:unstructured"/>
+                                </cq:styles>
+                            </item0>
+                        </cq:styleGroups>
+                    </policy_1588573168739>
+                </tabs>
             </content>
             <structure jcr:primaryType="nt:unstructured">
                 <page jcr:primaryType="nt:unstructured">
@@ -252,7 +334,7 @@
                         jcr:primaryType="nt:unstructured"
                         jcr:title="hclecomm Page Policy"
                         sling:resourceType="wcm/core/components/policy/policy"
-                        clientlibs="[hclecomm.dependencies,hclecomm.site]"
+                        clientlibs="[hclecomm.site]"
                         clientlibsJsHead="hclecomm.dependencies">
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_content_page>
@@ -271,15 +353,28 @@
                 </footer>
                 <header jcr:primaryType="nt:unstructured">
                     <policy_1587530274257
-                        jcr:lastModified="{Date}2020-04-29T15:51:01.651+05:30"
+                        jcr:lastModified="{Date}2020-05-28T14:25:53.962+05:30"
                         jcr:lastModifiedBy="admin"
                         jcr:primaryType="nt:unstructured"
                         jcr:title="hclecomm header policy"
                         sling:resourceType="wcm/core/components/policy/policy"
-                        components="[/apps/hclecomm/components/content/title,group:hclecomm.Structure]">
+                        components="[/apps/hclecomm/components/content/button,/apps/hclecomm/components/content/minicart,/apps/hclecomm/components/content/title,group:hclecomm.Structure]">
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_1587530274257>
                 </header>
+                <search jcr:primaryType="nt:unstructured">
+                    <policy_1589453975454
+                        jcr:lastModified="{Date}2020-05-14T16:30:28.067+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Search Policy"
+                        sling:resourceType="wcm/core/components/policy/policy"
+                        resultsSize="10"
+                        searchRoot="/content/hclecomm"
+                        searchTermMinimumLength="3">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                    </policy_1589453975454>
+                </search>				
             </structure>
         </components>
     </hclecomm>
