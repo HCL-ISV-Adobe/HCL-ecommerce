@@ -1,4 +1,10 @@
-var sku = "24-WG087";
+//var sku = "24-MB01";
+
+var getUrl=window.location.href;
+var url = new URL(getUrl);
+var prodSku = url.searchParams.get("prodSku");
+console.log(prodSku);
+
 $(document).ready(function () {
 	$('.quantity').val("1");
 	$('.product-details-cmp__prduct-price-sign').css("display", "none");
@@ -32,7 +38,7 @@ $(document).ready(function () {
 
 		}
 	};
-	xhttp.open("GET", "/bin/hclecomm/productDetails?sku=" + sku, true);
+	xhttp.open("GET", "/bin/hclecomm/productDetails?sku=" + prodSku, true);
 	xhttp.send();
 
 
@@ -115,10 +121,9 @@ function getCookie(name, callback) {
        // return cartId;
  }
 function callback(cartId) {
-    var inpValue=parseInt(document.querySelector(".productdetails .qty input[type='text']").value),
-	sku='24-MB01';
+    var inpValue=parseInt(document.querySelector(".productdetails .qty input[type='text']").value);
 	var data={
-  "sku": sku,
+  "sku": prodSku,
   "cartid": cartId,
   "qty": inpValue
 	}
