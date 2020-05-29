@@ -9,8 +9,8 @@ $(document).ready(function () {
 	$('.quantity').val("1");
 	$('.product-details-cmp__prduct-price-sign').css("display", "none");
 	$('.product-details-cmp--no-product').css("display", "none");
-	$('.cmp-button').addClass("btn-product-card-disabled");
-	$(".cmp-button").attr('disabled', 'disabled');
+	$('.btn-product-card').addClass("btn-product-card-disabled");
+	$(".btn-product-card").attr('disabled', 'disabled');
 	const firstSizeSelected = $(".product-details-cmp__product-size--item:first-child").text();
 	$('.select-size').text(firstSizeSelected);
 	$(".product-details-cmp__product-size--item:first-child").addClass("selected-size");
@@ -25,12 +25,12 @@ $(document).ready(function () {
 			$(".product-details-cmp__prduct-price").text(productDetail[0].price);
 			const isProductAvilable = (productDetail[0].stock === 'true');
 			if (!isProductAvilable) {
-				$('.cmp-button').addClass("btn-product-card-disabled");
-				$(".cmp-button").attr('disabled', 'disabled');
+				$('.btn-product-card').children().children().addClass("btn-product-card-disabled");
+				$(".btn-product-card").attr('disabled', 'disabled');
 				$('.product-details-cmp--no-product').css("display", "block");
 			} else {
-				$('.cmp-button').removeClass("btn-product-card-disabled");
-				$(".cmp-button").removeAttr('disabled');
+				$('.btn-product-card').removeClass("btn-product-card-disabled");
+				$(".btn-product-card").removeAttr('disabled');
 				$('.product-details-cmp--no-product').css("display", "none");
 
 			}
@@ -40,7 +40,6 @@ $(document).ready(function () {
 	};
 	xhttp.open("GET", "/bin/hclecomm/productDetails?sku=" + prodSku, true);
 	xhttp.send();
-
 
 });
 
@@ -57,7 +56,7 @@ function onSizeSelection() {
 function onQuantityChnage(para) {
 	let getQuant = Number($('.quantity').val());
 	if (para === '-') {
-		if (getQuant === 0) {
+		if (getQuant === 1) {
 			return
 		} else {
 			getQuant = getQuant - 1;
@@ -78,7 +77,7 @@ function onQuantityChnage(para) {
 
 function onQuantityKeyUp(event) {
 	const getCount = event.target.value;
-	getCount < 0 ? $('.quantity').val(0) : null;
+	getCount < 1 ? $('.quantity').val(1) : null;
 	getCount > 999 ? $('.quantity').val(999) : null;
 }
 

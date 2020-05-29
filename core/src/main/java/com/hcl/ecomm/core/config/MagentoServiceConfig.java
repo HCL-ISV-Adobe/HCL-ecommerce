@@ -11,6 +11,7 @@ public @interface MagentoServiceConfig {
     String searchFieldDefaultValue = "store_id";
     String searchFieldValueDefaultValue = "2";
     String servicePathCartFetchItems = "/us/V1/guest-carts/";
+
 	String addToCartPath = "/us/V1/guest-carts/{cartId}/items";
 	String updateCartItemPath = "/us/V1/guest-carts/{cartId}/items/{ItemId}";
 	String emptyCartPah = "/us/V1/guest-carts";
@@ -39,6 +40,7 @@ public @interface MagentoServiceConfig {
 	
 	@AttributeDefinition(name = "GUEST_CART_ITEM_DELETE_SERVICE_PATH", description = "This is guest cart item delete API path", defaultValue = guestCartItemDeletePah, type = AttributeType.STRING)
 	String magentoService_guestCartItemDeletePath() default guestCartItemDeletePah;
+
 
 }
 
