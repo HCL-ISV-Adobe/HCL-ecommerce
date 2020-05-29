@@ -1,31 +1,30 @@
 $(document).ready(function () {
                 var value = $('#mydiv').data('custom-property');
-    
                 let cartId = '';
 
-                const getCookies = document.cookie;
+                //const getCookies = document.cookie;
                 const getCountEle = document.getElementById("total-item-count");
 
-                if (getCookies.indexOf('cartId') > -1) {
+       const getCookies = document.cookie;
+     if (getCookies.indexOf('cartId') > -1) {
+        const cookiesCartID = getCookies.split(';');
+        cookiesCartID  && cookiesCartID.length >0 ?
+        Object.keys(cookiesCartID).forEach((cookiesCartIDitem) =>{
+            const splitCookies  = cookiesCartID[cookiesCartIDitem].split('=')                     
+                if(splitCookies[0] === 'cartId' || splitCookies[0] === ' cartId')  {
+                cartId= splitCookies[1];
+            }
+    }):null
+        }
 
-                                const cookiesCartID = getCookies.split(';');
-                                if (cookiesCartID && cookiesCartID.length > 0) {
+        else {
 
-                                                cookiesCartID.forEach(function (cookiesCartIDItem) {
-                                                                if ((cookiesCartIDItem).indexOf(cartId) > -1) {
-                                                                                const cartIdArr = cookiesCartIDItem.split('=')
-                                                                                cartId = cartIdArr[1];
+                    			//$(".product").text("shopping cart is empty");
+                                //document.cookie = "cartId = j7KaMe1zWFfopDFOVTdFZV0rokpjwzam";
+                                //cartId = 'j7KaMe1zWFfopDFOVTdFZV0rokpjwzam';
 
-                                                                }
-                                                })
-                                }
-
-                } else {
-
-                                document.cookie = "cartId = j7KaMe1zWFfopDFOVTdFZV0rokpjwzam";
-                                cartId = 'j7KaMe1zWFfopDFOVTdFZV0rokpjwzam';
                 }
-
+				let target = document.querySelector(".product");
 
                 if (cartId) {
 
@@ -46,11 +45,13 @@ $(document).ready(function () {
                                                 xmlhttp.open("GET", url, true);
                                                 xmlhttp.send();
                                 }
-                }
 
-                getLoad("/bin/hclecomm/cartproducts?cartId=" + cartId, function (data) {
 
-                                let target = document.querySelector(".product");
+
+
+                getLoad("/bin/hclecomm/cartproducts?cartId=" +cartId, function (data) {
+
+                                //let target = document.querySelector(".product");
 
 
                                 let result = data.map((item) => {
@@ -85,6 +86,9 @@ $(document).ready(function () {
 
                                 }).join('');
                                 target.innerHTML = result;
+
+
+
                                 data.map((it, key) => {
                                                 document.querySelectorAll(".cmp-cart-items input")[key].addEventListener('keyup', qty);
 
@@ -103,6 +107,11 @@ $(document).ready(function () {
 
 
                 });
+           }
+           else{
+
+                                    target.innerHTML='<p> There is no product in the cart </p>';
+                         }
 
                 function qty(evt) {
                                 console.log("inp", this.parentNode.parentNode.parentNode.parentNode.parentNode.id)
