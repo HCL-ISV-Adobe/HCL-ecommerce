@@ -11,7 +11,7 @@ $(document).ready(function () {
         const cookiesCartID = getCookies.split(';');
         cookiesCartID  && cookiesCartID.length >0 ?
         Object.keys(cookiesCartID).forEach((cookiesCartIDitem) =>{
-            const splitCookies  = cookiesCartID[cookiesCartIDitem].split('=')                     
+            const splitCookies  = cookiesCartID[cookiesCartIDitem].split('=')
                 if(splitCookies[0] === 'cartId' || splitCookies[0] === ' cartId')  {
                 cartId= splitCookies[1];
             }
@@ -70,9 +70,9 @@ $(document).ready(function () {
                                                 <span class="cmp-cart-item-code">Code : ${item.sku}</span>
                                                                 </div>
                                           <div class="cmp-cart-quantity">
-                                            <span class="fa fa-minus"></span>        
-                                       <input class="cmp-cart-qty-input" type="number" value=${item.qty} id="number" />                                    
-                                             <span class="fa fa-plus"></span>   
+                                            <span class="fa fa-minus"></span>
+                                       <input class="cmp-cart-qty-input" type="number" value=${item.qty} id="number" />
+                                             <span class="fa fa-plus"></span>
                                         </div>
 											<div class="cmp-cart-price" style="display:none">${item.price}</div>
                                        <div class="cmp-cart-total"><i class="fa fa-usd" style="margin-right:5px"></i><span>${(item.price*item.qty).toFixed(2)}</span></div>
@@ -166,8 +166,27 @@ $(document).ready(function () {
         getFinalCount[individualItemCount].textContent ?
         getSumOfAllItem = getSumOfAllItem  + Number(getFinalCount[individualItemCount].textContent) : null;
    }): null;
-       console.log(getSumOfAllItem);
-		$('.total-bag-count').text(getSumOfAllItem);
+
+      totalBagPrice = getSumOfAllItem;
+			bagDiscount = Number($('.bag-discount-amount').text());;
+			deliveryCharges = Number($('.delivery-charges').text());
+
+			$('.total-bag-count').text(getSumOfAllItem);
+			if(allowCouponOnce)
+            {
+				$('.order-price').text((getSumOfAllItem - bagDiscount).toFixed(2));
+                $('.total-price').text((getSumOfAllItem - bagDiscount + deliveryCharges).toFixed(2));
+            }
+			else
+            {
+
+                const calculatedPrice = (getSumOfAllItem * (1-discountedPercentage)) - bagDiscount;
+                const discountedPrice = (getSumOfAllItem * discountedPercentage );
+
+                $('.coupon-discount-amount').text(discountedPrice.toFixed(2));
+                $('.order-price').text(calculatedPrice.toFixed(2));
+                $('.total-price').text((calculatedPrice + deliveryCharges).toFixed(2));
+            }
 		}
 
 
