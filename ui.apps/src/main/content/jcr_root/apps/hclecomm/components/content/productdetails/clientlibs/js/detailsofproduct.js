@@ -1,16 +1,11 @@
-//var sku = "24-MB01";
-
-var getUrl=window.location.href;
-var url = new URL(getUrl);
-var prodSku = url.searchParams.get("prodSku");
-console.log(prodSku);
-
+let prodSku ="";
 $(document).ready(function () {
 	$('.quantity').val("1");
 	$('.product-details-cmp__prduct-price-sign').css("display", "none");
 	$('.product-details-cmp--no-product').css("display", "none");
 	$('.btn-product-card').addClass("btn-product-card-disabled");
 	$(".btn-product-card").attr('disabled', 'disabled');
+    prodSku = $(".product-sku").text();
 	const firstSizeSelected = $(".product-details-cmp__product-size--item:first-child").text();
 	$('.select-size').text(firstSizeSelected);
 	$(".product-details-cmp__product-size--item:first-child").addClass("selected-size");
@@ -45,7 +40,7 @@ $(document).ready(function () {
 
 function onSizeSelection() {
 	$(".selected-size").removeClass("selected-size");
-	//$(this).addClass("selected-size");
+	
 
 
 	$target = $(event.target);
@@ -76,6 +71,10 @@ function onQuantityChnage(para) {
 
 
 function onQuantityKeyUp(event) {
+ if(!Number(event.target.value)){
+      $('.quantity').val(1);
+     return
+ }
 	const getCount = event.target.value;
 	getCount < 1 ? $('.quantity').val(1) : null;
 	getCount > 999 ? $('.quantity').val(999) : null;
@@ -90,16 +89,14 @@ function getCookie(name, callback) {
             var cookiePair = cookieArr[i].split("=");
             if(name == cookiePair[0].trim()) {
                 cartId = decodeURIComponent(cookiePair[1]);;
-                //return cartId;
+            
 				callback(cartId);
             }
         }
 
     	if(!cartId)
         {
-			 /// standard  cart id if cookies are not avliable
-        	//document.cookie = "cartId = j7KaMe1zWFfopDFOVTdFZV0rokpjwzam";
-        	//cartId = 'j7KaMe1zWFfopDFOVTdFZV0rokpjwzam';
+			 
             const xhttp = new XMLHttpRequest();
        		 xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
