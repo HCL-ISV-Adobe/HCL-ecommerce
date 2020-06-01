@@ -1,5 +1,6 @@
 $(document).ready(function () {
                 var value = $('#mydiv').data('custom-property');
+    console.log(value);
                 let cartId = '';
 
                 //const getCookies = document.cookie;
@@ -85,7 +86,9 @@ $(document).ready(function () {
                                                 );
 
                                 }).join('');
+                    			if(target)
                                 target.innerHTML = result;
+								updateCartTotal();
 
 
 
@@ -96,7 +99,7 @@ $(document).ready(function () {
                                 var mybagcount = bagCount(data);
                                 console.log(mybagcount);
 
-                                $(".productcart").prepend(("<h4><span >" + value + "</span>(" + mybagcount + " items)</h4>"));
+                                $(".product").prepend(("<h4><span >" + value + "</span>(" + mybagcount + " items)</h4>"));
 
                                 for (var k = 0; document.querySelectorAll(".cmp-cart-items span.fa").length > k; k++) {
                                                 document.querySelectorAll(".cmp-cart-items span.fa")[k].addEventListener('click', qty);
@@ -150,24 +153,22 @@ $(document).ready(function () {
                 function pTotal(inpV, price, id) {
 				console.log("inpv ",inpV," proce: ",price, " id ",id);
                                 document.querySelector("#" + id + " .cmp-cart-total span").innerHTML = (inpV * price).toFixed(2);
+                    updateCartTotal();
                 }
 
 
-                function updateCartTotal() {
+              function updateCartTotal() {
 
-                                var cartItemContainer = document.getElementsByClassName('cmp-cart-items')[0];
-                                var cartrows = cartItemContainer.getElementsByClassName('cmp-cart-row');
-
-                                for (var i = 0; i < cartrows.length; i++) {
-                                                var cartInvididualRow = cartrows[i];
-                                                var priceElement = cartInvididualRow.getElementsByClassName('cmp-cart-price')[0];
-
-                                                var qtyElement = cartInvididualRow.getElementsByClassName('cmp-cart-qty-input')[0];
-                                                console.log(priceElement, qtyElement);
-
-
-                                }
-                }
+		let getSumOfAllItem = 0
+   		const getFinalCount =  $('.cmp-cart-total').children();
+   		getFinalCount && getFinalCount.length > 0 ?
+   		Object.keys(getFinalCount).forEach((individualItemCount) =>{
+        getFinalCount[individualItemCount].textContent ?
+        getSumOfAllItem = getSumOfAllItem  + Number(getFinalCount[individualItemCount].textContent) : null;
+   }): null;
+       console.log(getSumOfAllItem);
+		$('.total-bag-count').text(getSumOfAllItem);
+		}
 
 
 });
