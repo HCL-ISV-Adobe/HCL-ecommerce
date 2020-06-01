@@ -4,6 +4,7 @@
 </div>
 <div class ='product-details-cmp__product-details aem-Grid aem-Grid--3 aem-Grid--default--12'>
    <b class ='product-details-cmp__prduct-name'>${properties.productName} </b>
+   <p class= 'product-sku'>${properties.productSku}</p>
    <div class='product-price-container'>
       <span class="product-details-cmp__prduct-price-sign">$</span>
       <p class ='product-details-cmp__prduct-price'></p>
@@ -22,7 +23,7 @@
    <div class="qty">
       <div>
          <span class="minus" onclick = "onQuantityChnage('-')">-</span><input type="text"  class="quantity" 
-            onkeyup="onQuantityKeyUp(event)"
+            onkeyup="onQuantityKeyUp(event)" 
             /><span class="plus" onclick = "onQuantityChnage('+')">+</span>
       </div>
       <div class ='btn-product-card' onClick="addtoCart()" data-sly-resource="${'btn' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
