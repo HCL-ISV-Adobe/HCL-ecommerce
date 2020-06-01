@@ -1,5 +1,6 @@
 $(document).ready(function () {
                 var value = $('#mydiv').data('custom-property');
+    console.log(value);
                 let cartId = '';
 
                 //const getCookies = document.cookie;
@@ -10,7 +11,7 @@ $(document).ready(function () {
         const cookiesCartID = getCookies.split(';');
         cookiesCartID  && cookiesCartID.length >0 ?
         Object.keys(cookiesCartID).forEach((cookiesCartIDitem) =>{
-            const splitCookies  = cookiesCartID[cookiesCartIDitem].split('=')                     
+            const splitCookies  = cookiesCartID[cookiesCartIDitem].split('=')
                 if(splitCookies[0] === 'cartId' || splitCookies[0] === ' cartId')  {
                 cartId= splitCookies[1];
             }
@@ -69,9 +70,9 @@ $(document).ready(function () {
                                                 <span class="cmp-cart-item-code">Code : ${item.sku}</span>
                                                                 </div>
                                           <div class="cmp-cart-quantity">
-                                            <span class="fa fa-minus"></span>        
-                                       <input class="cmp-cart-qty-input" type="number" value=${item.qty} id="number" />                                    
-                                             <span class="fa fa-plus"></span>   
+                                            <span class="fa fa-minus"></span>
+                                       <input class="cmp-cart-qty-input" type="number" value=${item.qty} id="number" />
+                                             <span class="fa fa-plus"></span>
                                         </div>
 											<div class="cmp-cart-price" style="display:none">${item.price}</div>
                                        <div class="cmp-cart-total"><i class="fa fa-usd" style="margin-right:5px"></i><span>${(item.price*item.qty).toFixed(2)}</span></div>
@@ -85,7 +86,9 @@ $(document).ready(function () {
                                                 );
 
                                 }).join('');
+                    			if(target)
                                 target.innerHTML = result;
+								updateCartTotal();
 
 
 
@@ -96,7 +99,7 @@ $(document).ready(function () {
                                 var mybagcount = bagCount(data);
                                 console.log(mybagcount);
 
-                                $(".productcart").prepend(("<h4><span >" + value + "</span>(" + mybagcount + " items)</h4>"));
+                                $(".product").prepend(("<h4><span >" + value + "</span>(" + mybagcount + " items)</h4>"));
 
                                 for (var k = 0; document.querySelectorAll(".cmp-cart-items span.fa").length > k; k++) {
                                                 document.querySelectorAll(".cmp-cart-items span.fa")[k].addEventListener('click', qty);
@@ -150,24 +153,41 @@ $(document).ready(function () {
                 function pTotal(inpV, price, id) {
 				console.log("inpv ",inpV," proce: ",price, " id ",id);
                                 document.querySelector("#" + id + " .cmp-cart-total span").innerHTML = (inpV * price).toFixed(2);
+                    updateCartTotal();
                 }
 
 
-                function updateCartTotal() {
+              function updateCartTotal() {
 
-                                var cartItemContainer = document.getElementsByClassName('cmp-cart-items')[0];
-                                var cartrows = cartItemContainer.getElementsByClassName('cmp-cart-row');
+		let getSumOfAllItem = 0
+   		const getFinalCount =  $('.cmp-cart-total').children();
+   		getFinalCount && getFinalCount.length > 0 ?
+   		Object.keys(getFinalCount).forEach((individualItemCount) =>{
+        getFinalCount[individualItemCount].textContent ?
+        getSumOfAllItem = getSumOfAllItem  + Number(getFinalCount[individualItemCount].textContent) : null;
+   }): null;
 
-                                for (var i = 0; i < cartrows.length; i++) {
-                                                var cartInvididualRow = cartrows[i];
-                                                var priceElement = cartInvididualRow.getElementsByClassName('cmp-cart-price')[0];
+      totalBagPrice = getSumOfAllItem;
+			bagDiscount = Number($('.bag-discount-amount').text());;
+			deliveryCharges = Number($('.delivery-charges').text());
 
-                                                var qtyElement = cartInvididualRow.getElementsByClassName('cmp-cart-qty-input')[0];
-                                                console.log(priceElement, qtyElement);
+			$('.total-bag-count').text(getSumOfAllItem);
+			if(allowCouponOnce)
+            {
+				$('.order-price').text((getSumOfAllItem - bagDiscount).toFixed(2));
+                $('.total-price').text((getSumOfAllItem - bagDiscount + deliveryCharges).toFixed(2));
+            }
+			else
+            {
 
+                const calculatedPrice = (getSumOfAllItem * (1-discountedPercentage)) - bagDiscount;
+                const discountedPrice = (getSumOfAllItem * discountedPercentage );
 
-                                }
-                }
+                $('.coupon-discount-amount').text(discountedPrice.toFixed(2));
+                $('.order-price').text(calculatedPrice.toFixed(2));
+                $('.total-price').text((calculatedPrice + deliveryCharges).toFixed(2));
+            }
+		}
 
 
 });
