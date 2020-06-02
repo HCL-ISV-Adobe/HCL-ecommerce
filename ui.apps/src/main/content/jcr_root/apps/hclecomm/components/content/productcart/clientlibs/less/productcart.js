@@ -1,5 +1,6 @@
 $(document).ready(function () {
-                var value = $('#mydiv').data('custom-property');
+    $('.cartproductdisplay').css('display', 'none');
+    var value = $('#mydiv').data('custom-property');
     console.log(value);
                 let cartId = '';
 
@@ -98,8 +99,16 @@ $(document).ready(function () {
                                 });
                                 var mybagcount = bagCount(data);
                                 console.log(mybagcount);
+    							if(mybagcount == 0){
 
-                                $(".product").prepend(("<h4><span >" + value + "</span>(" + mybagcount + " items)</h4>"));
+								$('.cartproductdisplay').css('display', 'none');
+
+								$(".product").prepend(("<h4><span >" + value + "</span><div>Shopping Bag is Empty.You need to add item to cart</div></h4>"));
+                                }
+    							else{
+                                    $('.cartproductdisplay').css('display', 'block');
+									 $(".product").prepend(("<h4><span >" + value + "</span>(" + mybagcount + " items)</h4>"));
+                                }
 
                                 for (var k = 0; document.querySelectorAll(".cmp-cart-items span.fa").length > k; k++) {
                                                 document.querySelectorAll(".cmp-cart-items span.fa")[k].addEventListener('click', qty);
@@ -168,6 +177,7 @@ $(document).ready(function () {
    }): null;
 
       totalBagPrice = getSumOfAllItem;
+        
 			bagDiscount = Number($('.bag-discount-amount').text());;
 			deliveryCharges = Number($('.delivery-charges').text());
 
@@ -187,6 +197,7 @@ $(document).ready(function () {
                 $('.order-price').text(calculatedPrice.toFixed(2));
                 $('.total-price').text((calculatedPrice + deliveryCharges).toFixed(2));
             }
+
 		}
 
 
