@@ -2,48 +2,50 @@ const totalBagPrice = Number($('.total-bag-count').text());
 const bagDiscount = Number($('.bag-discount-amount').text());;
 const deliveryCharges = Number($('.delivery-charges').text());
 let placeOrderRedirection = null;
-const discount = 10;
+let discount = 0;
 
 let allowCouponOnce = true;
 
 function onApplyCoupon(){
 
-    $(document).on('newMessage', function(e, eventInfo) {
-//  	   console.log(eventInfo);
-//        console.log(e);
-	});
-
     const getApppliedCoupon = $('.cart-detail-container__apply-coupon').val();
-
-    if(getApppliedCoupon === 'HCL2020')
-    {
-        if(allowCouponOnce) {
-            const discountedPercentage = discount/100;
-            const calculatedPrice = (totalBagPrice * (1-discountedPercentage)) - bagDiscount;
-            const discountedPrice = (totalBagPrice * discountedPercentage );
-            $('.coupon-discount').css("display","flex");
-            $('.coupon-discount-amount').text(discountedPrice);
-            $('.order-price').text(calculatedPrice);
-            $('.total-price').text(calculatedPrice + deliveryCharges);
-            $('.apply-coupon-validation').text('Coupon Applied Sucessfully').css("color", "green");
-
-            allowCouponOnce = false;
-        }
-        else
-        {
-			 $('.apply-coupon-validation').text('Coupon already Applied.')
-        }
-    }
-    else if(getApppliedCoupon === ''){
-		$('.apply-coupon-validation').text('Please enter a coupon').css("color", "red");
+	if(getApppliedCoupon === ''){
+        $('.apply-coupon-validation').text('Please enter a coupon').css("color", "red");
         if(!allowCouponOnce)
-       		 removeCoupon();
-     }
-    else{
-    	$('.apply-coupon-validation').text('Your Coupon is not valid').css("color", "red");
-		 if(!allowCouponOnce)
-        	removeCoupon();
+       		removeCoupon();
+			return;
     }
+            const xhttp = new XMLHttpRequest();
+    		discount = "";
+            xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                if(this.responseText)
+                     discount = this.responseText;
+                	 removeCoupon();
+                     if(discount)
+                    {
+                            const discountedPercentage = discount/100;
+                            const calculatedPrice = (totalBagPrice * (1-discountedPercentage)) - bagDiscount;
+                            const discountedPrice = (totalBagPrice * discountedPercentage );
+                            $('.coupon-discount').css("display","flex");
+                            $('.coupon-discount-amount').text(discountedPrice);
+                            $('.order-price').text(calculatedPrice);
+                            $('.total-price').text(calculatedPrice + deliveryCharges);
+                            $('.apply-coupon-validation').text('Coupon Applied Sucessfully').css("color", "green");
+
+                            allowCouponOnce = false;
+
+                    }
+                    else{
+                        $('.apply-coupon-validation').text('Your Coupon is not valid').css("color", "red");
+                         if(!allowCouponOnce)
+                            removeCoupon();
+                    }
+
+    }
+  };
+ 	xhttp.open("GET", "/bin/hclecomm/applyCoupon?coupon=" +  getApppliedCoupon, true);
+    xhttp.send();
 }
 
 

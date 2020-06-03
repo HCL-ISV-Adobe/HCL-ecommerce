@@ -654,6 +654,15 @@
                 <version>1.0.1</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>com.adobe.acs</groupId>
+                <artifactId>acs-aem-commons-content</artifactId>
+                <version>4.7.0</version>
+                <scope>provided</scope>
+                <type>content-package</type>
+                <classifier>min</classifier>            <!-- optional, see below -->
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
