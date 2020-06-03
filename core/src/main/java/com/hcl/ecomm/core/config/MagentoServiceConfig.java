@@ -17,7 +17,10 @@ public @interface MagentoServiceConfig {
 	String emptyCartPah = "/us/V1/guest-carts";
 	String guestCartItemDeletePah = "/us/V1/guest-carts/{cartId}/items/{itemId}";
     String servicePathCartUpdateItems = "V1/guest-carts/";
-
+    
+    //Customer API
+    String customerSignupPath = "/V1/customers";
+    String customerSigninPath = "/V1/integration/customer/token";
 
     @AttributeDefinition(name = "All Products Service Path", description = "This is the API path for getting all products for a store", defaultValue = servicePathDefaultValue, type = AttributeType.STRING)
     String productService_servicePath() default servicePathDefaultValue;
@@ -45,6 +48,12 @@ public @interface MagentoServiceConfig {
 
     @AttributeDefinition(name = "Update Cart Items Service Path", description = "This is the API path for getting cart item details", defaultValue = servicePathCartUpdateItems, type = AttributeType.STRING )
     String cartUpdate_servicePath_string() default servicePathCartUpdateItems;
+    
+    @AttributeDefinition(name = "Customer Signup Service Path", description = "This is the API path for new customer signup", defaultValue = customerSignupPath, type = AttributeType.STRING )
+    String customerService_signupPath() default customerSignupPath;
+    
+    @AttributeDefinition(name = "Customer Signin Service Path", description = "This is the API path for signin", defaultValue = customerSigninPath, type = AttributeType.STRING )
+    String customerService_signinPath() default customerSigninPath;
 
 
 }

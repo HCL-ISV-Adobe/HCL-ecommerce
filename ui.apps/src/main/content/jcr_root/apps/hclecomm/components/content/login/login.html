@@ -1,0 +1,17 @@
+<form>
+	<h2>${properties.loginScreenTitle}</h2>
+	<label for="inputEmail">${properties.usernameLabel}</label> 
+	<input type="TEXT" id="userId"  placeholder="${properties.usernamePlaceholder}" required autofocus> 
+	<label for="inputPassword">${properties.passwordLabel}</label>
+	<input type="password" id="inputPassword" class="form-control" placeholder="${properties.passwordPlaceholder}" required>
+
+	<div>
+		<label> <input type="checkbox" value="remember-me"
+			id="rememberMe"> ${properties.rememberMeLabel}
+		</label>
+	</div>
+
+	<button id="signinButton">${properties.signinButtonLabel}</button>
+
+	<div id="siginErrorDiv"></div>
+</form>
