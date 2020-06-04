@@ -3,7 +3,7 @@ let bagDiscount = Number($('.bag-discount-amount').text());;
 let deliveryCharges = Number($('.delivery-charges').text());
 let placeOrderRedirection = null;
 let discount = 0;
-const discountedPercentage = discount/100;
+let discountedPercentage = discount/100;
 
 let allowCouponOnce = true;
 
@@ -25,13 +25,13 @@ function onApplyCoupon(){
                 	 removeCoupon();
                      if(discount)
                     {
-                            const discountedPercentage = discount/100;
+                            discountedPercentage = discount/100;
                             const calculatedPrice = (totalBagPrice * (1-discountedPercentage)) - bagDiscount;
                             const discountedPrice = (totalBagPrice * discountedPercentage );
                             $('.coupon-discount').css("display","flex");
-                            $('.coupon-discount-amount').text(discountedPrice);
-                            $('.order-price').text(calculatedPrice);
-                            $('.total-price').text(calculatedPrice + deliveryCharges);
+                            $('.coupon-discount-amount').text(discountedPrice.toFixed(2));
+                            $('.order-price').text(calculatedPrice.toFixed(2));
+                            $('.total-price').text((calculatedPrice + deliveryCharges).toFixed(2));
                             $('.apply-coupon-validation').text('Coupon Applied Sucessfully').css("color", "green");
                             allowCouponOnce = false;
                     }
