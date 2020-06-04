@@ -40,6 +40,7 @@
         <bnd.version>4.2.0</bnd.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <acs-commons.version>4.7.0</acs-commons.version>
     </properties>
 
     <build>
@@ -657,10 +658,10 @@
             <dependency>
                 <groupId>com.adobe.acs</groupId>
                 <artifactId>acs-aem-commons-content</artifactId>
-                <version>4.7.0</version>
+                <version>${acs-commons.version}</version>
                 <scope>provided</scope>
                 <type>content-package</type>
-                <classifier>min</classifier>            <!-- optional, see below -->
+                <classifier>min</classifier>
             </dependency>
 
         </dependencies>

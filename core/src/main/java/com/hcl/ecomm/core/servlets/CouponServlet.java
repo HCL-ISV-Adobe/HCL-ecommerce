@@ -2,6 +2,7 @@ package com.hcl.ecomm.core.servlets;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import org.apache.commons.httpclient.methods.ExpectContinueMethod;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
@@ -34,25 +35,29 @@ public class CouponServlet extends SlingSafeMethodsServlet {
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
         String couponApplied = request.getParameter("coupon");
-        String responseString = "";
-        ResourceResolver resourceResolver = request.getResourceResolver();
-        PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-        Page listPage = pageManager.getPage(COUPON_LIST_PATH);
-        Resource resource = listPage.adaptTo(Resource.class);
-        Resource childResources = resource.getChild("jcr:content").getChild("list");
-
-        Iterator<Resource> children = childResources.listChildren();
-        while (children.hasNext()) {
-            Resource child = children.next();
-            ValueMap childNodeProperty = child.getValueMap();
-            String couponCode = (String)childNodeProperty.get("jcr:title");
-            if(couponApplied.equals(couponCode))
-            {
-                responseString = (String)childNodeProperty.get("value");
-                break;
+        String couponDiscount = "";
+        try {
+            ResourceResolver resourceResolver = request.getResourceResolver();
+            PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+            Page listPage = pageManager.getPage(COUPON_LIST_PATH);
+            Resource resource = listPage.adaptTo(Resource.class);
+            Resource couponList = resource.getChild("jcr:content").getChild("list");
+            Iterator<Resource> CouponListItems = couponList.listChildren();
+            while (CouponListItems.hasNext()) {
+                Resource item = CouponListItems.next();
+                ValueMap itemProperty = item.getValueMap();
+                String couponCode = (String) itemProperty.get("jcr:title");
+                if (couponApplied.equals(couponCode)) {
+                    couponDiscount = (String) itemProperty.get("value");
+                    break;
+                }
             }
         }
-        response.getWriter().write(responseString);
+        catch (Exception e)
+        {
+            LOG.error(e.getMessage());
+        }
+        response.getWriter().write(couponDiscount);
     }
 }
 
