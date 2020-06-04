@@ -1,8 +1,9 @@
-const totalBagPrice = Number($('.total-bag-count').text());
-const bagDiscount = Number($('.bag-discount-amount').text());;
-const deliveryCharges = Number($('.delivery-charges').text());
+let totalBagPrice = Number($('.total-bag-count').text());
+let bagDiscount = Number($('.bag-discount-amount').text());;
+let deliveryCharges = Number($('.delivery-charges').text());
 let placeOrderRedirection = null;
 let discount = 0;
+const discountedPercentage = discount/100;
 
 let allowCouponOnce = true;
 
@@ -32,16 +33,13 @@ function onApplyCoupon(){
                             $('.order-price').text(calculatedPrice);
                             $('.total-price').text(calculatedPrice + deliveryCharges);
                             $('.apply-coupon-validation').text('Coupon Applied Sucessfully').css("color", "green");
-
                             allowCouponOnce = false;
-
                     }
                     else{
                         $('.apply-coupon-validation').text('Your Coupon is not valid').css("color", "red");
                          if(!allowCouponOnce)
                             removeCoupon();
                     }
-
     }
   };
  	xhttp.open("GET", "/bin/hclecomm/applyCoupon?coupon=" +  getApppliedCoupon, true);

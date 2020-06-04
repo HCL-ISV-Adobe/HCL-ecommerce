@@ -5,4 +5,5 @@
     <filter root="/content/dam/hclecomm" mode="merge"/>
     <filter root="/content/experience-fragments/hclecomm" mode="merge"/>
 	<filter root="/oak:index/hclecommLuceneIndex" mode="merge"/>
+    <filter root="/content/cq:tags/hclecommtags" mode="merge"/>
 </workspaceFilter>
