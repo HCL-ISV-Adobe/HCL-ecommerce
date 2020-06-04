@@ -1,17 +1,27 @@
-<form>
-	<h2>${properties.loginScreenTitle}</h2>
-	<label for="inputEmail">${properties.usernameLabel}</label> 
-	<input type="TEXT" id="userId"  placeholder="${properties.usernamePlaceholder}" required autofocus> 
-	<label for="inputPassword">${properties.passwordLabel}</label>
-	<input type="password" id="inputPassword" class="form-control" placeholder="${properties.passwordPlaceholder}" required>
-
-	<div>
-		<label> <input type="checkbox" value="remember-me"
-			id="rememberMe"> ${properties.rememberMeLabel}
-		</label>
+<div class="cmp-login">
+	<div class="title">
+		<div class="cmp-login-title">
+		  <h5 class="cmp-title__text"> Log in to HCL Brand Store </h5>
+		</div>
 	</div>
+	<form method="POST" action="" id="login_form" name="login_form" enctype="multipart/form-data" class="cmp-login-form" onsubmit="event.preventDefault();return validateLoginFrom(event);">
 
-	<button id="signinButton">${properties.signinButtonLabel}</button>
-
-	<div id="siginErrorDiv"></div>
-</form>
+		<div class="cmp-form-text">
+		  <input class="" type="text" id="username" placeholder="User Name" name="username" >
+		</div>
+		
+		<div class="cmp-form-text">
+		  <input class="" type="password" id="password" placeholder="Password" name="password" autocomplete="off">
+		</div>
+	  
+		<label>
+			<input class="" name="rememberme" value="rememberme" type="checkbox">
+			<span class="">Remember me</span>
+		</label>
+		<div class="cmp-login-button">
+			<button type="SUBMIT" id="form-button-1390778470" class="cmp-form-login" name="login">Login</button>
+			<!-- <button type="button" id="form-button-1390778470" class="cmp-form-signup" name="signup">Sign-Up</button> -->
+			<a href="#" class="cmp-form-signup">Sign-Up</a>
+		</div>
+	</form>
+</div>
