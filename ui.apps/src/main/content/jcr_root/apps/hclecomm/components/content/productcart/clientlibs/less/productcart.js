@@ -1,13 +1,42 @@
 $(document).ready(function () {
-    $('.cartproductdisplay').css('display', 'none');
+
     var value = $('#mydiv').data('custom-property');
     console.log(value);
-                let cartId = '';
+
+    var checkmode;
+
+   	const getCookies = document.cookie;
+     if (getCookies.indexOf('wcmmode') > -1) {
+        const cookiesCartID = getCookies.split(';');
+        cookiesCartID  && cookiesCartID.length >0 ?
+        Object.keys(cookiesCartID).forEach((cookiesCartIDitem) =>{
+            const splitCookies  = cookiesCartID[cookiesCartIDitem].split('=')
+                if(splitCookies[0] === 'wcmmode' || splitCookies[0] === ' wcmmode')  {
+
+                checkmode= splitCookies[1];
+        		console.log("checkmode {}",checkmode);
+
+            }
+    }):null
+        }
+    	if(checkmode == 'edit'){
+
+        //$('.bag-discount-amount').text(0);
+		//$('.delivery-charges').text(0);
+    	 $('.cartproductdisplay').css('display', 'block');
+        }
+        else{
+            //$('.bag-discount-amount').text(10);
+			//$('.delivery-charges').text(160);
+			$('.cartproductdisplay').css('display', 'none');
+            }
+
+       let cartId = '';
 
                 //const getCookies = document.cookie;
                 const getCountEle = document.getElementById("total-item-count");
 
-       const getCookies = document.cookie;
+       //const getCookies = document.cookie;
      if (getCookies.indexOf('cartId') > -1) {
         const cookiesCartID = getCookies.split(';');
         cookiesCartID  && cookiesCartID.length >0 ?
@@ -94,14 +123,29 @@ $(document).ready(function () {
 
 
                                 data.map((it, key) => {
+                                         if(document.querySelectorAll(".cmp-cart-items input")[key]){
                                                 document.querySelectorAll(".cmp-cart-items input")[key].addEventListener('keyup', qty);
+                                }
 
                                 });
                                 var mybagcount = bagCount(data);
                                 console.log(mybagcount);
     							if(mybagcount == 0){
 
-								$('.cartproductdisplay').css('display', 'none');
+
+
+								if(checkmode == 'edit'){
+                                    $('.bag-discount-amount').text(0);
+									$('.delivery-charges').text(0);
+                                     $('.cartproductdisplay').css('display', 'block');
+                                    $('.total-price').text(0);
+                                    $('.order-price').text(0);
+                                    }
+                                    else{
+                                        $('.bag-discount-amount').text(10);
+										$('.delivery-charges').text(160);
+                                        $('.cartproductdisplay').css('display', 'none');
+                                        }
 
 								$(".product").prepend(("<h4><span >" + value + "</span><div>Shopping Bag is Empty.You need to add item to cart</div></h4>"));
                                 }
@@ -120,9 +164,16 @@ $(document).ready(function () {
 
                 });
            }
-           else{
+           else{					
+               if(target){
+									$('.total-bag-count').text(0);
+									$('.bag-discount-amount').text(0);
+									$('.delivery-charges').text(0);
+                                     //$('.cartproductdisplay').css('display', 'block');
+                                    $('.total-price').text(0);
+                                    $('.order-price').text(0);
 
-                                    target.innerHTML='<p> There is no product in the cart </p>';
+                   target.innerHTML='<p> There is no product in the cart </p>';}
                          }
 
                 function qty(evt) {
@@ -177,7 +228,13 @@ $(document).ready(function () {
    }): null;
 
       totalBagPrice = getSumOfAllItem;
-        
+        /*if(totalBagPrice<=0){
+
+            $('.bag-discount-amount').text(0);
+            $('.delivery-charges').text(0);
+        }*/
+
+
 			bagDiscount = Number($('.bag-discount-amount').text());;
 			deliveryCharges = Number($('.delivery-charges').text());
 
