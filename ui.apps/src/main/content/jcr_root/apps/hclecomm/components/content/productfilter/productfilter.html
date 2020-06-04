@@ -1,0 +1,19 @@
+
+
+  Product Filter component.
+
+
+<div data-sly-use.model="com.hcl.ecomm.core.models.ProductFilter">
+
+<div>
+    <h3>${model.filter}</h3>
+    <h3>${model.categories}</h3>
+    <h3>${model.clothing}</h3>
+    <h3>${model.mensClothing}</h3>
+<ul data-sly-list.key="${model.clothesMap}">
+         <li> KEY: ${key} VALUE: ${model.clothesMap[key]}</li>
+    </ul>
+				</div>
+
+</div>
+
