@@ -2,7 +2,6 @@ package com.hcl.ecomm.core.servlets;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.hcl.ecomm.core.services.CouponService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
@@ -11,14 +10,10 @@ import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import java.io.IOException;
