@@ -47,7 +47,7 @@ public class CouponServlet extends SlingSafeMethodsServlet {
                 Resource item = CouponListItems.next();
                 ValueMap itemProperty = item.getValueMap();
                 String couponCode = (String) itemProperty.get("jcr:title");
-                if (couponApplied.equals(couponCode)) {
+                if ((couponApplied.trim()).equals(couponCode.trim())) {
                     couponDiscount = (String) itemProperty.get("value");
                     break;
                 }

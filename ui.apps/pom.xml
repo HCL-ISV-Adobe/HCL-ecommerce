@@ -56,6 +56,9 @@
                     <properties>
                         <cloudManagerTarget>none</cloudManagerTarget>>
                     </properties>
+                    <filters>
+                        <filter><root>/etc/acs-commons</root></filter>
+                    </filters>
                    
                     <embeddeds>
                         <embedded>
