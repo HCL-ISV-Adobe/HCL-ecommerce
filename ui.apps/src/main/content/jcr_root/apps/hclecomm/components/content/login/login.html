@@ -4,13 +4,14 @@
 		  <h5 class="cmp-title__text"> Log in to HCL Brand Store </h5>
 		</div>
 	</div>
-	<form method="POST" action="" id="login_form" data-default="/content/hclecomm/us/en/home.html" name="login_form" enctype="multipart/form-data" class="cmp-login-form" onsubmit="event.preventDefault();return validateLoginFrom(event);">
+	<form method="POST" action="" id="login_form" name="login_form" enctype="multipart/form-data"
+	 class="cmp-login-form" data-default="/content/hclecomm/us/en/home.html" onsubmit="event.preventDefault();return validateLoginFrom(event);">
 
-		<div class="cmp-form-text">
+	  <div class="cmp-form-text">
 		  <input class="" type="text" id="username" placeholder="User Name" name="username" >
 		</div>
 		
-		<div class="cmp-form-text">
+	 <div class="cmp-form-text">
 		  <input class="" type="password" id="password" placeholder="Password" name="password" autocomplete="off">
 		</div>
 	  
@@ -18,10 +19,11 @@
 			<input class="" name="rememberme" value="rememberme" type="checkbox">
 			<span class="">Remember me</span>
 		</label>
-		<div class="cmp-login-button">
-			<button type="SUBMIT" id="form-button-1390778470" class="cmp-form-login" name="login">Login</button>
-			<!-- <button type="button" id="form-button-1390778470" class="cmp-form-signup" name="signup">Sign-Up</button> -->
-			<a href="#" class="cmp-form-signup">Sign-Up</a>
-		</div>
+	  <div class="cmp-login-button">
+		<div class="cmp-login-errormsg" id="cmp-login-errormsg" style="visibility: hidden"></div>
+		<button type="SUBMIT" id="form-button-1390778470" class="cmp-form-login" name="login">Login</button>
+		<a href="#" class="cmp-form-signup">Sign-Up</a>
+	  </div>
+	  
 	</form>
 </div>
