@@ -1,10 +1,5 @@
-
-tile component
 <div class='product-listing-tile' data-tag=${properties.tag}>
-<br>
 <div data-sly-resource="${'img' @ resourceType='hclecomm/components/content/image', decoration=true}"> </div>
-<br>
-<p style="text-align:center;">${properties.brand} </p>
-<br>
+${properties.brand}
 <div data-sly-resource="${'btn' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
 </div>
