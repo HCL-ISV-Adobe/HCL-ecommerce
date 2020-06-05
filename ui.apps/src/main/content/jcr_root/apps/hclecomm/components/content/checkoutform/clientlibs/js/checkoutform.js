@@ -110,21 +110,34 @@ $( document ).ready(function() {
                                 getUserDeatils['shipping_carrier_code'] = "flatrate"';
                             }
 	 	if(validationFeilds && !doValidation){
-	 			console.log('form submitted');
-            	console.log(getUserDeatils)
-	 			//onToggleDescription(event);
+	 			
             const xhttp = new XMLHttpRequest();
   			xhttp.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
-				console.log('form submitted');
-                console.log(this.responseText);
-	 			//onToggleDescription(event);
+				if (this.responseText) {
+					const jsonObject = JSON.parse(this.responseText)
+				getCodeskmu(jsonObject["payment_methods"])
+   			 }
    			 }
   			};
  		xhttp.open("Post", "/bin/hclecomm/updateCartItems?payload=" +  JSON.stringify(getUserDeatils) , true);
     	xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     	xhttp.send();
 
+	 	}
+
+
+	 	function getCodeskmu(skmuObj){
+	 		skmuObj['cartId'] = cartId;
+	 		 const xhttp = new XMLHttpRequest();
+  			xhttp.onreadystatechange = function() {
+    		if (this.readyState == 4 && this.status == 200) {
+				/// call here closing tab
+   			 }
+  			};
+ 		xhttp.open("PUT", "http://localhost:4502/bin/hclecomm/createOrder"  , true);
+    	xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    	xhttp.send(JSON.stringify(skmu));
 
 	 	}
 
