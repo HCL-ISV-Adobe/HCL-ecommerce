@@ -1,0 +1,193 @@
+<div class="qty">
+	<div class ='check-out-container'>
+
+		<div class="check-out-section">
+			<div class ='checkout-title-edit-section'>
+				<div class = "checkout-title-number">
+					<span  class="check-out-number">1</span>
+				    <sly data-sly-resource="${'customer-title' @ resourceType='hclecomm/components/content/title', decoration=true}"> </sly>
+			    </div>
+					<!--/*<input type="button" value ='Edit' class = 'edit-check-out-section' onclick = "onEditCheckOutSection(this)"/>*-->
+        	<!--/*<input type ='text' value ='' class ='edit-check-out-section' placeholder=${properties.editCustomerDetails}>*/-->
+       	 	<div class= 'edit-check-out-section' onclick = 'onEditCheckOutSection(this)' data-sly-resource="${'editcust-btn' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+
+
+			</div>
+			<div class="check-out-section-description  toggle-checkout-description">
+			<sly data-sly-resource="${'customer-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
+			<div class = "customer_desc">
+
+				<input type="text" class ='checkout-guest-mail-id' placeholder="Enter Your Mail-Id" />
+                <div class ='checkout-guest-mail-id' onClick="onValidatingGuestMail(this)" data-sly-resource="${'guest-btn' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+
+				<p class ='customer-validation-message'></p>
+			</div>
+			</div>
+		</div>
+        <div class = 'customer-separator' data-sly-resource="${'./separator' @ resourceType='hclecomm/components/content/separator', decoration=true}"> </div>
+
+		<div class="check-out-section">
+			<div class ='checkout-title-edit-section'>
+
+				<div class = "checkout-title-number">
+					<span  class="check-out-number">2</span>
+				    <sly data-sly-resource="${'shipping-title' @ resourceType='hclecomm/components/content/title', decoration=true}"> </sly>
+			    </div>
+					<!--/*<input type="button" value ='Edit' 
+					class = 'edit-check-out-section' 
+					onclick = "onEditCheckOutSection(this)"/>*/-->
+
+       	 	<div class= 'edit-check-out-section' onclick = 'onEditCheckOutSection(this)' data-sly-resource="${'editship-button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+
+			</div>
+			<div class="check-out-section-description">
+			<sly data-sly-resource="${'shipping-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
+			<div>
+				<!--/*<input type="button" 
+				value ='Continue'  
+				onclick = "onToggleDescription(this)"/>*/-->
+                <div class= 'edit-shipping-details' onclick = 'onEditShippingSection(this)' data-sly-resource="${'ship-button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+			</div>
+
+			<div>
+				<p onclick="onToggleNewADD()" class ='add-new-add-icon'><span class ='add-new-plus-icon'>+</span> 
+					<span class ='add-new-plus-icon toggle-icon'>-</span>ADD NEW ADDRESS</p>
+			<form class ='add-new-address-form'>
+				<div>
+					<div>
+						<input 
+						type="text" 
+						class ='mrgn-rght add-addr-feilds' 
+						onkeyup ="onEnterDeatils(this)" 
+						name ='User Name' 
+						placeholder="Name"
+						/>
+						<p class ='error-message'></p>
+					</div>
+					<div>
+							<input type="text" 
+							onkeyup ="onEnterDeatils(this)" 
+							name ='Phone Number'  
+							class ='add-addr-feilds'
+							placeholder="Phone Number"
+							/>
+							<p class ='error-message'></p>
+					</div>
+					</div>
+				<div>
+					<div>
+						<input type="text" 
+						class ='mrgn-rght add-addr-feilds' onkeyup ="onEnterDeatils(this)" 
+						name ='Pin Number'
+						placeholder="Pin Code" 
+						/>
+						<p class ='error-message'></p>
+					</div>
+					<div>
+					<input type="text" 
+					class ='add-addr-feilds' 
+					onkeyup ="onEnterDeatils(this)" 
+					name ='Address'
+					placeholder="Address" 
+					/>
+					<p class ='error-message'></p>
+					</div>
+				</div>
+
+
+				<div>
+					<div>
+					<textarea class ='mrgn-rght add-addr-feilds text-area-chng-width' 
+					onkeyup ="onEnterDeatils(this)" name ='Street'
+					placeholder="Street/Apartment" 
+					></textarea>
+					<p class ='error-message txt-area-err-message'></p>
+					</div>
+				</div>
+
+				<div>
+					<div>
+					<!-- <input type="text" 
+					class ='mrgn-rght add-addr-feilds' 
+					name ='state'/> -->
+					<div id= 'state-collection'>
+
+					</div>
+					<p class ='error-message'></p>
+					</div>
+					<div>
+					<input type="text" class ='add-addr-feilds' 
+					placeholder="Phone Number Optional" 
+					name ='optional-phone'/>
+					<p class ='error-message'></p>
+					</div>
+				</div>
+				<div class ='add-address-btn'>
+
+					<!--/*<input type="button" value ='Save And Deliver Here'  class='continue-btn-add' onclick = "onSaveNDeliver()"/>*/-->
+                    <div class= 'continue-btn-add' onclick = 'onSaveNDeliver()' data-sly-resource="${'save-button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+
+                    <div class= 'cancel-btn-add' onclick = 'onAddCancel()()' data-sly-resource="${'cancel-button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+					<!--/*<input type="button" value ='Cancel'  onclick = "onAddCancel()"/>*/-->
+
+				</div>
+
+			</form>
+			</div>
+				<input type="checkbox" id="same-as-billing" name="billing-shipping-same" value="billing-check-box">
+				<label for="same-as-billing">Billing Address is same as Shipping Address</label>
+			</div>
+		</div>
+
+		<div class = 'billing-separator' data-sly-resource="${'./separator' @ resourceType='hclecomm/components/content/separator', decoration=true}"> </div>
+		<div class="check-out-section">
+
+			<div class ='checkout-title-edit-section'>
+				<div class ='checkout-title-number'>
+					<span  class="check-out-number">3</span>
+				    <sly data-sly-resource="${'billing-title' @ resourceType='hclecomm/components/content/title', decoration=true}"> </sly>
+			    </div>
+					<!--/*<input type="button" value ='Edit' class = 'edit-check-out-section' 
+					onclick = "onEditCheckOutSection(this)"/>*/-->
+                    <div class= 'edit-check-out-section' onclick = 'onEditCheckOutSection(this)' data-sly-resource="${'editbill-button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+			</div>
+			<div class="check-out-section-description">
+			<div class ='billing-cvv'>
+				<input type="radio"  name="billing" value="cvv" onchange="onSelecCVV()" checked><span>CVV</span>
+				<div class ='billing-cvv-section'>
+
+                	<sly data-sly-resource="${'cvv-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
+					<div class ='billing-cvv-section-validation'>
+						
+						<input type="text" class ='cvv-text' placeholder="CVV" />
+						<p class ='cvv-validation-mssg'></p>
+
+					</div>
+                 <div class= 'cvv-btn-add' onclick = 'onContinueOnlyCvv()' data-sly-resource="${'cvv-button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+				<!--/*<input type="button" value ='Continue'  onclick = "onContinueOnlyCvv()"/>*/-->
+				</div>
+			</div>
+			<div class ='billing-cvv'>
+				<input type="radio"  name="billing" value="new-billing" onchange="onSelecCVV()"><span>Add New Card</span>
+				<div class =' billing-cvv-section add-new-billing-address'>
+
+                	<sly data-sly-resource="${'cardno-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
+
+					<div>
+					<input type="text" placeholder="Card Number" />
+					</div>
+					<div>
+					<input type="text" />
+                    <div class= 'cvv-btn-continue' onclick = 'onContinueCvv()' data-sly-resource="${'cvv-continue' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+					<!--/*<input type="button" value ='Continue'  onclick = "onContinueCvv()"/>*/-->
+					</div>
+				</div>
+			</div>
+
+			</div>
+		</div>
+		
+	</div>
+	
+
+
