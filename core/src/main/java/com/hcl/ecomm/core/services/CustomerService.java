@@ -10,7 +10,11 @@ public interface CustomerService {
 	
 	public String customerSigninServicePath();
 
+	public String customerProfileServicePath();
+
 	public JSONObject customerSignup(JSONObject signupObject);
 	
 	public JSONObject customerSignin(JSONObject signObject);	
+	
+	public JSONObject customerProfile(String customerToken);	
 }

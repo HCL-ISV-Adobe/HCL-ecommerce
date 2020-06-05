@@ -21,6 +21,7 @@ public @interface MagentoServiceConfig {
     //Customer API
     String customerSignupPath = "/V1/customers";
     String customerSigninPath = "/V1/integration/customer/token";
+    String customerProfilePath = "/V1/customers/me";
 
     @AttributeDefinition(name = "All Products Service Path", description = "This is the API path for getting all products for a store", defaultValue = servicePathDefaultValue, type = AttributeType.STRING)
     String productService_servicePath() default servicePathDefaultValue;
@@ -54,6 +55,9 @@ public @interface MagentoServiceConfig {
     
     @AttributeDefinition(name = "Customer Signin Service Path", description = "This is the API path for signin", defaultValue = customerSigninPath, type = AttributeType.STRING )
     String customerService_signinPath() default customerSigninPath;
+    
+    @AttributeDefinition(name = "Customer Profile Service Path", description = "This is the API path for customer profile", defaultValue = customerProfilePath, type = AttributeType.STRING )
+    String customerService_profilePath() default customerProfilePath;
 
 
 }

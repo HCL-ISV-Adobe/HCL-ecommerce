@@ -61,7 +61,14 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                 fieldLabel="Signin Button Label"
-                                                name="./signinButtonLabel"/>												
+                                                name="./signinButtonLabel"/>
+                                            <defaultPage
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="cq/gui/components/coral/common/form/pagefield"
+                                                fieldDescription="This will be the default redirect page after successful signin."
+                                                fieldLabel="Default Redirect Page"
+                                                name="./defaultPage"
+                                                rootPath="/content"/>
                                         </items>
                                     </column>
                                 </items>

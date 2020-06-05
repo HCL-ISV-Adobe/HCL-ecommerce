@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -43,6 +44,7 @@ public class CustomerServiceImpl implements CustomerService{
 	public String getDomainName() {
 		return loginService.getDomainName();
 	}
+	
 	@Override
 	public String customerSignupServicePath() {
 		return config.customerService_signupPath();
@@ -51,6 +53,11 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public String customerSigninServicePath() {
 		return config.customerService_signinPath();
+	}
+
+	@Override
+	public String customerProfileServicePath() {
+		return config.customerService_profilePath();
 	}
 
 	@Override
@@ -134,13 +141,11 @@ public class CustomerServiceImpl implements CustomerService{
 				while ((output = br.readLine()) != null) {
 					str += output;
 				}
-				JSONObject customerToken = new JSONObject();
 				if (StringUtils.isNotEmpty("str")) {
 					str = str.replace("\"", "");
 				}
-				customerToken.put("customerToken", str);
 				customerSigninRes.put("statusCode", statusCode);
-				customerSigninRes.put("message", customerToken);
+				customerSigninRes.put("customerToken", str);
 			}else if(HttpStatus.SC_BAD_REQUEST == statusCode){
 				customerSigninRes.put("statusCode", statusCode);
 				customerSigninRes.put("message", httpResponse.getEntity().getContent().toString());
@@ -156,7 +161,50 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	
+	@Override
+	public JSONObject customerProfile(String customerToken) {
+		LOG.debug("customerProfile method start  customerToken={}: " + customerToken);
+		String scheme = "http";
+		JSONObject customerProfileResponse = new JSONObject();
 
+		try {
+			String domainName = getDomainName();
+			String customerProfilePath = customerProfileServicePath();
+			String url = scheme + "://" + domainName + customerProfilePath;
+			LOG.info("customerProfilePath  : " + url);
+			
+			Integer statusCode;
+			JSONObject response = new JSONObject();
+			CloseableHttpClient httpClient = HttpClients.createDefault();
+			HttpGet httpGet = new HttpGet(url);
+			httpGet.setHeader("Content-Type", "application/json");
+			httpGet.setHeader("Authorization", "Bearer " +customerToken);
+			CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
+			statusCode = httpResponse.getStatusLine().getStatusCode();
+			
+			LOG.info("customer profile: magento statusCode ={}",statusCode);
+			
+			if(HttpStatus.SC_OK == statusCode){
+				BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
+				String output;
+				while ((output = br.readLine()) != null) {
+					response = new JSONObject(output);
+				}
+				customerProfileResponse.put("statusCode", statusCode);
+				customerProfileResponse.put("message", response);
+			}else if(HttpStatus.SC_BAD_REQUEST == statusCode){
+				customerProfileResponse.put("statusCode", statusCode);
+				customerProfileResponse.put("message", httpResponse.getEntity().getContent().toString());
+				LOG.error("Error while customer profile. status code:{} and message={}",statusCode,httpResponse.getEntity().getContent().toString());
+			}else{
+				LOG.error("Error while customer profile. status code:{}",statusCode);
+			}
+		} catch (Exception e) {
+			LOG.error("Error while executing customerProfile() method. Error={} ",e);
+		}
+		LOG.debug("customerProfile method end  customerProfileResponse={}", customerProfileResponse);
+		return customerProfileResponse;
+	}
 	
 
 }

@@ -74,8 +74,14 @@ public class CustomerSignInServlet extends SlingAllMethodsServlet{
 					JSONObject customerSigninObj = customerSigninObj(jsonPayload);
 					JSONObject customerSigninRes = customerService.customerSignin(customerSigninObj);
 					if (customerSigninRes.has("statusCode") && customerSigninRes.getInt("statusCode") == HttpStatus.OK_200) {
-						responseObject.put("message", customerSigninRes.getJSONObject("message"));
-						responseObject.put("status", Boolean.TRUE);
+					String customerToken=customerSigninRes.getString("customerToken");
+						JSONObject customerProfileRes = customerService.customerProfile(customerToken);
+						if (customerProfileRes.has("statusCode") && customerProfileRes.getInt("statusCode") == HttpStatus.OK_200) {
+							customerProfileRes.put("customerToken", customerToken);
+							JSONObject profile =customerProfileRes.getJSONObject("message").put("customerToken", customerToken);
+							responseObject.put("message", profile);
+							responseObject.put("status", Boolean.TRUE);
+						}
 					} else {
 						responseObject.put("message", "something went wrong while Customer Signin.");
 					}
