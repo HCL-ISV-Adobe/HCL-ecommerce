@@ -106,8 +106,8 @@ $( document ).ready(function() {
                                 getUserDeatils['region_id'] = 0;
                                 getUserDeatils['country_id'] = 'IN';
                                 getUserDeatils['region_code'] = 'MH';
-           						 getUserDeatils['shipping_method_code'] = "flatrate"';
-                                getUserDeatils['shipping_carrier_code'] = "flatrate"';
+           						 getUserDeatils['shipping_method_code'] = "flatrate";
+                                getUserDeatils['shipping_carrier_code'] = "flatrate";
                             }
 	 	if(validationFeilds && !doValidation){
 	 			
