@@ -17,7 +17,7 @@
 			<sly data-sly-resource="${'customer-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
 			<div class = "customer_desc">
 				<div class ='guest-text-box-validation-mssg'>
-				<input type="text" class ='checkout-guest-mail-id' placeholder="Enter Your Mail-Id" />
+				<input type="text" class ='checkout-guest-mail-id' placeholder="Enter Your Mail-Id" onkeyup = "validateGuestEmailkEUP(this)"/>
                 <p class ='customer-validation-message customer-validation-message__chang-pos'></p>
                 </div>
                 <div class ='checkout-guest-mail-id' onClick="onValidatingGuestMail(this)" data-sly-resource="${'guest-btn' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
@@ -165,7 +165,7 @@
                     <div class ='billing-cvv-section-validation--btn'>
 					<div class ='billing-cvv-section-validation'>
 						
-						<input type="text" class ='cvv-number' placeholder="CVV" />
+						<input type="text" class ='cvv-number' placeholder="CVV"  onkeyup = "onCvvKeyUp()"/>
 						<p class ='cvv-validation-mssg'></p>
 
 					</div>
@@ -197,7 +197,7 @@
 
 			</div>
 		</div>
-		
+
 	</div>
 	
 

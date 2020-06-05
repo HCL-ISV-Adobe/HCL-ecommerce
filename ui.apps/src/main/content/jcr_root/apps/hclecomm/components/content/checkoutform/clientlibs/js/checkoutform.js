@@ -20,22 +20,47 @@ $( document ).ready(function() {
 		});
 	let doValidation = false;
 	let submitForm = false;
+	let guestEmail = false;
+	let cvvSubmission = false;
 	function onValidatingGuestMail(event) {
+        guestEmail = true;
 		const regexEmail = /\S+@\S+\.\S+/;
 		const getCustomerMailId = $('.checkout-guest-mail-id')[0].value;
 		if(getCustomerMailId === ''){
 				$('.customer-validation-message').text('Please Enter Email');
 		}
 		else if(!regexEmail.test(getCustomerMailId)){
-				$('.customer-validation-message').text('Please Enter valid  Email');
+				$('.customer-validation-message').text('Please Enter Valid  Email');
 		}
 		else {	
             getUserDeatils['email'] = getCustomerMailId;
 				$('.customer-validation-message').text('');
 				onToggleDescription(event);
+
 		}
 		
 	}
+
+
+function validateGuestEmailkEUP(event) {
+    if(guestEmail){
+		const regexEmail = /\S+@\S+\.\S+/;
+		const getCustomerMailId = $('.checkout-guest-mail-id')[0].value;
+		if(getCustomerMailId === ''){
+				$('.customer-validation-message').text('Please Enter Email');
+		}
+		else if(!regexEmail.test(getCustomerMailId)){
+				$('.customer-validation-message').text('Please Enter Valid  Email');
+		}
+		else {	
+            getUserDeatils['email'] = getCustomerMailId;
+				$('.customer-validation-message').text('');
+
+
+		}
+		
+	}
+    }
 
 
 
@@ -272,6 +297,7 @@ $( document ).ready(function() {
 	  }
 
 	  function onContinueOnlyCvv(){
+          cvvSubmission = true;
 		//const cvvRegex = /^[0-9]{3,4}$/;
 	  	const getCvvSection = $('.cvv-number')[0].value;
 	  	if(getCvvSection === ''){
@@ -286,11 +312,27 @@ $( document ).ready(function() {
 		$('.cvv-validation-mssg')[0].innerText = '';
 	  }
 
+		function  onCvvKeyUp(){
+		if(cvvSubmission){
+	  	const getCvvSection = $('.cvv-number')[0].value;
+	  	if(getCvvSection === ''){
+	  			$('.cvv-validation-mssg')[0].innerText = 'Please Enter CVV';
+            return
+	  	}
+          if(!Number(getCvvSection) || (getCvvSection).length !== 3){
+	  			$('.cvv-validation-mssg')[0].innerText = 'Please Enter Valid CVV';
+            	return
+	  	}
+
+		$('.cvv-validation-mssg')[0].innerText = '';
+	  }
+             }
+
 
 
 	function onContinueCvv(){
        const cardno = /^(?:3[47][0-9]{13})$/;
-        const expiryDate = '';
+        const expiryDate = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
 	  	const  getCvvSection = $('.card-number-new');
         if(getCvvSection){
             getCvvSection.toArray().forEach((newCardDetails) =>{
@@ -300,6 +342,17 @@ $( document ).ready(function() {
                         }
                			 else {
 		  					$('.cvv-validation-mssg')[0].innerText = '';
+                        }
+
+					}
+
+            		else 
+						{
+						if(!newCardDetails.value <=  expiryDate){
+		  					$('.new-cvv-validation-mssg')[1].innerText = 'Please Enter A Valid Date';
+                        }
+               			 else {
+		  					$('.cvv-validation-mssg')[1].innerText = '';
                         }
 
 					}
