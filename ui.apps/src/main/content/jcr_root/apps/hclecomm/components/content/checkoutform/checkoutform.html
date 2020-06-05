@@ -1,4 +1,4 @@
-<div class="qty">
+ <div class="qty">
 	<div class ='check-out-container'>
 
 		<div class="check-out-section">
@@ -16,11 +16,13 @@
 			<div class="check-out-section-description  toggle-checkout-description">
 			<sly data-sly-resource="${'customer-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
 			<div class = "customer_desc">
-
+				<div class ='guest-text-box-validation-mssg'>
 				<input type="text" class ='checkout-guest-mail-id' placeholder="Enter Your Mail-Id" />
+                <p class ='customer-validation-message customer-validation-message__chang-pos'></p>
+                </div>
                 <div class ='checkout-guest-mail-id' onClick="onValidatingGuestMail(this)" data-sly-resource="${'guest-btn' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
 
-				<p class ='customer-validation-message'></p>
+
 			</div>
 			</div>
 		</div>
