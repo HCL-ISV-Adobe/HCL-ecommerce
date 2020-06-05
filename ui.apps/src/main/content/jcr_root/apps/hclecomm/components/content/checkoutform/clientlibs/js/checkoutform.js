@@ -85,7 +85,7 @@ $( document ).ready(function() {
 		
 	 
 /// method for saving and delivering
-	  function onSaveNDeliver(){
+	 /* function onSaveNDeliver(){
           ;
 	  let	validationFeilds = true;
 	  submitForm = true;
@@ -110,16 +110,12 @@ $( document ).ready(function() {
                                 getUserDeatils['shipping_carrier_code'] = "flatrate";
                             }
 	 	if(validationFeilds && !doValidation){
-	 		console.log('form submitted');
-            	console.log(getUserDeatils)
             const xhttp = new XMLHttpRequest();
   			xhttp.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
-                console.log('form submitted');
-                console.log(this.responseText);
 				if (this.responseText) {
 					const jsonObject = JSON.parse(this.responseText)
-				getCodeskmu(jsonObject["payment_methods"])
+				   getCodeskmu(jsonObject["payment_methods"])
    			 }
    			 }
   			};
@@ -143,6 +139,12 @@ $( document ).ready(function() {
     	xhttp.send(JSON.stringify(skmuObj));
 
 	 	}
+
+	  }*/
+
+
+	 function onSaveNDeliver(){
+         onToggleDescription(event);
 
 	  }
 
@@ -270,12 +272,38 @@ $( document ).ready(function() {
 	  }
 
 	  function onContinueOnlyCvv(){
-	  	const getCvvSection = $('.cvv-text');
-	  	if(getCvvSection[0].innerText === ''){
+		//const cvvRegex = /^[0-9]{3,4}$/;
+	  	const getCvvSection = $('.cvv-number')[0].value;
+	  	if(getCvvSection === ''){
 	  			$('.cvv-validation-mssg')[0].innerText = 'Please Enter CVV';
+            return
 	  	}
-	  	else 
-	  		{
-	  				$('.cvv-validation-mssg')[0].innerText = '';
+          if(!Number(getCvvSection) || Number(getCvvSection).length > 3){
+	  			$('.cvv-validation-mssg')[0].innerText = 'Please Enter Valid CVV';
+            	return
 	  	}
+
+		$('.cvv-validation-mssg')[0].innerText = '';
+	  }
+
+
+
+	function onContinueCvv(){
+       const cardno = /^(?:3[47][0-9]{13})$/;
+        const expiryDate = '';
+	  	const  getCvvSection = $('.card-number-new');
+        if(getCvvSection){
+            getCvvSection.toArray().forEach((newCardDetails) =>{
+                    if(newCardDetails.name = 'cvv-new-number'){
+						if(!newCardDetails.value.match(cardno)){
+		  					$('.new-cvv-validation-mssg')[0].innerText = 'Please Enter A valid Card Number';
+                        }
+               			 else {
+		  					$('.cvv-validation-mssg')[0].innerText = '';
+                        }
+
+					}
+             })
+			}
+
 	  }

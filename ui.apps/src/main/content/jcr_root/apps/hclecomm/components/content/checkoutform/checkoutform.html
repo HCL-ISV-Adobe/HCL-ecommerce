@@ -48,7 +48,7 @@
 				<!--/*<input type="button" 
 				value ='Continue'  
 				onclick = "onToggleDescription(this)"/>*/-->
-                <div class= 'edit-shipping-details' onclick = 'onEditShippingSection(this)' data-sly-resource="${'ship-button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+                <div class= 'edit-shipping-details' onclick = 'onToggleDescription(this)' data-sly-resource="${'ship-button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
 			</div>
 
 			<div>
@@ -158,31 +158,35 @@
 			</div>
 			<div class="check-out-section-description">
 			<div class ='billing-cvv'>
-				<input type="radio"  name="billing" value="cvv" onchange="onSelecCVV()" checked><span>CVV</span>
+				<input type="radio"  name="billing" value="cvv" onchange="onSelecCVV()" checked>
 				<div class ='billing-cvv-section'>
 
                 	<sly data-sly-resource="${'cvv-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
+                    <div class ='billing-cvv-section-validation--btn'>
 					<div class ='billing-cvv-section-validation'>
 						
-						<input type="text" class ='cvv-text' placeholder="CVV" />
+						<input type="text" class ='cvv-number' placeholder="CVV" />
 						<p class ='cvv-validation-mssg'></p>
 
 					</div>
-                 <div class= 'cvv-btn-add' onclick = 'onContinueOnlyCvv()' data-sly-resource="${'cvv-button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+                 <div class= 'cvv-btn-add' onclick = 'onContinueOnlyCvv()' 
+                    data-sly-resource="${'cvv-button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+                    </div>
 				<!--/*<input type="button" value ='Continue'  onclick = "onContinueOnlyCvv()"/>*/-->
 				</div>
 			</div>
 			<div class ='billing-cvv'>
-				<input type="radio"  name="billing" value="new-billing" onchange="onSelecCVV()"><span>Add New Card</span>
+				<input type="radio"  name="billing" value="new-billing" onchange="onSelecCVV()">
 				<div class =' billing-cvv-section add-new-billing-address'>
 
                 	<sly data-sly-resource="${'cardno-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
 
-					<div>
-					<input type="text" placeholder="Card Number" />
+					<div class ='new-crad-number-validation'>
+					<input type="text" placeholder="Card Number" name = 'cvv-new-number' class ='card-number-new' />
+                    <p class ='new-cvv-validation-mssg'></p>
 					</div>
 					<div>
-					<input type="text" />
+					<input type="date" class ='card-number-new' name = 'expiry-new-number'  placeholder="Expiry Date"/>
                     <div class= 'cvv-btn-continue' onclick = 'onContinueCvv()' data-sly-resource="${'cvv-continue' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
 					<!--/*<input type="button" value ='Continue'  onclick = "onContinueCvv()"/>*/-->
 					</div>
