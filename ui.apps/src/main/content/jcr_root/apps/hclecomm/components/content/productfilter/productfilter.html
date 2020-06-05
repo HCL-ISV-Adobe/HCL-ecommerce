@@ -2,27 +2,19 @@
 Product Filter component.
     <div data-sly-use.model="com.hcl.ecomm.core.models.ProductFilterModel">
    <h3>${model.filter}</h3>
-    <h3>${model.categories}</h3>
-    <h3>${model.clothing}</h3>
+
         
             <div data-sly-list.gender="${model.genderclothingList}">
                 <div>
                     <div>Gender Type: ${gender.selectClothing}</div>
                     <br>
-                    <div data-sly-list.clothes="${gender.clothingList}" >
+                    <div data-sly-list.clothes="${gender.clothingList}">
 
                         <div>Clothes Type: ${clothes.clothes}</b></div>
                         <br>
                     </div>
                 </div>
             </div>
-Brand section
-<h3>${model.brand}</h3>
-<div data-sly-list.brand="${model.brandList}">
-
-                        <div>Brand Type: ${brand.brandName}</b></div>
-                        <br>
-                    </div>
 
     </div>
 </div>

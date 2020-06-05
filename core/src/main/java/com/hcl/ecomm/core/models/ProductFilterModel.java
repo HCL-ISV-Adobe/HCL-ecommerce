@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,17 +17,7 @@ public class ProductFilterModel {
 
     @Inject @Optional
     private String filter;
-    @Inject @Optional
-    private String categories;
 
-    @Inject @Optional
-    private String clothing;
-
-    @Inject @Optional
-    private String brand;
-
-    @Inject @Optional
-    private List<Resource> selectBrand ;
 
     @Inject @Optional
     private List<Resource> selectGenderClothing;
@@ -37,23 +26,8 @@ public class ProductFilterModel {
         return filter;
     }
 
-    public String getCategories() {
-        return categories;
-    }
-
-    public String getClothing() {
-        return clothing;
-    }
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
     private List<GenderClothingSelection> genderclothingList = new ArrayList<>();
 
-    private List<BrandFilter> brandList = new ArrayList<>();
 
     public List<GenderClothingSelection> getGenderclothingList() {
         return genderclothingList;
@@ -63,13 +37,6 @@ public class ProductFilterModel {
         this.genderclothingList = genderclothingList;
     }
 
-    public List<BrandFilter> getBrandList() {
-        return brandList;
-    }
-
-    public void setBrandList(List<BrandFilter> brandList) {
-        this.brandList = brandList;
-    }
 
     @PostConstruct
     protected void init() {
@@ -78,12 +45,6 @@ public class ProductFilterModel {
             for (Resource resource : selectGenderClothing) {
                 GenderClothingSelection genderClothing = resource.adaptTo(GenderClothingSelection.class);
                 genderclothingList.add(genderClothing );
-            }
-        }
-        if (!selectBrand.isEmpty()) {
-            for (Resource resource : selectBrand) {
-                BrandFilter brand = resource.adaptTo(BrandFilter.class);
-                brandList.add(brand);
             }
         }
 
