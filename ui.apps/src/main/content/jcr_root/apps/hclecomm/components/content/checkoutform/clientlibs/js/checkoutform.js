@@ -278,7 +278,7 @@ $( document ).ready(function() {
 	  			$('.cvv-validation-mssg')[0].innerText = 'Please Enter CVV';
             return
 	  	}
-          if(!Number(getCvvSection) || Number(getCvvSection).length > 3){
+          if(!Number(getCvvSection) || (getCvvSection).length !== 3){
 	  			$('.cvv-validation-mssg')[0].innerText = 'Please Enter Valid CVV';
             	return
 	  	}
