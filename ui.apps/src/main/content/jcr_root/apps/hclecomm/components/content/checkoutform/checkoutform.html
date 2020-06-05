@@ -52,25 +52,26 @@
 			<div>
 				<p onclick="onToggleNewADD()" class ='add-new-add-icon'><span class ='add-new-plus-icon'>+</span> 
 					<span class ='add-new-plus-icon toggle-icon'>-</span>ADD NEW ADDRESS</p>
-			<form class ='add-new-address-form'>
+			<div class ='add-new-address-form'>
 				<div>
 					<div>
 						<input 
 						type="text" 
 						class ='mrgn-rght add-addr-feilds' 
 						onkeyup ="onEnterDeatils(this)" 
-						name ='User Name' 
-						placeholder="Name"
+						name ='First Name' 
+						placeholder="First Name"
 						/>
 						<p class ='error-message'></p>
 					</div>
 					<div>
-							<input type="text" 
-							onkeyup ="onEnterDeatils(this)" 
-							name ='Phone Number'  
-							class ='add-addr-feilds'
-							placeholder="Phone Number"
-							/>
+							<input 
+						type="text" 
+						class ='mrgn-rght add-addr-feilds' 
+						onkeyup ="onEnterDeatils(this)" 
+						name ='Last Name' 
+						placeholder="Last Name"
+						/>
 							<p class ='error-message'></p>
 					</div>
 					</div>
@@ -87,8 +88,8 @@
 					<input type="text" 
 					class ='add-addr-feilds' 
 					onkeyup ="onEnterDeatils(this)" 
-					name ='Address'
-					placeholder="Address" 
+					name ='City'
+					placeholder="City" 
 					/>
 					<p class ='error-message'></p>
 					</div>
@@ -106,19 +107,21 @@
 				</div>
 
 				<div>
+
 					<div>
+					<input type="text" class ='add-addr-feilds' 
+					placeholder="Phone Number" 
+					name ='Phone Number'/>
+					<p class ='error-message'></p>
+					</div>
+
+                    <div>
 					<!-- <input type="text" 
 					class ='mrgn-rght add-addr-feilds' 
 					name ='state'/> -->
 					<div id= 'state-collection'>
 
 					</div>
-					<p class ='error-message'></p>
-					</div>
-					<div>
-					<input type="text" class ='add-addr-feilds' 
-					placeholder="Phone Number Optional" 
-					name ='optional-phone'/>
 					<p class ='error-message'></p>
 					</div>
 				</div>
@@ -132,7 +135,7 @@
 
 				</div>
 
-			</form>
+			</div>
 			</div>
 				<input type="checkbox" id="same-as-billing" name="billing-shipping-same" value="billing-check-box">
 				<label for="same-as-billing">Billing Address is same as Shipping Address</label>

@@ -1,4 +1,8 @@
+const getUserDeatils = {};
+let cartId = 'aUETIXpuqYFyr9EEx1F7XjMXL4RBmBer';
 $( document ).ready(function() {
+    // using thie cookies value just for testing purpose , remove it after intrgation with other component
+
     		const stateArray = ['Uttar-Pradesh', 'Andhra-Pradesh', 'Maharashtra'];
     		let selectHTML = "<select class ='add-addr-feilds' name ='state'>";
     		if(stateArray){
@@ -10,6 +14,8 @@ $( document ).ready(function() {
     			document.getElementById('state-collection').innerHTML = selectHTML;
     		}
     		}
+
+
 
 		});
 	let doValidation = false;
@@ -23,7 +29,8 @@ $( document ).ready(function() {
 		else if(!regexEmail.test(getCustomerMailId)){
 				$('.customer-validation-message').text('Please Enter valid  Email');
 		}
-		else {		
+		else {	
+            getUserDeatils['email'] = getCustomerMailId;
 				$('.customer-validation-message').text('');
 				onToggleDescription(event);
 		}
@@ -79,6 +86,7 @@ $( document ).ready(function() {
 	 
 /// method for saving and delivering
 	  function onSaveNDeliver(){
+          ;
 	  let	validationFeilds = true;
 	  submitForm = true;
 			const getAllAddressFields = $('.add-addr-feilds');
@@ -86,13 +94,37 @@ $( document ).ready(function() {
 				getAllAddressFields.toArray().forEach((fieldItem) => {
 							const userDetails = fieldItem.name;
 							const userDetailsValue = fieldItem.value;
-							letValidateField(userDetails, userDetailsValue, fieldItem)
+							letValidateField(userDetails, userDetailsValue, fieldItem);
+
 						
 				})
 			}
+		if(!doValidation){
+                                //console.log(userDetailsValue);
+								getUserDeatils['cartId'] = cartId;
+                                getUserDeatils['region'] = "MH";
+                                getUserDeatils['region_id'] = 0;
+                                getUserDeatils['country_id'] = 'IN';
+                                getUserDeatils['region_code'] = 'MH';
+           						 getUserDeatils['shipping_method_code'] = "flatrate"';
+                                getUserDeatils['shipping_carrier_code'] = "flatrate"';
+                            }
 	 	if(validationFeilds && !doValidation){
 	 			console.log('form submitted');
-	 			onToggleDescription(event);
+            	console.log(getUserDeatils)
+	 			//onToggleDescription(event);
+            const xhttp = new XMLHttpRequest();
+  			xhttp.onreadystatechange = function() {
+    		if (this.readyState == 4 && this.status == 200) {
+				console.log('form submitted');
+                console.log(this.responseText);
+	 			//onToggleDescription(event);
+   			 }
+  			};
+ 		xhttp.open("Post", "/bin/hclecomm/updateCartItems?payload=" +  JSON.stringify(getUserDeatils) , true);
+    	xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    	xhttp.send();
+
 
 	 	}
 
@@ -126,13 +158,23 @@ $( document ).ready(function() {
 
 	  function letValidateField(userDetails, userDetailsValue, event){
 			switch(userDetails) {
-		  case 'User Name':
+		  case 'First Name':
 		  if(!userDetailsValue){
 		  		event.nextElementSibling.innerText = `Please Enter ${userDetails}`;
 		  		doValidation = true;
 		  		return
 		  }
+                     getUserDeatils['firstname'] = userDetailsValue;
 		  break;
+
+          case 'Last Name':
+		  if(!userDetailsValue){
+		  		event.nextElementSibling.innerText = `Please Enter ${userDetails}`;
+		  		doValidation = true;
+		  		return
+		  }
+           getUserDeatils['lastname'] = userDetailsValue;
+		  break;          
 		  case 'Phone Number':
 		  if(!userDetailsValue){
 		  		event.nextElementSibling.innerText = `Please Enter ${userDetails}`;
@@ -145,6 +187,7 @@ $( document ).ready(function() {
 		  		doValidation = true;
 		  		return
 		  }
+          getUserDeatils['telephone'] = userDetailsValue;
 		  
 		  break;
 		  case 'Pin Number':
@@ -160,14 +203,15 @@ $( document ).ready(function() {
 		  		doValidation = true;
 		  		return
 		  }
+          getUserDeatils['postcode'] = userDetailsValue
 
-		  case 'Address':
+		  case 'City':
 		  if(!userDetailsValue){
 		  		event.nextElementSibling.innerText = `Please Enter ${userDetails}`;
 		  		doValidation = true;
 		  		return
 		  }
-		  
+		  getUserDeatils['city'] = userDetailsValue;
 		  break;
 
 		  case 'Street':
@@ -176,7 +220,11 @@ $( document ).ready(function() {
 		  		doValidation = true;
 		  		return
 		  }
-		 
+            const streetArr = [
+									userDetailsValue
+                                ];
+
+		 	getUserDeatils['street'] = streetArr;
 		    break;
 		   case 'state':
 		   return
@@ -192,7 +240,7 @@ $( document ).ready(function() {
 		}
 		  	event.nextElementSibling.innerText = '';
 		  doValidation = false;
-	 	 
+	 	 onSaveNDeliver
 	  }
 
 	  function onSelecCVV(){
