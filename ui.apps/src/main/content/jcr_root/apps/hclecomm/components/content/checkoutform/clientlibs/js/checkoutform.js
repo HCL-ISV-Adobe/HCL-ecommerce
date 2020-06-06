@@ -385,3 +385,25 @@ function validateGuestEmailkEUP(event) {
 	  }
 	}
 
+
+function onValidateCardExpiryDate(){
+    const getNewExpDate = $('.new-card-expiry-date');
+          if(validatecardNExpDate){
+       const getCardNumberValidation = $('.new-card-validation');
+              let todayDate = '';
+        let todayMonth = new Date().getMonth() + 1 ;
+        todayMonth > 10 ? todayMonth = todayMonth : todayMonth = `${'0' + todayMonth}`
+        new Date().getDate() > 10 ? todayDate = new Date().getDate() : todayDate = `${'0' + new Date().getDate()}`
+        const getDateFormat = `${new Date().getFullYear()}-${todayMonth}-${todayDate}`
+
+        if(getDateFormat<= getNewExpDate[0].value){
+			$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
+            validateCardNExpiry = false;
+        }
+        else {
+			$('.new-card-expiry-date-validation')[0].innerText = ' ';
+            validateCardNExpiry = true;
+        }
+	  }
+	}
+
