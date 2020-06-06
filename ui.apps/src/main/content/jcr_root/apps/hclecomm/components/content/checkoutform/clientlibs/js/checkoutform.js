@@ -22,6 +22,7 @@ $( document ).ready(function() {
 	let submitForm = false;
 	let guestEmail = false;
 	let cvvSubmission = false;
+	let validatecardNExpDate = false;
 	function onValidatingGuestMail(event) {
         guestEmail = true;
 		const regexEmail = /\S+@\S+\.\S+/;
@@ -331,32 +332,56 @@ function validateGuestEmailkEUP(event) {
 
 
 	function onContinueCvv(){
-       const cardno = /^(?:3[47][0-9]{13})$/;
-        const expiryDate = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-	  	const  getCvvSection = $('.card-number-new');
-        if(getCvvSection){
-            getCvvSection.toArray().forEach((newCardDetails) =>{
-                    if(newCardDetails.name = 'cvv-new-number'){
-						if(!newCardDetails.value.match(cardno)){
-		  					$('.new-cvv-validation-mssg')[0].innerText = 'Please Enter A valid Card Number';
-                        }
-               			 else {
-		  					$('.cvv-validation-mssg')[0].innerText = '';
-                        }
+        validatecardNExpDate = true;
+        let validateCardNExpiry= true;
+        const regexCradNumber = /^\d{16}$/;
+        const getNewCardNumber = $('.new-card');
+        const getCardNumberValidation = $('.new-card-validation');
 
-					}
+        const getNewCardExpiryDate = $('.new-card-expiry-date');
+        if(!regexCradNumber.test(getNewCardNumber[0].value)){
+			$('.new-card-validation')[0].innerText = 'Please Enter A valid Card Number';
+            validateCardNExpiry = false;
+        }
+        else {
+			$('.new-card-validation')[0].innerText = ' ';
+            validateCardNExpiry = true;
+        }
+        let todayDate = '';
+        let todayMonth = new Date().getMonth() + 1 ;
+        todayMonth > 10 ? todayMonth = todayMonth : todayMonth = `${'0' + todayMonth}`
+        new Date().getDate() > 10 ? todayDate = new Date().getDate() : todayDate = `${'0' + new Date().getDate()}`
+        const getDateFormat = `${new Date().getFullYear()}-${todayMonth}-${todayDate}`
 
-            		else 
-						{
-						if(!newCardDetails.value <=  expiryDate){
-		  					$('.new-cvv-validation-mssg')[1].innerText = 'Please Enter A Valid Date';
-                        }
-               			 else {
-		  					$('.cvv-validation-mssg')[1].innerText = '';
-                        }
+        if(getDateFormat<= getNewCardExpiryDate[0].value){
+			$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
+            validateCardNExpiry = false;
+        }
+        else {
+			$('.new-card-expiry-date-validation')[0].innerText = ' ';
+            validateCardNExpiry = true;
+        }
+		if(validateCardNExpiry){
+			console.log('set local storage and rediret confirmation page');
 
-					}
-             })
-			}
-
+        }
 	  }
+
+
+
+      function onValidateCardNumber(){
+          if(validatecardNExpDate){
+       const regexCradNumber = /^\d{16}$/;
+        const getNewCardNumber = $('.new-card');
+        const getCardNumberValidation = $('new-card-validation');
+        if(!regexCradNumber.test(getNewCardNumber[0].value)){
+			$('.new-card-validation')[0].innerText = 'Please Enter A valid Card Number';
+            validateCardNExpiry = false;
+        }
+        else {
+			$('.new-card-validation')[0].innerText = ' ';
+            validateCardNExpiry = true;
+        }
+	  }
+	}
+
