@@ -1,6 +1,13 @@
+
 const getUserDeatils = {};
 let cartId = 'aUETIXpuqYFyr9EEx1F7XjMXL4RBmBer';
+getHrefForCvvButton = '';
+getHrefForNewButton = '';
 $( document ).ready(function() {
+    getHrefForButton = $('.cvv-btn-add').children('.cvv-button').children().attr('href');
+    getHrefForButton = $('.cvv-btn-continue').children('.cvv-continue').children().attr('href');
+    $('.cvv-btn-add').children('.cvv-button').children().removeAttr( "href" );
+    $('.cvv-btn-continue').children('.cvv-continue').children().removeAttr( "href" );
     // using thie cookies value just for testing purpose , remove it after intrgation with other component
 
     		const stateArray = ['Uttar-Pradesh', 'Andhra-Pradesh', 'Maharashtra'];
@@ -311,6 +318,7 @@ function validateGuestEmailkEUP(event) {
 	  	}
 
 		$('.cvv-validation-mssg')[0].innerText = '';
+          window.location.href = getHrefForCvvButton;
 	  }
 
 		function  onCvvKeyUp(){
@@ -363,6 +371,7 @@ function validateGuestEmailkEUP(event) {
         }
 		if(validateCardNExpiry){
 			console.log('set local storage and rediret confirmation page');
+            window.location.href = getHrefForCvvButton;
 
         }
 	  }
