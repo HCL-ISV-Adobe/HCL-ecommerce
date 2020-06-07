@@ -6,7 +6,7 @@ var redirectURL = "http://www.hclstore.com";
 	redirectURL = document.login_form.getAttribute("data-default");
   }
 
-  const setCookie = function(cname,cvalue,exdays) {
+  const setUserCookie = function(cname,cvalue,exdays) {
 	let d = new Date();
 	d.setTime(d.getTime() + (exdays*24*60*60*1000));
 	const expires = "expires=" + d.toGMTString();
@@ -14,7 +14,7 @@ var redirectURL = "http://www.hclstore.com";
 	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 
-  const getCookie = function(cname) {
+  const getUserCookie = function(cname) {
 	let name = cname + "=";
 	let decodedCookie  = decodeURIComponent(document.cookie);
 	let ca = decodedCookie.split(';');
@@ -31,8 +31,8 @@ var redirectURL = "http://www.hclstore.com";
 	return "";
   }
   
-  const checkCookie = function(cname) {
-	if(getCookie("hcluser") != "") {
+  const checkUserCookie = function(cname) {
+	if(getUserCookie("hcluser") != "") {
 	  return true;
 	} else {
 	  return false;
@@ -57,9 +57,9 @@ var redirectURL = "http://www.hclstore.com";
 		const status = (data.status)?JSON.parse(data.status): false;
 		if(status === true) {
 		  //set cookies if rememberme is set, expiry time increased to 5 days
-		  if(checkCookie("hcluser") === false){
+		  if(checkUserCookie("hcluser") === false){
 			const exdays = (formdata.rememberme)?5:1;
-			setCookie("hcluser",JSON.stringify(data.message),exdays);
+			setUserCookie("hcluser",JSON.stringify(data.message),exdays);
 		  }
 		  console.log("Redirecting to the url in 1 seconds...");
 		  setTimeout(function(){window.location = redirectURL;}, 1000);
