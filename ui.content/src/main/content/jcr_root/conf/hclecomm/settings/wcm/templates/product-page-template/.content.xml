@@ -7,6 +7,6 @@
         cq:templateType="/conf/hclecomm/settings/wcm/template-types/hclecomm-base-page"
         jcr:description="This is the Product Page template"
         jcr:primaryType="cq:PageContent"
-        jcr:title="product Page template"
+        jcr:title="Product Page Template"
         status="enabled"/>
 </jcr:root>
