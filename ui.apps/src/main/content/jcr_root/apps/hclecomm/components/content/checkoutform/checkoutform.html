@@ -1,4 +1,4 @@
- <div class="qty">
+  <div class="qty">
 	<div class ='check-out-container'>
 
 		<div class="check-out-section">
@@ -6,9 +6,11 @@
 				<div class = "checkout-title-number">
 					<span  class="check-out-number">1</span>
 				    <sly data-sly-resource="${'customer-title' @ resourceType='hclecomm/components/content/title', decoration=true}"> </sly>
+					<i class="fa fa-pencil-square-o" aria-hidden="true" onclick = 'onEditCheckOutSection(this)' class ='edit-section-icon'></i>
 			    </div>
 					<!--/*<input type="button" value ='Edit' class = 'edit-check-out-section' onclick = "onEditCheckOutSection(this)"/>*-->
         	<!--/*<input type ='text' value ='' class ='edit-check-out-section' placeholder=${properties.editCustomerDetails}>*/-->
+
        	 	<div class= 'edit-check-out-section' onclick = 'onEditCheckOutSection(this)' data-sly-resource="${'editcust-btn' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
 
 
@@ -113,6 +115,7 @@
 					<div>
 					<input type="text" class ='add-addr-feilds' 
 					placeholder="Phone Number" 
+					onkeyup ="onEnterDeatils(this)"
 					name ='Phone Number'/>
 					<p class ='error-message'></p>
 					</div>
@@ -164,7 +167,7 @@
                 	<sly data-sly-resource="${'cvv-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
                     <div class ='billing-cvv-section-validation--btn'>
 					<div class ='billing-cvv-section-validation'>
-						
+
 						<input type="text" class ='cvv-number' placeholder="CVV"  onkeyup = "onCvvKeyUp()"/>
 						<p class ='cvv-validation-mssg'></p>
 
