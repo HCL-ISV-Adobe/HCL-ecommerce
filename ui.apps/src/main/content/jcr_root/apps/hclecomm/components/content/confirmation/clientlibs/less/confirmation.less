@@ -1,52 +1,170 @@
-.cart-detail-container{
-    box-shadow: 0 0 10px #eae4e4;
-    padding: 20px;
-    font-family: Sans Serif, Arial;
+body {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: #333;
+  padding: 0;
+  margin: 0;
+}
+.cmp-confirmation {
+  width: 80%;
+  margin: 0 auto;
 
-    .coupon-text{
-        display: none;
-    }
-    .apply-coupons{
-        margin :5px 0;
-        position: relative;
-        justify-content: space-between;
-    }
-    .apply-coupon-button{
-		display: inline-block;
-    }
-    .price-details{
-        margin :20px 0;
-        &>div{
-            margin : 12px 0;
-            display: flex;
-            width: 250px;
-            justify-content: space-between;
-            &:last-child{
-            margin-top : 30px;
-        }
-        }
+  h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+  }
+  .cmp-confirmation-img {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
 
-        
+    .fa-check-circle {
+      color: #7ec57e;
+      font-size: 50px;
     }
-    .total-order
-         {
+  }
+
+  .cmp-confirmation-orderNo {
+    width: 100%;
+    text-align: center;
+    span {
+      display: block;
+      margin-bottom: 20px;
+
+      &:nth-child(1) {
+        color: #818181;
+        font-size: 22px;
+        margin: 20px;
+      }
+
+      &:nth-child(2) {
+        color: #333;
+        color: #333;
+        margin: 20px 20px 40px 20px;
+        font-size: 18px;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .cmp-confirmation-container {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+    @media screen and (max-width: 767px) {
+      display: block;
+    }
+
+    & > div {
+      background-color: #f0f2f1;
+      border: 1px solid #d7d7d7;
+      padding: 20px;
+    }
+
+    .cmp-confirmation-lft {
+      width: 40%;
+
+      @media screen and (max-width: 767px) {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .cmp-confirmation-section {
+        margin-top: 20px;
+
+        .cmp-confirmation-subHead {
+          font-weight: bold;
+          margin-bottom: 8px;
+        }
+      }
+    }
+
+    .cmp-confirmation-rgt {
+      width: 58%;
+
+      @media screen and (max-width: 767px) {
+        width: 100%;
+      }
+
+      .cmp-confirmation-productInfo {
+        margin-top: 20px;
+        display: flex;
+        div {
+          &:nth-child(1) {
+            width: 60%;
             font-weight: bold;
+          }
+
+          &:nth-child(2) {
+            width: 20%;
+          }
+
+          &:nth-child(3) {
+            width: 18%;
+          }
         }
+      }
+      .cmp-confirmation-total {
+        margin-top: 15px;
+        display: flex;
+        div {
+          &:nth-child(1) {
+            width: 80%;
+            font-weight: bold;
+          }
 
-}
-.coupon-message{
-	position: absolute;
-    top: 25px
-}
+          &:nth-child(2) {
+            width: 20%;
+          }
+        }
+      }
+    }
+  }
 
-.cart-detail-container__apply-coupon
-{
-    width: 155px;
-    margin-right: 20px;
-    padding: 5px 0;
-}
+  .cmp-confirmation-paymentInfo {
+    background-color: #f0f2f1;
+    border: 1px solid #d7d7d7;
+    padding: 20px;
+    width: 99%;
+    margin: 10px auto;
 
-.coupon-bag-separator
-{
-	margin-top: 30px;
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
+
+    & > div {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+
+      @media screen and (max-width: 767px) {
+        display: block;
+      }
+    }
+
+    .cmp-confirmation-subhead {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .cmp-confirmation-cardInfo {
+      width: 40%;
+      margin-top: 15px;
+      @media screen and (max-width: 767px) {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+
+    .cmp-confirmation-bilingInfo {
+      width: 58%;
+      margin-top: 15px;
+      @media screen and (max-width: 767px) {
+        width: 100%;
+      }
+    }
+  }
 }
