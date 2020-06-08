@@ -23,6 +23,6 @@
     <sly data-sly-call="${iconTemplate.icon @ icon=button.icon}"></sly>
     <i data-sly-test="${properties.variation == 'signin'}" class="fa fa-user-o btn-cmp-signin-icon" aria-hidden="true"></i>
     <i data-sly-test="${properties.variation == 'signup'}" class="fa fa-user-plus btn-cmp-signin-icon" aria-hidden="true"></i>
-    <i data-sly-test="${properties.variation == 'logout'}" class="fa fa-sign-out btn-cmp-logout-icon" aria-hidden="true"></i>
+    <i data-sly-test="${properties.variation == 'logout'}" class="fa fa-sign-out btn-cmp-logout-icon" aria-hidden="true" data-logoutRedirect="${button.link}"></i>
     <span data-sly-test="${button.text}" class="cmp-button__text">${button.text}</span>
 </button>
