@@ -9,7 +9,10 @@
     ".productfilter .cmp-productFilter-mobile .cmp-productFilter-open span:nth-child(2)"
   );
 
-  let productFilter = [];
+  let dataAttr = document.querySelectorAll(".product-listing-tile");
+
+  let productFilter = [],
+    filterBreak = true;
 
   filterHead.forEach(function (item) {
     item.addEventListener("click", function () {
@@ -53,22 +56,19 @@
         productFilter.push(event.target.innerHTML);
       }
     }
-    let dataAttr = document.querySelectorAll(
-      ".cmp-productlist .cmp-productlist-wrapper"
-    );
 
-    /* dataAttr.forEach(function (item) {
-        item.style.display = "none";
-        console.log("attr ", item.getAttribute("data-filter"));
-    });*/
     productFilter.forEach(function (value) {
-      dataAttr.forEach(function (item) {
-        item.style.display = "none";
-        if (value == item.getAttribute("data-filter")) {
-          item.style.display = "block";
+      if (filterBreak) {
+        dataAttr.forEach(function (item) {
+          item.style.display = "none";
+        });
+        filterBreak = false;
+      }
+      for (let i = 0; i < dataAttr.length; i++) {
+        if (dataAttr[i].getAttribute("data-tag").includes(value)) {
+          dataAttr[i].style.display = "block";
         }
-        //console.log("attr ", item.getAttribute("data-filter"));
-      });
+      }
     });
   }
 
@@ -95,6 +95,10 @@
   }
 
   function clearFilter() {
-    console.log("clear");
+    productFilter = [];
+    filterBreak = true;
+    dataAttr.forEach(function (item) {
+      item.style.display = "block";
+    });
   }
 })();
