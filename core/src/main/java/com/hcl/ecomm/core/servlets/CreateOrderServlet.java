@@ -47,7 +47,6 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		JSONObject responseObject = new JSONObject();
-		//String cartId = request.getParameter("cartId");
 
 		try {
 			responseObject.put("message", "Response");
@@ -67,6 +66,7 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 					JSONObject createOrderItem = jsonItemObj( jsonPayload);
 					JSONObject createOrderItemResponse = createOrderService.createOrderItem(createOrderItem,jsonPayload.getString("cartId"));
 					if (createOrderItemResponse.has("statusCode") && createOrderItemResponse.getInt("statusCode") == HttpStatus.SC_OK) {
+						LOG.info("createOrderItemResponse is {}" ,createOrderItemResponse);
 						responseObject.put("message", createOrderItemResponse.getJSONObject("message"));
 						responseObject.put("status", Boolean.TRUE);
 					} else {
@@ -85,7 +85,7 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 	
 	private boolean isValidItem(JSONObject jsonPayload) {
 		boolean isValidItem=Boolean.TRUE;
-		if(!jsonPayload.has("cartId") && !jsonPayload.has("itemId")){
+		if(!jsonPayload.has("cartId")){
 			isValidItem = Boolean.FALSE;
 		}
 		return isValidItem;

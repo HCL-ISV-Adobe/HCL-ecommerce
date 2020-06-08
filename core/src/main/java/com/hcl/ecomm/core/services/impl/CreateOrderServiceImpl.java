@@ -50,7 +50,6 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 		LOG.debug("createOrderItem method={}",orderItem,cartId);
 		String scheme = "http";
 		JSONObject createOrderItemRes = new JSONObject();
-		//String createOrderItemRes=null;
 		try {
 
 			String domainName = loginService.getDomainName();
@@ -61,21 +60,15 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 			LOG.info("createOrderInfo url ={}",url);
 			Integer statusCode;
 
-			//JSONObject response = new JSONObject();
 			StringEntity input = new StringEntity(orderItem.toString(),ContentType.APPLICATION_JSON);
 			LOG.info("input is {}",input);
 			CloseableHttpClient httpClient = HttpClients.createDefault();
-			LOG.info("httpClient is {}",httpClient);
 			HttpPut httput = new HttpPut(url);
-			LOG.info("httput is {}",httput);
 			httput.setEntity(input);
-			LOG.info("httput is {}",httput);
 			CloseableHttpResponse httpResponse = httpClient.execute(httput);
 			LOG.info("httpResponse is {}",httpResponse);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
-
 			LOG.info("createOrder Info : magento statusCode ={}",statusCode);
-			//String response= null;
 
 			if(org.eclipse.jetty.http.HttpStatus.OK_200 == statusCode){
 				BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
@@ -93,9 +86,9 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 			}else if(HttpStatus.SC_BAD_REQUEST == statusCode){
 				createOrderItemRes.put("statusCode", statusCode);
 				createOrderItemRes.put("message", httpResponse.getEntity().getContent().toString());
-				LOG.error("Error while Shipping Info . status code:{} and message={}",statusCode,httpResponse.getEntity().getContent().toString());
+				LOG.error("Error while create Order Info . status code:{} and message={}",statusCode,httpResponse.getEntity().getContent().toString());
 			}else{
-				LOG.error("Error while Shipping Info. status code:{}",statusCode);
+				LOG.error("Error while create Order Info. status code:{}",statusCode);
 			}
 		} catch (Exception e) {
 			LOG.error("createOrderCart method caught an exception " + e);

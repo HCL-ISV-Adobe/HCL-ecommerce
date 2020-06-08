@@ -66,13 +66,10 @@ public class ShippingInfoServiceImpl implements ShippingInfoService {
             Integer statusCode;
             JSONObject response = new JSONObject();
             StringEntity input = new StringEntity(shipItem.toString(),ContentType.APPLICATION_JSON);
-            LOG.info("input is {}",input);
             CloseableHttpClient httpClient = HttpClients.createDefault();
-            LOG.info("httpClient is {}",httpClient);
             HttpPost httpost = new HttpPost(url);
-            LOG.info("httpost is {}",httpost);
             httpost.setEntity(input);
-            LOG.info("httppost is {}",httpost);
+
             CloseableHttpResponse httpResponse = httpClient.execute(httpost);
             LOG.info("httpResponse is {}",httpResponse);
             statusCode = httpResponse.getStatusLine().getStatusCode();

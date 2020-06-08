@@ -45,9 +45,7 @@ public class ShippingInfo extends SlingAllMethodsServlet{
 		response.setCharacterEncoding("UTF-8");
 		JSONObject responseObject = new JSONObject();
 		try {
-			//String cartId = request.getParameter("cartId");
-			//responseObject.put("message", "Response");
-			responseObject.put("status", Boolean.FALSE);
+		    responseObject.put("status", Boolean.FALSE);
 
 			StringBuilder buffer = new StringBuilder();
 			BufferedReader reader = request.getReader();
@@ -89,7 +87,7 @@ public class ShippingInfo extends SlingAllMethodsServlet{
 	
 	private boolean isValidPayload(JSONObject jsonPayload) {
 		boolean isValidData=Boolean.TRUE;
-		if(!jsonPayload.has("region")){
+		if(!jsonPayload.has("cartId")){
 			isValidData = Boolean.FALSE;
 		}
 		return isValidData;
