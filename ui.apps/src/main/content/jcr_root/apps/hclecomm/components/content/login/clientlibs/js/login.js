@@ -2,7 +2,7 @@ var redirectURL = "http://www.hclstore.com";
   const params = new URLSearchParams(window.location.search)
   if(params.has('referer')) {
 	redirectURL = params.get('referer');
-  } else if(document.login_form.getAttribute("data-default")) {
+  } else if(document.login_form && document.login_form.getAttribute("data-default")) {
 	redirectURL = document.login_form.getAttribute("data-default");
   }
 
@@ -20,7 +20,6 @@ var redirectURL = "http://www.hclstore.com";
 	let ca = decodedCookie.split(';');
 	for(let i = 0; i < ca.length; i++) {
 	  let c = ca[i].trim();
-	  console.log(c);
 	  // while( c.chartAt(0) == ' '){
 	  //   c = c.substring(1);
 	  // }
@@ -45,7 +44,6 @@ var redirectURL = "http://www.hclstore.com";
 	  body: JSON.stringify(formdata),
 	  method: "POST"
 	}
-	console.log(othrParm);
 
 	fetch(url, othrParm)
 	.then((response) => {return response.json();}
