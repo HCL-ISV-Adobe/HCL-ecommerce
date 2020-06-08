@@ -80,6 +80,23 @@
   .add-new-address-form>div>div {
     position: relative;
   }
+  .new-crad-number-validation{
+    flex-direction: column;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+     .new-cvv-validation-mssg{
+    position: absolute;
+      top: 34px;
+      font-size: 13px;
+        color: #ff0000;
+      }
+    }
+   .new-crad-number-validation--bottom-container{
+    flex-direction: row;
+    align-items: center;
+    }
   .error-message {
     position: absolute;
     top: 30px;
@@ -140,8 +157,9 @@
   .card-number-new {
     padding: 10px;
     margin-right: 20px;
+    margin-bottom : 20px
   }
-  
+
 }
 
 @media only screen and (max-width: 768px) {
@@ -155,11 +173,7 @@
     .billing-cvv>div {
       margin-left: 0px;
     }
-    .new-crad-number-validation{
-    flex-direction: column;
-    display: flex;
-    align-items: flex-start;
-    }
+
     .add-addr-feilds {
       width: 214px;
       padding: 10px;
@@ -193,5 +207,16 @@
       flex-direction: column;
       align-items: baseline;
     }
+    .new-crad-number-validation{
+        margin-top: 10px;
+    margin-bottom: 30px;
+     }
+     .new-crad-number-validation--bottom-container{
+    flex-direction: column;
+      align-items: self-end;
+    }
+    .checkout-title-number{
+      max-height: 72px;
+        }
   }
 }
