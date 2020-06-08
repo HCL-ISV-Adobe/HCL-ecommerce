@@ -49,9 +49,19 @@ function onApplyCoupon(){
 
 $(document).ready(function (){
    	 $('.order-price').text(totalBagPrice - bagDiscount);
-     $('.total-price').text(totalBagPrice - bagDiscount + deliveryCharges);
+    if(Number($('.order-price').text())<=0)
+    {
+		$('.delivery-charges').text(0);
+    }
+	//deliveryCharges = Number($('.delivery-charges').text());
+     $('.total-price').text(totalBagPrice - bagDiscount + Number($('.order-price').text()));
 	 placeOrderRedirection = $('.place-order-button').children().children().attr('href');
 	 $('.place-order-button').children().children().removeAttr("href");
+
+	if(Number($('.order-price').text())<=0)
+    {
+		$('.delivery-charges').text(0);
+    }
 
     if(Number($('.bag-discount-amount').text())>0)
 		$('.bag-discount').css("display","flex");
