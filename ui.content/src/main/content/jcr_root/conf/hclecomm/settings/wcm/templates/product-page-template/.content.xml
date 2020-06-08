@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Template">
+    <jcr:content
+        cq:lastModified="{Date}2020-06-08T16:32:31.681+05:30"
+        cq:lastModifiedBy="admin"
+        cq:templateType="/conf/hclecomm/settings/wcm/template-types/hclecomm-base-page"
+        jcr:description="This is the Product Page template"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="product Page template"
+        status="enabled"/>
+</jcr:root>
