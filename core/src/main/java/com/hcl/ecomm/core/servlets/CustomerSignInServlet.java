@@ -56,9 +56,11 @@ public class CustomerSignInServlet extends SlingAllMethodsServlet{
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		JSONObject responseObject = new JSONObject();
-
+		JSONObject errorRes = new JSONObject();
+		
 		try {
-			responseObject.put("message", "Request failed");
+			errorRes.put("error", "Request failed");
+			responseObject.put("message", errorRes);
 			responseObject.put("status", Boolean.FALSE);
 			
 			StringBuilder buffer = new StringBuilder();
@@ -83,11 +85,11 @@ public class CustomerSignInServlet extends SlingAllMethodsServlet{
 							responseObject.put("status", Boolean.TRUE);
 						}
 					} else {
-						responseObject.put("message", "something went wrong while Customer Signin.");
+						responseObject.put("message",errorRes);
 					}
 				}
 			} else {
-				responseObject.put("message", "Missing Parameter in payload.");
+				responseObject.put("message", errorRes);
 				responseObject.put("status", Boolean.FALSE);
 			}
 			response.getWriter().print(responseObject);
