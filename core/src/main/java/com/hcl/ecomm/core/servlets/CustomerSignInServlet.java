@@ -56,11 +56,10 @@ public class CustomerSignInServlet extends SlingAllMethodsServlet{
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		JSONObject responseObject = new JSONObject();
-		JSONObject errorRes = new JSONObject();
+		JSONObject jsonResponse = new JSONObject();
 		
 		try {
-			errorRes.put("error", "Request failed");
-			responseObject.put("message", errorRes);
+			jsonResponse.put("error", "Request failed");
 			responseObject.put("status", Boolean.FALSE);
 			
 			StringBuilder buffer = new StringBuilder();
@@ -80,18 +79,22 @@ public class CustomerSignInServlet extends SlingAllMethodsServlet{
 						JSONObject customerProfileRes = customerService.customerProfile(customerToken);
 						if (customerProfileRes.has("statusCode") && customerProfileRes.getInt("statusCode") == HttpStatus.OK_200) {
 							customerProfileRes.put("customerToken", customerToken);
-							JSONObject profile =customerProfileRes.getJSONObject("message").put("customerToken", customerToken);
-							responseObject.put("message", profile);
+							jsonResponse = customerProfileRes.getJSONObject("message").put("customerToken", customerToken);
+							jsonResponse = processResponse(jsonResponse);
 							responseObject.put("status", Boolean.TRUE);
+						}else {
+							jsonResponse.put("error", "Something went wrong while login.");
 						}
 					} else {
-						responseObject.put("message",errorRes);
+						jsonResponse.put("error", "Something went wrong while login.");
 					}
+				}else {
+					jsonResponse.put("error", "Missing login paramter.");
 				}
 			} else {
-				responseObject.put("message", errorRes);
-				responseObject.put("status", Boolean.FALSE);
+				jsonResponse.put("error", "invalid payload.");
 			}
+			responseObject.put("message",jsonResponse);
 			response.getWriter().print(responseObject);
 		} catch (Exception e) {
 			LOG.error("Error Occured while executing CustomerSignin doPost(). responseObject={} ", responseObject);
@@ -103,7 +106,7 @@ public class CustomerSignInServlet extends SlingAllMethodsServlet{
 	
 	private boolean isValidPayload(JSONObject jsonPayload) {
 		boolean isValidData=Boolean.TRUE;
-		if(!jsonPayload.has("username") && !jsonPayload.has("password")){
+		if(!jsonPayload.has("username") || !jsonPayload.has("password")){
 			isValidData = Boolean.FALSE;
 		}
 		return isValidData;
@@ -119,5 +122,21 @@ public class CustomerSignInServlet extends SlingAllMethodsServlet{
 		}
 		return customerSignin;
 	}
+	
+	private JSONObject processResponse(JSONObject magentoRes) {
+		JSONObject response = new JSONObject();
+		try {
+			response.put("email", magentoRes.getString("username"));
+			response.put("firstname", magentoRes.getString("firstname"));
+			response.put("lastname", magentoRes.getString("lastname"));
+			response.put("customerToken", magentoRes.getString("customerToken"));
+			response.put("website_id", magentoRes.getString("website_id"));
+			response.put("store_id", magentoRes.getString("store_id"));
+		} catch (JSONException e) {
+			LOG.error("Error while executing customerSigninObj. Error={}",e);
+		}
+		return response;
+	}
+	
 
 }
