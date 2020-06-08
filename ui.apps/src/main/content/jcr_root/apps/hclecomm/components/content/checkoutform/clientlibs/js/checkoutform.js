@@ -1,9 +1,30 @@
 
 const getUserDeatils = {};
-let cartId = 'aUETIXpuqYFyr9EEx1F7XjMXL4RBmBer';
+let checkoutcartId = '';
 getHrefForCvvButton = '';
 getHrefForNewButton = '';
 $( document ).ready(function() {
+
+    //using cookies
+
+
+
+       const getCookies = document.cookie;
+
+
+       //const getCookies = document.cookie;
+     if (getCookies.indexOf('cartId') > -1) {
+        const cookiesCartID = getCookies.split(';');
+        cookiesCartID  && cookiesCartID.length >0 ?
+        Object.keys(cookiesCartID).forEach((cookiesCartIDitem) =>{
+            const splitCookies  = cookiesCartID[cookiesCartIDitem].split('=')
+                if(splitCookies[0] === 'cartId' || splitCookies[0] === ' cartId')  {
+                cartId= splitCookies[1];
+        		checkoutcartId=cartId;
+            }
+    }):null
+     }
+	console.log(checkoutcartId);
     getHrefForButton = $('.cvv-btn-add').children('.cvv-button').children().attr('href');
     getHrefForButton = $('.cvv-btn-continue').children('.cvv-continue').children().attr('href');
     $('.cvv-btn-add').children('.cvv-button').children().removeAttr( "href" );
@@ -16,9 +37,10 @@ $( document ).ready(function() {
     			 stateArray.forEach((item)=> {
     			 selectHTML += "<option value='" + item + "'>" + item + "</option>";})
     				selectHTML += "</select>";
-    		if(selectHTML){
+                	const getstatecollection= document.getElementById('state-collection');
+    		if(selectHTML && getstatecollection ){
     			//document.getElementById('state-collection').appendChild(selectHTML);
-    			document.getElementById('state-collection').innerHTML = selectHTML;
+    			getstatecollection.innerHTML = selectHTML;
     		}
     		}
 
@@ -120,12 +142,30 @@ function validateGuestEmailkEUP(event) {
 /// method for saving and delivering
 	  function onSaveNDeliver(){
       let	validationFeilds = true;
+      let validateFormFields = true
 	  submitForm = true;
 			const getAllAddressFields = $('.add-addr-feilds');
 			if(getAllAddressFields){
 				getAllAddressFields.toArray().forEach((fieldItem) => {
 							const userDetails = fieldItem.name;
 							const userDetailsValue = fieldItem.value;
+                           		if(!userDetailsValue){
+									validateFormFields = false;
+               					 }
+                				if(userDetails === 'Phone Number'  && userDetailsValue){
+									const phoneReg= /^\d{10}$/;
+		  								if(!userDetailsValue.match(phoneReg)){
+		  									validateFormFields = false;
+		  									}
+               					 }
+
+                				if(userDetails === 'Pin Number' && userDetailsValue){
+									const pinRegexp = /^[0-9]{5}(?:-[0-9]{4})?$/;
+		  								if(!userDetailsValue.match(pinRegexp)){
+
+		  									validateFormFields = false;
+		  									}
+               					 }
 							letValidateField(userDetails, userDetailsValue, fieldItem);
 
 						
@@ -133,7 +173,7 @@ function validateGuestEmailkEUP(event) {
 			}
 		if(!doValidation){
                                 //console.log(userDetailsValue);
-								getUserDeatils['cartId'] = cartId;
+								getUserDeatils['cartId'] = checkoutcartId;
                                 getUserDeatils['region'] = "MH";
                                 getUserDeatils['region_id'] = 0;
                                 getUserDeatils['country_id'] = 'IN';
@@ -141,7 +181,7 @@ function validateGuestEmailkEUP(event) {
            						 getUserDeatils['shipping_method_code'] = "flatrate";
                                 getUserDeatils['shipping_carrier_code'] = "flatrate";
                             }
-	 	if(validationFeilds && !doValidation){
+	 	if(validationFeilds && validateFormFields){
             const xhttp = new XMLHttpRequest();
   			xhttp.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
@@ -159,11 +199,12 @@ function validateGuestEmailkEUP(event) {
 
 
 	 	function getCodeskmu(skmuObj){
-	 		skmuObj['cartId'] = cartId;
+	 		skmuObj['cartId'] = checkoutcartId;
 	 		 const xhttp = new XMLHttpRequest();
   			xhttp.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
 				/// call here closing tab
+                onToggleDescription(event);
    			 }
   			};
  		xhttp.open("PUT", "/bin/hclecomm/createOrder"  , true);
