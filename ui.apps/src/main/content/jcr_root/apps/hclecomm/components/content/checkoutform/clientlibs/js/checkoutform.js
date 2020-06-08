@@ -196,6 +196,8 @@ function onSaveNDeliver() {
 		const xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
+                const message= JSON.parse(this.responseText)['message']['orderId']
+                getUserDeatils['orderId']=message;
 				onToggleDescription(event);
 			}
 		};
@@ -405,6 +407,9 @@ function onContinueCvv() {
 	$('.new-card-expiry-date-validation')[0].innerText = ' ';
 	validateCardNExpiry = true;
 	console.log('set local storage and rediret confirmation page');
+    const checkOutDetails = {...getUserDeatils, cardNumber : getNewCardNumber[0].value, cardExpDate : getNewCardExpiryDate[0].value}
+    console.log(checkOutDetails)
+    localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
 	window.location.href = getHrefForCvvButton;
 
 
