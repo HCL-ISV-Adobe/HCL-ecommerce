@@ -207,23 +207,22 @@ link-primary {
 
 
 
-
-
+.btn-cmp-login {
+    background: transparent;
+    border: 0;
+    margin: 5px 12px;
+    background-color: #2979be;
+    cursor: pointer;
+}
+.btn-cmp-signin-icon {
+    font-size: 1em;
+    color: rgba(245, 245, 245,0.8);
+    padding: 3px 4px;
+}
 .btn-cmp-signin, .btn-cmp-signup {
-        // font-weight: 600;
-        background: transparent;
-        border: 0;
-        margin: 5px 12px;
-        cursor: pointer;
-        background-color: #2979be;
-        
-        .btn-cmp-signin-icon {
-            font-size: 1.5em;
-            // vertical-align: middle;
-            color: rgba(245, 245, 245,0.8);
-            // color: #444;
-            padding: 3px 4px;
-        }
+        .btn-cmp-login();
+
+        .btn-cmp-signin-icon();
         
         a {
             text-decoration: none;
@@ -236,44 +235,35 @@ link-primary {
                 border: 0;
             }
         }
- 
+
         &:hover {
             text-decoration: none;
             outline: none;
         }
 }
-
 .btn-cmp-logout {
-    background: transparent;
+    // background: transparent;
     border: 0;
     margin: 5px 12px;
-    cursor: pointer;
     background-color: #2979be;
- 
-    .btn-cmp-logout-icon {
-        font-size: 1.5em;
-        // vertical-align: middle;
+    position: relative;
+    padding: 5px 25px 5px 10px;
+
+    .btn-cmp-logout-text {
         color: rgba(245, 245, 245,0.8);
-        // color: #444;
-        padding: 3px 4px;
+        text-transform: capitalize;
+        padding: 5px 10px 5px 4px;
     }
-    a {
-        text-decoration: none;
-        span {
-            color: rgba(245, 245, 245,0.8);
-            text-transform: capitalize;
-        }
-        span::before{
-            content: 'Hi, ';
-        }
-        &:hover {
-            text-decoration: none;
-            outline: none;
-            border: 0;
-        }
+    .btn-cmp-logout-icon {
+        .btn-cmp-signin-icon();
+        padding: 6px 3px;
+        position: absolute;
+        right: 0;
+        top: 1px;
     }
-    &:hover {
-        text-decoration: none;
-        outline: none;
+
+    a span {
+        color: rgba(245, 245, 245,0.8);
+        text-decoration: underline;
     }
 }
