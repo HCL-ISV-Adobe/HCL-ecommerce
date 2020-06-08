@@ -118,9 +118,8 @@ function validateGuestEmailkEUP(event) {
 		
 	 
 /// method for saving and delivering
-	 /* function onSaveNDeliver(){
-          ;
-	  let	validationFeilds = true;
+	  function onSaveNDeliver(){
+      let	validationFeilds = true;
 	  submitForm = true;
 			const getAllAddressFields = $('.add-addr-feilds');
 			if(getAllAddressFields){
@@ -173,13 +172,13 @@ function validateGuestEmailkEUP(event) {
 
 	 	}
 
-	  }*/
+	  }
 
 
-	 function onSaveNDeliver(){
+	/* function onSaveNDeliver(){
          onToggleDescription(event);
 
-	  }
+	  }*/
 
 	  function onAddCancel(){
 	  	const getAllAddressFields = $('.add-addr-feilds');
@@ -289,9 +288,12 @@ function validateGuestEmailkEUP(event) {
 		  default:
     		break;
 		}
+
+          console.log(doValidation, '1')
 		  	event.nextElementSibling.innerText = '';
-		  doValidation = false;
-	 	 onSaveNDeliver
+		 	doValidation = false;
+          console.log(doValidation, '2')
+
 	  }
 
 	  function onSelecCVV(){
