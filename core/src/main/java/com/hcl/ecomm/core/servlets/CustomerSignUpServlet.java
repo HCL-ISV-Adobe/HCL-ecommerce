@@ -22,13 +22,7 @@ import com.hcl.ecomm.core.services.AddToCartService;
 import com.hcl.ecomm.core.services.CustomerService;
 
 /**
- * Servlet that 
- * create customer, 
- * get customer details, 
- * forget password , 
- * change password 
- * change email
- * gets cart add item and update item related data by hitting the Magento service.
+ * Servlet that provide the functionality to create new customer by hitting the Magento service.
  * 
  * 
  */
@@ -54,7 +48,7 @@ public class CustomerSignUpServlet extends SlingAllMethodsServlet{
 	
 	
 	  /**
-     * doPost add the item in the Magento cart so that it can be persisted at their end.
+     * doPost create new customer so that it can be persisted at their end.
      *
      * @param request
      *            - sling servlet request object

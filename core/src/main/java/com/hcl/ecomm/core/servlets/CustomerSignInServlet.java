@@ -22,6 +22,11 @@ import org.slf4j.LoggerFactory;
 
 import com.hcl.ecomm.core.services.CustomerService;
 
+/**
+ * Servlet that provide the customer login functionality by hitting the Magento service.
+ * 
+ * 
+ */
 
 @Component(
 		service = Servlet.class, 
@@ -41,14 +46,7 @@ public class CustomerSignInServlet extends SlingAllMethodsServlet{
 	private CustomerService customerService;
 
 	
-    /**
-     * doGet gets to create cart in Magento and returned alphnumeric cart hashcode from Magento service.
-     *
-     * @param request
-     *            - sling servlet request object
-     * @param response
-     *            - sling servlet response object
-     */
+
 	@Override
 	protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
