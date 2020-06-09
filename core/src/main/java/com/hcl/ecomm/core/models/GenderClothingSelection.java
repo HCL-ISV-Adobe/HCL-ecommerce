@@ -40,11 +40,15 @@ public class GenderClothingSelection {
     @PostConstruct
     protected void init() {
         logger.debug("In init method of GenderClothingSelection model.");
+        try {
         if(!clothingFilter.isEmpty()) {
             for (Resource resource : clothingFilter) {
                 ClothingFilter clothes = resource.adaptTo(ClothingFilter.class);
                 clothingList.add(clothes);
             }
+        }
+        }catch (Exception e){
+            logger.error("Exception encountered",e.getMessage());
         }
     }
 

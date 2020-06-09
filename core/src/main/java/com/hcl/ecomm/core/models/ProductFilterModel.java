@@ -41,12 +41,17 @@ public class ProductFilterModel {
     @PostConstruct
     protected void init() {
         logger.debug("In init of ProductFilterModel");
-        if (!selectGenderClothing.isEmpty()) {
-            for (Resource resource : selectGenderClothing) {
-                GenderClothingSelection genderClothing = resource.adaptTo(GenderClothingSelection.class);
-                genderclothingList.add(genderClothing );
+        try {
+            if (!selectGenderClothing.isEmpty()) {
+                for (Resource resource : selectGenderClothing) {
+                    GenderClothingSelection genderClothing = resource.adaptTo(GenderClothingSelection.class);
+                    genderclothingList.add(genderClothing);
+                }
             }
+        }catch (Exception e){
+            logger.error("Exception encountered",e.getMessage());
         }
+
 
     }
 }
