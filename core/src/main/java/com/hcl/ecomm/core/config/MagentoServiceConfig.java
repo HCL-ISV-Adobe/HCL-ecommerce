@@ -15,13 +15,14 @@ public @interface MagentoServiceConfig {
 	String addToCartPath = "/us/V1/guest-carts/{cartId}/items";
 	String updateCartItemPath = "/us/V1/guest-carts/{cartId}/items/{ItemId}";
 	String emptyCartPah = "/us/V1/guest-carts";
-	String guestCartItemDeletePah = "/us/V1/guest-carts/{cartId}/items/{itemId}";
-    String servicePathCartUpdateItems = "V1/guest-carts/";
-    
+	String guestCartItemDeletePah = "/us/V1/guest-carts/{cartId}/items/{itemId}"; 
+    String servicePathCartUpdateItems = "/V1/guest-carts/";
     //Customer API
     String customerSignupPath = "/V1/customers";
     String customerSigninPath = "/V1/integration/customer/token";
     String customerProfilePath = "/V1/customers/me";
+
+
 
     @AttributeDefinition(name = "All Products Service Path", description = "This is the API path for getting all products for a store", defaultValue = servicePathDefaultValue, type = AttributeType.STRING)
     String productService_servicePath() default servicePathDefaultValue;

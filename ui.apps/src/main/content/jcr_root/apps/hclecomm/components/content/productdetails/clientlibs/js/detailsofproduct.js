@@ -150,7 +150,7 @@ function getCookie(name, callback) {
         xhttp.send();
         }
 
- 
+
 
        // return cartId;
  }
@@ -167,7 +167,7 @@ function callback(cartId) {
 
 //sending data to server
     var xhr = new XMLHttpRequest();
-    var url = "http://localhost:4502/bin/hclecomm/addToCart";
+    var url = "/bin/hclecomm/addToCart";
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
