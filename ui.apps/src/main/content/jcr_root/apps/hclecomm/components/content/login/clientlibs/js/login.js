@@ -1,7 +1,7 @@
 	const findRedriectUrl = function(domId) {
 		let redirectURL = "/content/hclecomm/us/en/home.html";// default home url
 		const params = new URLSearchParams(window.location.search);
-		const keys = ['signIn.html', 'signUp.html'];
+		const keys = ['signin.html', 'signup.html'];
 		if(params.has('referer')) {
 			if(!keys.some(k => params.get('referer').includes(k) )) {
 				redirectURL = params.get('referer');
