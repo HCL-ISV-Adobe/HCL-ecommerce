@@ -1,10 +1,16 @@
-var redirectURL = "";
-  const params = new URLSearchParams(window.location.search)
-  if(params.has('referer')) {
-	redirectURL = params.get('referer');
-  } else if(document.login_form && document.login_form.getAttribute("data-default")) {
-	redirectURL = document.login_form.getAttribute("data-default");
-  }
+	const findRedriectUrl = function(domId) {
+		let redirectURL = "/content/hclecomm/us/en/home.html";// default home url
+		const params = new URLSearchParams(window.location.search);
+		const keys = ['signIn.html', 'signUp.html'];
+		if(params.has('referer')) {
+			if(!keys.some(k => params.get('referer').includes(k) )) {
+				redirectURL = params.get('referer');
+			}
+		} else if(domId.getAttribute("data-default")) {
+			edirectURL = domId.getAttribute("data-default");
+		}
+		return redirectURL;
+	}
 
   const setUserCookie = function(cname,cvalue,exdays) {
 	let d = new Date();
@@ -60,7 +66,7 @@ var redirectURL = "";
 			setUserCookie("hcluser",JSON.stringify(data.message),exdays);
 		  }
 		  console.log("Redirecting to the url in 1 seconds...");
-		  setTimeout(function(){window.location = redirectURL;}, 1000);
+		  setTimeout(function(){window.location = findRedriectUrl(document.login_form);}, 1000);
 		} else {
 		  let error = "Server status failed. ";
 		  if(data.message.error) {

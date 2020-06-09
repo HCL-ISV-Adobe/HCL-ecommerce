@@ -1,10 +1,16 @@
-  let signupRedirectURL = "/content/hclecomm/us/en/home.html";
-  const signupParams = new URLSearchParams(window.location.search)
-  if(signupParams.has('referer')) {
-	signupRedirectURL = signupParams.get('referer');
-  } else if(document.signup_form && document.signup_form.getAttribute("data-default")) {
-	resignupRedirectURLdirectURL = document.signup_form.getAttribute("data-default");
-  }
+  const findRedriectUrl2 = function(domId) {
+		let redirectURL = "/content/hclecomm/us/en/home.html";// default home url
+		const params = new URLSearchParams(window.location.search);
+		const keys = ['signIn.html', 'signUp.html'];
+		if(params.has('referer')) {
+			if(!keys.some(k => params.get('referer').includes(k) )) {
+				redirectURL = params.get('referer');
+			}
+		} else if(domId.getAttribute("data-default")) {
+			edirectURL = domId.getAttribute("data-default");
+		}
+		return redirectURL;
+	}
 
   const successSignUpCallback = (respData) =>  {
 	if(checkUserCookie("hcluser") === false) {
@@ -12,7 +18,7 @@
 		// const exdays = (document.login_form.rememberme.checked)?5:1;
 		setUserCookie("hcluser",JSON.stringify(respData.message),1);
 	}
-	setTimeout(function(){window.location = signupRedirectURL;}, 1000);
+	setTimeout(function(){window.location = findRedriectUrl2(document.signup_form);}, 1000);
   }
 
   const handleHttpServerRequestJson2 = function (url, formdata) {
