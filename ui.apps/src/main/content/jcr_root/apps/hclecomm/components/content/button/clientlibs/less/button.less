@@ -205,34 +205,41 @@ link-primary {
 
 
 
-
-
-.btn-cmp-login {
+.btn-cmp-common {
     background: transparent;
     border: 0;
-    margin: 5px 12px;
-    background-color: #2979be;
-    cursor: pointer;
+    // margin: 5px 12px;
+    background-color: #0070B9;
+    padding: 5px 8px;
 }
-.btn-cmp-signin-icon {
-    font-size: 1em;
-    color: rgba(245, 245, 245,0.8);
-    padding: 3px 4px;
-}
-.btn-cmp-signin, .btn-cmp-signup {
-        .btn-cmp-login();
 
-        .btn-cmp-signin-icon();
+.btn-cmp-signin, .btn-cmp-signup {
+        .btn-cmp-common();
+        cursor: pointer;
+        color: rgba(252, 252, 252, 0.705);
+        // padding: 5px 10px;
+        .btn-cmp-signin-icon {
+            padding: 3px 4px;
+            // font-size: 1em;
+            // color: rgba(245, 245, 245,0.8);
+        }
+
+        &:hover {
+            background-color:#0067A8;
+            color: rgba(252, 252, 252, 0.8);
+            
+        }
         
         a {
             text-decoration: none;
             span {
-                color: rgba(245, 245, 245,0.8);
+                color: rgba(252, 252, 252, 0.705);
             }
             &:hover {
                 text-decoration: none;
                 outline: none;
                 border: 0;
+                color: rgba(252, 252, 252, 0.8);
             }
         }
 
@@ -243,27 +250,40 @@ link-primary {
 }
 .btn-cmp-logout {
     // background: transparent;
-    border: 0;
-    margin: 5px 12px;
-    background-color: #2979be;
-    position: relative;
-    padding: 5px 25px 5px 10px;
+    .btn-cmp-common();
+    // cursor: pointer;
+    // position: relative;
+    // padding: 5px 25px 5px 10px;
+    color: rgba(252, 252, 252, 0.705);
 
-    .btn-cmp-logout-text {
-        color: rgba(245, 245, 245,0.8);
-        text-transform: capitalize;
-        padding: 5px 10px 5px 4px;
+    &:hover {
+        background-color:#0067A8;
+        color: rgba(252, 252, 252, 0.8);
+        
     }
     .btn-cmp-logout-icon {
-        .btn-cmp-signin-icon();
-        padding: 6px 3px;
-        position: absolute;
-        right: 0;
-        top: 1px;
+        padding: 3px 3px;
     }
+    
+    .btn-cmp-logout-text {
+        color: rgba(252, 252, 252, 0.705);
+        text-transform: capitalize;
+        padding: 5px 10px 5px 4px;
+        overflow: hidden;
+        width: 50%;
+    }
+    
 
-    a span {
-        color: rgba(245, 245, 245,0.8);
-        text-decoration: underline;
+    a {
+        text-decoration: none; 
+        span {
+            color: rgba(252, 252, 252, 0.705);
+            &:hover {
+                text-decoration: none;
+                outline: none;
+                border: 0;
+                color: @rgba(252, 252, 252, 0.8);
+            }
+        }
     }
 }

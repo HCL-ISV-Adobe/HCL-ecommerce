@@ -1,0 +1,139 @@
+@form-background-color:#FFFFFF;
+@title-color: #494747;
+@sub-title-color:#7c7c7c;
+@input-border-color:#D1D1D1;
+@input-border-color-focused: #ff9090;
+@submit-button-bgcolor: #0070B9;
+@submit-button-bgcolor-focus: #0067A8;
+@submit-button-color:white;
+@error-font-color:red;
+
+.cmp-signup {
+    margin: auto;
+    // width: 40%;
+    max-width: 650px;
+    padding: 10px 20px;
+    background-color: @form-background-color;
+    box-shadow: 0 0 5px 3px rgba(0,0,0, 0.2);
+	// overflow: auto;
+	// @media screen and (max-width:768px) {
+	//     padding: 20px 20px;
+	// }
+
+    .cmp-signup-title {
+        margin: 10px 0;
+        color: @title-color;
+        h5 {
+            font-size:16px;
+        }
+        span {
+            margin: 1px;
+            font-size: x-small;
+            color: @sub-title-color;
+        }
+    }
+
+    .cmp-signup-form {
+        padding-top: 10px;
+        // padding-bottom: 10px;
+        // overflow: auto;
+
+        .cmp-form-text {
+          margin-bottom: 15px;
+          display: inline-block;
+          width: 45%;
+          margin-right: 15px;
+          input {
+            // input[type=text], input[type=password], input[type=number],input[type=email] {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid @input-border-color;
+            border-radius: 5px;
+            &:focus {
+                border: 1px solid @input-border-color-focused;
+                border-radius: 3px;
+                outline-offset: -1px;
+                outline-color: @input-border-color-focused;
+                outline-style: solid;
+                outline-width: 1px;
+                }
+            }
+            @media screen and (max-width: 400px) {
+                width: 100%;
+                // padding-bottom: 50px;
+            }
+        }
+        // input:invalid {
+        //     border: 1px solid black;
+        // }
+        label.error {
+            display: inline;
+            color: @error-font-color;
+            font-size: small;
+        }
+        .cmp-signup-errormsg,.cmp-signup-errormsg span  {
+            // display: inline;
+            color: red;
+            font-size: small;
+            text-align: center;
+            // padding: 5
+            margin-bottom: 10px;
+            margin-top: 0px
+        }
+        .cmp-form-button {
+            margin-bottom: 20px;
+            margin-left: 3px;
+            label {
+                display: inline-block;
+                vertical-align: middle;
+                font-size: x-small;
+                color: @sub-title-color;
+                border: 0;
+                margin: 0px, 5px;
+                &:focus {
+                    border: 1px solid @input-border-color-focused;
+                }
+            }
+            input[type=checkbox] {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 4px;
+                &:focus {
+                    border: 1px solid @input-border-color-focused;
+                }
+            }
+            label a {
+                text-decoration: underline;
+                color: @sub-title-color;
+                font-weight: bold;
+            }
+            
+            .btn-signup {
+                display: block;
+                margin-top: 25px;
+                padding: 8px 45px;
+                color:@submit-button-color;
+                background-color:@submit-button-bgcolor;
+                border: 2px;
+                border-radius: 40px;
+                text-align: center;
+                cursor: pointer;
+                
+                @media screen and (max-width:768px){
+                    width: 95%;
+                    margin-left: 0;
+                }
+
+                &:hover {
+                    outline-style: none;
+                    // border: 1px solid @input-border-color-focused;
+                    background-color:@submit-button-bgcolor-focus;
+                }
+            }
+        }   
+       
+        
+       
+    }
+    
+}
