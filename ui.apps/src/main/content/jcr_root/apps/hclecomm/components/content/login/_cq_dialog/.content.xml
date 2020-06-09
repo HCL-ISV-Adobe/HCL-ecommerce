@@ -32,21 +32,11 @@
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                 fieldLabel="Login Screen Title"
                                                 name="./loginScreenTitle"/>
-                                            <usernameLabel
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                fieldLabel="Username Label"
-                                                name="./usernameLabel"/>
                                             <usernamePlaceholder
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                 fieldLabel="Username Placeholder"
                                                 name="./usernamePlaceholder"/>
-                                            <passwordLabel
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                fieldLabel="Password Label"
-                                                name="./passwordLabel"/>
                                             <passwordPlaceholder
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -62,6 +52,18 @@
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                 fieldLabel="Signin Button Label"
                                                 name="./signinButtonLabel"/>
+                                            <signupButtonLabel
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldLabel="Signup Button Label"
+                                                name="./signupButtonLabel"/>
+                                            <signupPage
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="cq/gui/components/coral/common/form/pagefield"
+                                                fieldDescription="This will be the default redirect page after successful signin."
+                                                fieldLabel="Signup Page"
+                                                name="./signupPage"
+                                                rootPath="/content"/>                                                                                                
                                             <defaultPage
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="cq/gui/components/coral/common/form/pagefield"

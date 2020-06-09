@@ -1,4 +1,4 @@
-var redirectURL = "http://www.hclstore.com";
+var redirectURL = "";
   const params = new URLSearchParams(window.location.search)
   if(params.has('referer')) {
 	redirectURL = params.get('referer');
@@ -65,7 +65,7 @@ var redirectURL = "http://www.hclstore.com";
 		  let error = "Server status failed. ";
 		  if(data.message.error) {
 			console.log(data.message.error);
-			 error += data.message.error;
+			 error = data.message.error;
 		  }
 		  console.log(error);
 		  const errorElm = document.getElementById('cmp-login-errormsg');

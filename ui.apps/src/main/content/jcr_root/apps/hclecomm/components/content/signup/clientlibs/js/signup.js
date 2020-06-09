@@ -1,9 +1,9 @@
-  let redirectURL = "/content/hclecomm/us/en/home.html";
-  const params = new URLSearchParams(window.location.search)
-  if(params.has('referer')) {
-	redirectURL = params.get('referer');
+  let signupRedirectURL = "/content/hclecomm/us/en/home.html";
+  const signupParams = new URLSearchParams(window.location.search)
+  if(signupParams.has('referer')) {
+	signupRedirectURL = signupParams.get('referer');
   } else if(document.signup_form && document.signup_form.getAttribute("data-default")) {
-	redirectURL = document.signup_form.getAttribute("data-default");
+	resignupRedirectURLdirectURL = document.signup_form.getAttribute("data-default");
   }
 
   const successSignUpCallback = (respData) =>  {
@@ -13,7 +13,7 @@
 		setUserCookie("hcluser",JSON.stringify(respData.message),1);
 	}
 	console.log("Redirecting to the url in 1 seconds...");
-	setTimeout(function(){window.location = redirectURL;}, 1000);
+	setTimeout(function(){window.location = signupRedirectURL;}, 1000);
   }
 
   const handleHttpServerRequestJson2 = function (url, formdata) {
@@ -102,8 +102,6 @@
 
 
 	let url = '/bin/hclecomm/customerSignup';
-	// url = 'https://run.mocky.io/v3/894f554d-e25f-4067-9fd6-1ccf11aadd5a';//success
-	// url = 'https://run.mocky.io/v3/c951d183-27eb-46b4-8240-5a895bc2e907';// status false
 	await handleHttpServerRequestJson2(url,formData);
 
 	
