@@ -216,7 +216,7 @@ link-primary {
 .btn-cmp-signin, .btn-cmp-signup {
         .btn-cmp-common();
         cursor: pointer;
-        color: rgba(252, 252, 252, 0.705);
+        color: #fff;
         // padding: 5px 10px;
         .btn-cmp-signin-icon {
             padding: 3px 4px;
@@ -233,7 +233,7 @@ link-primary {
         a {
             text-decoration: none;
             span {
-                color: rgba(252, 252, 252, 0.705);
+                color:#fff;
             }
             &:hover {
                 text-decoration: none;
@@ -254,7 +254,7 @@ link-primary {
     // cursor: pointer;
     // position: relative;
     // padding: 5px 25px 5px 10px;
-    color: rgba(252, 252, 252, 0.705);
+    color: #fff;
 
     &:hover {
         background-color:#0067A8;
@@ -266,7 +266,7 @@ link-primary {
     }
     
     .btn-cmp-logout-text {
-        color: rgba(252, 252, 252, 0.705);
+        color: #fff;
         text-transform: capitalize;
         padding: 5px 10px 5px 4px;
         overflow: hidden;
@@ -277,7 +277,7 @@ link-primary {
     a {
         text-decoration: none; 
         span {
-            color: rgba(252, 252, 252, 0.705);
+            color: #fff;
             &:hover {
                 text-decoration: none;
                 outline: none;
@@ -286,4 +286,12 @@ link-primary {
             }
         }
     }
+}
+
+/* header container alignment fix  */
+header.header.responsivegrid.aem-GridColumn.aem-GridColumn--default--12 > div {
+	display: flex;
+}
+header.header.responsivegrid.aem-GridColumn.aem-GridColumn--default--12 {
+    margin-bottom: 10px;
 }
