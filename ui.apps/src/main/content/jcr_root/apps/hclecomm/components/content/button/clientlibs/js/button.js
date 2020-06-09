@@ -19,8 +19,15 @@ $(function() {
             } else {
                 //hide logout button
                 //enable sign, create account button
-                $('.btn-cmp-logout').css('display','none');
+            	 let currentWCMMode = getUserCookie("wcmmode");
+				 if (currentWCMMode && currentWCMMode == "edit") {
+							$('.btn-cmp-logout').css('display', 'inline-block');
+				 }else{
+					 $('.btn-cmp-logout').css('display', 'none');
+				 }
                 $('.btn-cmp-signin').css('display','inline-block');
                 $('.btn-cmp-signup').css('display','inline-block');
             }
         });
+
+

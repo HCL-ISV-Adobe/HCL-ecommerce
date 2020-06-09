@@ -79,8 +79,8 @@ public class CustomerSignInServlet extends SlingAllMethodsServlet{
 						JSONObject customerProfileRes = customerService.customerProfile(customerToken);
 						if (customerProfileRes.has("statusCode") && customerProfileRes.getInt("statusCode") == HttpStatus.OK_200) {
 							customerProfileRes.put("customerToken", customerToken);
-							jsonResponse = customerProfileRes.getJSONObject("message").put("customerToken", customerToken);
-							jsonResponse = processResponse(jsonResponse);
+							JSONObject custRes = customerProfileRes.getJSONObject("message").put("customerToken", customerToken);
+							jsonResponse = processResponse(custRes);
 							responseObject.put("status", Boolean.TRUE);
 						}else {
 							jsonResponse.put("error", "Something went wrong while login.");
@@ -126,7 +126,7 @@ public class CustomerSignInServlet extends SlingAllMethodsServlet{
 	private JSONObject processResponse(JSONObject magentoRes) {
 		JSONObject response = new JSONObject();
 		try {
-			response.put("email", magentoRes.getString("username"));
+			response.put("email", magentoRes.getString("email"));
 			response.put("firstname", magentoRes.getString("firstname"));
 			response.put("lastname", magentoRes.getString("lastname"));
 			response.put("customerToken", magentoRes.getString("customerToken"));
