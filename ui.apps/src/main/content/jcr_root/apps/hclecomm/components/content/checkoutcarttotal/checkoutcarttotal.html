@@ -1,0 +1,44 @@
+<div class ='checkouttotal-cmp'>
+    <span>${properties.cartTitleHeading}</span>
+
+    <div class = 'carttotal-separator' data-sly-resource="${'./separator' @ resourceType='hclecomm/components/content/separator', decoration=true}"> </div>
+
+    	<div class= 'checkout-cart-title'>
+			<div>
+                <span class='cmp-cart-item-title'></span>
+             </div>
+        </div>
+
+    <p class ='checkout-total-cmp__checkout-total-price'></p>
+
+    <div class = 'product-detail'>
+    	<div>
+            <span class= 'product-price'>${properties.cartPrice}</span>
+			<div>
+			<span class='total-bag-count'></span>
+			</div>
+        </div>
+
+        <div>
+            <span>${properties.deliveryChargesLabel}</span>
+			<div>
+			<span> $ </span>
+            <!--/*<span class = 'delivery-charges'>${properties.deliveryCharges}</span>*/-->
+               <span class = 'delivery-charges'></span>
+			</div>
+        </div>
+
+      </div>
+       <div class = 'total-price-separator' data-sly-resource="${'./separator1' @ resourceType='hclecomm/components/content/separator', decoration=true}"> </div>
+
+       <div class = 'total-order'>
+            <span>${properties.totalLabel}</span>
+			<div>
+			<span> $ </span>
+            <span class='total-price'></span>
+			</div>
+        </div>
+
+
+
+   </div>
