@@ -93,6 +93,12 @@
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                 fieldLabel="Total Label"
                                                 name="./totalLabel"/>
+                                            <deliverycharges
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                                fieldLabel="Delivery Charges"
+                                                min="1"
+                                                name="./deliveryCharges"/>
                                         </items>
                                     </column>
                                 </items>
