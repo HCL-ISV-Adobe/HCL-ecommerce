@@ -12,7 +12,6 @@
 		// const exdays = (document.login_form.rememberme.checked)?5:1;
 		setUserCookie("hcluser",JSON.stringify(respData.message),1);
 	}
-	console.log("Redirecting to the url in 1 seconds...");
 	setTimeout(function(){window.location = signupRedirectURL;}, 1000);
   }
 
@@ -22,14 +21,12 @@
 	  body: JSON.stringify(formdata),
 	  method: "POST"
 	}
-	console.log(othrParm);
 
 	fetch(url, othrParm)
 	.then((response) => {return response.json();}
 		  ,(rejected) => {console.log(rejected);}
 	)
 	.then(data => {
-		console.log(JSON.parse(data.status));
 		const status = (data.status)?JSON.parse(data.status): false;
 		if(status === true) {
 		  successSignUpCallback(data);
@@ -52,12 +49,13 @@
   }
 
   async function validateSignupFrom(e) {
+	var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
 	const ErrorMsgElm = document.getElementById('cmp-signup-errormsg');
-	console.log(ErrorMsgElm)
 	ErrorMsgElm.innerHTML = "";
+	ErrorMsgElm.style.visibility = "hidden";
 	// ErrorMsgElm.style.display = "none";
 	let errorhtml = "";
-
+	
 	if(document.signup_form.firstname.value == "") {
 	  document.signup_form.firstname.focus();
 	  return false;
@@ -73,6 +71,12 @@
 	if(document.signup_form.password.value == "") {
 	  document.signup_form.password.focus();
 	  return false;
+	} else if(!document.signup_form.password.value.match(passw)) {
+		errorhtml = '<span>Password must contain at least one numeric digit, one uppercase and one lowercase letter<span>';
+		ErrorMsgElm.style.visibility = "visible";
+		ErrorMsgElm.innerHTML = errorhtml;
+		document.signup_form.password.focus();
+		return false;
 	}
 	if(document.signup_form.cfpassword.value == "") {
 	  document.signup_form.cfpassword.focus();
@@ -86,7 +90,6 @@
 	  document.signup_form.terms.focus();
 	  errorhtml = '<span>Please accept terms and conditions<span>';
 	  ErrorMsgElm.style.visibility = "visible";
-	  console.log(ErrorMsgElm,errorhtml);
 	  ErrorMsgElm.innerHTML = errorhtml;
 	  return false;
 	}

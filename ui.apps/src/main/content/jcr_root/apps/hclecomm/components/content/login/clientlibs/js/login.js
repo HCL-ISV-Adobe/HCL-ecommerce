@@ -81,7 +81,9 @@ var redirectURL = "";
   }
   
   async function validateLoginFrom(e) {
-	
+	const ErrorMsgElm = document.getElementById('cmp-login-errormsg');
+	ErrorMsgElm.innerHTML = "";
+	ErrorMsgElm.style.visibility = "hidden";
 	if(document.login_form.username.value == "") {
 	  document.login_form.username.focus();
 	  return false;
