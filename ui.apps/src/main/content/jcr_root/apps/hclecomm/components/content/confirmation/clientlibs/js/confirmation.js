@@ -1,12 +1,12 @@
-
 $(document).ready(function () {
 
+   // let successMsg = $('.success-msg-txt').attr('data-=sucess-msg');
     const getPorductDetails = JSON.parse(localStorage.getItem('productDescription'));
-	const checkOutDeatils = JSON.parse(localStorage.getItem('checkOutDetails'));
+    const checkOutDeatils = JSON.parse(localStorage.getItem('checkOutDetails')); 
 
     if(checkOutDeatils && checkOutDeatils['orderId'])
     {
-		$(".confirmation-failure").addClass("toggle-order");
+        $(".confirmation-failure").addClass("toggle-order");
 
     let target = document.querySelector(".cmp-confirmation-productInfo");
     let subTotal = document.querySelector(".cmp-confirmation-total");
@@ -18,37 +18,54 @@ $(document).ready(function () {
         let prodcutDeatilsEle = getPorductDetails['cartdetails'].map((item) => {
             return (
                 `<div class="product-item-container">
-                                                              			<div>
-                                                             			<img class ='check-out-total-product-img' src= ${item['cartItem'].image}/>
+                                                                          <div>
+                                                                         <img class ='check-out-total-product-img' src= ${item['cartItem'].image}/>
                                                                          </div>
                                                              <div>
                                                                          <div>
-                                                          					<span>Product:}</span>
+                                                                              <span>Product:</span>
                                                                              <span>${item['cartItem'].title}</span>
                                                                          </div>
                                                                           <div>
-                                                                             <span>${item['cartItem'].qty} * <span>$ ${item['cartItem'].price}</span></span>
+                                                                              <span>Quantity:</span>
+                                                                             <span>${item['cartItem'].qty}</span></span>
                                                                          </div>
-                                                             			<div><span>Price</span>
+                                                                         <div><span>Price</span>
                                                                              <span>${item['cartItem'].qty *  item['cartItem'].price}</span>
                                                                          </div>
-																		<hr>
+
+ 
+
                                                                 </div>
+
+ 
+
                    </div>`
             );
 
- 
-
         }).join('');
 
+	    const fiNalAmount = `<div class="product-item-container product-item-price-details">
+
  
 
-        const fiNalAmount = `<div class="product-item-container">
-                                                                         <div>
-                                                                           Coupon Discount
+                                                                          <div>
+                                                                              Coupon Discount
+                                                                             <span>${getPorductDetails['coupondiscount']}</span>
                                                                          </div>
                                                                           <div>
-                                                                             <span>${getPorductDetails['coupondiscount']}</span>
+                                                                           Delivery Charges
+
+ 
+
+                                                                             <span>${getPorductDetails['delivercharges']}</span>
+                                                                         </div>
+                                                                           <div>
+                                                                          Total Price
+
+ 
+
+                                                                             <span>${getPorductDetails['fprice']}</span>
                                                                          </div>
 
  
@@ -56,9 +73,11 @@ $(document).ready(function () {
 
                                                                 </div>`
 
+ 
 
+ 
 
-        const getOrderId = `<span>We have received your order</span> <span>Order No : ${checkOutDeatils['orderId']}</span>`
+        const getOrderId = `<span></span> <span>Order No : ${checkOutDeatils['orderId']}</span>`
         const getCustomerName = `<div class ='cmp-confirmation-subHead'>Delivery For </div> <div class ='cmp-confirmation-text'> ${checkOutDeatils['firstname']}  ${checkOutDeatils['lastname']}</div>`
         const getCustomerAdd = `<div class ='cmp-confirmation-subHead'>Address </div> <div class ='cmp-confirmation-text'> ${checkOutDeatils['street']}  ${checkOutDeatils['city']} ${checkOutDeatils['postcode']}</div>`
         const getCradDeatils = `
@@ -74,14 +93,12 @@ $(document).ready(function () {
             customerCradDeatils.innerHTML = getCradDeatils;
         }
 
- 
-
     }
 }
  else
  {
-	$(".cmp-confirmation").addClass("toggle-order");
-	$(".confirmation-failure").removeClass("toggle-order");
+    $(".cmp-confirmation").addClass("toggle-order");
+    $(".confirmation-failure").removeClass("toggle-order");
 
  }
 });

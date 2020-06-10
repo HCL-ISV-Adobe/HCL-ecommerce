@@ -1,4 +1,4 @@
-body {
+.body {
   font-family: Arial, sans-serif;
   font-size: 12px;
   color: #333;
@@ -9,27 +9,86 @@ body {
 {
     display: none;
 }
+.confirmation-failure{
+	height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+    flex-direction: column;
+    color: #818181;
+
+    .failure-icon{
+	font-size: 30px;
+    color: #ff0000;
+	}
+}
+
+
 .cmp-confirmation {
   width: 80%;
   margin: 0 auto;
+  .cmp-confirmation-subHead{
+        font-weight: bold;
+    }
+.cmp-confirmation-productInfo{
+        max-height: 188px;
+    overflow-y: auto;
+        .product-item-container{
+        border-bottom : 1px solid #808080;
+        margin-bottom: 10px;
 
- .product-item-container{
-		display: flex;
-        &>div>div{
-		margin-bottom:20px;
+ 
+
+
         }
     }
+ .product-item-container{
+        display: flex;
+        @media screen and (max-width: 767px) {
+           flex-direction: column;
+        }
+        &>div>div{
+        margin-bottom:20px;
+        }
+    }
+ .product-item-price-details{
+        display: flex;
+        flex-direction : column;
+        &>div{
+
+ 
+
+         display: flex;
+    justify-content: space-between;
+    width: 74%;
+    margin-left: 30px;
+    margin-top: 18px;
+    @media screen and (max-width: 767px) {
+           margin-left: 0;
+        }
+        }
+
+ 
+
+    }
     .check-out-total-product-img{ 
-		width: 200px; 
+        width: 200px; 
     }
     .total-order{
-		width: 26%;
+        width: 26%;
     display: flex;
     justify-content: space-between;
     font-weight: bold;
     margin: 21px 0 10px 36px;
 
-    	}
+ 
+
+        }
+
+ 
 
   h4 {
     font-size: 16px;
@@ -43,11 +102,15 @@ body {
 
  
 
+ 
+
     .fa-check-circle {
       color: #7ec57e;
       font-size: 50px;
     }
   }
+
+ 
 
  
 
@@ -60,11 +123,15 @@ body {
 
  
 
+ 
+
       &:nth-child(1) {
         color: #818181;
         font-size: 22px;
         margin: 20px;
       }
+
+ 
 
  
 
@@ -80,6 +147,8 @@ body {
 
  
 
+ 
+
   .cmp-confirmation-container {
     margin-top: 20px;
     width: 100%;
@@ -88,9 +157,13 @@ body {
 
  
 
+ 
+
     @media screen and (max-width: 767px) {
       display: block;
     }
+
+ 
 
  
 
@@ -102,8 +175,18 @@ body {
 
  
 
+ 
+
     .cmp-confirmation-lft {
       width: 40%;
+      &>div{
+			margin-bottom: 20px;
+      }
+
+
+
+
+
 
  
 
@@ -114,8 +197,16 @@ body {
 
  
 
+ 
+
+ 
+
       .cmp-confirmation-section {
         margin-top: 20px;
+
+ 
+
+ 
 
  
 
@@ -128,8 +219,16 @@ body {
 
  
 
+ 
+
+ 
+
     .cmp-confirmation-rgt {
       width: 58%;
+
+ 
+
+ 
 
  
 
@@ -139,46 +238,34 @@ body {
 
  
 
+ 
+
+ 
+
       .cmp-confirmation-productInfo {
         margin-top: 20px;
         display: flex;
-        div {
-          &:nth-child(1) {
-            width: 60%;
-            font-weight: bold;
-          }
+        display: flex;
+        flex-direction: column;
 
  
 
-          &:nth-child(2) {
-            width: 20%;
-          }
-
- 
-
-          &:nth-child(3) {
-            width: 18%;
-          }
-        }
       }
       .cmp-confirmation-total {
-        margin-top: 15px;
-        display: flex;
-        div {
-          &:nth-child(1) {
-            width: 80%;
+            width: 100%;
             font-weight: bold;
-          }
+            display: flex;
+            flex-direction: column;
 
  
 
-          &:nth-child(2) {
-            width: 20%;
-          }
-        }
       }
     }
   }
+
+ 
+
+ 
 
  
 
@@ -191,9 +278,17 @@ body {
 
  
 
+ 
+
+ 
+
     @media screen and (max-width: 767px) {
       width: 100%;
     }
+
+ 
+
+ 
 
  
 
@@ -204,6 +299,10 @@ body {
 
  
 
+ 
+
+ 
+
       @media screen and (max-width: 767px) {
         display: block;
       }
@@ -211,10 +310,18 @@ body {
 
  
 
+ 
+
+ 
+
     .cmp-confirmation-subhead {
       font-weight: bold;
       margin-bottom: 10px;
     }
+
+ 
+
+ 
 
  
 
@@ -229,6 +336,10 @@ body {
 
  
 
+ 
+
+ 
+
     .cmp-confirmation-bilingInfo {
       width: 58%;
       margin-top: 15px;
@@ -238,5 +349,3 @@ body {
     }
   }
 }
-
-
