@@ -5,10 +5,7 @@
   padding: 0;
   margin: 0;
 }
-.toggle-order
-{
-    display: none;
-}
+
 .confirmation-failure{
 	height: 200px;
     display: flex;
@@ -21,11 +18,13 @@
     color: #818181;
 
     .failure-icon{
-	font-size: 30px;
+	font-size: 70px;
     color: #ff0000;
+        @media screen and (max-width: 767px) {
+      			 font-size: 50px;
+    	}
 	}
 }
-
 
 .cmp-confirmation {
   width: 80%;
@@ -39,10 +38,6 @@
         .product-item-container{
         border-bottom : 1px solid #808080;
         margin-bottom: 10px;
-
- 
-
-
         }
     }
  .product-item-container{
@@ -53,14 +48,14 @@
         &>div>div{
         margin-bottom:20px;
         }
+        &>div:last-child{
+					font-weight: bold;
+        }
     }
  .product-item-price-details{
         display: flex;
         flex-direction : column;
         &>div{
-
- 
-
          display: flex;
     justify-content: space-between;
     width: 74%;
@@ -70,9 +65,6 @@
            margin-left: 0;
         }
         }
-
- 
-
     }
     .check-out-total-product-img{ 
         width: 200px; 
@@ -83,12 +75,7 @@
     justify-content: space-between;
     font-weight: bold;
     margin: 21px 0 10px 36px;
-
- 
-
         }
-
- 
 
   h4 {
     font-size: 16px;
@@ -100,19 +87,14 @@
     text-align: center;
     margin-top: 30px;
 
- 
-
- 
-
     .fa-check-circle {
       color: #7ec57e;
-      font-size: 50px;
+      font-size: 70px;
+             @media screen and (max-width: 767px) {
+      			 font-size: 50px;
+    	}
     }
   }
-
- 
-
- 
 
   .cmp-confirmation-orderNo {
     width: 100%;
@@ -121,19 +103,11 @@
       display: block;
       margin-bottom: 20px;
 
- 
-
- 
-
       &:nth-child(1) {
         color: #818181;
         font-size: 22px;
         margin: 20px;
       }
-
- 
-
- 
 
       &:nth-child(2) {
         color: #333;
@@ -145,37 +119,22 @@
     }
   }
 
- 
-
- 
-
   .cmp-confirmation-container {
-    margin-top: 20px;
+    margin-top: -20px;
     width: 100%;
     display: flex;
     justify-content: space-around;
-
- 
-
- 
+    font-family: sans-serif arial;
 
     @media screen and (max-width: 767px) {
       display: block;
     }
 
- 
-
- 
-
-    & > div {
+   & > div {
       background-color: #f0f2f1;
       border: 1px solid #d7d7d7;
       padding: 20px;
     }
-
- 
-
- 
 
     .cmp-confirmation-lft {
       width: 40%;
@@ -183,32 +142,13 @@
 			margin-bottom: 20px;
       }
 
-
-
-
-
-
- 
-
       @media screen and (max-width: 767px) {
         width: 100%;
         margin-bottom: 10px;
       }
-
- 
-
- 
-
- 
-
-      .cmp-confirmation-section {
+	
+	.cmp-confirmation-section {
         margin-top: 20px;
-
- 
-
- 
-
- 
 
         .cmp-confirmation-subHead {
           font-weight: bold;
@@ -217,30 +157,12 @@
       }
     }
 
- 
-
- 
-
- 
-
     .cmp-confirmation-rgt {
       width: 58%;
-
- 
-
- 
-
- 
 
       @media screen and (max-width: 767px) {
         width: 100%;
       }
-
- 
-
- 
-
- 
 
       .cmp-confirmation-productInfo {
         margin-top: 20px;
@@ -248,26 +170,15 @@
         display: flex;
         flex-direction: column;
 
- 
-
       }
       .cmp-confirmation-total {
             width: 100%;
-            font-weight: bold;
             display: flex;
             flex-direction: column;
-
- 
 
       }
     }
   }
-
- 
-
- 
-
- 
 
   .cmp-confirmation-paymentInfo {
     background-color: #f0f2f1;
@@ -276,54 +187,24 @@
     width: 99%;
     margin: 10px auto;
 
- 
-
- 
-
- 
-
     @media screen and (max-width: 767px) {
       width: 100%;
     }
-
- 
-
- 
-
- 
 
     & > div {
       width: 100%;
       display: flex;
       justify-content: space-around;
 
- 
-
- 
-
- 
-
       @media screen and (max-width: 767px) {
         display: block;
       }
     }
 
- 
-
- 
-
- 
-
     .cmp-confirmation-subhead {
       font-weight: bold;
       margin-bottom: 10px;
     }
-
- 
-
- 
-
- 
 
     .cmp-confirmation-cardInfo {
       width: 40%;
@@ -334,12 +215,6 @@
       }
     }
 
- 
-
- 
-
- 
-
     .cmp-confirmation-bilingInfo {
       width: 58%;
       margin-top: 15px;
@@ -348,4 +223,9 @@
       }
     }
   }
+}
+
+.toggle-order
+{
+    display: none;
 }
