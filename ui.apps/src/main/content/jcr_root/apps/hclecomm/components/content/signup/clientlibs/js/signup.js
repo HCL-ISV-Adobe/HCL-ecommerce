@@ -66,6 +66,11 @@
 	  document.signup_form.firstname.focus();
 	  return false;
 	}
+	if(document.signup_form.lastname.value == "") {
+		  document.signup_form.lastname.focus();
+		  return false;
+		}
+	
 	if(document.signup_form.email.value == "") {
 	  document.signup_form.email.focus();
 	  return false;
