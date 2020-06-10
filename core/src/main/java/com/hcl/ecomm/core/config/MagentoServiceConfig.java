@@ -16,7 +16,11 @@ public @interface MagentoServiceConfig {
 	String updateCartItemPath = "/us/V1/guest-carts/{cartId}/items/{ItemId}";
 	String emptyCartPah = "/us/V1/guest-carts";
 	String guestCartItemDeletePah = "/us/V1/guest-carts/{cartId}/items/{itemId}";
+
     String servicePathCartUpdateItems = "/V1/guest-carts/";
+    String guestCartShippingInformationPath = "/us/V1/guest-carts/{cartId}/shipping-information";
+    String guestCartCreateOrderPath = "/us/V1/guest-carts/{cartId}/order";
+
 
 
     @AttributeDefinition(name = "All Products Service Path", description = "This is the API path for getting all products for a store", defaultValue = servicePathDefaultValue, type = AttributeType.STRING)
@@ -45,6 +49,12 @@ public @interface MagentoServiceConfig {
 
     @AttributeDefinition(name = "Update Cart Items Service Path", description = "This is the API path for getting cart item details", defaultValue = servicePathCartUpdateItems, type = AttributeType.STRING )
     String cartUpdate_servicePath_string() default servicePathCartUpdateItems;
+
+    @AttributeDefinition(name = "Shipping Information Service Path", description = "This is the API path for getting shipping information details", defaultValue = guestCartShippingInformationPath, type = AttributeType.STRING )
+    String shippingInfo_servicePath_string() default guestCartShippingInformationPath;
+
+    @AttributeDefinition(name = "Create Order Service Path", description = "This is the API path for Create Order", defaultValue = guestCartCreateOrderPath, type = AttributeType.STRING )
+    String createOrder_servicePath_string() default guestCartCreateOrderPath;
 
 
 }
