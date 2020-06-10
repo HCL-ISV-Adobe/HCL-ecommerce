@@ -1,60 +1,70 @@
-<div class ='cart-detail-container'>
-<span>${properties.couponSectionHeading}</span>
+<div class="cmp-confirmation">
+  <div class="cmp-confirmation-img"><i class="fa fa-check-circle"></i></div>
+  <div class="cmp-confirmation-orderNo">
 
-    <div class='apply-coupons'>
-		<input type ='text' value ='' class ='cart-detail-container__apply-coupon' placeholder=${properties.applyCouponInputLabel}>
-        <div class= 'apply-coupon-button' onclick = 'onApplyCoupon()' data-sly-resource="${'./button1' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
-		<div class = 'coupon-message'> <p class ='apply-coupon-validation'> </p> </div>
-	</div>
+ 
 
-	<div class = 'coupon-bag-separator' data-sly-resource="${'./separator' @ resourceType='hclecomm/components/content/separator', decoration=true}"> </div>
+  </div>
+  <div class="cmp-confirmation-container">
+    <div class="cmp-confirmation-lft">
+      <h4>Delivery Details</h4>
+      <div class="cmp-confirmation-section-customer-name">
 
-    <div class='price-details'>
-        <b>${properties.priceDeailHeading}</b>
-        <div>
-            <span>${properties.bagTotalLabel}</span>
-			<div>
-				<span> $ </span>
-            	<span class = 'total-bag-count'>155</span>
-			</div>
+ 
+
+      </div>
+      <div class="cmp-confirmation-section-customer-address">
+
+ 
+
+      </div>
+      <div class="cmp-confirmation-section">
+        <div class="cmp-confirmation-subHead">Delivery Method</div>
+        <div class="cmp-confirmation-text">
+          Standard Delivery: Please<br />read below to see what your items will
+          be delivered
         </div>
-        <div class = 'bag-discount'>
-            <span>${properties.bagDiscountLabel}</span>
-			<div>
-			<span> -$ </span>
-            <span class = 'bag-discount-amount'>10</span>
-			</div>
-        </div>
-        <div class = 'coupon-discount'>
-            <span>${properties.couponDiscountLabel}</span>
-			<div>
-			<span> -$ </span>
-            <span class="coupon-discount-amount">0</span>
-			</div>
-        </div>
-        <div>
-            <span>${properties.orderTotalLabel}</span>
-			<div>
-			<span> $ </span>
-            <span class = 'order-price'>20</span>
-			</div>
-        </div>
-        <div>
-            <span>${properties.deliveryChargesLabel}</span>
-			<div>
-			<span> $ </span>
-            <span class = 'delivery-charges'>160</span>
-			</div>
-        </div>
-		 <div class = 'total-order'>
-            <span>${properties.totalLabel}</span>
-			<div>
-			<span> $ </span>
-            <span class='total-price'></span>
-			</div>
-        </div>
+      </div>
     </div>
-	<div class="place-order-button" onClick= 'onClickUpdateItem()'  data-sly-resource="${'./button2' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+    <div class="cmp-confirmation-rgt">
+      <h4>Order Summary</h4>
+      <div class="cmp-confirmation-productInfo">
 
+ 
+
+      </div>
+      <div class="cmp-confirmation-total">
+        <div>Sub Total</div>
+        <div>$50.20</div>
+      </div>
+
+ 
+
+    </div>
+  </div>
+  <div class="cmp-confirmation-paymentInfo">
+    <h4>Payment Information</h4>
+    <div>
+      <div class="cmp-confirmation-cardInfo">
+          <span>Credit Card</span>
+        <div class="cmp-confirmation-subhead-card-details"></div>
+
+ 
+
+      </div>
+
+ 
+
+      <div class="cmp-confirmation-bilingInfo">
+        <div class="cmp-confirmation-subhead">Credit Card</div>
+        <div>Lorem Ipsum is simple dummy</div>
+      </div>
+    </div>
+  </div>
 </div>
 
+<div class="confirmation-failure toggle-order">
+
+    Your order has not been generated.
+
+</div>
