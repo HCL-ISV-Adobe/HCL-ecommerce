@@ -5,9 +5,31 @@ body {
   padding: 0;
   margin: 0;
 }
+.toggle-order
+{
+    display: none;
+}
 .cmp-confirmation {
   width: 80%;
   margin: 0 auto;
+
+ .product-item-container{
+		display: flex;
+        &>div>div{
+		margin-bottom:20px;
+        }
+    }
+    .check-out-total-product-img{ 
+		width: 200px; 
+    }
+    .total-order{
+		width: 26%;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin: 21px 0 10px 36px;
+
+    	}
 
   h4 {
     font-size: 16px;
@@ -19,11 +41,15 @@ body {
     text-align: center;
     margin-top: 30px;
 
+ 
+
     .fa-check-circle {
       color: #7ec57e;
       font-size: 50px;
     }
   }
+
+ 
 
   .cmp-confirmation-orderNo {
     width: 100%;
@@ -32,11 +58,15 @@ body {
       display: block;
       margin-bottom: 20px;
 
+ 
+
       &:nth-child(1) {
         color: #818181;
         font-size: 22px;
         margin: 20px;
       }
+
+ 
 
       &:nth-child(2) {
         color: #333;
@@ -48,15 +78,21 @@ body {
     }
   }
 
+ 
+
   .cmp-confirmation-container {
     margin-top: 20px;
     width: 100%;
     display: flex;
     justify-content: space-around;
 
+ 
+
     @media screen and (max-width: 767px) {
       display: block;
     }
+
+ 
 
     & > div {
       background-color: #f0f2f1;
@@ -64,16 +100,24 @@ body {
       padding: 20px;
     }
 
+ 
+
     .cmp-confirmation-lft {
       width: 40%;
+
+ 
 
       @media screen and (max-width: 767px) {
         width: 100%;
         margin-bottom: 10px;
       }
 
+ 
+
       .cmp-confirmation-section {
         margin-top: 20px;
+
+ 
 
         .cmp-confirmation-subHead {
           font-weight: bold;
@@ -82,12 +126,18 @@ body {
       }
     }
 
+ 
+
     .cmp-confirmation-rgt {
       width: 58%;
+
+ 
 
       @media screen and (max-width: 767px) {
         width: 100%;
       }
+
+ 
 
       .cmp-confirmation-productInfo {
         margin-top: 20px;
@@ -98,9 +148,13 @@ body {
             font-weight: bold;
           }
 
+ 
+
           &:nth-child(2) {
             width: 20%;
           }
+
+ 
 
           &:nth-child(3) {
             width: 18%;
@@ -116,6 +170,8 @@ body {
             font-weight: bold;
           }
 
+ 
+
           &:nth-child(2) {
             width: 20%;
           }
@@ -124,6 +180,8 @@ body {
     }
   }
 
+ 
+
   .cmp-confirmation-paymentInfo {
     background-color: #f0f2f1;
     border: 1px solid #d7d7d7;
@@ -131,24 +189,34 @@ body {
     width: 99%;
     margin: 10px auto;
 
+ 
+
     @media screen and (max-width: 767px) {
       width: 100%;
     }
+
+ 
 
     & > div {
       width: 100%;
       display: flex;
       justify-content: space-around;
 
+ 
+
       @media screen and (max-width: 767px) {
         display: block;
       }
     }
 
+ 
+
     .cmp-confirmation-subhead {
       font-weight: bold;
       margin-bottom: 10px;
     }
+
+ 
 
     .cmp-confirmation-cardInfo {
       width: 40%;
@@ -159,6 +227,8 @@ body {
       }
     }
 
+ 
+
     .cmp-confirmation-bilingInfo {
       width: 58%;
       margin-top: 15px;
@@ -168,3 +238,5 @@ body {
     }
   }
 }
+
+
