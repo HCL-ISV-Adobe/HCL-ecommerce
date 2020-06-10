@@ -28,11 +28,13 @@ $(document).ready(function () {
 
 			$(".check-out-section-description").addClass("toggle-checkout-description");
 
+			$(".add-new-address-form").addClass("toggle-checkout-description");
 		}
 		else{
 
             $(".check-out-section-description").removeClass("toggle-checkout-description");
             $(".check-out-section-description--first").addClass("toggle-checkout-description");
+            $(".add-new-address-form").removeClass("toggle-checkout-description");
 
 		}
 

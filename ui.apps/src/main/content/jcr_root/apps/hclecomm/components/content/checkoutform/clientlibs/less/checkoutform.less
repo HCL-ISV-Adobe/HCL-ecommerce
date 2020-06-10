@@ -1,250 +1,276 @@
 .check-out-container {
-  font-family: sans-serif;
-  font-size: 16px;
-  display: flex;
-  padding: 20px;
-  flex-direction: column;
-  .checkout-title-number {
-    max-height: 105px;
-    .title,
-    .cmp-title,
-    .cmp-title__text {
-      display: inline-block;
-    }
-  }
-  .customer_desc {
-    display: flex;
-    align-items: center;
-    .guest-text-box-validation-mssg {
-      position: relative;
-      .customer-validation-message__chang-pos {
-        position: absolute;
-      }
-    }
-    .checkout-guest-mail-id {
-      padding: 10px;
-      margin-right: 20px;
-    }
-  }
-  .check-out-number {
-    width: 30px;
-    height: 30px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #333333;
-    border-radius: 50%;
-    color: #ffffff;
-    margin-right: 14px;
-  }
-  .check-out-number+span {
-    font-size: 18px;
-  }
-  .checkout-title-edit-section {
-    display: flex;
-    justify-content: space-between;
-  }
-  .check-out-section {
-    display: flex;
-    margin-bottom: 30px;
-    flex-direction: column;
-  }
-  .billing-cvv-section {
-    display: flex;
-    margin-top: -20px !important;
-    flex-direction: column;
-  }
-  .check-out-section-description,
-  .edit-check-out-section,
-  .add-new-address-form,
-  .add-new-billing-address,
-  .toggle-icon {
-    display: none;
-  }
-  .toggle-checkout-description {
-    display: block;
-  }
-  .add-addr-feilds {
-    width: 200px;
-    padding: 10px;
-  }
-  .check-out-section-description {
-    margin-left: 50px;
-  }
-  .add-new-address-form>div {
-    width: 461px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 35px;
-  }
-  .add-new-address-form>div>div {
-    position: relative;
-  }
-  .new-crad-number-validation{
-    flex-direction: column;
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 20px;
-     .new-cvv-validation-mssg{
-    position: absolute;
-      top: 34px;
-      font-size: 13px;
-        color: #ff0000;
-      }
-    }
-   .new-crad-number-validation--bottom-container{
-    flex-direction: row;
-    align-items: center;
-    }
-  .error-message {
-    position: absolute;
-    top: 30px;
-    color: #ff0000;
-    font-size: 13px;
-  }
-  .txt-area-err-message {
-    top: 38px;
-  }
-  .customer-validation-message,
-  .cvv-validation-mssg {
-    color: #ff0000;
-    font-size: 13px;
-    margin: 3px 0px;
-  }
-  .add-address-btn {
-    justify-content: start;
-  }
-  .continue-btn-add {
-    margin-right: 40px;
-  }
-  .billing-cvv {
-    margin-top: 30px;
-  }
-  .billing-cvv>div {
-    margin-top: 20px;
-    margin-left: 5px;
-  }
-  .billing-cvv>span {
-    margin-left: 30px;
-  }
-  .text-area-chng-width {
-    width: 455px;
-    min-height: 46px;
-  }
-  .billing-cvv-section-validation {
-    display: flex;
-    flex-direction: column;
-  }
-  .cvv-text {
-    width: 200px;
-  }
-  .add-new-add-icon {
-    color: #497bee;
-    width: 200px;
-    cursor: pointer;
-  }
-  .add-new-plus-icon {
-    margin-right: 10px;
-  }
-  .cvv-number {
-    padding: 10px;
-    margin-right: 20px;
-  }
-  .billing-cvv-section-validation--btn {
-    display: flex;
-  }
-  .card-number-new {
-    padding: 10px;
-    margin-right: 20px;
-    margin-bottom : 20px
-  }
+	font-family: sans-serif;
+	font-size: 16px;
+	display: flex;
+	padding: 20px;
+	flex-direction: column;
+	.checkout-title-number {
+		max-height: 105px;
+		.title,
+		.cmp-title,
+		.cmp-title__text {
+			display: inline-block;
+		}
+	}
+    .expiry-date-btn{
+			display:flex;
 
+    }
+	.customer_desc {
+		flex-direction: row;
+		display: flex;
+		align-items: center;
+		.guest-text-box-validation-mssg {
+			position: relative;
+			.customer-validation-message__chang-pos {
+				margin-left: 10px;
+				position: absolute;
+			}
+		}
+		.checkout-guest-mail-id {
+			padding: 10px;
+			margin-right: 20px;
+		}
+	}
+	.check-out-number {
+		width: 30px;
+		height: 30px;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #333333;
+		border-radius: 50%;
+		color: #ffffff;
+		margin-right: 14px;
+	}
+	.check-out-number+span {
+		font-size: 18px;
+	}
+	.checkout-title-edit-section {
+		display: flex;
+		justify-content: space-between;
+	}
+	.check-out-section {
+		display: flex;
+		margin-bottom: 30px;
+		flex-direction: column;
+	}
+	.billing-cvv-section {
+		display: flex;
+		margin-top: -20px !important;
+		flex-direction: column;
+	}
+	.check-out-section-description,
+	.edit-check-out-section,
+	.add-new-address-form,
+	.add-new-billing-address,
+	.toggle-icon {
+		display: none;
+	}
+	.toggle-checkout-description {
+		display: block;
+	}
+	.add-addr-feilds {
+		width: 200px;
+		padding: 10px;
+	}
+	.check-out-section-description {
+		margin-left: 50px;
+	}
+	.add-new-address-form>div {
+		width: 461px;
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 35px;
+	}
+	.add-new-address-form>div>div {
+		position: relative;
+	}
+	.new-crad-number-validation {
+		flex-direction: column;
+		position: relative;
+		display: flex;
+		align-items: flex-start;
+		margin-bottom: 20px;
+		.new-cvv-validation-mssg {
+			position: absolute;
+			top: 34px;
+			font-size: 13px;
+			color: #ff0000;
+		}
+	}
+	.new-crad-number-validation--bottom-container {
+		flex-direction: row;
+		align-items: center;
+	}
+	.error-message {
+		position: absolute;
+		top: 30px;
+		color: #ff0000;
+		font-size: 13px;
+	}
+	.txt-area-err-message {
+		top: 38px;
+	}
+	.customer-validation-message,
+	.cvv-validation-mssg {
+		color: #ff0000;
+		font-size: 13px;
+		margin: 3px 0px;
+	}
+	.add-address-btn {
+		justify-content: start;
+	}
+	.continue-btn-add {
+		margin-right: 40px;
+	}
+	.billing-cvv {
+		margin-top: 30px;
+	}
+	.billing-cvv>div {
+		margin-top: 20px;
+		margin-left: 5px;
+	}
+	.billing-cvv>span {
+		margin-left: 30px;
+	}
+	.text-area-chng-width {
+		width: 455px;
+		min-height: 46px;
+	}
+	.billing-cvv-section-validation {
+		display: flex;
+		flex-direction: column;
+	}
+	.cvv-text {
+		width: 200px;
+	}
+	.add-new-add-icon {
+		color: #497bee;
+		width: 200px;
+		cursor: pointer;
+	}
+	.add-new-plus-icon {
+		margin-right: 10px;
+	}
+	.cvv-number {
+		padding: 10px;
+		margin-right: 20px;
+	}
+	.billing-cvv-section-validation--btn {
+		display: flex;
+	}
+	.card-number-new {
+		padding: 10px;
+		margin-right: 20px;
+		margin-bottom: 20px
+	}
 }
 
 @media only screen and (max-width: 768px) {
-  .check-out-container .add-new-address-form>div {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0;
-    flex-direction: column;
-  }
-  .check-out-container {
-        .billing-cvv>div {
-      margin-left: 0px;
+	.check-out-container .add-new-address-form>div {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 0;
+		flex-direction: column;
+	}
+	.check-out-container {
+		.billing-cvv>div {
+			margin-left: 0px;
+		}
+        .error-message{
+
+    		top: 40px;
+			left: 10px;
+        }
+        .txt-area-err-message{
+			top: 51px;
+        }
+		.expiry-date-btn{
+
+        	flex-direction: column;
+        }
+        .billing-btn{
+			margin-left:10px;
+        }
+        .add-address-btn{
+			margin-left:10px;
+        }
+		.text-area-chng-width {
+			width: 200px;
+		}
+		.customer-validation-message {
+			margin: 3px 0px;
+			margin-left: 10px;
+		}
+		.card-number-new {
+			width: 80%;
+			margin-top: 10px;
+			margin-left: 10px;
+		}
+		.customer_desc {
+			flex-direction: column;
+			align-items: baseline;
+			.checkout-guest-mail-id {
+				margin-left: 10px;
+				margin-top: 10px;
+			}
+            .guest-btn {
+				margin-left: -10px;
+            }
+		}
+	}
+	.add-addr-feilds {
+		width: 214px;
+		padding: 10px;
+		margin-bottom: 15px;
+		margin-left: 10px;
+		margin-top: 10px;
+	}
+
+    .add-addr-fields-phone{
+		margin-top:10px;
     }
-		 .text-area-chng-width {
-    width: 200px;
+	.add-new-address-form>.add-address-btn {
+		display: flex;
+		flex-direction: column;
+		justify-content: end;
+	}
+	.billing-cvv-section-validation--btn {
+		flex-direction: column;
+	}
+}
+
+
+
+
+
+
+.check-out-container {
+	.checkout-title-edit-section {
+		align-items: center;
+	}
+	.checkout-title-number {
+		align-items: center;
+		.cmp-title {
+			.cmp-title__text {
+				font-size: 18px;
+			}
+		}
+	}
+	.billing-cvv-section-validation {
+		width: 80%;
+	}
+	.new-crad-number-validation {
+		margin-top: 10px;
+		margin-bottom: 0px;
 
 	}
-        .customer-validation-message {
-
-    margin: 3px 0px;
-    margin-left:10px;
+	.new-crad-number-validation--bottom-container {
+		flex-direction: column;
+		align-items: self-end;
+	}
+	.checkout-title-number {
+		max-height: 72px;
+	}
 }
-
-        .card-number-new {
-    width:80%;
-
-    margin-top: 10px;
-    margin-left: 10px;
-}
-  }
-
-
-    .add-addr-feilds {
-      width: 214px;
-      padding: 10px;
-      margin-bottom: 15px;
-      margin-left: 10px;
-    margin-top: 10px;
-    }
-
-    .add-new-address-form>.add-address-btn {
-      display: flex;
-      flex-direction: column;
-      justify-content: end;
-    }
-    .billing-cvv-section-validation--btn {
-      flex-direction: column;
-    }
-  }
-  .check-out-container {
-    .checkout-title-edit-section {
-      align-items: center;
-    }
-    .checkout-title-number {
-      align-items: center;
-      .cmp-title {
-        .cmp-title__text {
-          font-size: 18px;
-        }
-      }
-    }
-    .billing-cvv-section-validation {
-      width: 80%;
-    }
-    .customer_desc {
-      flex-direction: column;
-      align-items: baseline;
-        .checkout-guest-mail-id {
-      margin-left: 10px;
-    margin-top: 10px;
-    }
-    }
-    .new-crad-number-validation{
-        margin-top: 10px;
-    margin-bottom: 0px;
-         .new-cvv-validation-mssg{
-		top: 47px;
-      left: 10px;
-      }
-     }
-     .new-crad-number-validation--bottom-container{
-    flex-direction: column;
-      align-items: self-end;
-    }
-    .checkout-title-number{
-      max-height: 72px;
-        }
-  }
