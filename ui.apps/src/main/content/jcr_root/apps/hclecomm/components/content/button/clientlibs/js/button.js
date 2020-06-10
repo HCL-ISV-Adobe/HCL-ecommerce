@@ -1,26 +1,21 @@
 $(function() {
             let userData = getUserCookie("hcluser");     
             if(userData != "") {
-                //hide signin, create account buttons
-                //enable logout button
+                let username = (JSON.parse(userData).firstname)?JSON.parse(userData).firstname:"User";
                 $('.btn-cmp-signin').css('display','none');
                 $('.btn-cmp-signup').css('display','none');
                 $('.btn-cmp-logout').css('display','inline-block');
-                let html = '<span class="btn-cmp-logout-text">Hi, '+ JSON.parse(userData).firstname +'</span>';
+                let html = '<span class="btn-cmp-logout-text">Hi, '+ username +'</span>';
                 const logoutIconElm = document.querySelector('.btn-cmp-logout-icon');
                 logoutIconElm.insertAdjacentHTML("beforebegin",html);
                 document.querySelector('.btn-cmp-logout > a').addEventListener('click', function(){
                     console.log("on click event listner code ")
                     setUserCookie("hcluser","",-1);
-                    
-                    window.location=(logoutIconElm.getAttribute('data-logoutRedirect'))?logoutIconElm.getAttribute('data-logoutRedirect'):"/content/hclecomm/us/en/home.html";
-					
+                    location.reload();					
                 });
             } else {
-                //hide logout button
-                //enable sign, create account button
             	 let currentWCMMode = getUserCookie("wcmmode");
-				 if (currentWCMMode && currentWCMMode == "edit") {
+				 if (currentWCMMode == "edit") {
 							$('.btn-cmp-logout').css('display', 'inline-block');
 				 }else{
 					 $('.btn-cmp-logout').css('display', 'none');

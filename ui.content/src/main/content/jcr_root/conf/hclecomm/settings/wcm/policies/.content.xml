@@ -232,6 +232,27 @@
                                         jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item0>
+                            <item2
+                                cq:styleGroupLabel="Button Link Style"
+                                jcr:primaryType="nt:unstructured">
+                                <cq:styles jcr:primaryType="nt:unstructured">
+                                    <item0
+                                        cq:styleClasses="btn-cmp-signin"
+                                        cq:styleId="1591609647002"
+                                        cq:styleLabel="Signin"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item1
+                                        cq:styleClasses="btn-cmp-signup"
+                                        cq:styleId="1591609682861"
+                                        cq:styleLabel="Signup"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item2
+                                        cq:styleClasses="btn-cmp-logout"
+                                        cq:styleId="1591609684335"
+                                        cq:styleLabel="Logout"
+                                        jcr:primaryType="nt:unstructured"/>
+                                </cq:styles>
+                            </item2>
                             <item1
                                 cq:styleGroupLabel="Disable Button"
                                 jcr:primaryType="nt:unstructured">
@@ -258,27 +279,6 @@
                                         jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item1>
-                            <item2
-                                cq:styleGroupLabel="Button Link Style"
-                                jcr:primaryType="nt:unstructured">
-                                <cq:styles jcr:primaryType="nt:unstructured">
-                                    <item0
-                                        cq:styleClasses="btn-cmp-signin"
-                                        cq:styleId="1591609647002"
-                                        cq:styleLabel="Signin"
-                                        jcr:primaryType="nt:unstructured"/>
-                                    <item1
-                                        cq:styleClasses="btn-cmp-signup"
-                                        cq:styleId="1591609682861"
-                                        cq:styleLabel="Signup"
-                                        jcr:primaryType="nt:unstructured"/>
-                                    <item2
-                                        cq:styleClasses="btn-cmp-logout"
-                                        cq:styleId="1591609684335"
-                                        cq:styleLabel="Logout"
-                                        jcr:primaryType="nt:unstructured"/>
-                                </cq:styles>
-                            </item2>
                         </cq:styleGroups>
                     </policy_1588076880690>
                 </button>

@@ -1,5 +1,5 @@
   const findRedriectUrl2 = function(domId) {
-		let redirectURL = "/content/hclecomm/us/en/home.html";// default home url
+		let redirectURL = "";
 		const params = new URLSearchParams(window.location.search);
 		const keys = ['signin.html', 'signup.html'];
 		if(params.has('referer')) {
@@ -7,7 +7,7 @@
 				redirectURL = params.get('referer');
 			}
 		} else if(domId.getAttribute("data-default")) {
-			edirectURL = domId.getAttribute("data-default");
+			redirectURL = domId.getAttribute("data-default");
 		}
 		return redirectURL;
 	}
@@ -93,7 +93,7 @@
 		document.signup_form.cfpassword.focus();
 		return false;
 	}
-	if(document.signup_form.terms.checked === false) {
+	if(document.signup_form.terms && document.signup_form.terms.checked === false) {
 	  document.signup_form.terms.focus();
 	  errorhtml = '<span>Please accept terms and conditions<span>';
 	  ErrorMsgElm.style.visibility = "visible";

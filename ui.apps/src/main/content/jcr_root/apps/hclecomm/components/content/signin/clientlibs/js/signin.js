@@ -1,5 +1,5 @@
 	const findRedriectUrl = function(domId) {
-		let redirectURL = "/content/hclecomm/us/en/home.html";// default home url
+		let redirectURL = "";
 		const params = new URLSearchParams(window.location.search);
 		const keys = ['signin.html', 'signup.html'];
 		if(params.has('referer')) {
@@ -7,7 +7,7 @@
 				redirectURL = params.get('referer');
 			}
 		} else if(domId.getAttribute("data-default")) {
-			edirectURL = domId.getAttribute("data-default");
+			redirectURL = domId.getAttribute("data-default");
 		}
 		return redirectURL;
 	}
@@ -53,14 +53,12 @@
 	
 	)
 	.then(data => {
-		console.log(JSON.parse(data.status));
 		const status = (data.status)?JSON.parse(data.status): false;
 		if(status === true) {
 		  if(checkUserCookie("hcluser") === false){
 			const exdays = (formdata.rememberme)?5:1;
 			setUserCookie("hcluser",JSON.stringify(data.message),exdays);
 		  }
-		  console.log("Redirecting to the url in 1 seconds...");
 		  setTimeout(function(){window.location = findRedriectUrl(document.login_form);}, 1000);
 		} else {
 		  let error = "Server status failed. ";
