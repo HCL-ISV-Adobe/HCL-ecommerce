@@ -16,7 +16,7 @@ public @interface MagentoServiceConfig {
 	String updateCartItemPath = "/us/V1/guest-carts/{cartId}/items/{ItemId}";
 	String emptyCartPah = "/us/V1/guest-carts";
 	String guestCartItemDeletePah = "/us/V1/guest-carts/{cartId}/items/{itemId}";
-    String servicePathCartUpdateItems = "V1/guest-carts/";
+    String servicePathCartUpdateItems = "/V1/guest-carts/";
 
 
     @AttributeDefinition(name = "All Products Service Path", description = "This is the API path for getting all products for a store", defaultValue = servicePathDefaultValue, type = AttributeType.STRING)
