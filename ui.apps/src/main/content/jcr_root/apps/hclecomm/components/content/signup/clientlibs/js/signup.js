@@ -14,8 +14,6 @@
 
   const successSignUpCallback = (respData) =>  {
 	if(checkUserCookie("hcluser") === false) {
-		//set cookies if rememberme is set, expiry time increased to 5 days
-		// const exdays = (document.login_form.rememberme.checked)?5:1;
 		setUserCookie("hcluser",JSON.stringify(respData.message),1);
 	}
 	setTimeout(function(){window.location = findRedriectUrl2(document.signup_form);}, 1000);
@@ -50,7 +48,6 @@
 	})
 	.catch((error) => {
 	  console.log('promise error',error);
-	  //server login validation failed
 	});
   }
 
@@ -59,7 +56,6 @@
 	const ErrorMsgElm = document.getElementById('cmp-signup-errormsg');
 	ErrorMsgElm.innerHTML = "";
 	ErrorMsgElm.style.visibility = "hidden";
-	// ErrorMsgElm.style.display = "none";
 	let errorhtml = "";
 	
 	if(document.signup_form.firstname.value == "") {
@@ -105,7 +101,6 @@
 	  return false;
 	}
 
-	//ajax call to catch server validation response
 	const formData = {  
 		firstname: document.signup_form.firstname.value,
 		email: document.signup_form.email.value,

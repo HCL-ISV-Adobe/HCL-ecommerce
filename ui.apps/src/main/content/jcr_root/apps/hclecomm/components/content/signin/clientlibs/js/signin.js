@@ -16,7 +16,6 @@
 	let d = new Date();
 	d.setTime(d.getTime() + (exdays*24*60*60*1000));
 	const expires = "expires=" + d.toGMTString();
-	//should append to documnet.cookie
 	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 
@@ -26,9 +25,6 @@
 	let ca = decodedCookie.split(';');
 	for(let i = 0; i < ca.length; i++) {
 	  let c = ca[i].trim();
-	  // while( c.chartAt(0) == ' '){
-	  //   c = c.substring(1);
-	  // }
 	  if(c.indexOf(name) === 0){
 		return c.substring(name.length, c.length);
 	  }
@@ -60,7 +56,6 @@
 		console.log(JSON.parse(data.status));
 		const status = (data.status)?JSON.parse(data.status): false;
 		if(status === true) {
-		  //set cookies if rememberme is set, expiry time increased to 5 days
 		  if(checkUserCookie("hcluser") === false){
 			const exdays = (formdata.rememberme)?5:1;
 			setUserCookie("hcluser",JSON.stringify(data.message),exdays);
@@ -81,7 +76,6 @@
 	})
 	.catch((error) => {
 	  console.log('promise error',error);
-	  //server login validation failed
 	});
 				
   }
@@ -99,7 +93,6 @@
 	  return false;
 	}
 	
-	//ajax call to catch server validation response
 	const data = {  
 		username: document.login_form.username.value,
 		password: document.login_form.password.value,
@@ -107,8 +100,6 @@
 	}
 	
 	let url = '/bin/hclecomm/customerSignin';
-	// url = 'http://www.mocky.io/v2/5eda369e3300005f0079e9f2';
-	// url = 'http://www.mocky.io/v2/5eda3b97330000530079ea24';// status false
 	await handleHttpServerRequestJson(url,data);
 	
 	return true;
