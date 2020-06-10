@@ -15,12 +15,15 @@ public @interface MagentoServiceConfig {
 	String addToCartPath = "/us/V1/guest-carts/{cartId}/items";
 	String updateCartItemPath = "/us/V1/guest-carts/{cartId}/items/{ItemId}";
 	String emptyCartPah = "/us/V1/guest-carts";
-	String guestCartItemDeletePah = "/us/V1/guest-carts/{cartId}/items/{itemId}"; 
-    String servicePathCartUpdateItems = "/V1/guest-carts/";
+	String guestCartItemDeletePah = "/us/V1/guest-carts/{cartId}/items/{itemId}";
+  String servicePathCartUpdateItems = "/V1/guest-carts/";
+  String guestCartShippingInformationPath = "/us/V1/guest-carts/{cartId}/shipping-information";
+  String guestCartCreateOrderPath = "/us/V1/guest-carts/{cartId}/order";
     //Customer API
-    String customerSignupPath = "/V1/customers";
-    String customerSigninPath = "/V1/integration/customer/token";
-    String customerProfilePath = "/V1/customers/me";
+  String customerSignupPath = "/V1/customers";
+  String customerSigninPath = "/V1/integration/customer/token";
+  String customerProfilePath = "/V1/customers/me";
+
 
 
 
@@ -59,6 +62,12 @@ public @interface MagentoServiceConfig {
     
     @AttributeDefinition(name = "Customer Profile Service Path", description = "This is the API path for customer profile", defaultValue = customerProfilePath, type = AttributeType.STRING )
     String customerService_profilePath() default customerProfilePath;
+
+    @AttributeDefinition(name = "Shipping Information Service Path", description = "This is the API path for getting shipping information details", defaultValue = guestCartShippingInformationPath, type = AttributeType.STRING )
+    String shippingInfo_servicePath_string() default guestCartShippingInformationPath;
+
+    @AttributeDefinition(name = "Create Order Service Path", description = "This is the API path for Create Order", defaultValue = guestCartCreateOrderPath, type = AttributeType.STRING )
+    String createOrder_servicePath_string() default guestCartCreateOrderPath;
 
 
 }
