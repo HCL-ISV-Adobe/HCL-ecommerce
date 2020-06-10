@@ -11,8 +11,12 @@
 
   let dataAttr = document.querySelectorAll(".product-listing-tile");
 
-  let productFilter = [],
-    filterBreak = true;
+    let domHide=document.querySelectorAll(".cmp-product-filterTile .tile");
+
+
+document.querySelector(".cmp-productFilter .cmp-productFlter-clear").addEventListener("click", clearFilter);
+
+
 
   filterHead.forEach(function (item) {
     item.addEventListener("click", function () {
@@ -41,35 +45,28 @@
 
   function categoriesHandle(event) {
     let panel = event.target.nextElementSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
+    if (panel.style.display == "block") {
+      panel.style.display = "none !important";
     } else {
-      panel.style.display = "block";
+      panel.style.display = "block !important";
     }
   }
 
   function filterCategories(event) {
-    if (productFilter.length == 0) {
-      productFilter.push(event.target.innerHTML);
-    } else {
-      if (!productFilter.includes(event.target.innerHTML)) {
-        productFilter.push(event.target.innerHTML);
-      }
-    }
 
-    productFilter.forEach(function (value) {
-      if (filterBreak) {
-        dataAttr.forEach(function (item) {
+      let productFilter=event.target.innerHTML;
+
+        domHide.forEach(function (item) {
           item.style.display = "none";
         });
-        filterBreak = false;
-      }
+
       for (let i = 0; i < dataAttr.length; i++) {
-        if (dataAttr[i].getAttribute("data-tag").includes(value)) {
-          dataAttr[i].style.display = "block";
+        if (dataAttr[i].getAttribute("data-tag").includes(productFilter)) {
+          dataAttr[i].parentElement.style.display = "block";
+
         }
       }
-    });
+
   }
 
   function showFilter() {
@@ -95,9 +92,8 @@
   }
 
   function clearFilter() {
-    productFilter = [];
-    filterBreak = true;
-    dataAttr.forEach(function (item) {
+    
+    domHide.forEach(function (item) {
       item.style.display = "block";
     });
   }

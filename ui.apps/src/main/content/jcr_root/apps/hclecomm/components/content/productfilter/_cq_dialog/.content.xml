@@ -33,11 +33,11 @@
                                                 fieldDescription="Display Filter text"
                                                 fieldLabel="Filter Label"
                                                 name="./filter"/>
-                                            <genderAndTypeOfClothing
+                                            <categories
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
                                                 composite="{Boolean}true"
-                                                fieldLabel="Select Gender And Type &#xa; Of Clothing Label">
+                                                fieldLabel="Category Name">
                                                 <field
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="granite/ui/components/coral/foundation/container"
@@ -47,17 +47,17 @@
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="granite/ui/components/coral/foundation/container">
                                                             <items jcr:primaryType="nt:unstructured">
-                                                                <selectGenderOfClothing
+                                                                <categoryName
                                                                     jcr:primaryType="nt:unstructured"
                                                                     sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                    fieldDescription="Display selected Gender Of clothing  text"
-                                                                    fieldLabel="Select Gender Of Clothing Label"
+                                                                    fieldDescription="Display Category Name"
+                                                                    fieldLabel="Category Name"
                                                                     name="./selectClothing"/>
-                                                                <clothingFilter
+                                                                <categoryItem
                                                                     jcr:primaryType="nt:unstructured"
                                                                     sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
                                                                     composite="{Boolean}true"
-                                                                    fieldLabel="Select Clothing Filter Label">
+                                                                    fieldLabel="Category Item">
                                                                     <field
                                                                         jcr:primaryType="nt:unstructured"
                                                                         sling:resourceType="granite/ui/components/coral/foundation/container"
@@ -75,12 +75,12 @@
                                                                             </column>
                                                                         </items>
                                                                     </field>
-                                                                </clothingFilter>
+                                                                </categoryItem>
                                                             </items>
                                                         </column>
                                                     </items>
                                                 </field>
-                                            </genderAndTypeOfClothing>
+                                            </categories>
                                         </items>
                                     </column>
                                 </items>
