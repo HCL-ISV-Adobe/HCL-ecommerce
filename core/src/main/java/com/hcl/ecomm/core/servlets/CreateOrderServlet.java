@@ -22,7 +22,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * Servlet that delete the existing cart item by hitting the Magento service.
+ * Servlet that create order using shipping information by hitting the Magento service.
  */
 @Component(
 		service = Servlet.class,
@@ -79,7 +79,7 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 			}
 			response.getWriter().print(responseObject);
 		} catch (Exception e) {
-			LOG.info("Error Occured while executing delete item from cart. Full Error={} ", e);
+			LOG.error("Error Occured while executing create order using shipinfo. Full Error={} ", e);
 		}
 	}
 	

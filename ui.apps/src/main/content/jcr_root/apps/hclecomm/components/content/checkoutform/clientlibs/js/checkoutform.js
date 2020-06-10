@@ -7,11 +7,34 @@ $(document).ready(function () {
 
     //using cookies
 
-
+		var checkmode;
 
        const getCookies = document.cookie;
 
+     if (getCookies.indexOf('wcmmode') > -1) {
+        const cookiesCartID = getCookies.split(';');
+        cookiesCartID  && cookiesCartID.length >0 ?
+        Object.keys(cookiesCartID).forEach((cookiesCartIDitem) =>{
+            const splitCookies  = cookiesCartID[cookiesCartIDitem].split('=')
+                if(splitCookies[0] === 'wcmmode' || splitCookies[0] === ' wcmmode')  {
 
+                checkmode= splitCookies[1];
+        		console.log("checkmode {}",checkmode);
+
+            }
+    }):null
+        }
+		if(checkmode == 'edit'){
+
+			$(".check-out-section-description").addClass("toggle-checkout-description");
+
+		}
+		else{
+
+            $(".check-out-section-description").removeClass("toggle-checkout-description");
+            $(".check-out-section-description--first").addClass("toggle-checkout-description");
+
+		}
        //const getCookies = document.cookie;
      if (getCookies.indexOf('cartId') > -1) {
         const cookiesCartID = getCookies.split(';');
@@ -196,8 +219,6 @@ function onSaveNDeliver() {
 		const xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
-                const message= JSON.parse(this.responseText)['message']['orderId']
-                getUserDeatils['orderId']=message;
 				onToggleDescription(event);
 			}
 		};
@@ -407,9 +428,6 @@ function onContinueCvv() {
 	$('.new-card-expiry-date-validation')[0].innerText = ' ';
 	validateCardNExpiry = true;
 	console.log('set local storage and rediret confirmation page');
-    const checkOutDetails = {...getUserDeatils, cardNumber : getNewCardNumber[0].value, cardExpDate : getNewCardExpiryDate[0].value}
-    console.log(checkOutDetails)
-    localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
 	window.location.href = getHrefForCvvButton;
 
 
