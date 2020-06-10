@@ -1,0 +1,27 @@
+ <div data-sly-use.model="com.hcl.ecomm.core.models.ProductFilterModel">
+<div class="cmp-productFilter">
+   <h3>${model.filter}</h3>        
+            <div data-sly-list.gender="${model.genderclothingList}">
+                <div class="cmp-productFilter-container">
+                    <div class="cmp-productFilter-heading">${gender.selectClothing}</div>
+                    <ul data-sly-list.clothes="${gender.clothingList}">
+                        <li>${clothes.clothes}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cmp-productFlter-clear">Clear Filter</div>
+    </div>
+
+	<div class="cmp-productFilter-mobile">
+		<div class="cmp-productFilter-open">
+			<span>sort</span>
+			<span>filter</span>
+		</div>
+
+		<div class="cmp-productFilter-close">
+            <span>clear</span>
+			<span>close</span>
+
+		</div>
+</div>
+</div>
