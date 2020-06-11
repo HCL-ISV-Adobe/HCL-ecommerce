@@ -1,0 +1,29 @@
+<div class="cmp-login">
+	<div class="title">
+		<div class="cmp-login-title">
+		  <h5 class="cmp-title__text">${properties.loginScreenTitle}</h5>
+		</div>
+	</div>
+	<form method="POST" action="" id="login_form" name="login_form" enctype="multipart/form-data"
+	 class="cmp-login-form" data-default="${properties.defaultPage}" onsubmit="event.preventDefault();return validateLoginFrom(event);">
+
+	  <div class="cmp-form-text">
+		  <input class="" type="text" id="username" placeholder="${properties.usernamePlaceholder}" name="username" >
+		</div>
+		
+	 <div class="cmp-form-text">
+		  <input class="" type="password" id="password" placeholder="${properties.passwordPlaceholder}" name="password" autocomplete="off">
+		</div>
+	  
+		<label>
+			<input class="" name="rememberme" value="rememberme" type="checkbox">
+			<span class="">${properties.rememberMeLabel}</span>
+		</label>
+	  <div class="cmp-login-button">
+		<div class="cmp-login-errormsg" id="cmp-login-errormsg" style="visibility: hidden"></div>
+		<button type="SUBMIT" id="form-button-1390778470" class="cmp-form-login" name="login">${properties.signinButtonLabel}</button>
+		<a href="${properties.signupPage}.html" class="cmp-form-signup">${properties.signupButtonLabel}</a>
+	  </div>
+	  
+	</form>
+</div>
