@@ -36,6 +36,10 @@ $(document).ready(function () {
         xhttp.open("GET", "/bin/hclecomm/cartItemsCount?cartId=" + cartId, true);
         xhttp.send();
     }
+    else
+    {
+        allowToShowNotification=true;
+    }
 
 
 });
