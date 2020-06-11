@@ -44,11 +44,13 @@ document.querySelector(".cmp-productFilter .cmp-productFlter-clear").addEventLis
     .addEventListener("click", clearFilter);
 
   function categoriesHandle(event) {
+	  console.log("event ",event);
     let panel = event.target.nextElementSibling;
+	console.log("panel ",panel);
     if (panel.style.display == "block") {
-      panel.style.display = "none !important";
+      panel.style.display = "none";
     } else {
-      panel.style.display = "block !important";
+      panel.style.display = "block";
     }
   }
 
