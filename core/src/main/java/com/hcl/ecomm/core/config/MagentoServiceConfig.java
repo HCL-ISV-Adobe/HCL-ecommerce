@@ -16,7 +16,9 @@ public @interface MagentoServiceConfig {
 	String updateCartItemPath = "/us/V1/guest-carts/{cartId}/items/{ItemId}";
 	String emptyCartPah = "/us/V1/guest-carts";
 	String guestCartItemDeletePah = "/us/V1/guest-carts/{cartId}/items/{itemId}";
-    String servicePathCartUpdateItems = "V1/guest-carts/";
+    String servicePathCartUpdateItems = "/V1/guest-carts/";
+    String couponListPath = "/etc/acs-commons/lists/coupon-list";
+
 
 
     @AttributeDefinition(name = "All Products Service Path", description = "This is the API path for getting all products for a store", defaultValue = servicePathDefaultValue, type = AttributeType.STRING)
@@ -45,6 +47,9 @@ public @interface MagentoServiceConfig {
 
     @AttributeDefinition(name = "Update Cart Items Service Path", description = "This is the API path for getting cart item details", defaultValue = servicePathCartUpdateItems, type = AttributeType.STRING )
     String cartUpdate_servicePath_string() default servicePathCartUpdateItems;
+
+    @AttributeDefinition(name = "COUPON_LIST", description = "This is path of Coupon list under ACS-Commons list", defaultValue = {couponListPath} )
+    String getCouponlistPath_string() default couponListPath;
 
 
 }
