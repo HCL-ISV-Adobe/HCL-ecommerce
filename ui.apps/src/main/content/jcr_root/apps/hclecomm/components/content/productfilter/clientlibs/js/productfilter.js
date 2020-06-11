@@ -1,4 +1,5 @@
 (function () {
+	if(document.querySelectorAll(".cmp-product-filterTile").length>0){
   let filterHead = document.querySelectorAll(
     ".productfilter .cmp-productFilter-container .cmp-productFilter-heading"
   );
@@ -98,5 +99,6 @@ document.querySelector(".cmp-productFilter .cmp-productFlter-clear").addEventLis
     domHide.forEach(function (item) {
       item.style.display = "block";
     });
+  }
   }
 })();
