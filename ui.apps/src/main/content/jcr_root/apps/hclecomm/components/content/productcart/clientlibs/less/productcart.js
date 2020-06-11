@@ -1,43 +1,22 @@
-	let productResponse = [];
+let productResponse = [];
 $(document).ready(function () {
 
     var value = $('#mydiv').data('custom-property');
     console.log(value);
 
-    var checkmode;
+    var checkmode = $('.cart-detail-container').attr('checkmode');
 
-   	const getCookies = document.cookie;
-     if (getCookies.indexOf('wcmmode') > -1) {
-        const cookiesCartID = getCookies.split(';');
-        cookiesCartID  && cookiesCartID.length >0 ?
-        Object.keys(cookiesCartID).forEach((cookiesCartIDitem) =>{
-            const splitCookies  = cookiesCartID[cookiesCartIDitem].split('=')
-                if(splitCookies[0] === 'wcmmode' || splitCookies[0] === ' wcmmode')  {
-
-                checkmode= splitCookies[1];
-        		console.log("checkmode {}",checkmode);
-
-            }
-    }):null
-        }
-    	if(checkmode == 'edit'){
-
-        //$('.bag-discount-amount').text(0);
-		//$('.delivery-charges').text(0);
+   if(checkmode == 'edit'){
     	 $('.cartproductdisplay').css('display', 'block');
-        }
-        else{
-            //$('.bag-discount-amount').text(10);
-			//$('.delivery-charges').text(160);
-			$('.cartproductdisplay').css('display', 'none');
-            }
-
+    }
+    else{
+		$('.cartproductdisplay').css('display', 'none');
+    }
        let cartId = '';
 
-                //const getCookies = document.cookie;
                 const getCountEle = document.getElementById("total-item-count");
 
-       //const getCookies = document.cookie;
+     const getCookies = document.cookie;
      if (getCookies.indexOf('cartId') > -1) {
         const cookiesCartID = getCookies.split(';');
         cookiesCartID  && cookiesCartID.length >0 ?
@@ -141,8 +120,8 @@ $(document).ready(function () {
                                      $('.cartproductdisplay').css('display', 'block');
                                     $('.total-price').text(0);
                                     $('.order-price').text(0);
-                                    }
-                                    else{
+                                }
+                                else{
                                         $('.bag-discount-amount').text(10);
 										$('.delivery-charges').text(160);
                                         $('.cartproductdisplay').css('display', 'none');
