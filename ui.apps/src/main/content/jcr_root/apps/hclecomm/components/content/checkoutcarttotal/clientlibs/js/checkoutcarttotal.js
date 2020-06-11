@@ -1,19 +1,14 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
     const getPriceLabel = $('.product-price').text();
-let target = document.querySelector(".product-detail");
+    let target = document.querySelector(".product-detail");
     const getPorductDetails = JSON.parse(localStorage.getItem('productDescription'));
 
-    /*const getPorductDetails = {cartdetails : [{cartItem:{image: "https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png",
-														price: "54", qty: "3",title: "Expedition Tech Long-Sleeved Shirt"
-                                                        }}, {cartItem:{image: "https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png",
-														price: "54", qty: "3",title: "Expedition Tech Long-Sleeved Shirt"
-                                                        }}], coupondiscount: "$0", delivercharges: "16",fprice: "192.00"}*/
-    if(getPorductDetails){
-   		$('.total-price-checkout').text(getPorductDetails['fprice']);
-        $('.delivery-charges-total').text(getPorductDetails['delivercharges']) 
-		 $('.discount-price').text(getPorductDetails['coupondiscount'])
-		let prodcutDeatilsEle = getPorductDetails['cartdetails'].map((item) => {
+    if (getPorductDetails) {
+        $('.total-price-checkout').text(getPorductDetails['fprice']);
+        $('.delivery-charges-total').text(getPorductDetails['delivercharges'])
+        $('.discount-price').text(getPorductDetails['coupondiscount'])
+        let prodcutDeatilsEle = getPorductDetails['cartdetails'].map((item) => {
             return (
                 `<div class="product-item-container">
                                                               			<div>
@@ -35,15 +30,15 @@ let target = document.querySelector(".product-detail");
                                                              </div>`
             );
 
- 
+
 
         }).join('');
 
 
-   if (prodcutDeatilsEle && target) {
+        if (prodcutDeatilsEle && target) {
             target.innerHTML = prodcutDeatilsEle;
 
         }
-}
+    }
 
 });
