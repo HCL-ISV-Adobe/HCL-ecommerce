@@ -5,7 +5,7 @@
 		  <span>${properties.signupScreenDescription @ context='html'}</span>
 		</div>
 	</div>
-	<form method="POST" action="" id="signup_form" name="signup_form" enctype="multipart/form-data"  data-default="${properties.defaultPage}" class="cmp-signup-form" onsubmit="event.preventDefault();return validateSignupFrom(event);">
+	<form method="POST" action="" id="signup_form" name="signup_form" enctype="multipart/form-data"  data-default="${properties.defaultPage}.html" class="cmp-signup-form" onsubmit="event.preventDefault();return validateSignupFrom(event);">
 
 		<div class="cmp-form-text">
 		  <input class="" type="text" id="firstname" placeholder="${properties.firstNamePlaceholder}*" name="firstname" required>

@@ -205,94 +205,55 @@ link-primary {
 
 
 
-.btn-cmp-common {
-    background: transparent;
-    border: 0;
-    // margin: 5px 12px;
-    background-color: #0070B9;
-    padding: 5px 8px;
+
+
+.button a.signin, .button a.signup {
+    cursor: pointer;
+    color: #FFFFFF;
+    text-decoration: none;
+    background-color: #2979be;
+    padding: 10px 20px;
+    font-size: 14px;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    border: 1px solid #165fab;
+//    margin: 0;
+
+    &:hover {
+        background-color:#0c4f95;
+    }
+
+    .btn-cmp-signin-icon {
+        padding-right: 3px;
+    }
 }
 
-.btn-cmp-signin, .btn-cmp-signup {
-        .btn-cmp-common();
-        cursor: pointer;
-        color: #fff;
-        // padding: 5px 10px;
-        .btn-cmp-signin-icon {
-            padding: 3px 4px;
-            // font-size: 1em;
-             color: #fff;
-        }
-
-        &:hover {
-            background-color:#0067A8;
-            color: rgba(252, 252, 252, 0.8);
-            
-        }
-        
-        a {
-            text-decoration: none;
-            span {
-                color:#fff;
-            }
-            &:hover {
-                text-decoration: none;
-                outline: none;
-                border: 0;
-                color: rgba(252, 252, 252, 0.8);
-            }
-        }
-
-        &:hover {
-            text-decoration: none;
-            outline: none;
-        }
-}
-.btn-cmp-logout {
-    // background: transparent;
-    .btn-cmp-common();
-    // cursor: pointer;
-    // position: relative;
-    // padding: 5px 25px 5px 10px;
-    color: #fff;
+.logout {
+    cursor: pointer;
+    color: #FFFFFF;
+    text-decoration: none;
+    background-color: #2979be;
+    padding: 10px 20px;
+    font-size: 14px;
+    display: inline-block;
+    text-align: left;
+    width: 100%;
+    border: 1px solid #165fab;
+//    margin: 0;
 
     &:hover {
         background-color:#0067A8;
-        color: rgba(252, 252, 252, 0.8);
-        
     }
+
     .btn-cmp-logout-icon {
-        padding: 3px 3px;
-        color: #fff;
+        padding-right: 3px;
     }
     
     .btn-cmp-logout-text {
-        color: #fff;
+        cursor: auto;
         text-transform: capitalize;
-        padding: 5px 10px 5px 4px;
+        padding-right: 10px;
         overflow: hidden;
-        width: 50%;
     }
-    
-
-    a {
-        text-decoration: none; 
-        span {
-            color: #fff;
-            &:hover {
-                text-decoration: none;
-                outline: none;
-                border: 0;
-                color: rgba(252, 252, 252, 0.8);
-            }
-        }
-    }
-}
-
-/* header container alignment fix  */
-header.header.responsivegrid.aem-GridColumn.aem-GridColumn--default--12 > div {
-	display: flex;
-}
-header.header.responsivegrid.aem-GridColumn.aem-GridColumn--default--12 {
-    margin-bottom: 10px;
 }
