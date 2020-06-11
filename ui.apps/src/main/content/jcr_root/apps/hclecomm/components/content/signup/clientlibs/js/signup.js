@@ -26,10 +26,19 @@
 	  method: "POST"
 	}
 
-	fetch(url, othrParm)
-	.then((response) => {return response.json();}
-		  ,(rejected) => {console.log(rejected);}
-	)
+	fetch('/libs/granite/csrf/token.json')
+	.then(
+		(response) => {return response.json();},
+		(rejected) => {console.log(rejected);
+	})
+	.then( msg => {
+			othrParm.headers['CSRF-Token'] = msg.token;
+				return fetch(url, othrParm);
+	})
+	.then(
+		(response) => {return response.json();},
+		(rejected) => {console.log(rejected);
+	})
 	.then(data => {
 		const status = (data.status)?JSON.parse(data.status): false;
 		if(status === true) {
