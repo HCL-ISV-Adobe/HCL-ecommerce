@@ -76,7 +76,7 @@ $(document).ready(function (){
 
 function onClickUpdateItem() {
 	const cartItem = []
-
+	const cartdetails = []
 	cartId = getCartIdCookie();
 
     const productData= $('.cmp-cart-items').get();
@@ -93,6 +93,31 @@ function onClickUpdateItem() {
 	const xhttp = new XMLHttpRequest();
   	xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
+        //const items= $('.cmp-cart-items');
+
+        const fprice= $('.total-price').text();
+        const coupondiscount=$('.coupon-discount').text();
+        const delivercharges=$('.delivery-charges').text();
+        productData.forEach((item) =>{
+		const itemObj = {
+            "image":$(item).find('.cmp-cart-item-image')[0].src,
+        	"title":$(item).find('.cmp-cart-item-title')[0].textContent,
+
+        	"qty" : $(item).find('.cmp-cart-qty-input')[0].value,
+            "price" :$(item).find('.cmp-cart-price')[0].textContent
+		}
+    	cartdetails.push({cartItem : itemObj})
+
+	})
+    const productDescription = {
+	cartdetails, 
+	fprice, 
+	coupondiscount,
+    delivercharges
+}
+
+localStorage.setItem('productDescription', JSON.stringify(productDescription ))
+
         placeOrderRedirection ? window.location.href = placeOrderRedirection : null;
     }
   };
