@@ -142,12 +142,13 @@ function getCartIdCookie()
     const getCookies = document.cookie;
 	if (getCookies.indexOf('cartId') > -1) {
         const cookiesCartID = getCookies.split(';');
-        const currentCookiesIndex = getCookies.indexOf('cartId');
-        if (cookiesCartID && cookiesCartID.length > 0) {
-            const cartIdArr = cookiesCartID[currentCookiesIndex].split('=')
-            cartId = cartIdArr[1];
+        cookiesCartID  && cookiesCartID.length >0 ?
+        Object.keys(cookiesCartID).forEach((cookiesCartIDitem) =>{
+            const splitCookies  = cookiesCartID[cookiesCartIDitem].split('=')
+                if(splitCookies[0] === 'cartId' || splitCookies[0] === ' cartId')  {
+                cartId= splitCookies[1];
+            }
+    }):null
         }
-
-    }
     return cartId;
 }
