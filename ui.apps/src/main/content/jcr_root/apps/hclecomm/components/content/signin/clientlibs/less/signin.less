@@ -1,0 +1,128 @@
+@form-background-color:#FFFFFF;
+@title-color: #646464;
+@input-border-color:#D1D1D1;
+@input-border-color-focused: #ff9090;
+@submit-button-bgcolor: #0070B9;
+@submit-button-bgcolor-focus: #0067A8;
+@submit-button-color:white;
+@error-font-color:red;
+@rememberms-font-color:#7c7c7c;
+
+.cmp-login {
+    margin: auto;
+    // width: 40%;
+    max-width: 600px;
+    padding: 20px 30px;
+    background-color: @form-background-color;
+    box-shadow: 0 0 5px 3px rgba(0,0,0, 0.2);
+	overflow: auto;
+	@media screen and (max-width:768px) {
+	    padding: 20px 20px;
+	}
+
+    .cmp-login-title h4,h5 {
+        color: @title-color;
+        margin: 15px 2px;
+		font-size:16px;
+    }
+
+    .cmp-login-form {
+        padding-bottom: 10px;
+        .cmp-form-text {
+            margin-bottom: 15px;
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 8px 10px;
+            display: inline-block;
+            border: 1px solid @input-border-color;
+            border-radius: 5px;
+
+            &:focus {
+                border: 1px solid @input-border-color-focused;
+                border-radius: 3px;
+                outline-offset: -1px;
+                outline-color: @input-border-color-focused;
+                outline-style: solid;
+                outline-width: 1px;
+            }
+        }
+        input:invalid {
+            border: 1px solid red;
+        }
+        .cmp-login-errormsg  {
+            // display: inline;
+            color: red;
+            font-size: small;
+            text-align: center;
+            // padding: 5
+            margin-bottom: 10px;
+            margin-top: 0px
+        }
+        
+        label {
+            display: block;
+            margin: 20px 3px;
+        }
+        input[type=checkbox] + span {
+            font-size: small;
+            color: @rememberms-font-color;
+            border: 0;
+        }
+
+        .cmp-form-login {
+            padding: 8px 35px;
+            color:@submit-button-color;
+            background-color:@submit-button-bgcolor;
+            border: 2px;
+            border-radius: 40px;
+            text-align: center;
+            cursor: pointer;
+			
+			@media screen and (max-width:768px){
+				width: 100%;
+                margin-left: 0;
+                margin-bottom: 20px;
+			}
+
+            &:hover {
+                outline-style: none;
+                // border: 1px solid @input-border-color-focused;
+                background-color:@submit-button-bgcolor-focus;
+            }
+        }
+       
+        .cmp-form-signup {
+            float: right;
+            margin-right: 10px;
+            padding: 8px 30px;
+            color: black;
+            background-color: white;
+            border: 1px solid @submit-button-bgcolor;
+            border-radius: 40px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: small;
+			
+			@media screen and (max-width:768px){
+				width: 100%;
+                clear: both;
+                margin-right: 0;
+                margin-bottom: 10px;
+			}
+
+            &:hover {
+                outline-style: none;
+                // border: 1px solid @input-border-color-focused;
+                // background-color:@submit-button-bgcolor-focus;
+            }
+        }
+       
+    }
+    @media screen and (max-width: 400px) {
+        width: 100%;
+        padding-bottom: 50px;
+    }
+}

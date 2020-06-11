@@ -49,9 +49,19 @@ function onApplyCoupon(){
 
 $(document).ready(function (){
    	 $('.order-price').text(totalBagPrice - bagDiscount);
-     $('.total-price').text(totalBagPrice - bagDiscount + deliveryCharges);
+    if(Number($('.order-price').text())<=0)
+    {
+		$('.delivery-charges').text(0);
+    }
+	//deliveryCharges = Number($('.delivery-charges').text());
+     $('.total-price').text(totalBagPrice - bagDiscount + Number($('.order-price').text()));
 	 placeOrderRedirection = $('.place-order-button').children().children().attr('href');
 	 $('.place-order-button').children().children().removeAttr("href");
+
+	if(Number($('.order-price').text())<=0)
+    {
+		$('.delivery-charges').text(0);
+    }
 
     if(Number($('.bag-discount-amount').text())>0)
 		$('.bag-discount').css("display","flex");
@@ -65,15 +75,28 @@ $(document).ready(function (){
 });
 
 function onClickUpdateItem() {
+	const cartItem = []
 
-	const object = {"cartItem":{"quote_id": "AR93aupnz6KYQL786ZEdOAtEtL73lYQq","item_id": 5, "sku": "24-MB01", "qty": 20}}
+	cartId = getCartIdCookie();
+
+    const productData= $('.cmp-cart-items').get();
+	productData.forEach((item) =>{
+		const itemObj = {
+			"quote_id" : cartId,
+        	"item_id" : $(item).attr('id').substring(3),
+        	"sku" :  $(item).find('.cmp-cart-item-code').text().substring(7),
+        	"qty" : $(item).find('.cmp-cart-qty-input')[0].value
+		}
+    	cartItem.push({cartItem : itemObj})
+	})
+
 	const xhttp = new XMLHttpRequest();
   	xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         placeOrderRedirection ? window.location.href = placeOrderRedirection : null;
     }
   };
- 	xhttp.open("GET", "/bin/hclecomm/updateCartItems?payload=" +  JSON.stringify(object) , true);
+ 	xhttp.open("GET", "/bin/hclecomm/updateCartItems?payload=" +  JSON.stringify(cartItem) , true);
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhttp.send();
 
@@ -86,4 +109,20 @@ function removeCoupon()
             $('.order-price').text(calculatedPrice);
             $('.total-price').text(calculatedPrice + deliveryCharges);
 			allowCouponOnce = true;
+}
+
+function getCartIdCookie()
+{
+    let cartId = '';
+    const getCookies = document.cookie;
+	if (getCookies.indexOf('cartId') > -1) {
+        const cookiesCartID = getCookies.split(';');
+        const currentCookiesIndex = getCookies.indexOf('cartId');
+        if (cookiesCartID && cookiesCartID.length > 0) {
+            const cartIdArr = cookiesCartID[currentCookiesIndex].split('=')
+            cartId = cartIdArr[1];
+        }
+
+    }
+    return cartId;
 }
