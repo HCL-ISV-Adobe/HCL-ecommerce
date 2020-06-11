@@ -44,11 +44,23 @@
                                                     <simplebutton
                                                         jcr:primaryType="nt:unstructured"
                                                         text="Simple Button"
-                                                        value="simplebutton"/>
+                                                        value="cmp-button"/>
                                                     <phone
                                                         jcr:primaryType="nt:unstructured"
                                                         text="Phone Number"
-                                                        value="phone"/>
+                                                        value="btn-phone-call"/>
+                                                    <signin
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="Sign-in Link"
+                                                        value="signin"/>
+                                                    <signup
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="sign-up Link"
+                                                        value="signup"/>
+                                                    <logout
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="logout Link"
+                                                        value="logout"/>														
                                                 </items>
                                             </variations>
                                         </items>
