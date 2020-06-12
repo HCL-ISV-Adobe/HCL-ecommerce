@@ -42,7 +42,7 @@ $(document).ready(function () {
 
                                     <div>
                                         Coupon Discount
-                                            <span>$${getPorductDetails['coupondiscount']}</span>
+                                            <span>${getPorductDetails['coupondiscount']}</span>
                                     </div>
                                     <div>
                                         Delivery Charges

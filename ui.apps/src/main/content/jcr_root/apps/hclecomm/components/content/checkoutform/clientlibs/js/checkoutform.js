@@ -52,7 +52,7 @@ $(document).ready(function () {
     }):null
      }
     console.log(checkoutcartId);
-	getHrefForButton = $('.cvv-btn-continue').children('.cvv-continue').children().attr('href');
+	getHrefForCvvButton = $('.cvv-btn-continue').children('.cvv-continue').children().attr('href');
 	$('.cvv-btn-continue').children('.cvv-continue').children().removeAttr("href");
 	// using thie cookies value just for testing purpose , remove it after intrgation with other component
 
@@ -437,7 +437,7 @@ function onContinueCvv() {
     const checkOutDetails = {...getUserDeatils, cardNumber : getNewCardNumber[0].value, cardExpDate : getNewCardExpiryDate[0].value}
     console.log(checkOutDetails)
     localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
-	window.location.href = getHrefForCvvButton;
+	getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
 
 
 }
