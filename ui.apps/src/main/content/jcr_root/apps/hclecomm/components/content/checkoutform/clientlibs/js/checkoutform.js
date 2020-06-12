@@ -52,7 +52,7 @@ $(document).ready(function () {
     }):null
      }
     console.log(checkoutcartId);
-	getHrefForButton = $('.cvv-btn-continue').children('.cvv-continue').children().attr('href');
+	getHrefForCvvButton = $('.cvv-btn-continue').children('.cvv-continue').children().attr('href');
 	$('.cvv-btn-continue').children('.cvv-continue').children().removeAttr("href");
 	// using thie cookies value just for testing purpose , remove it after intrgation with other component
 
@@ -402,6 +402,7 @@ function onCvvKeyUp() {
 function onContinueCvv() {
 	validatecardNExpDate = true;
 	let validateCardNExpiry = true;
+    let validateCardNo = true;
 	const regexCradNumber = /^\d{16}$/;
 	const getNewCardNumber = $('.new-card');
 	const getCardNumberValidation = $('.new-card-validation');
@@ -410,8 +411,10 @@ function onContinueCvv() {
 	if (!regexCradNumber.test(getNewCardNumber[0].value)) {
 		$('.new-card-validation')[0].innerText = 'Please Enter A valid Card Number';
 		validateCardNExpiry = false;
+        validateCardNo= false;
 	} else {
 		$('.new-card-validation')[0].innerText = ' ';
+        validateCardNo = true;
 		validateCardNExpiry = true;
 	}
 	let todayDate = '';
@@ -420,7 +423,7 @@ function onContinueCvv() {
 	new Date().getDate() > 10 ? todayDate = new Date().getDate() : todayDate = `${'0' + new Date().getDate()}`
 	const getDateFormat = `${new Date().getFullYear()}-${todayMonth}-${todayDate}`
 
-	if (getDateFormat <= getNewCardExpiryDate[0].value) {
+	if (getDateFormat >= getNewCardExpiryDate[0].value) {
 		$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
 		validateCardNExpiry = false;
 		return
@@ -436,8 +439,11 @@ function onContinueCvv() {
 	console.log('set local storage and rediret confirmation page');
     const checkOutDetails = {...getUserDeatils, cardNumber : getNewCardNumber[0].value, cardExpDate : getNewCardExpiryDate[0].value}
     console.log(checkOutDetails)
-    localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
-	window.location.href = getHrefForCvvButton;
+    if(validateCardNExpiry && validateCardNo){
+	localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
+	getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
+    }
+
 
 
 }
@@ -469,7 +475,7 @@ function onValidateCardExpiryDate() {
 		new Date().getDate() > 10 ? todayDate = new Date().getDate() : todayDate = `${'0' + new Date().getDate()}`
 		const getDateFormat = `${new Date().getFullYear()}-${todayMonth}-${todayDate}`
 
-		if (getDateFormat <= getNewExpDate[0].value) {
+		if (getDateFormat >= getNewExpDate[0].value) {
 			$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
 			validateCardNExpiry = false;
 		} else {

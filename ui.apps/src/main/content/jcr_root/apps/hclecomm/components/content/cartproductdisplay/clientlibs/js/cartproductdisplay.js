@@ -96,7 +96,7 @@ function onClickUpdateItem() {
         //const items= $('.cmp-cart-items');
 
         const fprice= $('.total-price').text();
-        const coupondiscount=$('.coupon-discount').text();
+        const coupondiscount=$('.coupon-discount-amount').text();
         const delivercharges=$('.delivery-charges').text();
         productData.forEach((item) =>{
 		const itemObj = {
