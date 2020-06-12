@@ -1,5 +1,7 @@
 package com.hcl.ecomm.core.services.impl;
 
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
 import com.google.gson.*;
 import com.hcl.ecomm.core.config.MagentoServiceConfig;
 import com.hcl.ecomm.core.services.CartService;
@@ -12,14 +14,20 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ValueMap;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+
 
 @Component(service =CartService.class, immediate = true)
 public class CartServiceImpl implements CartService {
@@ -29,6 +37,9 @@ public class CartServiceImpl implements CartService {
 
     @Activate
     private MagentoServiceConfig config;
+
+    @Reference
+    ResourceResolverFactory resourceResolverFactory;
 
     private JsonArray cartResponse= null;
     private String responseStream = null;
@@ -132,5 +143,36 @@ public class CartServiceImpl implements CartService {
             LOG.error("Exception while fetching cart details : " + e.getMessage());
         }
         return responseStream;
+    }
+
+    @Override
+    public String applyCoupon(String couponApplied) {
+        String couponDiscount = "";
+        try
+        {
+            Map<String, Object> param = new HashMap<String, Object>();
+            param.put(ResourceResolverFactory.SUBSERVICE, "userName");
+            ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(param);
+            PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+            Page listPage = pageManager.getPage(config.getCouponlistPath_string());
+            Resource resource = listPage.adaptTo(Resource.class);
+            Resource couponList = resource.getChild("jcr:content").getChild("list");
+            Iterator<Resource> CouponListItems = couponList.listChildren();
+            while (CouponListItems.hasNext()) {
+                Resource item = CouponListItems.next();
+                ValueMap itemProperty = item.getValueMap();
+                String couponCode = (String) itemProperty.get("jcr:title");
+                if ((couponApplied.trim()).equals(couponCode.trim())) {
+                    couponDiscount = (String) itemProperty.get("value");
+                    break;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            LOG.error(e.getMessage());
+        }
+
+        return couponDiscount;
     }
 }
