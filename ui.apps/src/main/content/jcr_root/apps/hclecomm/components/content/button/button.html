@@ -13,13 +13,16 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/-->
-
+<sly data-sly-test.refererPath=".html?referer=${currentPage.path}.html"></sly>
 <button data-sly-use.button="com.adobe.cq.wcm.core.components.models.Button"
         data-sly-use.iconTemplate="icon.html"
         data-sly-element="${button.link ? 'a' : 'button'}"
-        class = "${properties.variation == 'phone' ? 'btn-phone-call' : 'cmp-button'}"
-        href="${button.link}"
+        class = "${properties.variation ? properties.variation : 'cmp-button'}"
+        href="${button.link}${properties.variation == 'signin' || properties.variation == 'signup' ? refererPath : ''}"
         aria-label="${button.accessibilityLabel}">
     <sly data-sly-call="${iconTemplate.icon @ icon=button.icon}"></sly>
+    <i data-sly-test="${properties.variation == 'signin'}" class="fa fa-user-o btn-cmp-signin-icon" aria-hidden="true"></i>
+    <i data-sly-test="${properties.variation == 'signup'}" class="fa fa-user-plus btn-cmp-signin-icon" aria-hidden="true"></i>
+    <i data-sly-test="${properties.variation == 'logout'}" class="fa fa-sign-out btn-cmp-logout-icon" aria-hidden="true" data-logoutRedirect="${button.link}"></i>
     <span data-sly-test="${button.text}" class="cmp-button__text">${button.text}</span>
 </button>

@@ -1,42 +1,22 @@
+let productResponse = [];
 $(document).ready(function () {
 
     var value = $('#mydiv').data('custom-property');
     console.log(value);
 
-    var checkmode;
+    var checkmode = $('.cart-detail-container').attr('checkmode');
 
-   	const getCookies = document.cookie;
-     if (getCookies.indexOf('wcmmode') > -1) {
-        const cookiesCartID = getCookies.split(';');
-        cookiesCartID  && cookiesCartID.length >0 ?
-        Object.keys(cookiesCartID).forEach((cookiesCartIDitem) =>{
-            const splitCookies  = cookiesCartID[cookiesCartIDitem].split('=')
-                if(splitCookies[0] === 'wcmmode' || splitCookies[0] === ' wcmmode')  {
-
-                checkmode= splitCookies[1];
-        		console.log("checkmode {}",checkmode);
-
-            }
-    }):null
-        }
-    	if(checkmode == 'edit'){
-
-        //$('.bag-discount-amount').text(0);
-		//$('.delivery-charges').text(0);
+   if(checkmode == 'edit'){
     	 $('.cartproductdisplay').css('display', 'block');
-        }
-        else{
-            //$('.bag-discount-amount').text(10);
-			//$('.delivery-charges').text(160);
-			$('.cartproductdisplay').css('display', 'none');
-            }
-
+    }
+    else{
+		$('.cartproductdisplay').css('display', 'none');
+    }
        let cartId = '';
 
-                //const getCookies = document.cookie;
                 const getCountEle = document.getElementById("total-item-count");
 
-       //const getCookies = document.cookie;
+     const getCookies = document.cookie;
      if (getCookies.indexOf('cartId') > -1) {
         const cookiesCartID = getCookies.split(';');
         cookiesCartID  && cookiesCartID.length >0 ?
@@ -83,7 +63,7 @@ $(document).ready(function () {
                 getLoad("/bin/hclecomm/cartproducts?cartId=" +cartId, function (data) {
 
                                 //let target = document.querySelector(".product");
-
+								productResponse = data;
 
                                 let result = data.map((item) => {
                                                 return (
@@ -118,7 +98,7 @@ $(document).ready(function () {
                                 }).join('');
                     			if(target)
                                 target.innerHTML = result;
-								updateCartTotal();
+								OnLoadCartCalculation();
 
 
 
@@ -140,8 +120,8 @@ $(document).ready(function () {
                                      $('.cartproductdisplay').css('display', 'block');
                                     $('.total-price').text(0);
                                     $('.order-price').text(0);
-                                    }
-                                    else{
+                                }
+                                else{
                                         $('.bag-discount-amount').text(10);
 										$('.delivery-charges').text(160);
                                         $('.cartproductdisplay').css('display', 'none');
@@ -217,7 +197,7 @@ $(document).ready(function () {
                 }
 
 
-              function updateCartTotal() {
+function updateCartTotal() {
 
 		let getSumOfAllItem = 0
    		const getFinalCount =  $('.cmp-cart-total').children();
@@ -228,17 +208,11 @@ $(document).ready(function () {
    }): null;
 
       totalBagPrice = getSumOfAllItem;
-        /*if(totalBagPrice<=0){
-
-            $('.bag-discount-amount').text(0);
-            $('.delivery-charges').text(0);
-        }*/
-
 
 			bagDiscount = Number($('.bag-discount-amount').text());;
-			deliveryCharges = Number($('.delivery-charges').text());
 
 			$('.total-bag-count').text(getSumOfAllItem);
+			 $('.delivery-charges').text(deliveryCharges);
 			if(allowCouponOnce)
             {
 				$('.order-price').text((getSumOfAllItem - bagDiscount).toFixed(2));
@@ -299,3 +273,33 @@ function deleteproduct(event, itemId, cartId) {
 
 
 }
+
+function OnLoadCartCalculation() {
+	let total = 0;
+
+    productResponse.forEach((item) =>{
+			total += (item.price)*(item.qty);
+	})
+      totalBagPrice = total;
+
+			bagDiscount = Number($('.bag-discount-amount').text());;
+
+			$('.total-bag-count').text(total);
+			 $('.delivery-charges').text(deliveryCharges);
+			if(allowCouponOnce)
+            {
+				$('.order-price').text((total - bagDiscount).toFixed(2));
+                $('.total-price').text((total - bagDiscount + deliveryCharges).toFixed(2));
+            }
+			else
+            {
+
+                const calculatedPrice = (total * (1-discountedPercentage)) - bagDiscount;
+                const discountedPrice = (total * discountedPercentage );
+
+                $('.coupon-discount-amount').text(discountedPrice.toFixed(2));
+                $('.order-price').text(calculatedPrice.toFixed(2));
+                $('.total-price').text((calculatedPrice + deliveryCharges).toFixed(2));
+            }
+
+		}

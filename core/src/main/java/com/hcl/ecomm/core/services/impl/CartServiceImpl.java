@@ -27,10 +27,10 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
 
 @Component(service =CartService.class, immediate = true)
 public class CartServiceImpl implements CartService {
@@ -101,43 +101,45 @@ public class CartServiceImpl implements CartService {
     @Override
     public String updateCartDetails(String payload) {
         String token = loginService.getToken();
+        String bearerToken = "Bearer" + token;
+        String finalToken = bearerToken.replaceAll("\"","");
+
         String domainName = loginService.getDomainName();
         String servicePath = config.cartUpdate_servicePath_string();
         LOG.info("String payload : " + payload);
-
-        JsonObject jsonObject = new JsonParser().parse(payload).getAsJsonObject();
-        LOG.info("JsonObject : " +jsonObject);
-        JsonObject cartItems = jsonObject.get("cartItem").getAsJsonObject();
-        String cartId = cartItems.get("quote_id").getAsString();
-        LOG.info("cartId : " +cartId);
-        String url = schema + "://" + domainName + servicePath + cartId + "/items";
-        LOG.info("url : " + url);
-
         try {
-            CloseableHttpClient httpClient = HttpClients.createDefault();
-            HttpPost httpPost = new HttpPost(url);
-            String bearerToken = "Bearer" + token;
-            String finalToken = bearerToken.replaceAll("\"","");
-            LOG.info("final Bearer Token : " + finalToken);
+            JsonArray productArray = new JsonParser().parse(payload).getAsJsonArray();
+            LOG.info("ProductArray : " +productArray);
+            Iterator<JsonElement> iterator = productArray.iterator();
+            while(iterator.hasNext()){
+                JsonObject jsonObject = iterator.next().getAsJsonObject();
+                JsonObject cartItems = jsonObject.get("cartItem").getAsJsonObject();
+                String cartId = cartItems.get("quote_id").getAsString();
+                LOG.info("cartId : " +cartId);
+                String url = schema + "://" + domainName + servicePath + cartId + "/items";
+                LOG.info("url : " + url);
 
-            StringEntity input = new StringEntity(jsonObject.toString(),ContentType.APPLICATION_JSON);
-            //StringEntity input = new StringEntity(payload, ContentType.APPLICATION_JSON);
-            LOG.info("input : " + input);
-            httpPost.setHeader("Authorization", finalToken);
-            httpPost.setHeader("Content-Type", "application/json");
-            httpPost.setEntity(input);
+                CloseableHttpClient httpClient = HttpClients.createDefault();
+                HttpPost httpPost = new HttpPost(url);
 
-            CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
-            if(httpResponse.getStatusLine().getStatusCode() == 200)
-            {
-                responseStream = EntityUtils.toString(httpResponse.getEntity());
+                StringEntity input = new StringEntity(jsonObject.toString(),ContentType.APPLICATION_JSON);
+                //StringEntity input = new StringEntity(payload, ContentType.APPLICATION_JSON);
+                LOG.info("input : " + input);
+                httpPost.setHeader("Authorization", finalToken);
+                httpPost.setHeader("Content-Type", "application/json");
+                httpPost.setEntity(input);
+
+                CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
+                if(httpResponse.getStatusLine().getStatusCode() == 200)
+                {
+                    responseStream = EntityUtils.toString(httpResponse.getEntity());
+                }
+                else
+                {
+                    responseStream = "Failed to fetch cart details.";
+                }
+                LOG.info( "Cart Items Response in Json Array : " + responseStream);
             }
-            else
-            {
-                responseStream = "Failed to fetch cart details.";
-            }
-            LOG.info( "Cart Items Response in Json Array : " + responseStream);
-
         }
         catch (Exception e)
         {

@@ -138,7 +138,7 @@ function getCookie(name, callback) {
                 {
                     const {message:{cartid}} = JSON.parse(this.responseText);
                            console.log(cartid);
-                    document.cookie = "cartId = " + cartid;
+                    document.cookie = "cartId = " + cartid + "; path=/";
                     callback(cartid);
 
  
@@ -150,7 +150,7 @@ function getCookie(name, callback) {
         xhttp.send();
         }
 
- 
+
 
        // return cartId;
  }

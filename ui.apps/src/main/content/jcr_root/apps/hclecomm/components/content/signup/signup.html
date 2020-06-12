@@ -1,0 +1,43 @@
+<div class="cmp-signup">
+	<div class="title">
+		<div class="cmp-signup-title">
+		  <h4 class="cmp-title__text"> ${properties.signupScreenTitle} </h4>
+		  <span>${properties.signupScreenDescription @ context='html'}</span>
+		</div>
+	</div>
+	<form method="POST" action="" id="signup_form" name="signup_form" enctype="multipart/form-data"  data-default="${properties.defaultPage}.html" class="cmp-signup-form" onsubmit="event.preventDefault();return validateSignupFrom(event);">
+
+		<div class="cmp-form-text">
+		  <input class="" type="text" id="firstname" placeholder="${properties.firstNamePlaceholder}*" name="firstname" required>
+		</div>
+		<div class="cmp-form-text right">
+			<input class="" type="text" id="lastname" placeholder="${properties.lastNamePlaceholder}*" name="lastname" required>
+		</div>
+		<div class="cmp-form-text">
+		  <input class="" type="email" id="email" placeholder="${properties.emailPlaceholder}*" name="email" required>
+		</div>
+		<div class="cmp-form-text right">
+			<input class="" type="text" pattern="\d*" id="phone" placeholder="${properties.mobileNoPlaceholder}*" minlength="8" maxlength="10" name="phone" required>
+		</div>
+		
+		<div class="cmp-form-text">
+		  <input class="" type="password" id="password" placeholder="${properties.passwordPlaceholder}*" name="password" autocomplete="off" required minlength="8" maxlength="20">
+		</div>
+		<div class="cmp-form-text right">
+			<input class="" type="password" id="cfpassword" placeholder="${properties.confirmPasswordPlaceholder}*" name="cfpassword" autocomplete="off" title="Same as Password" required>
+		</div>
+	  
+		
+		<div class="cmp-form-button">
+		  <div class="cmp-form-button-text">
+			  <sly data-sly-test="${properties.termAndConditionText}">
+				<input class="" type="checkbox" id="terms" name="terms" title="Accept terms & condtions" ><label for="terms" title="Accept terms & condtions">${properties.termAndConditionText @ context='html'}</label>
+			  </sly>
+		  </div>
+		  <div class="cmp-signup-errormsg" id="cmp-signup-errormsg" style="visibility: hidden"></div>
+		  <div class="cmp-form-button-text">
+				<button type="SUBMIT" id="signup" class="btn-signup" name="signup">${properties.signupButtonLabel}</button>
+		  </div>
+		</div>
+	</form>
+</div>

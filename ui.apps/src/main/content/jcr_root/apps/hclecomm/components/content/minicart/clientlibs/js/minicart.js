@@ -7,14 +7,15 @@ $(document).ready(function () {
     $("#cart-item-count").removeAttr("href");
 
     const getCookies = document.cookie;
-    if (getCookies.indexOf('cartId') > -1) {
+	  if (getCookies.indexOf('cartId') > -1) {
         const cookiesCartID = getCookies.split(';');
-        const currentCookiesIndex = getCookies.indexOf('cartId');
-        if (cookiesCartID && cookiesCartID.length > 0) {
-            const cartIdArr = cookiesCartID[currentCookiesIndex].split('=')
-            cartId = cartIdArr[1];
-        }
-
+        cookiesCartID  && cookiesCartID.length >0 ?
+        Object.keys(cookiesCartID).forEach((cookiesCartIDitem) =>{
+            const splitCookies  = cookiesCartID[cookiesCartIDitem].split('=')
+                if(splitCookies[0] === 'cartId' || splitCookies[0] === ' cartId')  {
+                cartId= splitCookies[1];
+            }
+    }):null
     }
     if (cartId) {
         const xhttp = new XMLHttpRequest();
@@ -35,6 +36,10 @@ $(document).ready(function () {
         };
         xhttp.open("GET", "/bin/hclecomm/cartItemsCount?cartId=" + cartId, true);
         xhttp.send();
+    }
+    else
+    {
+        allowToShowNotification=true;
     }
 
 
