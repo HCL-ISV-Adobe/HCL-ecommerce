@@ -57,7 +57,12 @@ document.querySelector(".cmp-productFilter .cmp-productFlter-clear").addEventLis
 
   function filterCategories(event) {
 
+
       let productFilter=event.target.innerHTML;
+	  for(let b=0;b<filterTxt.length;b++){
+		  filterTxt[b].style.fontWeight="100";
+	  }
+	  event.target.style.fontWeight="bold";
 
         domHide.forEach(function (item) {
           item.style.display = "none";
