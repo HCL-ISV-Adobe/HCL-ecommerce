@@ -16,6 +16,7 @@ public @interface MagentoServiceConfig {
 	String updateCartItemPath = "/us/V1/guest-carts/{cartId}/items/{ItemId}";
 	String emptyCartPah = "/us/V1/guest-carts";
 	String guestCartItemDeletePah = "/us/V1/guest-carts/{cartId}/items/{itemId}";
+  String couponListPath = "/etc/acs-commons/lists/coupon-list";
   String servicePathCartUpdateItems = "/V1/guest-carts/";
   String guestCartShippingInformationPath = "/us/V1/guest-carts/{cartId}/shipping-information";
   String guestCartCreateOrderPath = "/us/V1/guest-carts/{cartId}/order";
@@ -23,7 +24,6 @@ public @interface MagentoServiceConfig {
   String customerSignupPath = "/V1/customers";
   String customerSigninPath = "/V1/integration/customer/token";
   String customerProfilePath = "/V1/customers/me";
-
 
 
 
@@ -68,6 +68,9 @@ public @interface MagentoServiceConfig {
 
     @AttributeDefinition(name = "Create Order Service Path", description = "This is the API path for Create Order", defaultValue = guestCartCreateOrderPath, type = AttributeType.STRING )
     String createOrder_servicePath_string() default guestCartCreateOrderPath;
+
+    @AttributeDefinition(name = "COUPON_LIST", description = "This is path of Coupon list under ACS-Commons list", defaultValue = {couponListPath} )
+    String getCouponlistPath_string() default couponListPath;
 
 
 }

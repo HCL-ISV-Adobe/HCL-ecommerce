@@ -40,43 +40,49 @@
 	}
   }
 
-  const handleHttpServerRequestJson = function (url, formdata) {
-	const othrParm = {
-	  headers: {"content-type":"application/json; charset=UTF-8", 'Accept': 'application/json'},
-	  body: JSON.stringify(formdata),
-	  method: "POST"
-	}
-
-	fetch(url, othrParm)
-	.then((response) => {return response.json();}
-		  ,(rejected) => {console.log(rejected);}
-	
-	)
-	.then(data => {
-		const status = (data.status)?JSON.parse(data.status): false;
-		if(status === true) {
-		  if(checkUserCookie("hcluser") === false){
-			const exdays = (formdata.rememberme)?5:1;
-			setUserCookie("hcluser",JSON.stringify(data.message),exdays);
-		  }
-		  setTimeout(function(){window.location = findRedriectUrl(document.login_form);}, 1000);
-		} else {
-		  let error = "Server status failed. ";
-		  if(data.message.error) {
-			console.log(data.message.error);
-			 error = data.message.error;
-		  }
-		  console.log(error);
-		  const errorElm = document.getElementById('cmp-login-errormsg');
-		  errorElm.style.visibility = "visible";
-		  errorElm.innerHTML  = '<span>'+ error+ '</span>';
-		}
-	})
-	.catch((error) => {
-	  console.log('promise error',error);
-	});
-				
-  }
+const handleHttpServerRequestJson = function (url, formdata) {
+            var othrParm = {
+              headers: {"content-type":"application/json; charset=UTF-8", 'Accept': 'application/json'},
+              body: JSON.stringify(formdata),
+              method: "POST"
+            }
+            fetch('/libs/granite/csrf/token.json')
+            .then(
+                (response) => {return response.json();},
+                (rejected) => {console.log(rejected);
+            })
+            .then( msg => {
+                    othrParm.headers['CSRF-Token'] = msg.token;
+                        return fetch(url, othrParm);
+            })
+            .then(
+                (response) => {return response.json();},
+                (rejected) => {console.log(rejected);
+            })
+            .then(data => {
+                const status = (data.status)?JSON.parse(data.status): false;
+                if(status === true) {
+                  if(checkUserCookie("hcluser") === false){
+                    const exdays = (formdata.rememberme)?5:1;
+                    setUserCookie("hcluser",JSON.stringify(data.message),exdays);
+                  }
+                  setTimeout(function(){window.location = findRedriectUrl(document.login_form);}, 1000);
+                } else {
+                  let error = "Server status failed. ";
+                  if(data.message.error) {
+                    console.log(data.message.error);
+                     error = data.message.error;
+                  }
+                  console.log(error);
+                  const errorElm = document.getElementById('cmp-login-errormsg');
+                  errorElm.style.visibility = "visible";
+                  errorElm.innerHTML  = '<span>'+ error+ '</span>';
+                }
+            })
+            .catch((error) => {
+              console.log('promise error',error);
+            });
+        }
   
   async function validateLoginFrom(e) {
 	const ErrorMsgElm = document.getElementById('cmp-login-errormsg');
@@ -102,3 +108,6 @@
 	
 	return true;
   }
+
+
+
