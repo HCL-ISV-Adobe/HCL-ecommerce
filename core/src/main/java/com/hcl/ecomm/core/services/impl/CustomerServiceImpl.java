@@ -146,7 +146,7 @@ public class CustomerServiceImpl implements CustomerService{
 				}
 				customerSigninRes.put("statusCode", statusCode);
 				customerSigninRes.put("customerToken", str);
-			}else if(HttpStatus.SC_BAD_REQUEST == statusCode){
+			}else if(HttpStatus.SC_BAD_REQUEST == statusCode || HttpStatus.SC_UNAUTHORIZED == statusCode){
 				customerSigninRes.put("statusCode", statusCode);
 				customerSigninRes.put("message", httpResponse.getEntity().getContent().toString());
 				LOG.error("Error while  customer Signin. status code:{} and message={}",statusCode,httpResponse.getEntity().getContent().toString());
