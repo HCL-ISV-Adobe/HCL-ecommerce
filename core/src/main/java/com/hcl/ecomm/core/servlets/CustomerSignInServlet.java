@@ -73,7 +73,7 @@ public class CustomerSignInServlet extends SlingAllMethodsServlet{
 					JSONObject customerSigninObj = customerSigninObj(jsonPayload);
 					JSONObject customerSigninRes = customerService.customerSignin(customerSigninObj);
 					if (customerSigninRes.has("statusCode") && customerSigninRes.getInt("statusCode") == HttpStatus.OK_200) {
-					String customerToken=customerSigninRes.getString("customerToken");
+						String customerToken=customerSigninRes.getString("customerToken");
 						JSONObject customerProfileRes = customerService.customerProfile(customerToken);
 						if (customerProfileRes.has("statusCode") && customerProfileRes.getInt("statusCode") == HttpStatus.OK_200) {
 							customerProfileRes.put("customerToken", customerToken);
@@ -83,6 +83,8 @@ public class CustomerSignInServlet extends SlingAllMethodsServlet{
 						}else {
 							jsonResponse.put("error", "Something went wrong while login.");
 						}
+					}else if(customerSigninRes.has("statusCode") && customerSigninRes.getInt("statusCode") == HttpStatus.UNAUTHORIZED_401) {
+						jsonResponse.put("error", "Invalid Email Id/Password.");
 					} else {
 						jsonResponse.put("error", "Something went wrong while login.");
 					}

@@ -8,23 +8,23 @@
 	<form method="POST" action="" id="signup_form" name="signup_form" enctype="multipart/form-data"  data-default="${properties.defaultPage}.html" class="cmp-signup-form" onsubmit="event.preventDefault();return validateSignupFrom(event);">
 
 		<div class="cmp-form-text">
-		  <input class="" type="text" id="firstname" placeholder="${properties.firstNamePlaceholder}*" name="firstname" required>
+		  <input class="" type="text" id="firstname" placeholder="${properties.firstNamePlaceholder}*" name="firstname">
 		</div>
 		<div class="cmp-form-text right">
-			<input class="" type="text" id="lastname" placeholder="${properties.lastNamePlaceholder}*" name="lastname" required>
+			<input class="" type="text" id="lastname" placeholder="${properties.lastNamePlaceholder}*" name="lastname">
 		</div>
 		<div class="cmp-form-text">
-		  <input class="" type="email" id="email" placeholder="${properties.emailPlaceholder}*" name="email" required>
+		  <input class="" type="text" id="email" placeholder="${properties.emailPlaceholder}*" name="email" >
 		</div>
 		<div class="cmp-form-text right">
-			<input class="" type="text" pattern="\d*" id="phone" placeholder="${properties.mobileNoPlaceholder}*" minlength="8" maxlength="10" name="phone" required>
+			<input class="" type="text" id="phone" placeholder="${properties.mobileNoPlaceholder}*"  name="phone" >
 		</div>
 		
 		<div class="cmp-form-text">
-		  <input class="" type="password" id="password" placeholder="${properties.passwordPlaceholder}*" name="password" autocomplete="off" required minlength="8" maxlength="20">
+		  <input class="" type="password" id="password" placeholder="${properties.passwordPlaceholder}*" name="password" autocomplete="off">
 		</div>
 		<div class="cmp-form-text right">
-			<input class="" type="password" id="cfpassword" placeholder="${properties.confirmPasswordPlaceholder}*" name="cfpassword" autocomplete="off" title="Same as Password" required>
+			<input class="" type="password" id="cfpassword" placeholder="${properties.confirmPasswordPlaceholder}*" name="cfpassword" autocomplete="off" title="Same as Password" >
 		</div>
 	  
 		
