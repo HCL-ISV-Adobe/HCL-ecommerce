@@ -45,7 +45,6 @@ document.querySelector(".cmp-productFilter .cmp-productFlter-clear").addEventLis
     .addEventListener("click", clearFilter);
 
   function categoriesHandle(event) {
-	  console.log("event ",event);
     let panel = event.target.nextElementSibling;
 	console.log("panel ",panel);
     if (panel.style.display == "block") {
@@ -104,6 +103,22 @@ document.querySelector(".cmp-productFilter .cmp-productFlter-clear").addEventLis
     domHide.forEach(function (item) {
       item.style.display = "block";
     });
+
+      for(let b=0;b<filterTxt.length;b++){
+		  filterTxt[b].removeAttribute("style");
+	  }
   }
   }
+  
+  window.onscroll=function(){
+	if(document.querySelectorAll(".cmp-productFilter").length>0){
+		if(window.pageYOffset> 50){
+			document.querySelector(".cmp-productFilter").style.top ="0px";
+		}else{
+			document.querySelector(".cmp-productFilter").style.top ="50px";
+		}
+	}
+}
 })();
+
+
