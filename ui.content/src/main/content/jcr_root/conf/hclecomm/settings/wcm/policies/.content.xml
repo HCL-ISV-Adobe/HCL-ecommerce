@@ -297,7 +297,7 @@
                 </accordion>
 				<container jcr:primaryType="nt:unstructured">
                     <policy_1588584656785
-                        jcr:lastModified="{Date}2020-06-10T16:15:44.061+05:30"
+                        jcr:lastModified="{Date}2020-06-15T15:23:16.915+05:30"
                         jcr:lastModifiedBy="admin"
                         jcr:primaryType="nt:unstructured"
                         jcr:title="containerpolicy"
@@ -317,6 +317,11 @@
                                         cq:styleClasses="cmp-product-filterTile"
                                         cq:styleId="1591765471771"
                                         cq:styleLabel="cmp-product-filterTile"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item1
+                                        cq:styleClasses="cmp-product-tileOverflow"
+                                        cq:styleId="1592214726269"
+                                        cq:styleLabel="cmp-product-tileOverflow"
                                         jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item0>
