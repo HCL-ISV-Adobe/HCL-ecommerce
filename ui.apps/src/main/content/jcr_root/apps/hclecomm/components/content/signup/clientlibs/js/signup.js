@@ -63,7 +63,6 @@ function displayError(errorhtml, formElmName) {
 	const ErrorMsgElm = document.getElementById('cmp-signup-errormsg');
 	document.signup_form[formElmName].focus();
 	ErrorMsgElm.style.visibility = "visible";
-	console.log(ErrorMsgElm, errorhtml);
 	ErrorMsgElm.innerHTML = errorhtml;
 	return;
 }
