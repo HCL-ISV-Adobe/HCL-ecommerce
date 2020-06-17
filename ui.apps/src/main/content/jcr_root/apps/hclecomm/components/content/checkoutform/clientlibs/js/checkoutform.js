@@ -180,7 +180,7 @@ function onSaveNDeliver() {
 			}
 
 			if (userDetails === 'Pin Number' && userDetailsValue) {
-				const pinRegexp = /^[0-9]{5}(?:-[0-9]{4})?$/;
+				const pinRegexp = /^[0-9]{6}(?:-[0-9]{4})?$/;
 				if (!userDetailsValue.match(pinRegexp)) {
 
 					validateFormFields = false;
@@ -191,9 +191,14 @@ function onSaveNDeliver() {
 
 		})
 	}
-	if (!doValidation) {
-		//console.log(userDetailsValue);
-		getUserDeatils['cartId'] = cartId;
+	if(!checkoutcartId){
+        $('.empty-cartid').text("The Cart is empty");
+
+		return;
+    }
+	if (!doValidation && checkoutcartId) {
+		$('.empty-cartid').text("");
+		getUserDeatils['cartId'] = checkoutcartId;
 		getUserDeatils['region'] = "MH";
 		getUserDeatils['region_id'] = 0;
 		getUserDeatils['country_id'] = 'IN';
@@ -201,13 +206,25 @@ function onSaveNDeliver() {
 		getUserDeatils['shipping_method_code'] = "flatrate";
 		getUserDeatils['shipping_carrier_code'] = "flatrate";
 	}
+
 	if (validationFeilds && validateFormFields) {
 		const xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function () {
-			if (this.readyState == 4 && this.status == 200) {
+			if (this.readyState == 4 && this.status == 200 ) {
 				if (this.responseText) {
 					const jsonObject = JSON.parse(this.responseText)
+                    if(!jsonObject["status"]  ){
+
+						localStorage.removeItem("checkOutDetails");
+                        //document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+						getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
+                        return;
+
+                    }
+
+                    else{
 					getCodeskmu(jsonObject["payment_methods"])
+                    }
 				}
 			}
 		};
@@ -218,8 +235,10 @@ function onSaveNDeliver() {
 	}
 
 
+
+
 	function getCodeskmu(skmuObj) {
-		skmuObj['cartId'] = cartId;
+		skmuObj['cartId'] = checkoutcartId;
 		const xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
@@ -302,7 +321,7 @@ function letValidateField(userDetails, userDetailsValue, event) {
 
 			break;
 		case 'Pin Number':
-			const pinRegexp = /^[0-9]{5}(?:-[0-9]{4})?$/;
+			const pinRegexp = /^[0-9]{6}(?:-[0-9]{4})?$/;
 			if (!userDetailsValue) {
 				event.nextElementSibling.innerText = `Please Enter ${userDetails}`;
 				doValidation = true;
@@ -423,6 +442,7 @@ function onContinueCvv() {
 	new Date().getDate() > 10 ? todayDate = new Date().getDate() : todayDate = `${'0' + new Date().getDate()}`
 	const getDateFormat = `${new Date().getFullYear()}-${todayMonth}-${todayDate}`
 
+
 	if (getDateFormat >= getNewCardExpiryDate[0].value) {
 		$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
 		validateCardNExpiry = false;
@@ -441,7 +461,9 @@ function onContinueCvv() {
     console.log(checkOutDetails)
     if(validateCardNExpiry && validateCardNo){
 	localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
+    document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 	getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
+
     }
 
 
@@ -474,6 +496,7 @@ function onValidateCardExpiryDate() {
 		todayMonth > 10 ? todayMonth = todayMonth : todayMonth = `${'0' + todayMonth}`
 		new Date().getDate() > 10 ? todayDate = new Date().getDate() : todayDate = `${'0' + new Date().getDate()}`
 		const getDateFormat = `${new Date().getFullYear()}-${todayMonth}-${todayDate}`
+
 
 		if (getDateFormat >= getNewExpDate[0].value) {
 			$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';

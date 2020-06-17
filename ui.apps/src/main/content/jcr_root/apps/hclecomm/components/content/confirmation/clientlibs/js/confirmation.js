@@ -1,10 +1,13 @@
 $(document).ready(function () {
 
+
+
     const getPorductDetails = JSON.parse(localStorage.getItem('productDescription'));
     const checkOutDeatils = JSON.parse(localStorage.getItem('checkOutDetails')); 
 
     if(checkOutDeatils && checkOutDeatils['orderId'])
     {
+		document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         $(".confirmation-failure").addClass("toggle-order");
 
     let target = document.querySelector(".cmp-confirmation-productInfo");
@@ -42,15 +45,15 @@ $(document).ready(function () {
 
                                     <div>
                                         Coupon Discount
-                                            <span> -$${getPorductDetails['coupondiscount']}</span>
+                                            <span>-$${getPorductDetails['coupondiscount']}</span>
                                     </div>
                                     <div>
                                         Delivery Charges
-											<span> $${getPorductDetails['delivercharges']}</span>
+											<span>$${getPorductDetails['delivercharges']}</span>
                                     </div>
                                     <div>
                                         Total Price
-										<span> $${getPorductDetails['fprice']}</span>
+										<span>$${getPorductDetails['fprice']}</span>
                                     </div>
 							</div>`
 
