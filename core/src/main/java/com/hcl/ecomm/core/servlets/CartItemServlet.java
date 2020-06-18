@@ -36,10 +36,10 @@ public class CartItemServlet extends SlingSafeMethodsServlet {
 
 		LOG.info("inside ProductServlet doGET method");
 		try {
-
+			String customerToken = request.getHeader("CustomerToken");
 			String cartItems = null;
 			String cartId = request.getParameter("cartId");
-			JsonArray responseStream = cartService.getCartItemsDetails(cartId);
+			JsonArray responseStream = cartService.getCartItemsDetails(cartId, customerToken);
 			LOG.info("responseStream is {}", responseStream.toString());
 
 			JsonArray itemsarr= responseStream.getAsJsonArray();

@@ -10,9 +10,9 @@ public interface AddToCartService {
 	
 	public String updateCartItemPath();
 	
-	public JSONObject addToCart(JSONObject product);
+	public JSONObject addToCart(JSONObject product, String custToken);
 	
-	public JSONObject updateCartItem(JSONObject item, String itemId);
+	public JSONObject updateCartItem(JSONObject item, String itemId, String custToken);
 	
 
 }

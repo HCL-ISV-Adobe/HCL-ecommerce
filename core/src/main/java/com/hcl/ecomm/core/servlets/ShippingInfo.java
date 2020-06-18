@@ -54,12 +54,13 @@ public class ShippingInfo extends SlingAllMethodsServlet{
 				buffer.append(line);
 			}
 			String payload = buffer.toString();
+			String customerToken = request.getHeader("CustomerToken");
 			if (StringUtils.isNotEmpty(payload)) {
 				JSONObject jsonPayload =  new JSONObject(payload);
 				LOG.info("Shipping iNfo ()  payload={}",jsonPayload);
 				if (isValidPayload(jsonPayload)) {
 					JSONObject shipItem = jsonItemObj( jsonPayload);
-					JSONObject shippingInfoResponse = shippingInfoService.createShipInfo(shipItem,jsonPayload.getString("cartId"));
+					JSONObject shippingInfoResponse = shippingInfoService.createShipInfo(shipItem,jsonPayload.getString("cartId"), customerToken);
 					if (shippingInfoResponse.has("statusCode") && shippingInfoResponse.getInt("statusCode") == HttpStatus.OK_200) {
 						LOG.info("shippingInfoResponse is {}" ,shippingInfoResponse);
 						JSONObject message= shippingInfoResponse.getJSONObject("message");

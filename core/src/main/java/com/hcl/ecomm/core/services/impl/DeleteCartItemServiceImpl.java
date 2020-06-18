@@ -39,20 +39,37 @@ public class DeleteCartItemServiceImpl implements DeleteCartItemService{
 	}
 
 	@Override
-	public JSONObject deleteCartItem(String cartId, String itemId) {
+	public JSONObject deleteCartItem(String cartId, String itemId, String customerToken) {
 		LOG.debug("deleteCartItem method start.deleteCartItem={} and itemId={}",cartId,itemId);
 		String scheme = "http";
+		String url = "";
+		String token = "";
 		JSONObject deleteCartItemRes = new JSONObject();
+
 		try {
 			String domainName = loginService.getDomainName();
-			String itemDeletePath = getGuestCartItemDeletePath();
-			itemDeletePath= itemDeletePath.replace("{cartId}", cartId).replace("{itemId}", itemId);
-			String url = scheme + "://" + domainName + itemDeletePath;
-			LOG.info("itemDeletePath  : " + url);
+			String itemDeletePath = "";
 
+			if(customerToken != null && !customerToken.isEmpty()) {
+				token = customerToken;
+				//itemDeletePath = config.customer_deleteCart_string();
+				itemDeletePath= config.customer_deleteCart_string().replace("{item-id}", itemId);
+				url = scheme + "://" + domainName + itemDeletePath ;
+
+			}
+			else
+			{
+				token = loginService.getToken();
+				itemDeletePath = getGuestCartItemDeletePath();
+				itemDeletePath= itemDeletePath.replace("{cartId}", cartId).replace("{itemId}", itemId);
+				url = scheme + "://" + domainName + itemDeletePath;
+			}
+
+			LOG.info("itemDeletePath  : " + url);
 			Integer statusCode;
 			CloseableHttpClient httpClient = HttpClients.createDefault();
 			HttpDelete httppost = new HttpDelete(url);
+			httppost.setHeader("Authorization", "Bearer " +token);
 			CloseableHttpResponse httpResponse = httpClient.execute(httppost);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
 			LOG.info("Delete guest cart item: magento statusCode ={}",statusCode);

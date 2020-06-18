@@ -47,16 +47,23 @@ public class CreateCartServiceImpl implements CreateCartService{
 	
 
 	@Override
-	public JSONObject createGuestCart() {
+	public JSONObject createCart(String customerToken) {
 		LOG.debug("createGuestCart method start.");
 		String scheme = "http";
+		String authToken = "";
+		String createGuestCartPath = "";
 		JSONObject createGuestCartRes = new JSONObject();
-		
 
 		try {
-			String authToken = loginService.getToken();
+			if(customerToken != null && !customerToken.isEmpty()) {
+				authToken = customerToken;
+				createGuestCartPath = config.customer_createCart_string();
+			}
+			else {
+				authToken = loginService.getToken();
+				createGuestCartPath = getEmptyCartPath();
+			}
 			String domainName = getDomainName();
-			String createGuestCartPath = getEmptyCartPath();
 			String url = scheme + "://" + domainName + createGuestCartPath;
 			LOG.info("createGuestCartPath  : " + url);
 			
