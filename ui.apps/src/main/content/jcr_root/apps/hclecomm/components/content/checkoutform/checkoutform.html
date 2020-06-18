@@ -172,7 +172,8 @@
 					<input type="text" placeholder="Card Number" name = 'cvv-new-number' class ='card-number-new new-card' onkeyup ="onValidateCardNumber(this)" />
                     <p class ='new-cvv-validation-mssg new-card-validation'></p>
 					</div>
-                    <div class= 'expiry-date-btn'>
+					<sly data-sly-resource="${'expirydate-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
+					<div class= 'expiry-date-btn'>
 					<div class ='new-crad-number-validation'>
 					<input type="date" class ='card-number-new new-card-expiry-date' name = 'expiry-new-number'  placeholder="Expiry Date" onchange ="onValidateCardExpiryDate(this)"/>
                     <p class ='new-cvv-validation-mssg new-card-expiry new-card-expiry-date-validation'></p>
