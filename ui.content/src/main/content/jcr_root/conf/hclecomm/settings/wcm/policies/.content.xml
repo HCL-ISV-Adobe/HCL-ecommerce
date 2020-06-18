@@ -381,7 +381,7 @@
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Hclecomm Footer Policy"
                         sling:resourceType="wcm/core/components/policy/policy"
-                        components="[/apps/hclecomm/components/content/image,/apps/hclecomm/components/content/separator,/apps/hclecomm/components/content/text,/apps/hclecomm/components/structure/navigation]">
+                        components="[/apps/hclecomm/components/content/image,/apps/hclecomm/components/content/separator,/apps/hclecomm/components/content/text,/apps/hclecomm/components/structure/navigation,/apps/hclecomm/components/content/backtotop]">
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_1587530568542>
                 </footer>
