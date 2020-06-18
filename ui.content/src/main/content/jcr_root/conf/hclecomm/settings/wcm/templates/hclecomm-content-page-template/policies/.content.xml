@@ -18,6 +18,20 @@
                     cq:policy="hclecomm/components/structure/search/policy_1589453975454"
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="wcm/core/components/policies/mapping"/>
+                <hclecomm jcr:primaryType="nt:unstructured">
+                    <components jcr:primaryType="nt:unstructured">
+                        <content jcr:primaryType="nt:unstructured">
+                            <button
+                                cq:policy="hclecomm/components/content/button/policy_1588076880690"
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="wcm/core/components/policies/mapping"/>
+                        </content>
+                    </components>
+                </hclecomm>
+                <container
+                    cq:policy="hclecomm/components/content/container/policy_1588584656785"
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="wcm/core/components/policies/mapping"/>
             </header>
             <responsivegrid
                 cq:policy="wcm/foundation/components/responsivegrid/policy_600116016309972"
