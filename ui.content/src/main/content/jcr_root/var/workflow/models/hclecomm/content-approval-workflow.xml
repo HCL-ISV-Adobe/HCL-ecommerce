@@ -5,10 +5,10 @@
     jcr:uuid="72e1b6ff-d73e-4a66-b6c6-354718451e54"
     sling:resourceType="cq/workflow/components/model"
     description="No Description"
-    title="Content Approval Workflow">
+    title="HCLEcomm Content Approval Workflow">
     <metaData
         cq:generatingPage="/conf/global/settings/workflow/models/hclecomm/content-approval-workflow/jcr:content"
-        cq:lastModified="{Long}1592314320653"
+        cq:lastModified="{Long}1592551165443"
         cq:lastModifiedBy="admin"
         jcr:primaryType="nt:unstructured"/>
     <nodes jcr:primaryType="nt:unstructured">
@@ -25,7 +25,7 @@
             type="PARTICIPANT">
             <metaData
                 jcr:primaryType="nt:unstructured"
-                PARTICIPANT="content-approvers"/>
+                PARTICIPANT="hclecomm-content-approvers"/>
         </node1>
         <node2
             jcr:primaryType="cq:WorkflowNode"
@@ -46,7 +46,7 @@
             type="PARTICIPANT">
             <metaData
                 jcr:primaryType="nt:unstructured"
-                PARTICIPANT="content-author"/>
+                PARTICIPANT="hclecomm-content-authors"/>
         </node4>
         <node5
             jcr:primaryType="cq:WorkflowNode"

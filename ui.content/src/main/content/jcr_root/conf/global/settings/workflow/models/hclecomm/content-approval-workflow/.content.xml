@@ -3,11 +3,11 @@
     jcr:primaryType="cq:Page">
     <jcr:content
         cq:designPath="/libs/settings/wcm/designs/default"
-        cq:lastModified="{Date}2020-06-16T19:01:59.971+05:30"
+        cq:lastModified="{Date}2020-06-19T12:49:24.498+05:30"
         cq:lastModifiedBy="admin"
         cq:template="/libs/cq/workflow/templates/model"
         jcr:primaryType="cq:PageContent"
-        jcr:title="Content Approval Workflow"
+        jcr:title="HCLEcomm Content Approval Workflow"
         sling:resourceType="cq/workflow/components/pages/model">
         <flow
             jcr:primaryType="nt:unstructured"
@@ -16,14 +16,14 @@
                 jcr:created="{Date}2020-06-16T18:28:03.800+05:30"
                 jcr:createdBy="admin"
                 jcr:description="Validate Content"
-                jcr:lastModified="{Date}2020-06-16T18:28:42.515+05:30"
+                jcr:lastModified="{Date}2020-06-19T12:49:24.496+05:30"
                 jcr:lastModifiedBy="admin"
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Validate Content"
                 sling:resourceType="cq/workflow/components/model/participant">
                 <metaData
                     jcr:primaryType="nt:unstructured"
-                    PARTICIPANT="content-approvers"/>
+                    PARTICIPANT="hclecomm-content-approvers"/>
             </participant>
             <or
                 jcr:created="{Date}2020-06-16T18:28:11.341+05:30"
@@ -45,14 +45,14 @@
                         jcr:created="{Date}2020-06-16T18:28:16.742+05:30"
                         jcr:createdBy="admin"
                         jcr:description="Rejecting the content as the content is not valid"
-                        jcr:lastModified="{Date}2020-06-16T18:29:21.024+05:30"
+                        jcr:lastModified="{Date}2020-06-19T12:46:59.739+05:30"
                         jcr:lastModifiedBy="admin"
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Reject the content"
                         sling:resourceType="cq/workflow/components/model/participant">
                         <metaData
                             jcr:primaryType="nt:unstructured"
-                            PARTICIPANT="content-author"/>
+                            PARTICIPANT="hclecomm-content-authors"/>
                     </participant>
                 </_x0031_>
                 <_x0032_
