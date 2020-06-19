@@ -4,8 +4,8 @@
     jcr:primaryType="cq:WorkflowModel"
     jcr:uuid="72e1b6ff-d73e-4a66-b6c6-354718451e54"
     sling:resourceType="cq/workflow/components/model"
-    description="No Description"
-    title="HCLEcomm Content Approval Workflow">
+    description="Content Approval Workflow for Activating HCLecomm Pages"
+    title="HCLecomm Content Approval Workflow">
     <metaData
         cq:generatingPage="/conf/global/settings/workflow/models/hclecomm/content-approval-workflow/jcr:content"
         cq:lastModified="{Long}1592551165443"
