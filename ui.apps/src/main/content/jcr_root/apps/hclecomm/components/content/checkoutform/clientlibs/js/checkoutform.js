@@ -5,10 +5,14 @@ getHrefForCvvButton = '';
 getHrefForNewButton = '';
 let getExpiryMonth = '1';
 let getExpiryYear = '';
+let currentMonth = '';
+let currentYear = '';
+
 $(document).ready(function () {
     /// creating  drop down for month and year 
 
-    const currentYear = new Date().getFullYear();
+    currentYear = new Date().getFullYear();
+    currentMonth = new Date().getMonth() +1 ;
     getExpiryYear = currentYear
     const getCalenderPlaceHolderForYear = $('.new-card-expiry-calender-year');
     let yearOptions = "";
@@ -31,14 +35,32 @@ $(document).ready(function () {
     }
 
     /// adding event listner to month and year expiry for card
-
+	if( getCalenderPlaceHolderForYear && getCalenderPlaceHolderForMonth){
 	getCalenderPlaceHolderForYear[0].addEventListener("change", function(event){
   		getExpiryYear = event.target.value;
+        if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth && validatecardNExpDate){
+
+				$('.new-card-expiry-date-validation')[0].innerText = 'Expiry Date is not Valid';
+        }
+        else{
+		$('.new-card-expiry-date-validation')[0].innerText = ' ';
+
+        }
 	});
     getCalenderPlaceHolderForMonth[0].addEventListener("change", function(event){
   		getExpiryMonth = event.target.value;
+
+        if( getExpiryYear === currentYear && (currentMonth >   getExpiryMonth) && validatecardNExpDate){
+
+				$('.new-card-expiry-date-validation')[0].innerText = 'Expiry Date is not Valid';
+        }
+        else{
+		$('.new-card-expiry-date-validation')[0].innerText = ' ';
+
+        }
 	});
 
+    }
 
     //using cookies
 
@@ -470,6 +492,15 @@ function onContinueCvv() {
         validateCardNo = true;
 		validateCardNExpiry = true;
 	}
+
+     if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth ){
+
+			$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A valid Card Number';
+         	return
+        }
+
+
+
     const checkOutDetails = {...getUserDeatils, cardNumber : getNewCardNumber[0].value, cardExpDate : `${getExpiryMonth}-${getExpiryYear}`}
     console.log(checkOutDetails)
     if(validateCardNExpiry && validateCardNo){

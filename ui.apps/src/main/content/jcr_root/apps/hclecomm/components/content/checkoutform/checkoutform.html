@@ -174,12 +174,14 @@
 					</div>
 					<sly data-sly-resource="${'expirydate-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
 					<div class= 'expiry-date-btn'>
-
+					<div>
 					<div class ='new-crad-number-validation-expiry-date'>
                     	<select class ='new-card-expiry-calender-month'></select>
 						<select class ='new-card-expiry-calender-year'></select>
 
                     </div>
+                    <p class ='new-cvv-validation-mssg new-card-expiry-date-validation'></p>
+					</div>
                     <div class= 'cvv-btn-continue billing-btn' onclick = 'onContinueCvv()' data-sly-resource="${'cvv-continue' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
 					<!--/*<input type="button" value ='Continue'  onclick = "onContinueCvv()"/>*/-->
 					</div>
