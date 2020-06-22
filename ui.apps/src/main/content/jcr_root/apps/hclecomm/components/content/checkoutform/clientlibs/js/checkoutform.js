@@ -3,7 +3,42 @@ const getUserDeatils = {};
 let checkoutcartId = ''
 getHrefForCvvButton = '';
 getHrefForNewButton = '';
+let getExpiryMonth = '1';
+let getExpiryYear = '';
 $(document).ready(function () {
+    /// creating  drop down for month and year 
+
+    const currentYear = new Date().getFullYear();
+    getExpiryYear = currentYear
+    const getCalenderPlaceHolderForYear = $('.new-card-expiry-calender-year');
+    let yearOptions = "";
+    if(currentYear && getCalenderPlaceHolderForYear){
+        for (let i = currentYear; i <= currentYear+12; i++) {
+    		yearOptions += '<option value="' + i + '">' + i + '</option>';
+			}
+        getCalenderPlaceHolderForYear.append( yearOptions);
+
+    }
+
+    const getCalenderPlaceHolderForMonth = $('.new-card-expiry-calender-month');
+    let monthOptions = "";
+    if( getCalenderPlaceHolderForMonth){
+        for (let i = 1; i <= 12; i++) {
+    		monthOptions += '<option value="' + i + '">' + i + '</option>';
+			}
+        getCalenderPlaceHolderForMonth.append(monthOptions);
+
+    }
+
+    /// adding event listner to month and year expiry for card
+
+	getCalenderPlaceHolderForYear[0].addEventListener("change", function(event){
+  		getExpiryYear = event.target.value;
+	});
+    getCalenderPlaceHolderForMonth[0].addEventListener("change", function(event){
+  		getExpiryMonth = event.target.value;
+	});
+
 
     //using cookies
 
@@ -426,7 +461,6 @@ function onContinueCvv() {
 	const getNewCardNumber = $('.new-card');
 	const getCardNumberValidation = $('.new-card-validation');
 
-	const getNewCardExpiryDate = $('.new-card-expiry-date');
 	if (!regexCradNumber.test(getNewCardNumber[0].value)) {
 		$('.new-card-validation')[0].innerText = 'Please Enter A valid Card Number';
 		validateCardNExpiry = false;
@@ -436,28 +470,7 @@ function onContinueCvv() {
         validateCardNo = true;
 		validateCardNExpiry = true;
 	}
-	let todayDate = '';
-	let todayMonth = new Date().getMonth() + 1;
-	todayMonth > 10 ? todayMonth = todayMonth : todayMonth = `${'0' + todayMonth}`
-	new Date().getDate() > 10 ? todayDate = new Date().getDate() : todayDate = `${'0' + new Date().getDate()}`
-	const getDateFormat = `${new Date().getFullYear()}-${todayMonth}-${todayDate}`
-
-
-	if (getDateFormat >= getNewCardExpiryDate[0].value) {
-		$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
-		validateCardNExpiry = false;
-		return
-	}
-
-	if (getNewCardExpiryDate[0].value == '') {
-		$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter Expiry Date';
-		validateCardNExpiry = false;
-		return
-	}
-	$('.new-card-expiry-date-validation')[0].innerText = ' ';
-	validateCardNExpiry = true;
-	console.log('set local storage and rediret confirmation page');
-    const checkOutDetails = {...getUserDeatils, cardNumber : getNewCardNumber[0].value, cardExpDate : getNewCardExpiryDate[0].value}
+    const checkOutDetails = {...getUserDeatils, cardNumber : getNewCardNumber[0].value, cardExpDate : `${getExpiryMonth}-${getExpiryYear}`}
     console.log(checkOutDetails)
     if(validateCardNExpiry && validateCardNo){
 	localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
@@ -507,3 +520,4 @@ function onValidateCardExpiryDate() {
 		}
 	}
 }
+
