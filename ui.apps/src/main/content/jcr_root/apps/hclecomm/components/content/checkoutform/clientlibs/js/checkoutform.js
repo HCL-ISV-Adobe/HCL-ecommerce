@@ -484,7 +484,7 @@ function onContinueCvv() {
 	const getCardNumberValidation = $('.new-card-validation');
 
 	if (!regexCradNumber.test(getNewCardNumber[0].value)) {
-		$('.new-card-validation')[0].innerText = 'Please Enter A valid Card Number';
+		$('.new-card-validation')[0].innerText = 'Please Enter A Valid Date';
 		validateCardNExpiry = false;
         validateCardNo= false;
 	} else {
@@ -495,7 +495,7 @@ function onContinueCvv() {
 
      if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth ){
 
-			$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A valid Card Number';
+			$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
          	return
         }
 
