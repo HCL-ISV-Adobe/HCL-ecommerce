@@ -24,10 +24,5 @@ public class Listmodel {
     public void setList(String list) {
         this.list = list;
     }
-
-    @PostConstruct
-    protected void init() {
-        logger.debug("In init of ListModel");
-    }
 }
 
