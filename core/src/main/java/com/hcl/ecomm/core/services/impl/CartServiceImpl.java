@@ -18,6 +18,8 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
+import org.json.JSONObject;
+import org.osgi.framework.BundleContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -192,4 +194,50 @@ public class CartServiceImpl implements CartService {
 
         return couponDiscount;
     }
+
+    @Override
+    public JsonArray getCustomerCart(String customerToken) {
+        String token = "";
+        String url = "";
+        JSONObject getCartResponse = new JSONObject();
+        String domainName = loginService.getDomainName();
+
+            token = customerToken;
+            url = schema + "://" + domainName + config.customer_getCart_string() ;
+
+        JsonArray cartItems = null;
+        LOG.info("url : " + url);
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.setHeader("Content-Type", "application/json");
+        httpGet.setHeader("Authorization", "Bearer " +token);
+        try {
+            CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
+            Integer statusCode = httpResponse.getStatusLine().getStatusCode();
+            if(statusCode == 200)
+            {
+                responseStream = EntityUtils.toString(httpResponse.getEntity());
+            }
+            else if(httpResponse.getStatusLine().getStatusCode() == 404)
+            {
+                responseStream = "[]";
+            }
+            else
+            {
+                responseStream = "Failed to fetch cart details.";
+            }
+            cartItems = new Gson().fromJson(responseStream, JsonArray.class);
+            LOG.info( "Cart Items Response in Json Array : " + cartItems);
+
+        }
+        catch (Exception e)
+        {
+            LOG.error("Exception while fetching cart details : " + e.getMessage());
+        }
+        return cartItems;
+    }
+
+
 }
+

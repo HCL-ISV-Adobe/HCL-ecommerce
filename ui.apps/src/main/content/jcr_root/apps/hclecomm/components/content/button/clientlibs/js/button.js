@@ -1,5 +1,5 @@
 $(function() {
-            let userData = getUserCookie("hcluser");     
+            let userData = getUserCookie("hcluser");
             if(userData != "") {
                 let username = (JSON.parse(userData).firstname)?JSON.parse(userData).firstname:"User";
                 $('.signin').css('display','none');
@@ -11,7 +11,8 @@ $(function() {
                 document.querySelector('.logout').addEventListener('click', function(){
                     console.log("on click event listner code ")
                     setUserCookie("hcluser","",-1);
-                    location.reload();					
+                    setUserCookie("cartId","",-1);
+                    location.reload();
                 });
             } else {
             	 let currentWCMMode = getUserCookie("wcmmode");

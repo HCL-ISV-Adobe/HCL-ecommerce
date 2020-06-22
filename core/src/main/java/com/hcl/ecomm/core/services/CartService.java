@@ -10,4 +10,5 @@ public interface CartService {
     public JsonArray getCartItemsDetails(String cartId, String custToken);
     public String updateCartDetails(String payload, String custToken);
     public String applyCoupon(String coupon);
+    public JsonArray getCustomerCart(String custToken);
 }
