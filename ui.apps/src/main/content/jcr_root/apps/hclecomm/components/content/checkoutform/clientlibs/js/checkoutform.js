@@ -35,7 +35,8 @@ $(document).ready(function () {
     }
 
     /// adding event listner to month and year expiry for card
-	if( getCalenderPlaceHolderForYear && getCalenderPlaceHolderForMonth){
+	if( (getCalenderPlaceHolderForYear[0]  && getCalenderPlaceHolderForYear[0].length >0)
+       && (getCalenderPlaceHolderForMonth[0]  && getCalenderPlaceHolderForMonth[0].length >0) ){
 	getCalenderPlaceHolderForYear[0].addEventListener("change", function(event){
   		getExpiryYear = event.target.value;
         if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth && validatecardNExpDate){
