@@ -22,11 +22,10 @@ public class StaticListModel {
 
     private List<ListPojo> listItems;
 
-
-
+   
     @PostConstruct
     protected void init() {
-        logger.debug("In init of StaticListFilterModel");
+        logger.debug("In init of StaticListModel");
         try {
             if(null!= staticList && staticList.hasChildren() )
             {
