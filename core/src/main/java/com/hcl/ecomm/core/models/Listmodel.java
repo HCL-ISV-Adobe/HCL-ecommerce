@@ -15,14 +15,13 @@ public class Listmodel {
 
     @Inject
     @Optional
-    private String list;
-
-    public String getList() {
-        return list;
+    private String itemList;
+    public String getItemList() {
+        return itemList;
     }
 
-    public void setList(String list) {
-        this.list = list;
+    public void setItemList(String itemList) {
+        this.itemList = itemList;
     }
 }
 

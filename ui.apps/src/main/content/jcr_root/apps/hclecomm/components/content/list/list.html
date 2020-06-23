@@ -24,12 +24,12 @@
   </ol>
 <sly data-sly-call="${template.placeholder @ isEmpty=list.listItems.size == 0, classAppend='cmp-list'}"></sly>
 
-<div data-sly-test="${properties.listFrom == 'staticlist'}" class ='static-order-un-order-list'>
+<div data-sly-test="${properties.listFrom == 'staticlistoption'}" class ='static-order-un-order-list'>
 <div data-sly-use.staticlist="com.hcl.ecomm.core.models.StaticListModel">
 
       <ol class="cmp-list" data-sly-list.listtext="${staticlist.listItems}">
       <i class="fa fa-chevron-right order-unorder-list--icon" aria-hidden="true"></i>
-        <li class="cmp-list__item-link cmp-list__item-title">${listtext.list}</li>
+        <li class="cmp-list__item-link cmp-list__item-title">${listtext.itemList}</li>
       </ol>
 </div>
 </div>
