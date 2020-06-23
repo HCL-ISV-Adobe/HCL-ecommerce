@@ -24,6 +24,13 @@ public @interface MagentoServiceConfig {
   String customerSignupPath = "/V1/customers";
   String customerSigninPath = "/V1/integration/customer/token";
   String customerProfilePath = "/V1/customers/me";
+    String customerCreateCartPath = "/V1/carts/mine";
+    String customerAddToCartPath = "/V1/carts/mine/items";
+    String customerUpdateCartPath = "/V1/carts/mine/items";
+    String customerDeleteCartPath = "/V1/carts/mine/items/{item-id}";
+    String customerGetCartPath = "/V1/carts/mine/items";
+    String customerShippingInfoPath = "/V1/carts/mine/shipping-information";
+    String customerCreateOrderPath = "/V1/carts/mine/payment-information";
 
 
 
@@ -71,6 +78,27 @@ public @interface MagentoServiceConfig {
 
     @AttributeDefinition(name = "COUPON_LIST", description = "This is path of Coupon list under ACS-Commons list", defaultValue = {couponListPath} )
     String getCouponlistPath_string() default couponListPath;
+
+    @AttributeDefinition(name = "Customer Create Cart Service Path", description = "This is the API path for creating customer's cart", defaultValue = customerProfilePath, type = AttributeType.STRING )
+    String customer_createCart_string() default customerCreateCartPath;
+
+    @AttributeDefinition(name = "Customer Add To Cart Service Path", description = "This is the API path for adding product into customer's cart", defaultValue = customerProfilePath, type = AttributeType.STRING )
+    String customer_addToCart_string() default customerAddToCartPath;
+
+    @AttributeDefinition(name = "Customer Update Cart Item Service Path", description = "This is the API path for updating item of customer'cart", defaultValue = customerProfilePath, type = AttributeType.STRING )
+    String customer_updateCart_string() default customerUpdateCartPath;
+
+    @AttributeDefinition(name = "Customer Delete Cart Item Service Path", description = "This is the API path for deleting item from customer's cart", defaultValue = customerProfilePath, type = AttributeType.STRING )
+    String customer_deleteCart_string() default customerDeleteCartPath;
+
+    @AttributeDefinition(name = "Customer Get Cart Service Path", description = "This is the API path for getting customer cart", defaultValue = customerProfilePath, type = AttributeType.STRING )
+   String customer_getCart_string() default customerGetCartPath;
+
+  @AttributeDefinition(name = "Customer Shipping Info Service Path", description = "This is the API path for customer shipping info", defaultValue = customerProfilePath, type = AttributeType.STRING )
+  String customer_shippingInfo_string() default customerShippingInfoPath;
+
+  @AttributeDefinition(name = "Customer Create Order Service Path", description = "This is the API path for creating order for customer", defaultValue = customerProfilePath, type = AttributeType.STRING )
+  String customer_createOrder_string() default customerCreateOrderPath;
 
 
 }

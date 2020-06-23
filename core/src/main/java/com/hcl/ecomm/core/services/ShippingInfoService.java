@@ -8,6 +8,6 @@ public interface ShippingInfoService {
 
     public String getShippingInfoPath();
 
-    public JSONObject createShipInfo(JSONObject shipItem,String cartId);
+    public JSONObject createShipInfo(JSONObject shipItem,String cartId, String customerToken);
 
 }

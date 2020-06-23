@@ -7,6 +7,7 @@ import com.hcl.ecomm.core.services.LoginService;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -45,30 +46,43 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 	}
 
 	@Override
-	public JSONObject createOrderItem(JSONObject orderItem, String cartId) {
+	public JSONObject createOrderItem(JSONObject orderItem, String cartId, String customerToken) {
 
 		LOG.debug("createOrderItem method={}",orderItem,cartId);
 		String scheme = "http";
+		String token="";
+		String url = "";
+		Integer statusCode=0;
 		JSONObject createOrderItemRes = new JSONObject();
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		CloseableHttpResponse httpResponse = null;
+		StringEntity input = new StringEntity(orderItem.toString(),ContentType.APPLICATION_JSON);
 		try {
-
 			String domainName = loginService.getDomainName();
-			String createOrderPath = getCreateOrderPath();
+			if(customerToken != null && !customerToken.isEmpty()) {
+				token = customerToken;
+				url = scheme + "://" + domainName + config.customer_createOrder_string() ;
+				HttpPost httpost = new HttpPost(url);
+				httpost.setHeader("Authorization", "Bearer " +token);
+				httpost.setEntity(input);
 
-			createOrderPath = createOrderPath.replace("{cartId}", cartId);
-			String url = scheme + "://" + domainName + createOrderPath;
+				httpResponse = httpClient.execute(httpost);
+				LOG.info("httpResponse is {}",httpResponse);
+				statusCode = httpResponse.getStatusLine().getStatusCode();
+
+			}
+			else
+			{
+				String createOrderPath = getCreateOrderPath();
+				createOrderPath = createOrderPath.replace("{cartId}", cartId);
+				url = scheme + "://" + domainName + createOrderPath;
+				HttpPut httput = new HttpPut(url);
+				httput.setEntity(input);
+				httpResponse = httpClient.execute(httput);
+				LOG.info("httpResponse is {}",httpResponse);
+				statusCode = httpResponse.getStatusLine().getStatusCode();
+			}
 			LOG.info("createOrderInfo url ={}",url);
-			Integer statusCode;
-
-			StringEntity input = new StringEntity(orderItem.toString(),ContentType.APPLICATION_JSON);
-			LOG.info("input is {}",input);
-			CloseableHttpClient httpClient = HttpClients.createDefault();
-			HttpPut httput = new HttpPut(url);
-			httput.setEntity(input);
-			CloseableHttpResponse httpResponse = httpClient.execute(httput);
-			LOG.info("httpResponse is {}",httpResponse);
-			statusCode = httpResponse.getStatusLine().getStatusCode();
-			LOG.info("createOrder Info : magento statusCode ={}",statusCode);
 
 			if(org.eclipse.jetty.http.HttpStatus.OK_200 == statusCode){
 				BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));

@@ -1,6 +1,11 @@
 let productResponse = [];
 $(document).ready(function () {
 
+    let userData = getUserCookie("hcluser"); 
+    if(userData != "") {
+         custToken = JSON.parse(userData).customerToken;
+    }
+
     var value = $('#mydiv').data('custom-property');
     console.log(value);
 
@@ -54,6 +59,7 @@ $(document).ready(function () {
                                                                 }
                                                 };
                                                 xmlhttp.open("GET", url, true);
+                                    			      xmlhttp.setRequestHeader("CustomerToken", custToken);
                                                 xmlhttp.send();
                                 }
 
@@ -258,6 +264,11 @@ function deleteproduct(event, itemId, cartId) {
                                 "cartId": cartId,
                                 "itemId": itemId
                 };
+                $.ajaxSetup({
+    		          beforeSend: function(xhr) {
+        		      xhr.setRequestHeader('CustomerToken', custToken);
+    			        }
+			          })
                 jQuery.ajax({
                                 url: '/bin/hclecomm/deleteCartItem',
                                 type: 'PUT',

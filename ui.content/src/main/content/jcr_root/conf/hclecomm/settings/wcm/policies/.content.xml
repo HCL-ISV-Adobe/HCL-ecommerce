@@ -58,6 +58,41 @@
                 </container>
             </form>
             <content jcr:primaryType="nt:unstructured">
+			    <list jcr:primaryType="nt:unstructured">
+                    <policy_1592474735653
+                        jcr:lastModified="{Date}2020-06-18T23:30:00.190+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="listpolicy"
+                        sling:resourceType="wcm/core/components/policy/policy"
+                        disableChildren="false"
+                        disableSearch="false"
+                        disableStatic="false"
+                        disableTags="false"
+                        linkItems="false"
+                        showDescription="false"
+                        showModificationDate="false">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <cq:styleGroups jcr:primaryType="nt:unstructured">
+                            <item0
+                                cq:styleGroupLabel="Style"
+                                jcr:primaryType="nt:unstructured">
+                                <cq:styles jcr:primaryType="nt:unstructured">
+                                    <item0
+                                        cq:styleClasses="cmp-order-list cmp-list "
+                                        cq:styleId="1592474784571"
+                                        cq:styleLabel="Order-List"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item1
+                                        cq:styleClasses="cmp-un-order-list cmp-list"
+                                        cq:styleId="1592475134740"
+                                        cq:styleLabel="Un-Order-List"
+                                        jcr:primaryType="nt:unstructured"/>
+                                </cq:styles>
+                            </item0>
+                        </cq:styleGroups>
+                    </policy_1592474735653>
+                </list>
                 <carousel jcr:primaryType="nt:unstructured">
                     <policy_1588575545478
                         jcr:lastModified="{Date}2020-05-05T11:10:24.063+05:30"

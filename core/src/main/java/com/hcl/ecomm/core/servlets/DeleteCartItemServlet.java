@@ -66,10 +66,11 @@ public class DeleteCartItemServlet extends SlingAllMethodsServlet {
 				buffer.append(line);
 			}
 			String payload = buffer.toString();
+			String customerToken = request.getHeader("CustomerToken");
 			if (StringUtils.isNotEmpty(payload)) {
 				JSONObject jsonPayload =  new JSONObject(payload);
 				if (isValidItem(jsonPayload)) {
-					JSONObject deleteCartItemResponse = deleteCartItemService.deleteCartItem(jsonPayload.getString("cartId"), jsonPayload.getString("itemId"));
+					JSONObject deleteCartItemResponse = deleteCartItemService.deleteCartItem(jsonPayload.getString("cartId"), jsonPayload.getString("itemId"), customerToken);
 					if (deleteCartItemResponse.has("statusCode") && deleteCartItemResponse.getInt("statusCode") == HttpStatus.SC_OK) {
 						responseObject.put("message", deleteCartItemResponse.getJSONObject("message"));
 						responseObject.put("status", Boolean.TRUE);

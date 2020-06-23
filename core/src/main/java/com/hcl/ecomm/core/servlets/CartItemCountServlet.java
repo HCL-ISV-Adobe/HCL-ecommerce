@@ -34,12 +34,13 @@ public class CartItemCountServlet extends SlingSafeMethodsServlet
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
         String  cartItemResponse = "";
+        String customerToken = request.getHeader("CustomerToken");
         try {
             String cartId = request.getParameter("cartId");
             LOG.info("Cart Id id : " + cartId);
             if(cartId!=null || !"".equals(cartId))
             {
-                int cartItemCount = cartService.getCartItemCount(cartId);
+                int cartItemCount = cartService.getCartItemCount(cartId, customerToken);
                 LOG.info("cartItemCount : " + cartItemCount);
                 cartItemResponse = String.valueOf(cartItemCount);
             }

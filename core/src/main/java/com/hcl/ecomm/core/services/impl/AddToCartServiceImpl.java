@@ -54,15 +54,24 @@ public class AddToCartServiceImpl implements AddToCartService{
 	}
 	
 	@Override
-	public JSONObject addToCart(JSONObject product) {
+	public JSONObject addToCart(JSONObject product, String custToken) {
 		LOG.debug("addToCart method start  product={}: " + product);
 		String scheme = "http";
+		String addToCartPath = "";
+		String authToken = "";
 		JSONObject addToCartResponse = new JSONObject();
 
 		try {
-			String authToken = loginService.getToken();
+			if(custToken != null && !custToken.isEmpty()) {
+				authToken = custToken;
+				addToCartPath = config.customer_addToCart_string();
+			}
+			else {
+				authToken = loginService.getToken();
+				addToCartPath = getAddToCartPath();
+			}
+
 			String domainName = getDomainName();
-			String addToCartPath = getAddToCartPath();
 			String cartid = product.getJSONObject("cartItem").getString("quote_id");
 			addToCartPath = addToCartPath.replace("{cartId}", cartid);
 			String url = scheme + "://" + domainName + addToCartPath;
@@ -105,7 +114,7 @@ public class AddToCartServiceImpl implements AddToCartService{
 
 
 	@Override
-	public JSONObject updateCartItem(JSONObject item, String itemId) {
+	public JSONObject updateCartItem(JSONObject item, String itemId, String custToken) {
 		LOG.debug("updateCartItem() method start.  product={}: " + item);
 		String scheme = "http";
 		JSONObject updatedItem = new JSONObject();
