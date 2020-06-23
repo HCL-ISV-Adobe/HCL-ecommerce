@@ -48,24 +48,23 @@ public class CreateCartServiceImpl implements CreateCartService{
 
 	@Override
 	public JSONObject createCart(String customerToken) {
-		LOG.debug("createGuestCart method start.");
 		String scheme = "http";
 		String authToken = "";
-		String createGuestCartPath = "";
-		JSONObject createGuestCartRes = new JSONObject();
+		String createCartPath = "";
+		JSONObject createCartRes = new JSONObject();
 
 		try {
 			if(customerToken != null && !customerToken.isEmpty()) {
 				authToken = customerToken;
-				createGuestCartPath = config.customer_createCart_string();
+				createCartPath = config.customer_createCart_string();
 			}
 			else {
 				authToken = loginService.getToken();
-				createGuestCartPath = getEmptyCartPath();
+				createCartPath = getEmptyCartPath();
 			}
 			String domainName = getDomainName();
-			String url = scheme + "://" + domainName + createGuestCartPath;
-			LOG.info("createGuestCartPath  : " + url);
+			String url = scheme + "://" + domainName + createCartPath;
+			LOG.debug("createGuestCartPath  : " + url);
 			
 			Integer statusCode;
 			CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -89,11 +88,11 @@ public class CreateCartServiceImpl implements CreateCartService{
 					str = str.replace("\"", "");
 				}
 				cartid.put("cartid", str);
-				createGuestCartRes.put("statusCode", statusCode);
-				createGuestCartRes.put("message", cartid);
+				createCartRes.put("statusCode", statusCode);
+				createCartRes.put("message", cartid);
 			}else if(HttpStatus.BAD_REQUEST_400 == statusCode){
-				createGuestCartRes.put("statusCode", statusCode);
-				createGuestCartRes.put("message", httpResponse.getEntity().getContent().toString());
+				createCartRes.put("statusCode", statusCode);
+				createCartRes.put("message", httpResponse.getEntity().getContent().toString());
 				LOG.error("Error while  create cart. status code:{} and message={}",statusCode,httpResponse.getEntity().getContent().toString());
 			}else{
 				LOG.error("Error while ceate cart. status code:{}",statusCode);
@@ -101,8 +100,8 @@ public class CreateCartServiceImpl implements CreateCartService{
 		} catch (Exception e) {
 			LOG.error("createGuestCart method caught an exception " + e);
 		}
-		LOG.debug("createGuestCart method end  createGuestCartRes={}: " + createGuestCartRes);
-		return createGuestCartRes;
+		LOG.debug("createGuestCart method end  createGuestCartRes={}: " + createCartRes);
+		return createCartRes;
 	}
 
 

@@ -49,13 +49,10 @@ public class DeleteCartItemServiceImpl implements DeleteCartItemService{
 		try {
 			String domainName = loginService.getDomainName();
 			String itemDeletePath = "";
-
 			if(customerToken != null && !customerToken.isEmpty()) {
 				token = customerToken;
-				//itemDeletePath = config.customer_deleteCart_string();
 				itemDeletePath= config.customer_deleteCart_string().replace("{item-id}", itemId);
 				url = scheme + "://" + domainName + itemDeletePath ;
-
 			}
 			else
 			{
@@ -65,12 +62,12 @@ public class DeleteCartItemServiceImpl implements DeleteCartItemService{
 				url = scheme + "://" + domainName + itemDeletePath;
 			}
 
-			LOG.info("itemDeletePath  : " + url);
+			LOG.debug("itemDeletePath  : " + url);
 			Integer statusCode;
 			CloseableHttpClient httpClient = HttpClients.createDefault();
-			HttpDelete httppost = new HttpDelete(url);
-			httppost.setHeader("Authorization", "Bearer " +token);
-			CloseableHttpResponse httpResponse = httpClient.execute(httppost);
+			HttpDelete httpDelete = new HttpDelete(url);
+			httpDelete.setHeader("Authorization", "Bearer " +token);
+			CloseableHttpResponse httpResponse = httpClient.execute(httpDelete);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
 			LOG.info("Delete guest cart item: magento statusCode ={}",statusCode);
 

@@ -32,12 +32,9 @@ public class GetCustomerCartServlet extends SlingSafeMethodsServlet {
 
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
-
-		LOG.info("inside ProductServlet doGET method");
 		try {
 			String customerToken = request.getHeader("CustomerToken");
 			String cartItems = null;
-			//String cartId = request.getParameter("cartId");
 			JsonArray responseStream = cartService.getCustomerCart(customerToken);
 			LOG.info("responseStream is {}", responseStream.toString());
 

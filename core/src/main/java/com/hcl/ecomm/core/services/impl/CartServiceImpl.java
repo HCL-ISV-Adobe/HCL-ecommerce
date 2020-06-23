@@ -18,12 +18,9 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
-import org.json.JSONObject;
-import org.osgi.framework.BundleContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.HashMap;
@@ -61,7 +58,6 @@ public class CartServiceImpl implements CartService {
         String domainName = loginService.getDomainName();
         if(customerToken != null && !customerToken.isEmpty()) {
             token = customerToken;
-            //createGuestCartPath = config.customer_createCart_string();
             url = schema + "://" + domainName + config.customer_getCart_string() ;
         }
         else
@@ -70,14 +66,12 @@ public class CartServiceImpl implements CartService {
             url = schema + "://" + domainName + getServicePath() + cartId + "/items";
         }
         JsonArray cartItems = null;
-        LOG.info("url : " + url);
+        LOG.debug("url : " + url);
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url);
         httpGet.setHeader("Content-Type", "application/json");
         httpGet.setHeader("Authorization", "Bearer " +token);
-        //String bearerToken = "Bearer" + token;
-       // String finalToken = bearerToken.replaceAll("\"","");
         try {
             CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
             if(httpResponse.getStatusLine().getStatusCode() == 200)
@@ -199,7 +193,6 @@ public class CartServiceImpl implements CartService {
     public JsonArray getCustomerCart(String customerToken) {
         String token = "";
         String url = "";
-        JSONObject getCartResponse = new JSONObject();
         String domainName = loginService.getDomainName();
 
             token = customerToken;
