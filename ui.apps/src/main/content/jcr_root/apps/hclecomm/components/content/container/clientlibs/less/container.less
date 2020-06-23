@@ -1,0 +1,88 @@
+.cmp-container-header{
+background: #2979be;
+    padding: 2px 10px;
+    margin-bottom: 10px;
+
+    @media screen and (max-width:768px){
+position: relative;
+    padding-left: 100px;
+
+
+    }
+}
+header.header{
+	
+    .btn-phone-call{	
+		@media screen and (max-width:768px){	
+			display:none;		
+		}
+	}
+	
+	.search{
+		@media screen and (max-width:768px){	
+			position: absolute;
+
+			.cmp-search{
+				i.cmp-search__icon{
+					    background: transparent;
+						position: absolute;
+						top: 3px;
+						left: 80px;
+				}
+				
+				.cmp-search__input{
+					display:none;
+					position: absolute;
+					top: 45px;
+					left: 66px;
+					width:140px;
+				}
+				
+				span.cmp-search__loading-indicator{
+					top: 50px;
+					left: 150px;
+				}
+				
+				button.cmp-search__clear{
+					position: absolute;
+					top: 47px;
+					left: 240px;
+				}
+			}
+		}
+	}
+	
+.navigation{
+	margin-left:0 !important;
+	
+	@media screen and (max-width:768px){
+		width:auto !important;
+		
+		.cmp-navigation{
+			width:300px;
+		}
+	}
+	
+	ul{
+		padding: 0;
+		margin: 0;
+		
+		li{
+			padding:15px;
+		}
+	}
+	@media screen and (max-width:768px){
+			position: absolute;
+            top: 8px;
+            left: 20px;
+            margin: 0 !important;
+
+            .hammburger-icon{
+				.hammburger-icon__bar1,.hammburger-icon__bar2,.hammburger-icon__bar3{
+					background-color:#fff;
+                }
+			}
+		}
+	}
+
+}

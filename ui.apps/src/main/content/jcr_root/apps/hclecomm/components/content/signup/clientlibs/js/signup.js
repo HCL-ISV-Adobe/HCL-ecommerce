@@ -59,56 +59,74 @@
 	  console.log('promise error',error);
 	});
   }
-
-  async function validateSignupFrom(e) {
-	var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
+function displayError(errorhtml, formElmName) {
 	const ErrorMsgElm = document.getElementById('cmp-signup-errormsg');
-	ErrorMsgElm.innerHTML = "";
-	ErrorMsgElm.style.visibility = "hidden";
-	let errorhtml = "";
-	
-	if(document.signup_form.firstname.value == "") {
-	  document.signup_form.firstname.focus();
-	  return false;
-	}
-	if(document.signup_form.lastname.value == "") {
-		  document.signup_form.lastname.focus();
+	document.signup_form[formElmName].focus();
+	ErrorMsgElm.style.visibility = "visible";
+	ErrorMsgElm.innerHTML = errorhtml;
+	return;
+}
+  async function validateSignupFrom(e) {
+	  const ErrorMsgElm = document.getElementById('cmp-signup-errormsg');
+	  ErrorMsgElm.innerHTML = "";
+	  ErrorMsgElm.style.visibility = "hidden";
+	  let errorhtml = "";
+	  var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
+	  var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	  var phoneno = /^\d{10}$/;
+	  if (document.signup_form.firstname.value == "") {
+		  errorhtml = '<span>Please enter First Name<span>';
+		  displayError(errorhtml, 'firstname');
 		  return false;
-		}
-	
-	if(document.signup_form.email.value == "") {
-	  document.signup_form.email.focus();
-	  return false;
-	}
-	if(document.signup_form.phone.value == "") {
-	  document.signup_form.phone.focus();
-	  return false;
-	}
-	if(document.signup_form.password.value == "") {
-	  document.signup_form.password.focus();
-	  return false;
-	} else if(!document.signup_form.password.value.match(passw)) {
-		errorhtml = '<span>Password must contain at least one numeric digit, one uppercase and one lowercase letter<span>';
-		ErrorMsgElm.style.visibility = "visible";
-		ErrorMsgElm.innerHTML = errorhtml;
-		document.signup_form.password.focus();
-		return false;
-	}
-	if(document.signup_form.cfpassword.value == "") {
-	  document.signup_form.cfpassword.focus();
-	  return false;
-	}
-	if( document.signup_form.password.value !== document.signup_form.cfpassword.value) {
-		document.signup_form.cfpassword.focus();
-		return false;
-	}
-	if(document.signup_form.terms && document.signup_form.terms.checked === false) {
-	  document.signup_form.terms.focus();
-	  errorhtml = '<span>Please accept terms and conditions<span>';
-	  ErrorMsgElm.style.visibility = "visible";
-	  ErrorMsgElm.innerHTML = errorhtml;
-	  return false;
-	}
+	  }
+	  if (document.signup_form.lastname.value == "") {
+		  errorhtml = '<span>Please enter Last Name<span>';
+		  displayError(errorhtml, 'lastname');
+		  return false;
+	  }
+	  if (document.signup_form.email.value == "") {
+		  errorhtml = '<span>Please enter Email<span>';
+		  displayError(errorhtml, 'email');
+		  return false;
+	  } else if (!document.signup_form.email.value.match(mailformat)) {
+		  errorhtml = '<span>Please enter Email in proper format<span>';
+		  displayError(errorhtml, 'email');
+		  return false;
+	  }
+	  if (document.signup_form.phone.value == "") {
+		  errorhtml = '<span>Please enter Phone Number<span>';
+		  displayError(errorhtml, 'phone');
+		  return false;
+	  } else if (!document.signup_form.phone.value.match(phoneno)) {
+		  errorhtml = '<span>Phone number must be 10 digits<span>';
+		  displayError(errorhtml, 'phone');
+		  return false;
+	  }
+	  if (document.signup_form.password.value == "") {
+		  errorhtml = '<span>Please enter Password<span>';
+		  displayError(errorhtml, 'password');
+		  return false;
+	  } else if (!document.signup_form.password.value.match(passw)) {
+		  errorhtml = '<span>Password must contain at least one numeric digit, one uppercase and one lowercase letter and lenght 8 to 10<span>';
+		  displayError(errorhtml, 'password');
+		  return false;
+	  }
+	  if (document.signup_form.cfpassword.value == "") {
+		  errorhtml = '<span>Please enter Confirm password <span>';
+		  displayError(errorhtml, 'cfpassword');
+		  return false;
+	  }
+	  if (document.signup_form.password.value !== document.signup_form.cfpassword.value) {
+		  errorhtml = '<span>Confirm password should be same as password<span>';
+		  displayError(errorhtml, 'cfpassword');
+		  return false;
+	  }
+	  if (document.signup_form.terms.checked === false) {
+		  errorhtml = '<span>Please accept terms and conditions<span>';
+		  displayError(errorhtml, 'terms');
+		  return false;
+	  }
+
 
 	const formData = {  
 		firstname: document.signup_form.firstname.value,

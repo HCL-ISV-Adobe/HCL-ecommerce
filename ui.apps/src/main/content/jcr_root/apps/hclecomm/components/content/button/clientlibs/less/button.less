@@ -208,6 +208,7 @@ link-primary {
 
 
 .button a.signin, .button a.signup {
+	font-family: sans-serif;
     cursor: pointer;
     color: #FFFFFF;
     text-decoration: none;
@@ -227,9 +228,16 @@ link-primary {
     .btn-cmp-signin-icon {
         padding-right: 3px;
     }
+    
+    @media (max-width: 768px) {
+        span.cmp-button__text {
+            display:none
+        }
+    }
 }
 
 .logout {
+	font-family: sans-serif;
     cursor: pointer;
     color: #FFFFFF;
     text-decoration: none;
@@ -256,4 +264,11 @@ link-primary {
         padding-right: 10px;
         overflow: hidden;
     }
+    
+    @media (max-width: 768px) {
+        span.cmp-button__text {
+            display:none
+        }
+    }
 }
+
