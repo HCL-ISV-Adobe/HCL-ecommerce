@@ -50,24 +50,35 @@ public class ShippingInfoServiceImpl implements ShippingInfoService {
     }
 
     @Override
-    public JSONObject createShipInfo(JSONObject shipItem,String cartId) {
+    public JSONObject createShipInfo(JSONObject shipItem,String cartId, String customerToken) {
 
         LOG.debug("shippinginfo() method start {}" + shipItem);
         String scheme = "http";
         JSONObject updatedItem = new JSONObject();
-
+        String token = "";
+        String url = "";
         try {
             String domainName = getDomainName();
-            String shippingInfoPath = getShippingInfoPath();
+            if(customerToken != null && !customerToken.isEmpty()) {
+                token = customerToken;
+                url = scheme + "://" + domainName + config.customer_shippingInfo_string() ;
+            }
+            else
+            {
+                String shippingInfoPath = getShippingInfoPath();
+                shippingInfoPath = shippingInfoPath.replace("{cartId}", cartId);
+                url = scheme + "://" + domainName + shippingInfoPath;
+            }
 
-            shippingInfoPath = shippingInfoPath.replace("{cartId}", cartId);
-            String url = scheme + "://" + domainName + shippingInfoPath;
             LOG.info("shippingInfo url ={}",url);
             Integer statusCode;
             JSONObject response = new JSONObject();
             StringEntity input = new StringEntity(shipItem.toString(),ContentType.APPLICATION_JSON);
             CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost httpost = new HttpPost(url);
+            if(customerToken != null && !customerToken.isEmpty()) {
+                httpost.setHeader("Authorization", "Bearer " +token);
+            }
             httpost.setEntity(input);
 
             CloseableHttpResponse httpResponse = httpClient.execute(httpost);

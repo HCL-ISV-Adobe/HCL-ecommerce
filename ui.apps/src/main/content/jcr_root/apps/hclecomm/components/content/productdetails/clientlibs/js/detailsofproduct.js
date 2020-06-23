@@ -1,5 +1,7 @@
 let prodSku ="";
 let AddtocartRedirection="";
+let custToken = "";
+
 $(document).ready(function () {
      AddtocartRedirection = $('.btn-product-card').children().children().attr('href');
      $('.btn-product-card').children().children().removeAttr("href");
@@ -12,6 +14,12 @@ $(document).ready(function () {
     const firstSizeSelected = $(".product-details-cmp__product-size--item:first-child").text();
     $('.select-size').text(firstSizeSelected);
     $(".product-details-cmp__product-size--item:first-child").addClass("selected-size");
+
+    let userData = getUserCookie("hcluser"); 
+    if(userData != "") {
+         custToken = JSON.parse(userData).customerToken;
+    }
+
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -147,6 +155,7 @@ function getCookie(name, callback) {
             }
         };
         xhttp.open("GET", "/bin/hclecomm/createCart", true);
+        xhttp.setRequestHeader("CustomerToken", custToken);
         xhttp.send();
         }
 
@@ -170,6 +179,7 @@ function callback(cartId) {
     var url = "/bin/hclecomm/addToCart";
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("CustomerToken", custToken);
     xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
         console.log("response ",xhr.responseText);

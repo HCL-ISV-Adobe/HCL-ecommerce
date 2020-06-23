@@ -1,5 +1,6 @@
 package com.hcl.ecomm.core.servlets;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 
 import javax.servlet.Servlet;
@@ -52,8 +53,9 @@ public class CreateCartServlet extends SlingSafeMethodsServlet {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		JSONObject responseObject = new JSONObject();
+		String customerToken = request.getHeader("CustomerToken");
 		try {
-			JSONObject createCartResponse = createCartService.createGuestCart();
+			JSONObject createCartResponse = createCartService.createCart(customerToken);
 			if (createCartResponse.has("statusCode") && createCartResponse.getInt("statusCode") == HttpStatus.OK_200) {
 				responseObject.put("message", createCartResponse.getJSONObject("message"));
 				responseObject.put("status", Boolean.TRUE);

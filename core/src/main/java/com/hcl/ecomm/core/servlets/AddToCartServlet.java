@@ -82,11 +82,12 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 				buffer.append(line);
 			}
 			String payload = buffer.toString();
+			String customerToken = request.getHeader("CustomerToken");
 			if (StringUtils.isNotEmpty(payload)) {
 				JSONObject jsonPayload =  new JSONObject(payload);
 				if (isValidPayload(jsonPayload)) {
 					JSONObject cartItem = jsonItemObj( jsonPayload);
-					JSONObject addToCartResponse = addToCartService.addToCart(cartItem);
+					JSONObject addToCartResponse = addToCartService.addToCart(cartItem, customerToken);
 					if (addToCartResponse.has("statusCode") && addToCartResponse.getInt("statusCode") == HttpStatus.OK_200) {
 						responseObject.put("message", addToCartResponse.getJSONObject("message"));
 						responseObject.put("status", Boolean.TRUE);
@@ -131,12 +132,13 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 				buffer.append(line);
 			}
 			String payload = buffer.toString();
+			String customerToken = request.getHeader("CustomerToken");
 			if (StringUtils.isNotEmpty(payload)) {
 				JSONObject jsonPayload =  new JSONObject(payload);
 				LOG.info("addtocart Put()  payload={}",jsonPayload);
 				if (isValidPayload(jsonPayload) && jsonPayload.has("itemid")) {
 					JSONObject cartItem = jsonItemObj( jsonPayload);
-					JSONObject updateCartItemResponse = addToCartService.updateCartItem(cartItem, jsonPayload.getString("itemid"));
+					JSONObject updateCartItemResponse = addToCartService.updateCartItem(cartItem, jsonPayload.getString("itemid"), customerToken);
 					if (updateCartItemResponse.has("statusCode") && updateCartItemResponse.getInt("statusCode") == HttpStatus.OK_200) {
 						responseObject.put("message", updateCartItemResponse.getJSONObject("message"));
 						responseObject.put("status", Boolean.TRUE);

@@ -59,12 +59,13 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 				buffer.append(line);
 			}
 			String payload = buffer.toString();
+			String customerToken = request.getHeader("CustomerToken");
 			if (StringUtils.isNotEmpty(payload)) {
 				JSONObject jsonPayload =  new JSONObject(payload);
 				LOG.info("CreateOrder iNfo ()  payload={}",jsonPayload);
 				if (isValidItem(jsonPayload)) {
-					JSONObject createOrderItem = jsonItemObj( jsonPayload);
-					JSONObject createOrderItemResponse = createOrderService.createOrderItem(createOrderItem,jsonPayload.getString("cartId"));
+					JSONObject createOrderItem = jsonItemObj( jsonPayload,customerToken);
+					JSONObject createOrderItemResponse = createOrderService.createOrderItem(createOrderItem,jsonPayload.getString("cartId"), customerToken);
 					if (createOrderItemResponse.has("statusCode") && createOrderItemResponse.getInt("statusCode") == HttpStatus.SC_OK) {
 						LOG.info("createOrderItemResponse is {}" ,createOrderItemResponse);
 						responseObject.put("message", createOrderItemResponse.getJSONObject("message"));
@@ -91,11 +92,30 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 		return isValidItem;
 	}
 
-	private JSONObject jsonItemObj(JSONObject shipData) {
+	private JSONObject jsonItemObj(JSONObject shipData, String customerToken) {
 		JSONObject orderItem = new JSONObject();
 		JSONObject orderInfo = new JSONObject();
+		JSONObject billAddress = new JSONObject();
 		try {
-			orderItem.put("method",shipData.getString("code"));
+			if(customerToken != null && !customerToken.isEmpty()) {
+				billAddress.put("city", shipData.getString("city"));
+				billAddress.put("country_id", shipData.getString("country_id"));
+				billAddress.put("email", shipData.getString("email"));
+				billAddress.put("firstname", shipData.getString("firstname"));
+				billAddress.put("lastname", shipData.getString("lastname"));
+				billAddress.put("postcode", shipData.getString("postcode"));
+				billAddress.put("region", shipData.getString("region"));
+				billAddress.put("region_code", shipData.getString("region_code"));
+				billAddress.put("region_id", shipData.getInt("region_id"));
+				billAddress.put("street", shipData.get("street"));
+				billAddress.put("telephone", shipData.getString("telephone"));
+				orderItem.put("method",shipData.getString("code"));
+				orderInfo.put("billing_address",billAddress);
+			}
+			else
+			{
+				orderItem.put("method",shipData.getString("code"));
+			}
 			orderInfo.put("paymentMethod",orderItem);
 
 		} catch (JSONException e) {

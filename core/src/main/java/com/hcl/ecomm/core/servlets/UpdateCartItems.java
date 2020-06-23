@@ -29,11 +29,12 @@ public class UpdateCartItems extends SlingAllMethodsServlet {
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
         String  cartItemResponse = "";
+        String customerToken = request.getHeader("CustomerToken");
         try {
             String payload = request.getParameter("payload");
             if(payload!=null || !"".equals(payload))
             {
-                cartItemResponse = cartService.updateCartDetails(payload);
+                cartItemResponse = cartService.updateCartDetails(payload, customerToken);
                 LOG.info("cartItemCount : " + cartItemResponse);
             }
             else{

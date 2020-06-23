@@ -21,7 +21,6 @@ import org.apache.sling.api.resource.ValueMap;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.HashMap;
@@ -53,19 +52,26 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public JsonArray getCartItemsDetails(String cartId) {
-        String token = loginService.getToken();
+    public JsonArray getCartItemsDetails(String cartId, String customerToken) {
+        String token = "";
+        String url = "";
         String domainName = loginService.getDomainName();
+        if(customerToken != null && !customerToken.isEmpty()) {
+            token = customerToken;
+            url = schema + "://" + domainName + config.customer_getCart_string() ;
+        }
+        else
+            {
+            token = loginService.getToken();
+            url = schema + "://" + domainName + getServicePath() + cartId + "/items";
+        }
         JsonArray cartItems = null;
-        String url = schema + "://" + domainName + getServicePath() + cartId + "/items";
-        LOG.info("url : " + url);
+        LOG.debug("url : " + url);
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url);
         httpGet.setHeader("Content-Type", "application/json");
-
-        String bearerToken = "Bearer" + token;
-        String finalToken = bearerToken.replaceAll("\"","");
+        httpGet.setHeader("Authorization", "Bearer " +token);
         try {
             CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
             if(httpResponse.getStatusLine().getStatusCode() == 200)
@@ -88,21 +94,29 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public int getCartItemCount(String cartId) {
+    public int getCartItemCount(String cartId, String customerToken) {
         int cartItemCount = 0;
-        JsonArray cartItemsArray = getCartItemsDetails(cartId);
+        JsonArray cartItemsArray = getCartItemsDetails(cartId, customerToken);
         cartItemCount = cartItemsArray.size();
         return cartItemCount;
     }
 
     @Override
-    public String updateCartDetails(String payload) {
-        String token = loginService.getToken();
-        String bearerToken = "Bearer" + token;
-        String finalToken = bearerToken.replaceAll("\"","");
-
+    public String updateCartDetails(String payload, String customerToken) {
+        String token = "";
+        String url = "";
+        String cartId = "";
         String domainName = loginService.getDomainName();
         String servicePath = config.cartUpdate_servicePath_string();
+        if(customerToken != null && !customerToken.isEmpty()) {
+            token = customerToken;
+            url = schema + "://" + domainName + config.customer_updateCart_string() ;
+        }
+        else {
+            token = loginService.getToken();
+        }
+        String bearerToken = "Bearer" + token;
+        String finalToken = bearerToken.replaceAll("\"","");
         LOG.info("String payload : " + payload);
         try {
             JsonArray productArray = new JsonParser().parse(payload).getAsJsonArray();
@@ -111,18 +125,17 @@ public class CartServiceImpl implements CartService {
             while(iterator.hasNext()){
                 JsonObject jsonObject = iterator.next().getAsJsonObject();
                 JsonObject cartItems = jsonObject.get("cartItem").getAsJsonObject();
-                String cartId = cartItems.get("quote_id").getAsString();
-                LOG.info("cartId : " +cartId);
-                String url = schema + "://" + domainName + servicePath + cartId + "/items";
+                cartId = cartItems.get("quote_id").getAsString();
+                if(customerToken == null || customerToken.isEmpty())
+                {
+                    url = schema + "://" + domainName + servicePath + cartId + "/items";
+                }
                 LOG.info("url : " + url);
-
                 CloseableHttpClient httpClient = HttpClients.createDefault();
                 HttpPost httpPost = new HttpPost(url);
-
                 StringEntity input = new StringEntity(jsonObject.toString(),ContentType.APPLICATION_JSON);
-                //StringEntity input = new StringEntity(payload, ContentType.APPLICATION_JSON);
                 LOG.info("input : " + input);
-                httpPost.setHeader("Authorization", finalToken);
+                httpPost.setHeader("Authorization", "Bearer " +token);
                 httpPost.setHeader("Content-Type", "application/json");
                 httpPost.setEntity(input);
 
@@ -175,4 +188,49 @@ public class CartServiceImpl implements CartService {
 
         return couponDiscount;
     }
+
+    @Override
+    public JsonArray getCustomerCart(String customerToken) {
+        String token = "";
+        String url = "";
+        String domainName = loginService.getDomainName();
+
+            token = customerToken;
+            url = schema + "://" + domainName + config.customer_getCart_string() ;
+
+        JsonArray cartItems = null;
+        LOG.debug("url : " + url);
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.setHeader("Content-Type", "application/json");
+        httpGet.setHeader("Authorization", "Bearer " +token);
+        try {
+            CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
+            Integer statusCode = httpResponse.getStatusLine().getStatusCode();
+            if(statusCode == 200)
+            {
+                responseStream = EntityUtils.toString(httpResponse.getEntity());
+            }
+            else if(httpResponse.getStatusLine().getStatusCode() == 404)
+            {
+                responseStream = "[]";
+            }
+            else
+            {
+                responseStream = "Failed to fetch cart details.";
+            }
+            cartItems = new Gson().fromJson(responseStream, JsonArray.class);
+            LOG.info( "Cart Items Response in Json Array : " + cartItems);
+
+        }
+        catch (Exception e)
+        {
+            LOG.error("Exception while fetching cart details : " + e.getMessage());
+        }
+        return cartItems;
+    }
+
+
 }
+
