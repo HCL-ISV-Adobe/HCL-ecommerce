@@ -358,6 +358,11 @@
                                         cq:styleId="1592458951627"
                                         cq:styleLabel="cmp-container-header"
                                         jcr:primaryType="nt:unstructured"/>
+                                    <item2
+                                        cq:styleClasses="cmp-product-tileOverflow"
+                                        cq:styleId="1592935092952"
+                                        cq:styleLabel="cmp-product-tileOverflow"
+                                        jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item0>
                         </cq:styleGroups>
