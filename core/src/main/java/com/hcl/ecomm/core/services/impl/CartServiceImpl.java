@@ -206,7 +206,7 @@ public class CartServiceImpl implements CartService {
             url = schema + "://" + domainName + config.customer_getCart_string() ;
 
         JsonArray cartItems = null;
-        LOG.info("url : " + url);
+        LOG.debug("url : " + url);
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url);

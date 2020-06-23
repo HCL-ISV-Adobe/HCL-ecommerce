@@ -9,7 +9,6 @@ $(function() {
                 const logoutIconElm = document.querySelector('.btn-cmp-logout-icon');
                 logoutIconElm.insertAdjacentHTML("beforebegin",html);
                 document.querySelector('.logout').addEventListener('click', function(){
-                    console.log("on click event listner code ")
                     setUserCookie("hcluser","",-1);
                     setUserCookie("cartId","",-1);
                     location.reload();
