@@ -5,12 +5,6 @@ $(document).ready(function () {
     const getPorductDetails = JSON.parse(localStorage.getItem('productDescription'));
     const checkOutDeatils = JSON.parse(localStorage.getItem('checkOutDetails')); 
 
-
-
-
-    // const getPorductDetails = {"cartdetails":[{"cartItem":{"image":"https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png","title":"Joust Duffle Bag","qty":"3","price":"34"}},{"cartItem":{"image":"https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png","title":"Strive Shoulder Pack","qty":"5","price":"32"}}],"fprice":"359.60","coupondiscount":"52.40","delivercharges":"150"};
-    //const checkOutDeatils = {"email":"deepali@hcl.com","firstname":"Deepali","lastname":"Agarwal","postcode":"12450","city":"Noida","street":["Mall Road, Shimla"],"telephone":"8376852110","cartId":"wqDaUgxbQwgrDyi4E2qOefedf1BX9Cj9","region":"MH","region_id":0,"country_id":"IN","region_code":"MH","shipping_method_code":"flatrate","shipping_carrier_code":"flatrate","orderId":"\"9\"","cardNumber":"1234567890123456","cardExpDate":"2020-05-11"}; 
-
     if(checkOutDeatils && checkOutDeatils['orderId'])
     {
         document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
