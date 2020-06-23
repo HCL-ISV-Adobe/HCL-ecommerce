@@ -358,6 +358,32 @@
                         </cq:styleGroups>
                     </policy_1588573168739>
                 </tabs>
+                <languagenavigation jcr:primaryType="nt:unstructured">
+                    <policy_1592906108303
+                        cq:styleDefaultClasses="language-navigation"
+                        jcr:lastModified="{Date}2020-06-23T15:26:56.125+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="language-navigation-policy"
+                        sling:resourceType="wcm/core/components/policy/policy"
+                        navigationRoot="/content/hclecomm"
+                        structureDepth="2">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <cq:styleGroups jcr:primaryType="nt:unstructured">
+                            <item0
+                                cq:styleGroupLabel="Language Navigation Style"
+                                jcr:primaryType="nt:unstructured">
+                                <cq:styles jcr:primaryType="nt:unstructured">
+                                    <item0
+                                        cq:styleClasses="language-navigation"
+                                        cq:styleId="1592906150314"
+                                        cq:styleLabel="Language Navigation"
+                                        jcr:primaryType="nt:unstructured"/>
+                                </cq:styles>
+                            </item0>
+                        </cq:styleGroups>
+                    </policy_1592906108303>
+                </languagenavigation>                
             </content>
             <structure jcr:primaryType="nt:unstructured">
                 <page jcr:primaryType="nt:unstructured">
@@ -397,7 +423,7 @@
                         jcr:primaryType="nt:unstructured"
                         jcr:title="hclecomm header policy"
                         sling:resourceType="wcm/core/components/policy/policy"
-                        components="[/apps/hclecomm/components/content/button,/apps/hclecomm/components/content/container,/apps/hclecomm/components/content/minicart,/apps/hclecomm/components/content/title,group:hclecomm.Structure]">
+                        components="[/apps/hclecomm/components/content/button,/apps/hclecomm/components/content/container,/apps/hclecomm/components/content/languagenavigation,/apps/hclecomm/components/content/minicart,/apps/hclecomm/components/content/title,group:hclecomm.Structure]">
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_1587530274257>
                 </header>
