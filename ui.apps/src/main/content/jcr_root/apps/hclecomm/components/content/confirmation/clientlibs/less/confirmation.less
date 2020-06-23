@@ -1,13 +1,13 @@
-.body {
-  font-family: Arial, sans-serif;
-  font-size: 12px;
+.cmp-confirmation {
+  font-family: sans-serif, Arial;
+  //font-size: 12px;
   color: #333;
   padding: 0;
   margin: 0;
 }
 
 .confirmation-failure{
-	height: 200px;
+  height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,17 +18,18 @@
     color: #818181;
 
     .failure-icon{
-	font-size: 70px;
+  font-size: 70px;
     color: #ff0000;
         @media screen and (max-width: 767px) {
-      			 font-size: 50px;
-    	}
-	}
+             font-size: 50px;
+      }
+  }
 }
 
 .cmp-confirmation {
   width: 80%;
   margin: 0 auto;
+
   .cmp-confirmation-subHead{
         font-weight: bold;
     }
@@ -49,7 +50,7 @@
         margin-bottom:20px;
         }
         &>div:last-child{
-					font-weight: bold;
+          font-weight: bold;
         }
     }
  .product-item-price-details{
@@ -91,8 +92,8 @@
       color: #7ec57e;
       font-size: 70px;
              @media screen and (max-width: 767px) {
-      			 font-size: 50px;
-    	}
+             font-size: 50px;
+      }
     }
   }
 
@@ -139,15 +140,15 @@
     .cmp-confirmation-lft {
       width: 40%;
       &>div{
-			margin-bottom: 20px;
+      margin-bottom: 20px;
       }
 
       @media screen and (max-width: 767px) {
         width: 100%;
         margin-bottom: 10px;
       }
-	
-	.cmp-confirmation-section {
+  
+  .cmp-confirmation-section {
         margin-top: 20px;
 
         .cmp-confirmation-subHead {
@@ -209,6 +210,12 @@
     .cmp-confirmation-cardInfo {
       width: 40%;
       margin-top: 15px;
+      .cmp-confirmation-cardInfo--mrgn-left{
+                margin-left : 10px
+            }
+      .cmp-confirmation-subhead-card-details{
+      margin-top: 10px;
+       }
       @media screen and (max-width: 767px) {
         width: 100%;
         margin-bottom: 10px;
