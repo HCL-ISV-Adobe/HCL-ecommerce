@@ -3,7 +3,64 @@ const getUserDeatils = {};
 let checkoutcartId = ''
 getHrefForCvvButton = '';
 getHrefForNewButton = '';
+let getExpiryMonth = '1';
+let getExpiryYear = '';
+let currentMonth = '';
+let currentYear = '';
+
 $(document).ready(function () {
+    /// creating  drop down for month and year 
+
+    currentYear = new Date().getFullYear();
+    currentMonth = new Date().getMonth() +1 ;
+    getExpiryYear = currentYear
+    const getCalenderPlaceHolderForYear = $('.new-card-expiry-calender-year');
+    let yearOptions = "";
+    if(currentYear && getCalenderPlaceHolderForYear){
+        for (let i = currentYear; i <= currentYear+12; i++) {
+    		yearOptions += '<option value="' + i + '">' + i + '</option>';
+			}
+        getCalenderPlaceHolderForYear.append( yearOptions);
+
+    }
+
+    const getCalenderPlaceHolderForMonth = $('.new-card-expiry-calender-month');
+    let monthOptions = "";
+    if( getCalenderPlaceHolderForMonth){
+        for (let i = 1; i <= 12; i++) {
+    		monthOptions += '<option value="' + i + '">' + i + '</option>';
+			}
+        getCalenderPlaceHolderForMonth.append(monthOptions);
+
+    }
+
+    /// adding event listner to month and year expiry for card
+	if( getCalenderPlaceHolderForYear && getCalenderPlaceHolderForMonth){
+	getCalenderPlaceHolderForYear[0].addEventListener("change", function(event){
+  		getExpiryYear = event.target.value;
+        if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth && validatecardNExpDate){
+
+				$('.new-card-expiry-date-validation')[0].innerText = 'Expiry Date is not Valid';
+        }
+        else{
+		$('.new-card-expiry-date-validation')[0].innerText = ' ';
+
+        }
+	});
+    getCalenderPlaceHolderForMonth[0].addEventListener("change", function(event){
+  		getExpiryMonth = event.target.value;
+
+        if( getExpiryYear === currentYear && (currentMonth >   getExpiryMonth) && validatecardNExpDate){
+
+				$('.new-card-expiry-date-validation')[0].innerText = 'Expiry Date is not Valid';
+        }
+        else{
+		$('.new-card-expiry-date-validation')[0].innerText = ' ';
+
+        }
+	});
+
+    }
 
     //using cookies
 
@@ -180,7 +237,7 @@ function onSaveNDeliver() {
 			}
 
 			if (userDetails === 'Pin Number' && userDetailsValue) {
-				const pinRegexp = /^[0-9]{5}(?:-[0-9]{4})?$/;
+				const pinRegexp = /^[0-9]{6}(?:-[0-9]{4})?$/;
 				if (!userDetailsValue.match(pinRegexp)) {
 
 					validateFormFields = false;
@@ -191,9 +248,14 @@ function onSaveNDeliver() {
 
 		})
 	}
-	if (!doValidation) {
-		//console.log(userDetailsValue);
-		getUserDeatils['cartId'] = cartId;
+	if(!checkoutcartId){
+        $('.empty-cartid').text("The Cart is empty");
+
+		return;
+    }
+	if (!doValidation && checkoutcartId) {
+		$('.empty-cartid').text("");
+		getUserDeatils['cartId'] = checkoutcartId;
 		getUserDeatils['region'] = "MH";
 		getUserDeatils['region_id'] = 0;
 		getUserDeatils['country_id'] = 'IN';
@@ -201,13 +263,25 @@ function onSaveNDeliver() {
 		getUserDeatils['shipping_method_code'] = "flatrate";
 		getUserDeatils['shipping_carrier_code'] = "flatrate";
 	}
+
 	if (validationFeilds && validateFormFields) {
 		const xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function () {
-			if (this.readyState == 4 && this.status == 200) {
+			if (this.readyState == 4 && this.status == 200 ) {
 				if (this.responseText) {
 					const jsonObject = JSON.parse(this.responseText)
+                    if(!jsonObject["status"]  ){
+
+						localStorage.removeItem("checkOutDetails");
+                        //document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+						getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
+                        return;
+
+                    }
+
+                    else{
 					getCodeskmu(jsonObject["payment_methods"])
+                    }
 				}
 			}
 		};
@@ -218,8 +292,10 @@ function onSaveNDeliver() {
 	}
 
 
+
+
 	function getCodeskmu(skmuObj) {
-		skmuObj['cartId'] = cartId;
+		skmuObj['cartId'] = checkoutcartId;
 		const xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
@@ -302,7 +378,7 @@ function letValidateField(userDetails, userDetailsValue, event) {
 
 			break;
 		case 'Pin Number':
-			const pinRegexp = /^[0-9]{5}(?:-[0-9]{4})?$/;
+			const pinRegexp = /^[0-9]{6}(?:-[0-9]{4})?$/;
 			if (!userDetailsValue) {
 				event.nextElementSibling.innerText = `Please Enter ${userDetails}`;
 				doValidation = true;
@@ -407,9 +483,8 @@ function onContinueCvv() {
 	const getNewCardNumber = $('.new-card');
 	const getCardNumberValidation = $('.new-card-validation');
 
-	const getNewCardExpiryDate = $('.new-card-expiry-date');
 	if (!regexCradNumber.test(getNewCardNumber[0].value)) {
-		$('.new-card-validation')[0].innerText = 'Please Enter A valid Card Number';
+		$('.new-card-validation')[0].innerText = 'Please Enter A Valid Date';
 		validateCardNExpiry = false;
         validateCardNo= false;
 	} else {
@@ -417,31 +492,22 @@ function onContinueCvv() {
         validateCardNo = true;
 		validateCardNExpiry = true;
 	}
-	let todayDate = '';
-	let todayMonth = new Date().getMonth() + 1;
-	todayMonth > 10 ? todayMonth = todayMonth : todayMonth = `${'0' + todayMonth}`
-	new Date().getDate() > 10 ? todayDate = new Date().getDate() : todayDate = `${'0' + new Date().getDate()}`
-	const getDateFormat = `${new Date().getFullYear()}-${todayMonth}-${todayDate}`
 
-	if (getDateFormat >= getNewCardExpiryDate[0].value) {
-		$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
-		validateCardNExpiry = false;
-		return
-	}
+     if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth ){
 
-	if (getNewCardExpiryDate[0].value == '') {
-		$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter Expiry Date';
-		validateCardNExpiry = false;
-		return
-	}
-	$('.new-card-expiry-date-validation')[0].innerText = ' ';
-	validateCardNExpiry = true;
-	console.log('set local storage and rediret confirmation page');
-    const checkOutDetails = {...getUserDeatils, cardNumber : getNewCardNumber[0].value, cardExpDate : getNewCardExpiryDate[0].value}
+			$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
+         	return
+        }
+
+
+
+    const checkOutDetails = {...getUserDeatils, cardNumber : getNewCardNumber[0].value, cardExpDate : `${getExpiryMonth}-${getExpiryYear}`}
     console.log(checkOutDetails)
     if(validateCardNExpiry && validateCardNo){
 	localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
+    document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 	getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
+
     }
 
 
@@ -474,6 +540,7 @@ function onValidateCardExpiryDate() {
 		todayMonth > 10 ? todayMonth = todayMonth : todayMonth = `${'0' + todayMonth}`
 		new Date().getDate() > 10 ? todayDate = new Date().getDate() : todayDate = `${'0' + new Date().getDate()}`
 		const getDateFormat = `${new Date().getFullYear()}-${todayMonth}-${todayDate}`
+
 
 		if (getDateFormat >= getNewExpDate[0].value) {
 			$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
