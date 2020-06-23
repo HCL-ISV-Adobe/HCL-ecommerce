@@ -73,7 +73,7 @@ public class CartItemServlet extends SlingSafeMethodsServlet {
 		}
 		catch (Exception e){
 			LOG.error("error in product servlet {} ",e.getMessage());
-			response.setStatus(500);
+			//response.setStatus(500);
 		}
 
 	}

@@ -45,7 +45,6 @@
          custToken = JSON.parse(userData).customerToken;
     }
 
-
 const handleHttpServerRequestJson = function (url, formdata) {
             var othrParm = {
               headers: {"content-type":"application/json; charset=UTF-8", 'Accept': 'application/json'},
