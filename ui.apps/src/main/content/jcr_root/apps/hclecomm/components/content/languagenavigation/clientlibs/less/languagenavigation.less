@@ -1,231 +1,71 @@
-.body {
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-  color: #333;
-  padding: 0;
-  margin: 0;
-}
-
-.confirmation-failure{
-	height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    font-weight: bold;
-    font-family: sans-serif;
-    flex-direction: column;
-    color: #818181;
-
-    .failure-icon{
-	font-size: 70px;
-    color: #ff0000;
-        @media screen and (max-width: 767px) {
-      			 font-size: 50px;
-    	}
-	}
-}
-
-.cmp-confirmation {
-  width: 80%;
-  margin: 0 auto;
-  .cmp-confirmation-subHead{
-        font-weight: bold;
-    }
-.cmp-confirmation-productInfo{
-        max-height: 188px;
-    overflow-y: auto;
-        .product-item-container{
-        border-bottom : 1px solid #808080;
-        margin-bottom: 10px;
-        }
-    }
- .product-item-container{
-        display: flex;
-        @media screen and (max-width: 767px) {
-           flex-direction: column;
-        }
-        &>div>div{
-        margin-bottom:20px;
-        }
-        &>div:last-child{
-					font-weight: bold;
-        }
-    }
- .product-item-price-details{
-        display: flex;
-        flex-direction : column;
-        &>div{
-         display: flex;
-    justify-content: space-between;
-    width: 74%;
-    margin-left: 30px;
-    margin-top: 18px;
-    @media screen and (max-width: 767px) {
-           margin-left: 0;
-        }
-        }
-    }
-    .check-out-total-product-img{ 
-        width: 200px; 
-    }
-    .total-order{
-        width: 26%;
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    margin: 21px 0 10px 36px;
-        }
-
-  h4 {
+.language-navigation{
+  position: relative;  
+  font-family: sans-serif, Arial;
+  .language-navigation-btn{
+    color: #000000;
+    text-transform: uppercase;
     font-size: 16px;
-    font-weight: bold;
-    margin: 0 0 15px 0;
-  }
-  .cmp-confirmation-img {
-    width: 100%;
-    text-align: center;
-    margin-top: 30px;
-
-    .fa-check-circle {
-      color: #7ec57e;
-      font-size: 70px;
-             @media screen and (max-width: 767px) {
-      			 font-size: 50px;
-    	}
+    .fa{
+      font-size: 20px;
+      vertical-align: bottom;
     }
   }
-
-  .cmp-confirmation-orderNo {
-    width: 100%;
-    text-align: center;
-    span {
-      display: block;
-      margin-bottom: 20px;
-
-      &:nth-child(1) {
-        color: #818181;
-        font-size: 22px;
-        margin: 20px;
-      }
-
-      &:nth-child(2) {
-        color: #333;
-        color: #333;
-        margin: 20px 20px 40px 20px;
-        font-size: 18px;
-        font-weight: 700;
-      }
-    }
-  }
-
-  .cmp-confirmation-container {
-    margin-top: -20px;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    font-family: sans-serif arial;
-
-    @media screen and (max-width: 767px) {
-      display: block;
-    }
-
-   & > div {
-      background-color: #f0f2f1;
-      border: 1px solid #d7d7d7;
-      padding: 20px;
-    }
-
-    .cmp-confirmation-lft {
-      width: 40%;
-      &>div{
-			margin-bottom: 20px;
-      }
-
-      @media screen and (max-width: 767px) {
-        width: 100%;
-        margin-bottom: 10px;
-      }
-	
-	.cmp-confirmation-section {
-        margin-top: 20px;
-
-        .cmp-confirmation-subHead {
-          font-weight: bold;
-          margin-bottom: 8px;
-        }
-      }
-    }
-
-    .cmp-confirmation-rgt {
-      width: 58%;
-
-      @media screen and (max-width: 767px) {
-        width: 100%;
-      }
-
-      .cmp-confirmation-productInfo {
-        margin-top: 20px;
-        display: flex;
-        display: flex;
-        flex-direction: column;
-
-      }
-      .cmp-confirmation-total {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-
-      }
-    }
-  }
-
-  .cmp-confirmation-paymentInfo {
-    background-color: #f0f2f1;
-    border: 1px solid #d7d7d7;
-    padding: 20px;
-    width: 99%;
-    margin: 10px auto;
-
-    @media screen and (max-width: 767px) {
-      width: 100%;
-    }
-
-    & > div {
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-
-      @media screen and (max-width: 767px) {
-        display: block;
-      }
-    }
-
-    .cmp-confirmation-subhead {
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .cmp-confirmation-cardInfo {
-      width: 40%;
-      margin-top: 15px;
-      @media screen and (max-width: 767px) {
-        width: 100%;
-        margin-bottom: 10px;
-      }
-    }
-
-    .cmp-confirmation-bilingInfo {
-      width: 58%;
-      margin-top: 15px;
-      @media screen and (max-width: 767px) {
-        width: 100%;
-      }
-    }
-  }
-}
-
-.toggle-order
-{
+  .cmp-languagenavigation{    
     display: none;
+    width: 500px;
+    background-color: #202020;
+    transition: width 2000s ease-out;
+    position: absolute;
+    z-index: 1;
+    top: 30px;
+    @media screen and (max-width: 767px) {
+      width: 80%;
+      margin: 10%;
+    }
+    & > ul{
+      list-style-type: none;
+      padding: 0;
+      color: #fff;
+      margin: 0;
+      font-size: 14px;
+     & > li{
+        border-bottom: 1px solid #4d4d4d;
+        padding: 10px;
+        text-transform: uppercase;
+        & > ul{
+          list-style-type: none;
+          padding: 0;
+          margin-top: 5px;
+           & > li{
+              display: inline-block;
+              border-right: 1px solid #fff;
+              padding: 0 5px;
+              a{
+                color: #fff;
+                text-decoration: none;
+                font-size: 16px;
+                &:hover{
+                  color: #fff;
+                  text-decoration: underline;
+                }               
+              }
+              &:last-child{
+                border: 0;
+              }
+              &:first-child{
+                padding-left: 0;
+              }
+              &.cmp-languagenavigation__item--active{
+                a{
+                  text-decoration: underline;
+                }
+              }
+            }
+         }
+      }
+    }
+    &.show{
+      display: block;
+    }
+  }  
 }
