@@ -8,6 +8,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
@@ -35,12 +36,15 @@ public class GetCustomerCartServlet extends SlingSafeMethodsServlet {
 		try {
 			String customerToken = request.getHeader("CustomerToken");
 			String cartItems = null;
-			JsonArray responseStream = cartService.getCustomerCart(customerToken);
+			JSONObject responseObject = new JSONObject();
+			JSONObject responseStream = cartService.getCustomerCart(customerToken);
 			LOG.info("responseStream is {}", responseStream.toString());
 
 			response.setContentType("application/json");
-			response.getWriter().write(responseStream.toString());
-			response.setStatus(200);
+			responseObject.put("message",responseStream.get("message").toString());
+			responseObject.put("status", responseStream.get("statusCode"));
+			response.getWriter().print(responseObject);
+
 		}
 		catch (Exception e){
 			LOG.error("error in product servlet {} ",e.getMessage());

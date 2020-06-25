@@ -58,7 +58,7 @@ public class ShippingInfo extends SlingAllMethodsServlet{
 			if (StringUtils.isNotEmpty(payload)) {
 				JSONObject jsonPayload =  new JSONObject(payload);
 				LOG.info("Shipping iNfo ()  payload={}",jsonPayload);
-				if (isValidPayload(jsonPayload)) {
+				if (isValidPayload(jsonPayload,customerToken )) {
 					JSONObject shipItem = jsonItemObj( jsonPayload);
 					JSONObject shippingInfoResponse = shippingInfoService.createShipInfo(shipItem,jsonPayload.getString("cartId"), customerToken);
 					if (shippingInfoResponse.has("statusCode") && shippingInfoResponse.getInt("statusCode") == HttpStatus.OK_200) {
@@ -86,9 +86,9 @@ public class ShippingInfo extends SlingAllMethodsServlet{
 	}
 	
 	
-	private boolean isValidPayload(JSONObject jsonPayload) {
+	private boolean isValidPayload(JSONObject jsonPayload, String customerToken) {
 		boolean isValidData=Boolean.TRUE;
-		if(!jsonPayload.has("cartId")){
+		if(!jsonPayload.has("cartId") && (null==customerToken || customerToken=="")){
 			isValidData = Boolean.FALSE;
 		}
 		return isValidData;
