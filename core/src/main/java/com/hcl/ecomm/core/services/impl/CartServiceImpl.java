@@ -18,11 +18,15 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
+import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -61,7 +65,7 @@ public class CartServiceImpl implements CartService {
             url = schema + "://" + domainName + config.customer_getCart_string() ;
         }
         else
-            {
+        {
             token = loginService.getToken();
             url = schema + "://" + domainName + getServicePath() + cartId + "/items";
         }
@@ -190,15 +194,16 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public JsonArray getCustomerCart(String customerToken) {
+    public JSONObject getCustomerCart(String customerToken) {
         String token = "";
         String url = "";
         String domainName = loginService.getDomainName();
+        JSONObject customerCartResponse = new JSONObject();
 
-            token = customerToken;
-            url = schema + "://" + domainName + config.customer_getCart_string() ;
+        token = customerToken;
+        url = schema + "://" + domainName + config.customer_getCart_string() ;
 
-        JsonArray cartItems = null;
+        JsonArray cartItems = new JsonArray();
         LOG.debug("url : " + url);
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -211,16 +216,21 @@ public class CartServiceImpl implements CartService {
             if(statusCode == 200)
             {
                 responseStream = EntityUtils.toString(httpResponse.getEntity());
+                cartItems = new Gson().fromJson(responseStream, JsonArray.class);
+
+                customerCartResponse.put("statusCode", statusCode);
+                customerCartResponse.put("message", cartItems);
             }
-            else if(httpResponse.getStatusLine().getStatusCode() == 404)
+            else if(statusCode == 404)
             {
-                responseStream = "[]";
+                customerCartResponse.put("statusCode", statusCode);
+                customerCartResponse.put("message", "No Cart Present");
             }
             else
             {
                 responseStream = "Failed to fetch cart details.";
             }
-            cartItems = new Gson().fromJson(responseStream, JsonArray.class);
+            //cartItems = new Gson().fromJson(responseStream, JsonArray.class);
             LOG.info( "Cart Items Response in Json Array : " + cartItems);
 
         }
@@ -228,7 +238,7 @@ public class CartServiceImpl implements CartService {
         {
             LOG.error("Exception while fetching cart details : " + e.getMessage());
         }
-        return cartItems;
+        return customerCartResponse;
     }
 
 

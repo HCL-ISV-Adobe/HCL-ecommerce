@@ -49,46 +49,52 @@ const handleHttpServerRequestJson = function (url, formdata) {
                         if (this.readyState == 4 && this.status == 200) {
                             if(this.responseText)
                             {
-								const data = JSON.parse(this.responseText)
-                               const cartItem = [];
-                               let cartId = "";
-							   const cartdetails = [];
-                               let totalPrice = 0;
-                               if(data.length!=0){
-									data.forEach((item) =>{
-                                        console.log(item.name);
-                               			const itemObj = {
-                                            "image":"",
-                                            "title":item.name,
-                                            "qty" : item.qty,
-                                            "price" :item.price
+			       const data = JSON.parse(this.responseText)
+                               if(data.status == 200) {
+                                   const cartItem = [];
+                                   let cartId = "";
+                                   const cartdetails = [];
+                                   let totalPrice = 0;
+                               		const cartDetail = JSON.parse(data.message);
+                                   	if(cartDetail.length!=0){
+                                        cartDetail.forEach((item) =>{
+                                            console.log(item.name);
+                                            const itemObj = {
+                                                "image":"https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png",
+                                                "title":item.name,
+                                                "qty" : item.qty,
+                                                "price" :item.price
+                                            }
+                                            totalPrice = totalPrice + (item.qty * item.price);
+                                            cartId = item.quote_id;
+                                            cartdetails.push({cartItem : itemObj})
+
+                                        })
+
+                                        document.cookie = "cartId = " + cartId + "; path=/";
+                                        const fprice= totalPrice;
+                                        const coupondiscount="0";
+                                        const delivercharges="0";
+
+
+                                        const productDescription = {
+                                            cartdetails,
+                                            fprice,
+                                            coupondiscount,
+                                            delivercharges
                                         }
-                						totalPrice = totalPrice + (item.qty * item.price);
-										cartId = item.quote_id;
-                                        cartdetails.push({cartItem : itemObj})
 
-                                    })
-
-									document.cookie = "cartId = " + cartId + "; path=/";
-                               		const fprice= totalPrice;
-                                    const coupondiscount="";
-                                    const delivercharges="";
-
-
-                                    const productDescription = {
-                                        cartdetails,
-                                        fprice,
-                                        coupondiscount,
-                                        delivercharges
-                                	}
-
-                                    localStorage.setItem('productDescription', JSON.stringify(productDescription ))
+                                        localStorage.setItem('productDescription', JSON.stringify(productDescription ))
+                                 }
 
                               }
-                            }
-                            else
-                            {
-                                 console.log('No cart Id present');
+                              else if(data.status == 404)
+                              {
+									console.log('No cart Id present');
+                                    localStorage.removeItem('productDescription');
+                                    localStorage.removeItem('checkOutDetails');
+                                    $('.checkouttotal-cmp').text("The Cart is empty");
+                              }
                             }
 							setTimeout(function(){window.location = findRedriectUrl(document.login_form);}, 1000);
                         }
@@ -96,11 +102,8 @@ const handleHttpServerRequestJson = function (url, formdata) {
                         xhttp.open("GET", "/bin/hclecomm/getCustomerCart", true);
                         xhttp.setRequestHeader("CustomerToken", custToken);
                         xhttp.send();
-
-
                   }
-                 // setTimeout(function(){window.location = findRedriectUrl(document.login_form);}, 1000);
-                } else {
+		} else {
                   let error = "Server status failed. ";
                   if(data.message.error) {
                     console.log(data.message.error);
