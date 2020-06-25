@@ -396,7 +396,7 @@
                 <languagenavigation jcr:primaryType="nt:unstructured">
                     <policy_1592906108303
                         cq:styleDefaultClasses="language-navigation"
-                        jcr:lastModified="{Date}2020-06-23T15:26:56.125+05:30"
+                        jcr:lastModified="{Date}2020-06-25T14:09:40.048+05:30"
                         jcr:lastModifiedBy="admin"
                         jcr:primaryType="nt:unstructured"
                         jcr:title="language-navigation-policy"
@@ -410,9 +410,14 @@
                                 jcr:primaryType="nt:unstructured">
                                 <cq:styles jcr:primaryType="nt:unstructured">
                                     <item0
-                                        cq:styleClasses="language-navigation"
+                                        cq:styleClasses="language-navigation language-navigation-right"
                                         cq:styleId="1592906150314"
-                                        cq:styleLabel="Language Navigation"
+                                        cq:styleLabel="Language Navigation Right"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item1
+                                        cq:styleClasses="language-navigation language-navigation-left"
+                                        cq:styleId="1593073822961"
+                                        cq:styleLabel="Language Navigation Left"
                                         jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item0>
