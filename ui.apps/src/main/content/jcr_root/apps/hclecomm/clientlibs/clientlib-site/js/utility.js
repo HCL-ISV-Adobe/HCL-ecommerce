@@ -32,8 +32,8 @@ return false;
 var oldXHR = window.XMLHttpRequest;
 var checkmode =$('.checkmode').attr('checkmode');
 function newXHR() {
+    var realXHR = new oldXHR();
     if(checkmode !== 'edit'){
-        var realXHR = new oldXHR();
         realXHR.addEventListener("readystatechange", function() {
             if(realXHR.readyState==1){
                 loader(true);
