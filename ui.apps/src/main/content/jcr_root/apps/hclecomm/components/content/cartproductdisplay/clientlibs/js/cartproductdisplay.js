@@ -123,6 +123,7 @@ localStorage.setItem('productDescription', JSON.stringify(productDescription ))
   };
  	xhttp.open("GET", "/bin/hclecomm/updateCartItems?payload=" +  JSON.stringify(cartItem) , true);
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	  xhttp.setRequestHeader("CustomerToken", custToken);
     xhttp.send();
 
 }

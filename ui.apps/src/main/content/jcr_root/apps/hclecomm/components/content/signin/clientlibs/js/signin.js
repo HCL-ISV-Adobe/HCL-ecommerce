@@ -12,6 +12,11 @@
 		return redirectURL;
 	}
 
+  let userData = getUserCookie("hcluser");
+    if(userData != "") {
+         custToken = JSON.parse(userData).customerToken;
+    }
+
 const handleHttpServerRequestJson = function (url, formdata) {
             var othrParm = {
               headers: {"content-type":"application/json; charset=UTF-8", 'Accept': 'application/json'},
@@ -37,8 +42,64 @@ const handleHttpServerRequestJson = function (url, formdata) {
                   if(checkUserCookie("hcluser") === false){
                     const exdays = (formdata.rememberme)?5:1;
                     setUserCookie("hcluser",JSON.stringify(data.message),exdays);
+                               setUserCookie("cartId","",-1);
+                        custToken = data.message.customerToken;
+                        const xhttp = new XMLHttpRequest();
+                   		 xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            if(this.responseText)
+                            {
+								const data = JSON.parse(this.responseText)
+                               const cartItem = [];
+                               let cartId = "";
+							   const cartdetails = [];
+                               let totalPrice = 0;
+                               if(data.length!=0){
+									data.forEach((item) =>{
+                                        console.log(item.name);
+                               			const itemObj = {
+                                            "image":"",
+                                            "title":item.name,
+                                            "qty" : item.qty,
+                                            "price" :item.price
+                                        }
+                						totalPrice = totalPrice + (item.qty * item.price);
+										cartId = item.quote_id;
+                                        cartdetails.push({cartItem : itemObj})
+
+                                    })
+
+									document.cookie = "cartId = " + cartId + "; path=/";
+                               		const fprice= totalPrice;
+                                    const coupondiscount="";
+                                    const delivercharges="";
+
+
+                                    const productDescription = {
+                                        cartdetails,
+                                        fprice,
+                                        coupondiscount,
+                                        delivercharges
+                                	}
+
+                                    localStorage.setItem('productDescription', JSON.stringify(productDescription ))
+
+                              }
+                            }
+                            else
+                            {
+                                 console.log('No cart Id present');
+                            }
+							setTimeout(function(){window.location = findRedriectUrl(document.login_form);}, 1000);
+                        }
+                		};
+                        xhttp.open("GET", "/bin/hclecomm/getCustomerCart", true);
+                        xhttp.setRequestHeader("CustomerToken", custToken);
+                        xhttp.send();
+
+
                   }
-                  setTimeout(function(){window.location = findRedriectUrl(document.login_form);}, 1000);
+                 // setTimeout(function(){window.location = findRedriectUrl(document.login_form);}, 1000);
                 } else {
                   let error = "Server status failed. ";
                   if(data.message.error) {
@@ -54,8 +115,9 @@ const handleHttpServerRequestJson = function (url, formdata) {
             .catch((error) => {
               console.log('promise error',error);
             });
+
         }
-  
+
   async function validateLoginFrom(e) {
 	const ErrorMsgElm = document.getElementById('cmp-login-errormsg');
 	ErrorMsgElm.innerHTML = "";
@@ -68,18 +130,15 @@ const handleHttpServerRequestJson = function (url, formdata) {
 	  document.login_form.password.focus();
 	  return false;
 	}
-	
-	const data = {  
+
+	const data = {
 		username: document.login_form.username.value,
 		password: document.login_form.password.value,
 		rememberme: document.login_form.rememberme.checked
 	}
-	
+
 	let url = '/bin/hclecomm/customerSignin';
 	await handleHttpServerRequestJson(url,data);
-	
+
 	return true;
   }
-
-
-

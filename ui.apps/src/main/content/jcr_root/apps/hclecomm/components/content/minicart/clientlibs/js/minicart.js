@@ -1,6 +1,10 @@
 let allowToShowNotification = false;
 
 $(document).ready(function () {
+    let userData = getUserCookie("hcluser"); 
+    if(userData != "") {
+         custToken = JSON.parse(userData).customerToken;
+    }
     let cartId = '';
     const getCountEle = document.getElementById("total-item-count");
     const href = $('#cart-item-count').attr('href');
@@ -35,6 +39,7 @@ $(document).ready(function () {
             }
         };
         xhttp.open("GET", "/bin/hclecomm/cartItemsCount?cartId=" + cartId, true);
+        xhttp.setRequestHeader("CustomerToken", custToken);
         xhttp.send();
     }
     else

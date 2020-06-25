@@ -7,7 +7,7 @@ public interface CreateCartService {
 	public String getDomainName();
 	
 	public String getEmptyCartPath();
-	
-	public JSONObject createGuestCart();
+
+	public JSONObject createCart(String customerToken);
 
 }

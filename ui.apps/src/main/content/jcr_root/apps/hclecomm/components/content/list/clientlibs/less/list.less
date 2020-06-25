@@ -1,0 +1,108 @@
+.cmp-ordered-un-ordered-list {
+    .cmp-list {
+        counter-reset: li;
+        margin-left: 0;
+        padding: 0 50px;
+        position: relative;
+        &.cmp-list>li {
+            box-shadow: 0 0 8px #d1caca;
+            position: relative;
+            margin: 0px 0 20px 35px;
+            list-style: none;
+            background: #ffffff;
+            @media only screen and (max-width: 768px) {
+                margin: 0px 0 15px 35px;
+            }
+        }
+        &.cmp-list>li:before {
+            position: absolute;
+            top: -1px;
+            left: -58px;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 57px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            height: 58.5px;
+            margin-right: 8px;
+            padding: 4px;
+            border-top: 2px solid #2979be;
+            color: #fff;
+            background: #2979be;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            @media only screen and (max-width: 768px) {
+                top: -0px;
+                left: -46px;
+                width: 45px;
+                height: 38px;
+            }
+        }
+        .cmp-list__item-link {
+            cursor: pointer;
+            padding: 18px 10px;
+            display: inline-block;
+            text-decoration: none;
+            font-size: 18px;
+            width: 100%;
+            color: #333333;
+            @media only screen and (max-width: 768px) {
+                padding: 11px 10px;
+                font-size: 13px;
+            }
+        }
+    }
+}
+
+.cmp-order-list {
+    .cmp-list {
+        &>li:before {
+            content: counter(li);
+            counter-increment: li;
+        }
+    }
+    .order-unorder-list--icon {
+        display: none;
+    }
+}
+
+.cmp-un-order-list {
+    .cmp-list {
+        &>li:before {
+            content: " ";
+        }
+        .order-unorder-list--icon {
+            display: inline-block;
+            position: absolute;
+            left: -36px;
+            font-size: 20px;
+            top: 20px;
+            color: #ffffff;
+            @media only screen and (max-width: 768px) {
+                left: -29px;
+                font-size: 11px;
+                top: 13px;
+            }
+        }
+    }
+}
+
+.cmp-un-order-list {
+    .static-order-un-order-list {
+        .cmp-list {
+            .order-unorder-list--icon {
+                position: relative;
+                top: 41px;
+                z-index: 10;
+                left: 0px;
+                @media only screen and (max-width: 768px) {
+                top: 27px;
+                left: 8px;
+            }
+            }
+        }
+    }
+}

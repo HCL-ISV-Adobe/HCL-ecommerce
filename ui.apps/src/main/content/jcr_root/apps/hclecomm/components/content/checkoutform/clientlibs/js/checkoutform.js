@@ -9,6 +9,11 @@ let currentMonth = '';
 let currentYear = '';
 
 $(document).ready(function () {
+
+	let userData = getUserCookie("hcluser"); 
+    if(userData != "") {
+         custToken = JSON.parse(userData).customerToken;
+    }
     /// creating  drop down for month and year 
 
     currentYear = new Date().getFullYear();
@@ -35,7 +40,8 @@ $(document).ready(function () {
     }
 
     /// adding event listner to month and year expiry for card
-	if( getCalenderPlaceHolderForYear && getCalenderPlaceHolderForMonth){
+	if( (getCalenderPlaceHolderForYear[0]  && getCalenderPlaceHolderForYear[0].length >0)
+       && (getCalenderPlaceHolderForMonth[0]  && getCalenderPlaceHolderForMonth[0].length >0) ){
 	getCalenderPlaceHolderForYear[0].addEventListener("change", function(event){
   		getExpiryYear = event.target.value;
         if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth && validatecardNExpDate){
@@ -287,6 +293,7 @@ function onSaveNDeliver() {
 		};
 		xhttp.open("POST", "/bin/hclecomm/shipinfo", true);
 		xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.setRequestHeader("CustomerToken", custToken);
 		xhttp.send(JSON.stringify(getUserDeatils));
 
 	}
@@ -295,7 +302,17 @@ function onSaveNDeliver() {
 
 
 	function getCodeskmu(skmuObj) {
-		skmuObj['cartId'] = checkoutcartId;
+
+		if(custToken)
+    {
+			  let paymentMode = skmuObj['code'];
+        skmuObj = getUserDeatils;
+			  skmuObj['code'] = paymentMode;
+    }
+    else {
+			  skmuObj['cartId'] = checkoutcartId;
+    }
+
 		const xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
@@ -306,6 +323,7 @@ function onSaveNDeliver() {
 		};
 		xhttp.open("PUT", "/bin/hclecomm/createOrder", true);
 		xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.setRequestHeader("CustomerToken", custToken);
 		xhttp.send(JSON.stringify(skmuObj));
 
 	}
@@ -492,6 +510,20 @@ function onContinueCvv() {
         validateCardNo = true;
 		validateCardNExpiry = true;
 	}
+
+	let todayDate = '';
+	let todayMonth = new Date().getMonth() + 1;
+	todayMonth > 10 ? todayMonth = todayMonth : todayMonth = `${'0' + todayMonth}`
+	new Date().getDate() > 10 ? todayDate = new Date().getDate() : todayDate = `${'0' + new Date().getDate()}`
+	const getDateFormat = `${new Date().getFullYear()}-${todayMonth}-${todayDate}`
+
+
+	if (getDateFormat >= getNewCardExpiryDate[0].value) {
+		$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
+		validateCardNExpiry = false;
+		return
+	}
+
 
      if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth ){
 
