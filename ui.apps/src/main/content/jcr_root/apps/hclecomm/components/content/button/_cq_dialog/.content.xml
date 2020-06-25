@@ -60,11 +60,7 @@
                                                     <logout
                                                         jcr:primaryType="nt:unstructured"
                                                         text="logout Link"
-                                                        value="logout"/>
-                                                    <languageNavigation
-                                                        jcr:primaryType="nt:unstructured"
-                                                        text="anguage Navigation"
-                                                        value="languageNavigation"/>                                                        														
+                                                        value="logout"/>														
                                                 </items>
                                             </variations>
                                         </items>
