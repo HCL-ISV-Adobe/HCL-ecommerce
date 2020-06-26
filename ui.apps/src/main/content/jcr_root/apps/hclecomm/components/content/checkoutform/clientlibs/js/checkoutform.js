@@ -512,7 +512,7 @@ function onContinueCvv() {
 	const getCardNumberValidation = $('.new-card-validation');
 
 	if (!regexCradNumber.test(getNewCardNumber[0].value)) {
-		$('.new-card-validation')[0].innerText = 'Please Enter A Valid Date';
+		$('.new-card-validation')[0].innerText = 'Please Enter A Card Number';
 		validateCardNExpiry = false;
         validateCardNo= false;
 	} else {

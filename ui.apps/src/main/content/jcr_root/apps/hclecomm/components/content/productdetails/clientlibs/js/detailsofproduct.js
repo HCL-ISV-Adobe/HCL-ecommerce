@@ -13,6 +13,7 @@ $(document).ready(function () {
     prodSku = $(".product-sku").text();
     const firstSizeSelected = $(".product-details-cmp__product-size--item:first-child").text();
     $('.select-size').text(firstSizeSelected);
+	if(prodSku){
     $(".product-details-cmp__product-size--item:first-child").addClass("selected-size");
 
     let userData = getUserCookie("hcluser");
@@ -46,6 +47,7 @@ $(document).ready(function () {
     };
     xhttp.open("GET", "/bin/hclecomm/productDetails?sku=" + prodSku, true);
     xhttp.send();
+	}
 });
 
 function onSizeSelection() {
