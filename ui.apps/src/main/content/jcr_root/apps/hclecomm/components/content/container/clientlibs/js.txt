@@ -1,3 +1,2 @@
 js/container.js
-js/tiny-slider.js
 js/containeroverflow.js
