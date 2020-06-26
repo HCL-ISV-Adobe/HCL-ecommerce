@@ -3,11 +3,13 @@ $(function() {
     if(document.querySelectorAll('.cmp-product-tileOverflow').length > 0) {
        console.log("checkmode",checkmode);
        if(checkmode !== "edit"){
-        $('.cmp-product-tileOverflow').children().children().addClass('my-slider');
 
-        var slider = tns(
-             {
-                 container: '.my-slider',
+        const tnsSliders = document.querySelectorAll('.cmp-product-tileOverflow');
+        tnsSliders.forEach( (el,k) => {
+            console.log('eachkeyitem', el, k);
+            el.firstElementChild.firstElementChild.classList.add('my-slider'+k);
+            let slider = tns({
+                 container: '.my-slider'+k,
                  autoplay: false,
                  items: 1,
                  nav: false,
@@ -19,25 +21,25 @@ $(function() {
                  controls: true,
                  // controlsContainer: "#customize-controls",
                  responsive: {
-                     500: {
-                         edgePadding: 50,
-                         gutter: 20,
+                     400: {
+                         //edgePadding: 50,
+                         //gutter: 20,
                          items: 1
                      },
-                     700: {
-                         gutter: 10,
+                     600: {
+                         //gutter: 10,
                          items: 2
                      },
-                     900: {
-                         gutter: 5,
+                     700: {
+                         //gutter: 5,
                          items: 3
                      },
-                     1100: {
+                     900: {
                          items: 4
                      }
                  }
-             }
-         );
+             });
+        });
        }
     }
   });
