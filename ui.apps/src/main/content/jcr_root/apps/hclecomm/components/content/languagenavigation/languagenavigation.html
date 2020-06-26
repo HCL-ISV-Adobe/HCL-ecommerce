@@ -1,0 +1,14 @@
+<a class="language-navigation-btn mini-cart-shopping" href="javascript:void(0);">
+<i class="fa fa-globe" aria-hidden="true"></i>
+  <span>EN-US</span>
+  <i class="fa fa-drpdwn fa-angle-down" aria-hidden="true"></i>
+</a>
+
+  <nav class="cmp-languagenavigation"
+  data-sly-use.commonsTemplates="core/wcm/components/commons/v1/templates.html"
+  data-sly-use.languageNavigation="com.adobe.cq.wcm.core.components.models.LanguageNavigation"
+  data-sly-test.hasContent="${languageNavigation.items.size > 0}"
+  data-sly-use.groupTemplate="group.html"
+  data-sly-call="${groupTemplate.group @ items=languageNavigation.items}">
+</nav>
+<sly data-sly-call="${commonsTemplates.placeholder @ isEmpty = !hasContent, classAppend='cmp-languagenavigation'}"></sly>
