@@ -5,6 +5,10 @@
 		if(params.has('referer')) {
 			if(!keys.some(k => params.get('referer').includes(k) )) {
 				redirectURL = params.get('referer');
+                if(redirectURL.includes('checkout.html'))
+                {
+					redirectURL = "/content/hclecomm/us/en/home.html";
+                }
 			}
 		} else if(domId.getAttribute("data-default")) {
 			redirectURL = domId.getAttribute("data-default");
@@ -15,6 +19,7 @@
   const successSignUpCallback = (respData) =>  {
 	if(checkUserCookie("hcluser") === false) {
 		setUserCookie("hcluser",JSON.stringify(respData.message),1);
+      	document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 	}
 	setTimeout(function(){window.location = findRedriectUrl2(document.signup_form);}, 1000);
   }
@@ -128,7 +133,7 @@ function displayError(errorhtml, formElmName) {
 	  }
 
 
-	const formData = {  
+	const formData = {
 		firstname: document.signup_form.firstname.value,
 		email: document.signup_form.email.value,
 		phone: document.signup_form.phone.value,
@@ -140,6 +145,6 @@ function displayError(errorhtml, formElmName) {
 	let url = '/bin/hclecomm/customerSignup';
 	await handleHttpServerRequestJson2(url,formData);
 
-	
+
 	return true;
   }

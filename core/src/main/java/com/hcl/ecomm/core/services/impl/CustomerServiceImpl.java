@@ -92,6 +92,15 @@ public class CustomerServiceImpl implements CustomerService{
 				while ((output = br.readLine()) != null) {
 					response = new JSONObject(output);
 				}
+				JSONObject logInReqObject = new JSONObject();
+				logInReqObject.put("username", response.get("email"));
+				logInReqObject.put("password", signupObject.get("password"));
+				logInReqObject.put("rememberme", false);
+				JSONObject customerTokenObj = customerSignin(logInReqObject);
+				if(customerTokenObj.length() !=0 && (HttpStatus.SC_OK == customerTokenObj.getInt("statusCode")))
+				{
+					response.put("customerToken", customerTokenObj.get("customerToken"));
+				}
 				customerSignupResponse.put("statusCode", statusCode);
 				customerSignupResponse.put("message", response);
 			}else if(HttpStatus.SC_BAD_REQUEST == statusCode){
