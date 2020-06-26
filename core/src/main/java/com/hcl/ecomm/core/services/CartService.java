@@ -1,6 +1,8 @@
 package com.hcl.ecomm.core.services;
 
 import com.google.gson.JsonArray;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public interface CartService {
 
@@ -10,5 +12,5 @@ public interface CartService {
     public JsonArray getCartItemsDetails(String cartId, String custToken);
     public String updateCartDetails(String payload, String custToken);
     public String applyCoupon(String coupon);
-    public JsonArray getCustomerCart(String custToken);
+    public JSONObject getCustomerCart(String custToken);
 }

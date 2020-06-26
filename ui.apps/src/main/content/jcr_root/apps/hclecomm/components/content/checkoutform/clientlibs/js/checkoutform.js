@@ -7,14 +7,16 @@ let getExpiryMonth = '1';
 let getExpiryYear = '';
 let currentMonth = '';
 let currentYear = '';
+let customerEmail = '';
 
 $(document).ready(function () {
 
-	let userData = getUserCookie("hcluser"); 
+	let userData = getUserCookie("hcluser");
     if(userData != "") {
          custToken = JSON.parse(userData).customerToken;
+	 customerEmail = JSON.parse(userData).email;
     }
-    /// creating  drop down for month and year 
+    /// creating  drop down for month and year
 
     currentYear = new Date().getFullYear();
     currentMonth = new Date().getMonth() +1 ;
@@ -69,11 +71,13 @@ $(document).ready(function () {
     }
 
     //using cookies
+	if($('.checkout-guest-mail-id')[0])
+    		$('.checkout-guest-mail-id')[0].value = customerEmail;
 
 		var checkmode;
 
        const getCookies = document.cookie;
-	   
+
 	   if (getCookies.indexOf('wcmmode') > -1) {
         const cookiesCartID = getCookies.split(';');
         cookiesCartID  && cookiesCartID.length >0 ?
@@ -254,8 +258,14 @@ function onSaveNDeliver() {
 
 		})
 	}
-	if(!checkoutcartId){
+	if(!checkoutcartId && !custToken){
         $('.empty-cartid').text("The Cart is empty");
+
+		return;
+    }
+	const getPorductDetails = JSON.parse(localStorage.getItem('productDescription'));
+	if(!getPorductDetails){
+        $('.checkouttotal-cmp').text("The Cart is empty");
 
 		return;
     }
@@ -511,21 +521,7 @@ function onContinueCvv() {
 		validateCardNExpiry = true;
 	}
 
-	let todayDate = '';
-	let todayMonth = new Date().getMonth() + 1;
-	todayMonth > 10 ? todayMonth = todayMonth : todayMonth = `${'0' + todayMonth}`
-	new Date().getDate() > 10 ? todayDate = new Date().getDate() : todayDate = `${'0' + new Date().getDate()}`
-	const getDateFormat = `${new Date().getFullYear()}-${todayMonth}-${todayDate}`
-
-
-	if (getDateFormat >= getNewCardExpiryDate[0].value) {
-		$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
-		validateCardNExpiry = false;
-		return
-	}
-
-
-     if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth ){
+	if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth ){
 
 			$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
          	return
