@@ -1,20 +1,10 @@
 $(function() {
-    const checkmodeDomId = $('.cmp-product-filterTile');
-    const checkmode = $('.cmp-product-filterTile').attr('checkmode');
-    console.log(checkmode)
-    if(checkmode == "edit"){
-        checkmodeDomId.removeClass('cmp-product-filterTile');
-    }
-        // if(checkmodeDomId.hasClass('cmp-product-filterTile')){
-        //     $('container').removeClass('cmp-product-filterTile');
-        // } else {
-        //     $('container').addClass('cmp-product-filterTile');
-        // }
-    }
+
     if(document.querySelectorAll('.cmp-product-tileOverflow').length > 0) {
-    
+       console.log("checkmode",checkmode);
+       if(checkmode !== "edit"){
         $('.cmp-product-tileOverflow').children().children().addClass('my-slider');
-    
+
         var slider = tns(
              {
                  container: '.my-slider',
@@ -48,5 +38,6 @@ $(function() {
                  }
              }
          );
+       }
     }
   });
