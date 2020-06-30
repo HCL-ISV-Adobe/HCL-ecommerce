@@ -8,7 +8,7 @@ const findRedriectUrl = function(domId) {
 				redirectURL = params.get('referer');
                 if(!hasCart && redirectURL.includes('checkout.html'))
                 {
-					redirectURL = "/content/hclecomm/us/en/home.html";
+					redirectURL = domId.getAttribute("data-default");
                 }
 			}
 		} else if(domId.getAttribute("data-default")) {
