@@ -80,7 +80,6 @@ public class CartServiceImpl implements CartService {
             CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
             if(httpResponse.getStatusLine().getStatusCode() == 200)
             {
-
                 responseStream = EntityUtils.toString(httpResponse.getEntity());
             }
             else
