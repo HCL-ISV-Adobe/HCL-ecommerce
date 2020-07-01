@@ -476,9 +476,6 @@ function onContinueCvv() {
         }
 
 
-
-    //const checkOutDetails = {...getUserDeatils, cardNumber : getNewCardNumber[0].value, cardExpDate : `${getExpiryMonth}-${getExpiryYear}`}
-    //console.log(checkOutDetails)
 	if(validateCardNExpiry && validateCardNo){
 	//localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
 	 const xhttp = new XMLHttpRequest();
