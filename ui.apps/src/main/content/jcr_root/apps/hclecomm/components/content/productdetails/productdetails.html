@@ -25,8 +25,9 @@
          <span class="minus" onclick = "onQuantityChnage('-')">-</span><input type="text"  class="quantity" 
             onkeyup="onQuantityKeyUp(event)" 
             /><span class="plus" onclick = "onQuantityChnage('+')">+</span>
-      </div>
+      <div class ='product-details-cmp--btn-wrapper'>
       <div class ='btn-product-card' onClick="addtoCart()" data-sly-resource="${'btn' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
-      <p class ='product-details-cmp--no-product'>${properties.noProductAvailable}</p>
-   </div>
+      <div class ='btn-product-card' data-sly-resource="${'btn button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+    </div>
+<p class ='product-details-cmp--no-product'>${properties.noProductAvailable}</p>
 </div>
