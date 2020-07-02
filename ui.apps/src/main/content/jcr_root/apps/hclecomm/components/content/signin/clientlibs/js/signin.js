@@ -1,10 +1,15 @@
-	const findRedriectUrl = function(domId) {
+let hasCart = false;
+const findRedriectUrl = function(domId) {
 		let redirectURL = "";
 		const params = new URLSearchParams(window.location.search);
 		const keys = ['signin.html', 'signup.html'];
 		if(params.has('referer')) {
 			if(!keys.some(k => params.get('referer').includes(k) )) {
 				redirectURL = params.get('referer');
+                if(!hasCart && redirectURL.includes('checkout.html'))
+                {
+					redirectURL = domId.getAttribute("data-default");
+                }
 			}
 		} else if(domId.getAttribute("data-default")) {
 			redirectURL = domId.getAttribute("data-default");
@@ -57,6 +62,7 @@ const handleHttpServerRequestJson = function (url, formdata) {
                                    let totalPrice = 0;
                                		const cartDetail = JSON.parse(data.message);
                                    	if(cartDetail.length!=0){
+                               			hasCart = true;
                                         cartDetail.forEach((item) =>{
                                             console.log(item.name);
                                             const itemObj = {
