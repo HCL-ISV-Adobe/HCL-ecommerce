@@ -50,6 +50,7 @@
 						
 						<!-- /etc root -->
 						<filter><root>/etc</root></filter>
+						<filter><root>/etc/acs-commons/lists</root></filter>
 
                     </filters>
                 </configuration>
