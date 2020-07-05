@@ -32,6 +32,9 @@ public @interface MagentoServiceConfig {
     String customerShippingInfoPath = "/V1/carts/mine/shipping-information";
     String customerCreateOrderPath = "/V1/carts/mine/payment-information";
 
+  String customerAddToWishListPath = "/us/V1/wishlist/sku";
+  String customerGetWishListPath = "/us/V1/wishlist";
+
 
 
     @AttributeDefinition(name = "All Products Service Path", description = "This is the API path for getting all products for a store", defaultValue = servicePathDefaultValue, type = AttributeType.STRING)
@@ -99,6 +102,12 @@ public @interface MagentoServiceConfig {
 
   @AttributeDefinition(name = "Customer Create Order Service Path", description = "This is the API path for creating order for customer", defaultValue = customerProfilePath, type = AttributeType.STRING )
   String customer_createOrder_string() default customerCreateOrderPath;
+
+  @AttributeDefinition(name = "Customer Add To WishList Service Path", description = "This is the API path for adding product into customer's wishlist", defaultValue = customerAddToWishListPath, type = AttributeType.STRING )
+  String customer_addToWishList_string() default customerAddToWishListPath;
+
+  @AttributeDefinition(name = "Customer Get wishlist Service Path", description = "This is the API path for getting customer wishlist", defaultValue = customerGetWishListPath, type = AttributeType.STRING )
+  String customer_getWishList_string() default customerGetWishListPath;
 
 
 }
