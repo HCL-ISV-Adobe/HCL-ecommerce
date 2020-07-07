@@ -21,7 +21,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <description>hclecomm</description>
 
-    <modules>
+    <modules> 
         <module>core</module>
         <module>ui.apps</module>
         <module>ui.content</module>
