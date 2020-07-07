@@ -1,16 +1,18 @@
 package com.hcl.ecomm.core.services;
 
+
 import com.google.gson.JsonObject;
 import org.json.JSONObject;
 
-public interface AddToWishListService {
+public interface WishListService {
     public String getDomainName();
 
     public String getAddToWishListPath();
 
-    public JSONObject addToWishList(JSONObject sku, String custToken);
+    public JSONObject addToWishList(String sku, String custToken);
 
     public String getWishListItemsPath();
 
-    public JSONObject getWishListItems(String custToken);
+    public JsonObject getWishListItems(String custToken);
+
 }

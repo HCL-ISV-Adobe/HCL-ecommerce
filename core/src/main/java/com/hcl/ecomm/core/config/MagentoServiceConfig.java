@@ -37,6 +37,7 @@ public @interface MagentoServiceConfig {
 
 
 
+
     @AttributeDefinition(name = "All Products Service Path", description = "This is the API path for getting all products for a store", defaultValue = servicePathDefaultValue, type = AttributeType.STRING)
     String productService_servicePath() default servicePathDefaultValue;
 
@@ -108,6 +109,7 @@ public @interface MagentoServiceConfig {
 
   @AttributeDefinition(name = "Customer Get wishlist Service Path", description = "This is the API path for getting customer wishlist", defaultValue = customerGetWishListPath, type = AttributeType.STRING )
   String customer_getWishList_string() default customerGetWishListPath;
+
 
 
 }

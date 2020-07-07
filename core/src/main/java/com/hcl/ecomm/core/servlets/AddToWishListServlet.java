@@ -1,6 +1,6 @@
 package com.hcl.ecomm.core.servlets;
 
-import com.hcl.ecomm.core.services.AddToWishListService;
+import com.hcl.ecomm.core.services.WishListService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
@@ -32,7 +32,7 @@ public class AddToWishListServlet extends SlingAllMethodsServlet {
     private static final Logger LOG = LoggerFactory.getLogger(AddToCartServlet.class);
 
     @Reference
-    private AddToWishListService addToWishListService;
+    private WishListService wishListService;
 
     @Override
     protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
@@ -55,15 +55,14 @@ public class AddToWishListServlet extends SlingAllMethodsServlet {
             if (StringUtils.isNotEmpty(payload)) {
                 JSONObject jsonPayload =  new JSONObject(payload);
                 if (isValidPayload(jsonPayload)) {
-                    JSONObject itemsku = jsonItemObj( jsonPayload);
-                    JSONObject addToWishlistResponse = addToWishListService.addToWishList(itemsku,customerToken);
+                    JSONObject addToWishlistResponse = wishListService.addToWishList(jsonPayload.getString("sku"),customerToken);
                     if (addToWishlistResponse.has("statusCode") && addToWishlistResponse.getInt("statusCode") == HttpStatus.OK_200) {
                         responseObject.put("message", addToWishlistResponse.getJSONObject("message"));
                         responseObject.put("status", Boolean.TRUE);
                     } else {
                         responseObject.put("message", addToWishlistResponse.getJSONObject("message"));
                     }
-                    LOG.info("addtowishlist doPut()  method start."+ addToWishlistResponse.toString());
+                    LOG.info("addtowishlist doPpst()  method start."+ addToWishlistResponse.toString());
                 }
             } else {
                 responseObject.put("message", "Missing ProductSku Parameter ");
@@ -84,17 +83,4 @@ public class AddToWishListServlet extends SlingAllMethodsServlet {
         }
         return isValidData;
     }
-
-    private JSONObject jsonItemObj(JSONObject itemData) {
-        JSONObject item = new JSONObject();
-        try {
-            item.put("sku", itemData.getString("sku"));
-
-        } catch (JSONException e) {
-            LOG.error("Error while executing. Error={}",e);
-        }
-        return item;
-    }
-
-
 }

@@ -1,18 +1,14 @@
 package com.hcl.ecomm.core.services.impl;
 
 import com.google.gson.*;
-import com.google.gson.JsonArray;
 import com.hcl.ecomm.core.config.MagentoServiceConfig;
-import com.hcl.ecomm.core.services.AddToCartService;
-import com.hcl.ecomm.core.services.AddToWishListService;
+import com.hcl.ecomm.core.services.WishListService;
 import com.hcl.ecomm.core.services.LoginService;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -29,10 +25,10 @@ import java.io.InputStreamReader;
 @Component(
         immediate = true,
         enabled = true,
-        service = AddToWishListService.class)
-public class AddToWishListServiceimpl implements AddToWishListService{
+        service = WishListService.class)
+public class WishListServiceimpl implements WishListService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AddToWishListServiceimpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WishListServiceimpl.class);
 
     @Reference
     LoginService loginService;
@@ -56,13 +52,12 @@ public class AddToWishListServiceimpl implements AddToWishListService{
         return config.customer_getWishList_string();
     }
 
-
     private String responseStream = null;
     private String schema = "http";
     @Override
-    public JSONObject addToWishList(JSONObject sku, String custToken) {
-        LOG.info("addToWishList method start  product={}: " + sku);
-        LOG.debug("addToWishList method start  product={}: " + sku);
+    public JSONObject addToWishList(String Sku, String custToken) {
+        LOG.info("addToWishList method start  product={}: " + Sku);
+        LOG.debug("addToWishList method start  product={}: " + Sku);
 
         String addTowishlistPath = "";
         String authToken = "";
@@ -74,7 +69,6 @@ public class AddToWishListServiceimpl implements AddToWishListService{
                 addTowishlistPath = getAddToWishListPath();
             }
             String domainName = getDomainName();
-            String Sku = sku.getString("sku");
            addTowishlistPath = addTowishlistPath.replace("sku", Sku);
             String url = schema + "://" + domainName + addTowishlistPath;
             LOG.info("addTowishlistPath : " + url);
@@ -131,11 +125,10 @@ public class AddToWishListServiceimpl implements AddToWishListService{
 
 
     @Override
-    public JSONObject getWishListItems(String customerToken) {
+    public JsonObject getWishListItems(String customerToken) {
         String token = "";
         String url = "";
         String domainName = loginService.getDomainName();
-        JSONObject customerWishListResponse = new JSONObject();
 
         token = customerToken;
         String getwishlistPath = getWishListItemsPath();
@@ -154,31 +147,21 @@ public class AddToWishListServiceimpl implements AddToWishListService{
             if(statusCode == 200)
             {
                 responseStream = EntityUtils.toString(httpResponse.getEntity());
-                WishListItems = new Gson().fromJson(responseStream, JsonObject.class);
-
-                customerWishListResponse.put("statusCode", statusCode);
-                customerWishListResponse.put("message", WishListItems);
-            }
-            else if(statusCode == 404)
-            {
-                customerWishListResponse.put("statusCode", statusCode);
-                customerWishListResponse.put("message", "No items Present in wishlist");
             }
             else
             {
                 responseStream = "Failed to fetch wishlist details.";
             }
-            //WishListItems = new Gson().fromJson(responseStream, JsonArray.class);
-            LOG.info( "wishlist Items Response in Json Array : " + WishListItems);
+            WishListItems = new Gson().fromJson(responseStream, JsonObject.class);
+            LOG.info( "wishlist Items Response in Json object : " + WishListItems);
 
         }
         catch (Exception e)
         {
             LOG.error("Exception while fetching wishlist details : " + e.getMessage());
         }
-        return customerWishListResponse;
+        return WishListItems ;
     }
-
 
 }
 
