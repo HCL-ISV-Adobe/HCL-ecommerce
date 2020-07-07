@@ -47,7 +47,7 @@ public class CountryStateServlet extends SlingSafeMethodsServlet {
 			for(int i= 0 ;i<responseStream.length(); i++){
 
 				JSONObject countryList = new JSONObject();
-				countryList.put("name",responseStream.getJSONObject(i).get("name"));
+				countryList.put("country_name",responseStream.getJSONObject(i).get("name"));
 				countryList.put("country_id",responseStream.getJSONObject(i).get("iso2"));
 				countryList.put("phone_code",responseStream.getJSONObject(i).get("phone_code"));
 				JSONArray statesList = new JSONArray();
@@ -57,7 +57,7 @@ public class CountryStateServlet extends SlingSafeMethodsServlet {
 
 						for (int j = 0; j < responseStream.getJSONObject(i).getJSONArray("states").length(); j++) {
 							JSONObject stateListObj = new JSONObject();
-							stateListObj.put("name", responseStream.getJSONObject(i).getJSONArray("states").getJSONObject(j).get("name"));
+							stateListObj.put("state_name", responseStream.getJSONObject(i).getJSONArray("states").getJSONObject(j).get("name"));
 							stateListObj.put("region_code", responseStream.getJSONObject(i).getJSONArray("states").getJSONObject(j).get("state_code"));
 							statesList.put(stateListObj);
 
@@ -66,7 +66,7 @@ public class CountryStateServlet extends SlingSafeMethodsServlet {
 						countryStateRes.put(countryList);
 					}
 					else{
-						stateList.put("name", responseStream.getJSONObject(i).get("name"));
+						stateList.put("state_name", responseStream.getJSONObject(i).get("name"));
 						stateList.put("region_code", responseStream.getJSONObject(i).get("iso2"));
 						statesList.put(stateList);
 						countryList.put("states", statesList);
