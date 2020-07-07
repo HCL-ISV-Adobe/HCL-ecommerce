@@ -17,9 +17,11 @@ public @interface MagentoServiceConfig {
 	String emptyCartPah = "/us/V1/guest-carts";
 	String guestCartItemDeletePah = "/us/V1/guest-carts/{cartId}/items/{itemId}";
   String couponListPath = "/etc/acs-commons/lists/coupon-list";
-  String servicePathCartUpdateItems = "/V1/guest-carts/";
+    String countryStateListPath = "/content/dam/hclecomm/en/json/countries+states.json";
+    String servicePathCartUpdateItems = "/V1/guest-carts/";
   String guestCartShippingInformationPath = "/us/V1/guest-carts/{cartId}/shipping-information";
   String guestCartCreateOrderPath = "/us/V1/guest-carts/{cartId}/order";
+
     //Customer API
   String customerSignupPath = "/V1/customers";
   String customerSigninPath = "/V1/integration/customer/token";
@@ -78,6 +80,9 @@ public @interface MagentoServiceConfig {
 
     @AttributeDefinition(name = "COUPON_LIST", description = "This is path of Coupon list under ACS-Commons list", defaultValue = {couponListPath} )
     String getCouponlistPath_string() default couponListPath;
+
+    @AttributeDefinition(name = "Country_State_List", description = "This is the Dam path for getting Country-State List", defaultValue = {countryStateListPath} )
+    String countryStateListPath_string() default countryStateListPath;
 
     @AttributeDefinition(name = "Customer Create Cart Service Path", description = "This is the API path for creating customer's cart", defaultValue = customerProfilePath, type = AttributeType.STRING )
     String customer_createCart_string() default customerCreateCartPath;

@@ -1,5 +1,8 @@
 package com.hcl.ecomm.core.services.impl;
 
+import com.day.cq.dam.api.Asset;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.hcl.ecomm.core.config.MagentoServiceConfig;
@@ -8,6 +11,7 @@ import com.hcl.ecomm.core.services.LoginService;
 import com.hcl.ecomm.core.services.ShippingInfoService;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ContentType;
@@ -15,6 +19,11 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.ValueMap;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -23,7 +32,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 @Component(
         immediate = true,
@@ -31,7 +45,7 @@ import java.io.InputStreamReader;
         service = ShippingInfoService.class)
 public class ShippingInfoServiceImpl implements ShippingInfoService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ProductServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ShippingInfoServiceImpl.class);
 
      @Reference
     LoginService loginService;
@@ -48,6 +62,11 @@ public class ShippingInfoServiceImpl implements ShippingInfoService {
     public String getShippingInfoPath() {
         return  config.shippingInfo_servicePath_string();
     }
+
+    @Reference
+    ResourceResolverFactory resourceResolverFactory;
+
+
 
     @Override
     public JSONObject createShipInfo(JSONObject shipItem,String cartId, String customerToken) {
@@ -110,6 +129,36 @@ public class ShippingInfoServiceImpl implements ShippingInfoService {
     }
 
 
+
+    @Override
+    public JSONArray getStateCountryList() {
+        JSONArray countryStateList = new JSONArray();
+        Resource original;
+        //JSONArray response = new JSONArray();
+        try
+        {
+            Map<String, Object> param = new HashMap<String, Object>();
+            param.put(ResourceResolverFactory.SUBSERVICE, "userName");
+            ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(param);
+            Resource resource = resourceResolver.getResource(config.countryStateListPath_string());
+            Asset asset = resource.adaptTo(Asset.class);
+            original = asset.getOriginal();
+            InputStream content = original.adaptTo(InputStream.class);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            BufferedReader br = new BufferedReader(new InputStreamReader(content , StandardCharsets.UTF_8));
+            while ((line = br.readLine()) != null){
+                sb.append(line);
+            }
+            countryStateList = new JSONArray(sb.toString());
+
+        }
+        catch (Exception e)
+        {
+            LOG.error(e.getMessage());
+        }
+        return countryStateList  ;
+    }
 
 
 }
