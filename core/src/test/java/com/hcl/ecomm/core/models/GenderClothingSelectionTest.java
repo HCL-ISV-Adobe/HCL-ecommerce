@@ -1,39 +1,53 @@
 package com.hcl.ecomm.core.models;
-import junitx.util.PrivateAccessor;
+import io.wcm.testing.mock.aem.junit5.AemContext;
+import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.apache.sling.api.resource.Resource;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import java.util.ArrayList;
 import java.util.List;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
+import static org.junit.jupiter.api.Assertions.*;
 
-
+@ExtendWith(AemContextExtension.class)
 class GenderClothingSelectionTest {
 
-    GenderClothingSelection gc=new GenderClothingSelection();
-    ClothingFilter clfilter=new ClothingFilter();
-    List<ClothingFilter>clf=new ArrayList<>();
-    Resource resource;
-
-
-    List<Resource> clothingFilter=new ArrayList<>();
-    String selectClothing="shirt";
+    private GenderClothingSelection genderClothingSelection;
+    private ClothingFilter clothingFilter;
+    private Resource resource;
+    private final AemContext context=new AemContext();
+    List<ClothingFilter>clothingFilterList=new ArrayList<>();
 
 
     @Test
-    public void init() throws Exception{
-        resource=mock(Resource.class);
-        clothingFilter.add(resource);
-        PrivateAccessor.setField(gc,"clothingFilter",clothingFilter);
-        when(resource.adaptTo(ClothingFilter.class)).thenReturn(clfilter);
+    public void getSelectClothing()
+    {
+        context.addModelsForClasses(GenderClothingSelection.class);
+        context.load().json("/GenderClothingSelection.json","/content");
+        context.currentPage("/content/GenderClothing");
+        resource= context.currentResource("/content/GenderClothing/jcr:content/root/responsivegrid/productfilter/selectGenderClothing/item0");
+        if (resource == null) throw new AssertionError();
+        genderClothingSelection=resource.adaptTo(GenderClothingSelection.class);
+        String expected="Men";
+        String actual=genderClothingSelection.getSelectClothing();
+        assertEquals(expected,actual);
+    }
 
-        PrivateAccessor.setField(gc,"selectClothing",selectClothing);
-        gc.setSelectClothing(selectClothing);
-        gc.getSelectClothing();
 
-       clf.add(clfilter);
-        gc.setClothingList(clf);
-        gc.getClothingList();
+
+    @Test
+    void getClothingList() {
+        context.addModelsForClasses(GenderClothingSelection.class);
+        context.load().json("/GenderClothingSelection.json","/content");
+        context.currentPage("/content/GenderClothing");
+        resource=context.currentResource("/content/GenderClothing/jcr:content/root/responsivegrid/productfilter/selectGenderClothing/item0/clothingFilter/item0");
+        if (resource == null) throw new AssertionError();
+        genderClothingSelection=resource.adaptTo(GenderClothingSelection.class);
+        clothingFilterList.add(clothingFilter);
+        genderClothingSelection.setClothingList(clothingFilterList);
+        List<ClothingFilter>actual=genderClothingSelection.getClothingList();
+        assertFalse(actual.isEmpty());
+
     }
 }
