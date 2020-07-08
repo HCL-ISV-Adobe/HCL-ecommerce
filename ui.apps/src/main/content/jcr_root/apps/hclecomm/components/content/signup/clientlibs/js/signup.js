@@ -20,6 +20,7 @@
   }
 
   const handleHttpServerRequestJson2 = function (url, formdata) {
+	  loader(true);
 	const othrParm = {
 	  headers: {"content-type":"application/json; charset=UTF-8", 'Accept': 'application/json'},
 	  body: JSON.stringify(formdata),
@@ -40,6 +41,7 @@
 		(rejected) => {console.log(rejected);
 	})
 	.then(data => {
+		loader(false);
 		const status = (data.status)?JSON.parse(data.status): false;
 		if(status === true) {
 		  successSignUpCallback(data);
