@@ -58,6 +58,7 @@
                     </properties>
                     <filters>
                         <filter><root>/etc/acs-commons</root></filter>
+                        <filter><root>/etc/notification</root></filter>
                     </filters>
                    
                     <embeddeds>
