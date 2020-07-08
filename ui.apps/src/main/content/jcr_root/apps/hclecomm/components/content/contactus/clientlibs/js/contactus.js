@@ -17,7 +17,7 @@ function validateSignupFrom(e) {
     let errorhtml = "";
     //Cannot read property 'forEach' of undefined
     for(let i=0; i<document.contactus_form.elements.length;i++){
-        if (document.contactus_form.elements[i].required) {
+        if (document.contactus_form.elements[i].required && document.contactus_form.elements[i].value === '') {
             errorhtml = '<span> Please enter '+document.contactus_form.elements[i].name+'<span>';
             displayError(errorhtml, document.contactus_form.elements[i].name);
             isValid = false;
