@@ -3,6 +3,7 @@ function displayError(errorhtml, formElmName) {
     const ErrorMsgElm = document.getElementById('cmp-contactus-errormsg');
     document.contactus_form[formElmName].focus();
     ErrorMsgElm.style.visibility = "visible";
+    ErrorMsgElm.style.borderColor = "red";
     ErrorMsgElm.innerHTML = errorhtml;
     return;
 }
