@@ -59,6 +59,7 @@ public class CountryStateServlet extends SlingSafeMethodsServlet {
 							JSONObject stateListObj = new JSONObject();
 							stateListObj.put("state_name", responseStream.getJSONObject(i).getJSONArray("states").getJSONObject(j).get("name"));
 							stateListObj.put("region_code", responseStream.getJSONObject(i).getJSONArray("states").getJSONObject(j).get("state_code"));
+							stateListObj.put("region_id", responseStream.getJSONObject(i).getJSONArray("states").getJSONObject(j).get("id"));
 							statesList.put(stateListObj);
 
 						}
@@ -68,6 +69,7 @@ public class CountryStateServlet extends SlingSafeMethodsServlet {
 					else{
 						stateList.put("state_name", responseStream.getJSONObject(i).get("name"));
 						stateList.put("region_code", responseStream.getJSONObject(i).get("iso2"));
+						stateList.put("region_id", 0); //Adding the static value 0 for the region_id as the states are not present for some countries,it is required for creating order.
 						statesList.put(stateList);
 						countryList.put("states", statesList);
 						countryStateRes.put(countryList);
