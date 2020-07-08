@@ -1,4 +1,15 @@
 
+if(document.contactus_form){
+    let formLabels = document.contactus_form.querySelectorAll('label');
+    for(let i=0; i<formLabels.length;i++){
+        if (document.contactus_form.querySelectorAll('label')[i].nextElementSibling.required) {
+            let startHtml = document.createElement('span'); 
+            startHtml.classList.add('star');
+            startHtml.innerHTML = '*';
+          document.contactus_form.querySelectorAll('label')[i].appendChild(startHtml);
+        }
+    }
+}
 function displayError(errorhtml, formElmName) {
     const ErrorMsgElm = document.getElementById('cmp-contactus-errormsg');
     document.contactus_form[formElmName].focus();
@@ -7,6 +18,7 @@ function displayError(errorhtml, formElmName) {
     ErrorMsgElm.innerHTML = errorhtml;
     return;
 }
+
 function validateSignupFrom(e) {
     const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
     const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
