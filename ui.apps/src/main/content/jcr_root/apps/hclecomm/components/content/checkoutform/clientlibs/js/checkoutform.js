@@ -123,20 +123,6 @@ $(document).ready(function () {
 	$('.cvv-btn-continue').children('.cvv-continue').children().removeAttr("href");
 	// using thie cookies value just for testing purpose , remove it after intrgation with other component
 
-	/*const stateArray = ['Uttar-Pradesh', 'Andhra-Pradesh', 'Maharashtra'];
-	let selectHTML = "<select class ='add-addr-feilds' name ='state'>";
-	if (stateArray) {
-		stateArray.forEach((item) => {
-			selectHTML += "<option value='" + item + "'>" + item + "</option>";
-		})
-		selectHTML += "</select>";
-        const getstatecollection= document.getElementById('state-collection');
-		if(selectHTML && getstatecollection ){
-    			//document.getElementById('state-collection').appendChild(selectHTML);
-    			getstatecollection.innerHTML = selectHTML;
-    		}
-	}*/
-
     if(document.querySelector(".add-new-address-form #country")){
        getCountriesList();
     }
@@ -149,10 +135,7 @@ let cvvSubmission = false;
 let validatecardNExpDate = false;
 
 const getCountriesList = function () {
-    let url = 'https://run.mocky.io/v3/8ee57524-0067-4682-8522-4dba646558c1';
-    	//url = 'http://127.0.0.1/magento2/rest/us/V1/directory/countries';
-    	//url = 'https://run.mocky.io/v3/e4e27a8c-bac8-4b3b-803d-811363787bfb';
-    	url = '/bin/hclecomm/countrystatelist';
+    let url = '/bin/hclecomm/countrystatelist';
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if(this.readyState == 4 && this.status == 200 ) {
@@ -193,7 +176,7 @@ const updateStateList = function(countryId,event) {
     let countryItem = countriesList.filter(item => item.country_id == countryId);
     if(countryItem[0].states && countryItem[0].states.length > 0 ){
         countryItem[0].states.forEach(st => {
-           selectHTMLstate += "<option value='"+ st.region_code + "' />" + st.state_name + "</option>";
+           selectHTMLstate += "<option value='"+ st.region_code + "' data-attribute='"+ st.region_id +"'/>" + st.state_name + "</option>";
         })
         stateELm.disabled = false;
         stateELm.innerHTML = selectHTMLstate;
@@ -343,7 +326,10 @@ function onSaveNDeliver() {
         console.log("getUserDeatils", getUserDeatils);
 
 		getUserDeatils['region'] = getUserDeatils['region_code']; //MH
-		getUserDeatils['region_id'] = 0;
+        if(!getUserDeatils['region_id']) {
+			console.log("no region id");
+            getUserDeatils['region_id'] = 0;
+        }
 		//getUserDeatils['country_id'] = 'IN';
 		//getUserDeatils['region_code'] = 'MH';
 
@@ -477,8 +463,8 @@ function letValidateField(userDetails, userDetailsValue, event) {
 				return
             }
             getUserDeatils['region_code'] = userDetailsValue;
-            //let stElm = document.querySelector(".add-new-address-form #state");
-            //getUserDeatils['state_name'] = stElm.options[stElm.selectedIndex].text;
+            let stElm = document.querySelector(".add-new-address-form #state");
+            getUserDeatils['region_id'] = stElm.options[stElm.selectedIndex].getAttribute('data-attribute');
 			break;
 
 		case 'optional-phone':
