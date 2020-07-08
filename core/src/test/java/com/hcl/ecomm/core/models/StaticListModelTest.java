@@ -10,7 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+     //Junit for StaticListModel
 @ExtendWith(AemContextExtension.class)
 class StaticListModelTest {
 
