@@ -1,5 +1,6 @@
 package com.hcl.ecomm.core.servlets;
 
+import com.hcl.ecomm.core.services.WishListService;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -27,28 +28,28 @@ public class GetWishListItemsServlet extends SlingSafeMethodsServlet {
     private static final Logger LOG = LoggerFactory.getLogger(GetWishListItemsServlet.class);
 
     @Reference
-    private com.hcl.ecomm.core.services.WishListService WishListService;
+    private WishListService wishListService;
 
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        try {
+         try {
             String customerToken = request.getHeader("CustomerToken");
-            JsonObject responseStream = WishListService.getWishListItems(customerToken);
+            JsonObject responseStream = wishListService.getWishListItems(customerToken);
             LOG.info("responseStream is {}", responseStream.toString());
-
-            JsonArray itemsarr= responseStream.get("items").getAsJsonArray();
+        
+            JsonArray wishlistitems= responseStream.get("items").getAsJsonArray();
             List<HashMap<String, Object>> list = new ArrayList<>();
             JsonArray wishlistArray=new JsonArray();
 
-            for(int i=0; i<itemsarr.size();i++){
+            for(int i=0; i<wishlistitems.size();i++){
                 HashMap<String, Object> itemdetails = new HashMap<String, Object>();
-                itemdetails.put("item_id",itemsarr.get(i).getAsJsonObject().get("id").getAsInt());
-                itemdetails.put("sku", itemsarr.get(i).getAsJsonObject().get("product").getAsJsonObject().get("sku").getAsString());
-                itemdetails.put("name", itemsarr.get(i).getAsJsonObject().get("product").getAsJsonObject().get("name").getAsString());
-                itemdetails.put("price",itemsarr.get(i).getAsJsonObject().get("product").getAsJsonObject().get("price").getAsInt());
+                itemdetails.put("item_id",wishlistitems.get(i).getAsJsonObject().get("id").getAsInt());
+                itemdetails.put("sku", wishlistitems.get(i).getAsJsonObject().get("product").getAsJsonObject().get("sku").getAsString());
+                itemdetails.put("name", wishlistitems.get(i).getAsJsonObject().get("product").getAsJsonObject().get("name").getAsString());
+                itemdetails.put("price",wishlistitems.get(i).getAsJsonObject().get("product").getAsJsonObject().get("price").getAsInt());
                 itemdetails.put("image_url", "https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png");
                 list.add(itemdetails);
                 wishlistArray = new Gson().toJsonTree(list).getAsJsonArray();
