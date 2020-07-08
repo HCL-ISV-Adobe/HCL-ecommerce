@@ -3,6 +3,8 @@ package com.hcl.ecomm.core.services.impl;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.hcl.ecomm.core.config.MagentoServiceConfig;
@@ -144,18 +146,14 @@ public class ShippingInfoServiceImpl implements ShippingInfoService {
             Asset asset = resource.adaptTo(Asset.class);
             original = asset.getOriginal();
             InputStream content = original.adaptTo(InputStream.class);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            BufferedReader br = new BufferedReader(new InputStreamReader(content , StandardCharsets.UTF_8));
-            while ((line = br.readLine()) != null){
-                sb.append(line);
-            }
-            countryStateList = new JSONArray(sb.toString());
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readValue(content,JsonNode.class);
+            countryStateList = new JSONArray(jsonNode.toString());
 
         }
         catch (Exception e)
         {
-            LOG.error(e.getMessage());
+            LOG.error("error while executing statecountrylist() method. Error={}" + e);
         }
         return countryStateList  ;
     }
