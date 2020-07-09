@@ -3,5 +3,6 @@
     <filter root="/apps/hclecomm"/>
     <filter root="/apps/sling"/>	
     <filter root="/etc/acs-commons/lists/coupon-list" mode="merge"/>
-	<filter root="/apps/msm/hclecomm_blueprint" mode="merge"/>
+    <filter root="/etc/notification/email/hclecomm" mode="merge"/>
+	  <filter root="/apps/msm/hclecomm_blueprint" mode="merge"/>
 </workspaceFilter>

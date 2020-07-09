@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="sling:OsgiConfig"
+    from.address="aemmagento1@gmail.com"
+    smtp.host="smtp.gmail.com"
+    smtp.password="india@2020"
+    smtp.port="465"
+    smtp.ssl="true"
+    smtp.user="aemmagento1@gmail.com"/>
