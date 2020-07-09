@@ -7,7 +7,11 @@ $(document).ready(function () {
     }
 
     var value = $('#mydiv').data('custom-property');
-    console.log(value);
+
+
+    let path= $('#redirect').data('custom-property');
+
+    var msg = $('#msg').data('custom-property');
 
     var checkmode = $('.cart-detail-container').attr('checkmode');
 
@@ -115,7 +119,7 @@ $(document).ready(function () {
 
                                 });
                                 var mybagcount = bagCount(data);
-                                console.log(mybagcount);
+
     							if(mybagcount == 0){
 
 
@@ -133,7 +137,26 @@ $(document).ready(function () {
                                         $('.cartproductdisplay').css('display', 'none');
                                         }
 
-								$(".product").prepend(("<h4><span >" + value + "</span><div>Shopping Bag is Empty.You need to add item to cart</div></h4>"));
+                                    $(".product").prepend(("<h4><span >" + msg + "</span></h4>")),emptyRedirect();
+									//code for adding custom msg and redirect path
+
+                                    function emptyRedirect(){
+
+
+                                    setTimeout(function(){
+                                                         var url = window.location.href;
+                                                         url = url.substring(0, url.indexOf('/content/'));
+                                                         url+=path;
+
+
+                                                         window.location=url+'.html';
+
+                                                         },7000);
+                                    }
+
+
+
+
                                 }
     							else{
                                     $('.cartproductdisplay').css('display', 'block');
