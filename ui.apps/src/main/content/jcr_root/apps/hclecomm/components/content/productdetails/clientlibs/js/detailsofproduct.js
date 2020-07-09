@@ -7,7 +7,7 @@ $(document).ready(function() {
  $('.btn-product-card').children().children().removeAttr("href");
  $('.quantity').val("1");
  $('.product-details-cmp__prduct-price-sign').css("display", "none");
- $('.product-details-cmp--no-product').css("display", "none");
+ $('.product-details-cmp--no-product,.cmp--wishlist--product,.cmp--wishlist--outofstock,.cmp--wishlist--product-add').css("display", "none");
  $('.btn-product-card').addClass("btn-product-card-disabled");
  $(".btn-product-card").attr('disabled', 'disabled');
  prodSku = $(".product-sku").text();
@@ -174,6 +174,12 @@ function addtoWishlist() {
 
 
 	 }
+       else{
+           $('.cmp--wishlist--product-add').fadeIn('slow', function() {
+        $(this).delay(5000).fadeOut('slow');
+       });
+
+       }
    }
 
    }

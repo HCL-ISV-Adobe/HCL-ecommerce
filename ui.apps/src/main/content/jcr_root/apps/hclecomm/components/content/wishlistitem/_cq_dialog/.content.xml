@@ -27,11 +27,21 @@
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/container">
                                         <items jcr:primaryType="nt:unstructured">
-                                            <title
+                                            <wishlistBag
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                 fieldLabel="Wishlist Bag"
                                                 name="./wishListBag"/>
+                                            <noIteminwishlist
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldLabel="No item in Wishlist  Bag"
+                                                name="./noWishlistItem"/>
+                                            <itemmovedtocart
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldLabel="item moved to Shopping  Bag"
+                                                name="./ItemMovedToCart"/>
                                         </items>
                                     </column>
                                 </items>

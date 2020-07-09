@@ -253,6 +253,42 @@
                             </columns>
                         </items>
                     </productsizeselection>
+                    <productinwishlist
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Product In Wishlist"
+                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                        margin="{Boolean}true">
+                        <items jcr:primaryType="nt:unstructured">
+                            <columns
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+                                margin="{Boolean}true">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <column
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <noproducttowishlist
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldLabel="can not  add Outofstock item into wishlist Label"
+                                                name="./OutofstockItem"/>
+                                            <addproducttowishlist
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldLabel="Item Successfully added to wishlist"
+                                                name="./addItemWishlist"/>
+                                            <loginuser
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldLabel="User not login  Label"
+                                                name="./loginUser"/>
+                                        </items>
+                                    </column>
+                                </items>
+                            </columns>
+                        </items>
+                    </productinwishlist>
                 </items>
             </tabs>
         </items>

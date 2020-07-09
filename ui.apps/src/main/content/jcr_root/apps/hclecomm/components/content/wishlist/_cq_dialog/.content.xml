@@ -30,20 +30,32 @@
                                             <title
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                fieldLabel="Cart Title"
+                                                fieldLabel="Wishlist Title"
                                                 name="./title"/>
-                                            <linkURL
+                                            <wishlistURL
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="cq/gui/components/coral/common/form/pagefield"
                                                 fieldDescription="Links the title. Path to a content page, external URL or page anchor."
-                                                fieldLabel="Link"
+                                                fieldLabel="Wishlist Page Link"
                                                 name="./wishlistUrl"
                                                 rootPath="/content">
                                                 <granite:rendercondition
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="granite/ui/components/foundation/renderconditions/simple"
                                                     expression="${!cqDesign.linkDisabled}"/>
-                                            </linkURL>
+                                            </wishlistURL>
+                                            <signinUrl
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="cq/gui/components/coral/common/form/pagefield"
+                                                fieldDescription="Links the title. Path to a content page, external URL or page anchor."
+                                                fieldLabel="Signin Page  Link"
+                                                name="./signinUrl"
+                                                rootPath="/content">
+                                                <granite:rendercondition
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/renderconditions/simple"
+                                                    expression="${!cqDesign.linkDisabled}"/>
+                                            </signinUrl>
                                         </items>
                                     </column>
                                 </items>

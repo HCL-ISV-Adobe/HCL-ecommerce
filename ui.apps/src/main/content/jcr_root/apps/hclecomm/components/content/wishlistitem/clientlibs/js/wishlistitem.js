@@ -2,23 +2,28 @@ let wishListArr =null;
 let wishlistCustToken = null;
 let wishlistProdSku =null;
 $( document ).ready(function() {
+      $('.cmp-wisthlit-item-product-move-to-shoping-bag').css("display", "none");
+const wisthListUrl = window.location.href.includes("my-wishlist-bag.html");
      let userData = getUserCookie("hcluser");
   if (userData != "") {
    wishlistCustToken = JSON.parse(userData).customerToken;
   }
      const xhttp = new XMLHttpRequest();
-
+    if( wishlistCustToken && wisthListUrl){
   xhttp.onreadystatechange = function() {
    if (this.readyState == 4 && this.status == 200) {
     try {
      wishListArr = JSON.parse(this.responseText);
       const wishListContainer = $('.cmp-wish-list-container');
     if( wishListArr && wishListArr.length > 0){
+         $('.wishlist-item-no-item-list').text('');
+        $('.wishlist-item-no-item-list').addClass('toggle-wishlist-display');
         $('.wishlist-item-count').text(wishListArr.length);
+
         const wisListItems = wishListArr.map((wishListArrItem) =>{
 
                                              return (
-                                                    `<div class ='wish-list-item' id=PID${wishListArrItem.item_id}>
+                                                    `<div class ='wish-list-item'>
                                                         <div class ='wish-list-item--left-wist'>
                                                             <img class='wishlist-cmp--product-image'  src= ${wishListArrItem.image_url}/>
                                                             <div>
@@ -44,11 +49,7 @@ $( document ).ready(function() {
  
 
         }
-       else{
 
-           const emptyWishlist ='<div class ="wishlist-item-no-item-list">No Product in Wishlist</div>';
-            wishListContainer[0].innerHTML = emptyWishlist;
-       }
 
      } 
      catch (e) {
@@ -57,10 +58,11 @@ $( document ).ready(function() {
    }
 
   };
+
                      xhttp.open("GET","/bin/hclecomm/getWishList", true);
 xhttp.setRequestHeader("CustomerToken",wishlistCustToken);
-  xhttp.send();
-
+ xhttp.send();
+}
 });
 
 
@@ -119,7 +121,9 @@ function callbackwishlist(cartId) {
  xhr.setRequestHeader("CustomerToken", custToken);
  xhr.onreadystatechange = function() {
   if (xhr.readyState === 4 && xhr.status === 200) {
-   localStorage.removeItem("checkOutDetails");
+       $('.cmp-wisthlit-item-product-move-to-shoping-bag').fadeIn('slow', function() {
+    $(this).delay(5000).fadeOut('slow');
+   });
 
   }
  };
