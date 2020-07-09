@@ -55,7 +55,7 @@ const showEmptyCartNotification = () => {
     if ((getItemCount === '0' || getItemCount==="") && allowToShowNotification) {
         $("#notification").empty();
         $("#notification").css({
-            display: 'inline-block'
+            display: 'inline-block' ,fontFamily: 'sans-serif'
         }).append('Cart is empty');
         $("#notification").delay(5000).fadeOut("slow");
     }

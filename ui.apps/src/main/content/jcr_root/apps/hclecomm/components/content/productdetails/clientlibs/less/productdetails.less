@@ -1,10 +1,20 @@
 .product-details-cmp {
 	display: flex;
 	font-family: sans-serif;
+    .product-details-cmp--btn-wrapper{ 
+            display: flex;
+                width: 83%;
+                justify-content: space-between;
+        @media only screen and (max-width: 768px) {
+            flex-direction: column;
+            margin-top: 20px;
+            margin-left: -25px;
+            }
+        }
     .product-sku{
     color: #585454;
     font-size: 16px;
-    margin-bottom: -2px;
+    margin-bottom: -5px;
     }
 	.product-details-cmp__img {
 		width: 55%;
@@ -17,7 +27,6 @@
 		color: #333333;
 	}
 	.product-details-cmp__prduct-price {
-		font-size: 18px;
 		color: #2979be;
 		display: inline-block;
 		margin-left: 2px;
@@ -65,13 +74,25 @@
 .product-details-cmp--no-product {
 	color: #ff0000;
 	margin-top: -10px;
+    @media only screen and (max-width: 768px) {
+         margin-top: 12px;
+            }
 }
 
 .quantity {
 	display: inline-flex;
 	width: 75px;
-	height: 30px;
+	height: 45px;
 	text-align: center;
+    font-size: 16px;
+    border: .8px solid #000000;
+    @media only screen and (max-width: 768px) {
+            margin-top: 1px;
+
+ 
+
+     }
+
 }
 
 .changeSign {
@@ -102,7 +123,10 @@
 }
 
 .btn-product-card {
-	margin-left: -20px;
+    margin-left: -20px;
+    display: flex;
+    align-items: center;
+
 }
 
 .btn-primary {
@@ -120,6 +144,9 @@
 }
 .product-price-container{
     max-height:30px;
+    margin-bottom: 30px;
+    font-size: 22px;
+    font-weight: bold;
 }
 
 @media only screen and (max-width: 768px) {
@@ -127,7 +154,8 @@
 		flex-direction: column;
 	}
     .btn-product-card {
-    margin-left: -50px;
+    margin-left: -20px;
+    max-height: 52px;
 }
 	.product-details-cmp {
 		.product-details-cmp__img,

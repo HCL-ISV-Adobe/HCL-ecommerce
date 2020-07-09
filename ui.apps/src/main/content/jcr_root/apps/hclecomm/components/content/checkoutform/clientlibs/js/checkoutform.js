@@ -281,62 +281,10 @@ function onSaveNDeliver() {
 	}
 
 	if (validationFeilds && validateFormFields) {
-		const xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function () {
-			if (this.readyState == 4 && this.status == 200 ) {
-				if (this.responseText) {
-					const jsonObject = JSON.parse(this.responseText)
-                    if(!jsonObject["status"]  ){
-
-						localStorage.removeItem("checkOutDetails");
-                        //document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-						getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
-                        return;
-
-                    }
-
-                    else{
-					getCodeskmu(jsonObject["payment_methods"])
-                    }
-				}
-			}
-		};
-		xhttp.open("POST", "/bin/hclecomm/shipinfo", true);
-		xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhttp.setRequestHeader("CustomerToken", custToken);
-		xhttp.send(JSON.stringify(getUserDeatils));
-
+		onToggleDescription(event);
+		
 	}
 
-
-
-
-	function getCodeskmu(skmuObj) {
-
-		if(custToken)
-    {
-			  let paymentMode = skmuObj['code'];
-        skmuObj = getUserDeatils;
-			  skmuObj['code'] = paymentMode;
-    }
-    else {
-			  skmuObj['cartId'] = checkoutcartId;
-    }
-
-		const xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function () {
-			if (this.readyState == 4 && this.status == 200) {
-                const message= JSON.parse(this.responseText)['message']['orderId']
-                getUserDeatils['orderId']=message;
-				onToggleDescription(event);
-			}
-		};
-		xhttp.open("PUT", "/bin/hclecomm/createOrder", true);
-		xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhttp.setRequestHeader("CustomerToken", custToken);
-		xhttp.send(JSON.stringify(skmuObj));
-
-	}
 
 }
 
@@ -521,23 +469,71 @@ function onContinueCvv() {
 		validateCardNExpiry = true;
 	}
 
-	if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth ){
+     if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth ){
 
 			$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
          	return
         }
 
 
+	if(validateCardNExpiry && validateCardNo){
+	//localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
+	 const xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200 ) {
+				if (this.responseText) {
+					const jsonObject = JSON.parse(this.responseText)
+                    if(!jsonObject["status"]  ){
 
-    const checkOutDetails = {...getUserDeatils, cardNumber : getNewCardNumber[0].value, cardExpDate : `${getExpiryMonth}-${getExpiryYear}`}
-    console.log(checkOutDetails)
-    if(validateCardNExpiry && validateCardNo){
-	localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
-    document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-	getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
+						localStorage.removeItem("checkOutDetails");
+                        //document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+						getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
+                        return;
 
-    }
+                    }
 
+                    else{
+					getCodeskmu(jsonObject["payment_methods"])
+                    }
+				}
+			}
+		};
+		xhttp.open("POST", "/bin/hclecomm/shipinfo", true);
+		xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		xhttp.setRequestHeader("CustomerToken", custToken);
+		xhttp.send(JSON.stringify(getUserDeatils)); 
+		
+	}
+		
+		function getCodeskmu(skmuObj) {
+		if(custToken)
+		{
+			let paymentMode = skmuObj['code'];
+			skmuObj = getUserDeatils;
+			skmuObj['code'] = paymentMode;
+		}
+		else {
+			  skmuObj['cartId'] = checkoutcartId;
+		}
+		const xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+                const message= JSON.parse(this.responseText)['message']['orderId']
+                getUserDeatils['orderId']=message;
+				const checkOutDetails = {...getUserDeatils, cardNumber : getNewCardNumber[0].value, cardExpDate : `${getExpiryMonth}-${getExpiryYear}`}
+            	console.log(checkOutDetails)
+                localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
+				document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+				getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
+
+			}
+		};
+		xhttp.open("PUT", "/bin/hclecomm/createOrder", true);
+		xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		xhttp.setRequestHeader("CustomerToken", custToken);
+		xhttp.send(JSON.stringify(skmuObj));
+
+	}
 
 
 }

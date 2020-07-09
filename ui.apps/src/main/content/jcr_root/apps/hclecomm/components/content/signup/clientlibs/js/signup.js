@@ -5,6 +5,10 @@
 		if(params.has('referer')) {
 			if(!keys.some(k => params.get('referer').includes(k) )) {
 				redirectURL = params.get('referer');
+                if(redirectURL.includes('checkout.html'))
+                {
+					redirectURL = domId.getAttribute("data-default");
+                }
 			}
 		} else if(domId.getAttribute("data-default")) {
 			redirectURL = domId.getAttribute("data-default");
@@ -15,11 +19,13 @@
   const successSignUpCallback = (respData) =>  {
 	if(checkUserCookie("hcluser") === false) {
 		setUserCookie("hcluser",JSON.stringify(respData.message),1);
+      	document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 	}
 	setTimeout(function(){window.location = findRedriectUrl2(document.signup_form);}, 1000);
   }
 
   const handleHttpServerRequestJson2 = function (url, formdata) {
+	  loader(true);
 	const othrParm = {
 	  headers: {"content-type":"application/json; charset=UTF-8", 'Accept': 'application/json'},
 	  body: JSON.stringify(formdata),
@@ -40,6 +46,7 @@
 		(rejected) => {console.log(rejected);
 	})
 	.then(data => {
+		loader(false);
 		const status = (data.status)?JSON.parse(data.status): false;
 		if(status === true) {
 		  successSignUpCallback(data);
@@ -128,7 +135,7 @@ function displayError(errorhtml, formElmName) {
 	  }
 
 
-	const formData = {  
+	const formData = {
 		firstname: document.signup_form.firstname.value,
 		email: document.signup_form.email.value,
 		phone: document.signup_form.phone.value,
@@ -140,6 +147,6 @@ function displayError(errorhtml, formElmName) {
 	let url = '/bin/hclecomm/customerSignup';
 	await handleHttpServerRequestJson2(url,formData);
 
-	
+
 	return true;
   }

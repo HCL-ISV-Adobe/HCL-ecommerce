@@ -22,7 +22,7 @@ $(document).ready(function() {
                                                                           <div>
                                                                              <span>${item['cartItem'].qty} * <span>$ ${item['cartItem'].price}</span></span>
                                                                          </div>
-                                                             			<div><span>Price $</span>
+                                                             			<div><span>Price: $</span>
                                                                              <span>${item['cartItem'].qty *  item['cartItem'].price}</span>
                                                                          </div>
 
