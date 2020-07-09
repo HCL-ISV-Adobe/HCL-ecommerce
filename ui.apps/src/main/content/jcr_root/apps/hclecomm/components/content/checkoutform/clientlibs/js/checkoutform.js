@@ -336,10 +336,8 @@ function onSaveNDeliver() {
 		getUserDeatils['shipping_method_code'] = "flatrate";
 		getUserDeatils['shipping_carrier_code'] = "flatrate";
 	}
-
 	if (validationFeilds && validateFormFields) {
 		onToggleDescription(event);
-		
 	}
 
 
@@ -417,13 +415,13 @@ function letValidateField(userDetails, userDetailsValue, event) {
 				doValidation = true;
 				return
 			}
-
-			if (!userDetailsValue.match(pinRegexp)) {
+			if (userDetailsValue.match(pinRegexp) === null) {
 				event.nextElementSibling.innerText = `Please Enter valid ${userDetails}`;
 				doValidation = true;
 				return
 			}
-			getUserDeatils['postcode'] = userDetailsValue
+			getUserDeatils['postcode'] = userDetailsValue;
+            break;
 
 		case 'City':
 			if (!userDetailsValue) {
