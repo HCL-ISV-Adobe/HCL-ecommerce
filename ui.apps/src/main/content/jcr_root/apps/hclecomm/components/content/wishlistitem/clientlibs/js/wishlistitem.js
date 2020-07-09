@@ -89,7 +89,6 @@ function getCookieWishlist(name, callback) {
        cartid
       }
      } = JSON.parse(this.responseText);
-     console.log(cartid);
      document.cookie = "cartId = " + cartid + "; path=/";
      callback(cartid);
 
@@ -109,10 +108,7 @@ function callbackwishlist(cartId) {
   "cartid": cartId,
   "qty": inpValue
  }
- console.log("data ", data);
-
-
-
+ 
  //sending data to server
  var xhr = new XMLHttpRequest();
  var url = "/bin/hclecomm/addToCart";

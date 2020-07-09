@@ -38,7 +38,7 @@ public class GetWishListItemsServlet extends SlingSafeMethodsServlet {
          try {
             String customerToken = request.getHeader("CustomerToken");
             JsonObject responseStream = wishListService.getWishListItems(customerToken);
-            LOG.info("responseStream is {}", responseStream.toString());
+             LOG.debug("responseStream is {}", responseStream.toString());
         
             JsonArray wishlistitems= responseStream.get("items").getAsJsonArray();
             List<HashMap<String, Object>> list = new ArrayList<>();

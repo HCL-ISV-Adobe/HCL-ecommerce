@@ -60,18 +60,17 @@ public class AddToWishListServlet extends SlingAllMethodsServlet {
                         responseObject.put("message", addToWishlistResponse.getJSONObject("message"));
                         responseObject.put("status", Boolean.TRUE);
                     } else {
-                        responseObject.put("message", addToWishlistResponse.getJSONObject("message"));
+                        responseObject.put("message", "Cannot add product without stock to wishlist.");
                     }
-                    LOG.info("addtowishlist doPpst()  method start."+ addToWishlistResponse.toString());
+                    LOG.debug("addtowishlist doPost()  method start."+ addToWishlistResponse.toString());
                 }
             } else {
                 responseObject.put("message", "Missing ProductSku Parameter ");
                 responseObject.put("status", Boolean.FALSE);
             }
             response.getWriter().print(responseObject);
-        } catch (JSONException e) {
-            LOG.error("Error Occured while executing AddToWishListServlet doPost() - add item in wishlist. responseObject={} ", responseObject);
-            LOG.error("Full Error={} ", e);
+        } catch (Exception e)  {
+            LOG.error("Error Occured while executing AddToWishListServlet doPost() - add item in wishlist {} ", e.getMessage());
         }
         LOG.debug("addtowishlist doPost()  method end.");
     }

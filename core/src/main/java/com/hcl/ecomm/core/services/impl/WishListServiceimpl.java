@@ -71,7 +71,7 @@ public class WishListServiceimpl implements WishListService {
             String domainName = getDomainName();
            addTowishlistPath = addTowishlistPath.replace("sku", Sku);
             String url = schema + "://" + domainName + addTowishlistPath;
-            LOG.info("addTowishlistPath : " + url);
+            LOG.debug("addTowishlistPath : " + url);
 
             Integer statusCode;
 
@@ -82,7 +82,7 @@ public class WishListServiceimpl implements WishListService {
             httppost.setHeader("Authorization", "Bearer " +authToken);
             CloseableHttpResponse httpResponse = httpClient.execute(httppost);
             statusCode = httpResponse.getStatusLine().getStatusCode();
-            LOG.info("add to wishlist: magento statusCode ={}",statusCode);
+            LOG.debug("add to wishlist: magento statusCode ={}",statusCode);
             JSONObject wishlistresponse = new JSONObject();
             if(HttpStatus.SC_OK == statusCode){
                 BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
@@ -97,18 +97,8 @@ public class WishListServiceimpl implements WishListService {
                 addToWishlistResponse.put("statusCode", statusCode);
                 addToWishlistResponse.put("message", wishlistresponse);
             }else if(HttpStatus.SC_BAD_REQUEST == statusCode){
-                BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
-                String str="";
-                String output;
-                while ((output = br.readLine()) != null) {
-
-                    str +=output;
-                }
-
-                wishlistresponse.put("response",str);
                 addToWishlistResponse.put("statusCode", statusCode);
-                addToWishlistResponse.put("message", wishlistresponse);
-               
+                addToWishlistResponse.put("message", httpResponse.getEntity().getContent().toString());
                 LOG.error("Error while add to wishlist. status code:{} and message={}",statusCode,httpResponse.getEntity().getContent().toString());
             }else{
                 LOG.error("Error while add to wishlist. status code:{}",statusCode);
@@ -153,7 +143,7 @@ public class WishListServiceimpl implements WishListService {
                 responseStream = "Failed to fetch wishlist details.";
             }
             WishListItems = new Gson().fromJson(responseStream, JsonObject.class);
-            LOG.info( "wishlist Items Response in Json object : " + WishListItems);
+            LOG.debug( "wishlist Items Response in Json object : " + WishListItems);
 
         }
         catch (Exception e)

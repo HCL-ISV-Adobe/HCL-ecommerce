@@ -109,7 +109,6 @@ function getCookie(name, callback) {
        cartid
       }
      } = JSON.parse(this.responseText);
-     console.log(cartid);
      document.cookie = "cartId = " + cartid + "; path=/";
      callback(cartid);
 
@@ -129,9 +128,6 @@ function callback(cartId) {
   "cartid": cartId,
   "qty": inpValue
  }
- console.log("data ", data);
-
-
 
  //sending data to server
  var xhr = new XMLHttpRequest();
