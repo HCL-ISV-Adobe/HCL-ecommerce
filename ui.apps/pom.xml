@@ -62,7 +62,7 @@
                         <filter><root>/etc/notification</root></filter>
                     </filters>
                    
-					          <repositoryStructurePackages>
+                    <repositoryStructurePackages>
                         <repositoryStructurePackage>
                             <groupId>com.hcl.ecomm</groupId>
                             <artifactId>hclecomm.repository-structure</artifactId>
