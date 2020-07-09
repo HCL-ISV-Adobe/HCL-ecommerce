@@ -9,7 +9,7 @@ $(document).ready(function () {
     var value = $('#mydiv').data('custom-property');
     console.log(value);
 
-    var path= $('#redirect').data('custom-property');
+    let path= $('#redirect').data('custom-property');
     console.log(path);
     var msg = $('#msg').data('custom-property');
     console.log(msg);
@@ -139,6 +139,8 @@ $(document).ready(function () {
 
                                     $(".product").prepend(("<h4><span >" + msg + "</span></h4>"));
 									//code for adding custom msg and redirect path
+									if(document.querySelectorAll(".emptyBag").length>0)
+                                    {
                                     setTimeout(function(){
                                                          var url = window.location.href;
                                                          url = url.substring(0, url.indexOf('/content/'));
@@ -146,6 +148,7 @@ $(document).ready(function () {
                                                          console.log("hi ",url);
                                                          window.location=url+'.html';
                                                          },5000);
+                                    }
 
 
 
