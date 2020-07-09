@@ -285,7 +285,7 @@ function onSaveNDeliver() {
 			}
 
 			if (userDetails === 'Pin Number' && userDetailsValue) {
-				const pinRegexp = /^[0-9]{6}(?:-[0-9]{4})?$/;
+				const pinRegexp = /^[0-9]{5,6}(?:-[0-9]{4})?$/;
 				if (!userDetailsValue.match(pinRegexp)) {
 
 					validateFormFields = false;
@@ -409,7 +409,7 @@ function letValidateField(userDetails, userDetailsValue, event) {
 
 			break;
 		case 'Pin Number':
-			const pinRegexp = /^[0-9]{6}(?:-[0-9]{4})?$/;
+			const pinRegexp = /^[0-9]{5,6}(?:-[0-9]{4})?$/;
 			if (!userDetailsValue) {
 				event.nextElementSibling.innerText = `Please Enter ${userDetails}`;
 				doValidation = true;
