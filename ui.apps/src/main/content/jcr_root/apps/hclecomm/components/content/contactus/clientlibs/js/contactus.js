@@ -10,16 +10,16 @@ if(document.contactus_form){
         }
     }
 }
-function displayError(errorhtml, formElmName) {
+function displayFormError(errorhtml, formElmName) {
     const ErrorMsgElm = document.getElementById('cmp-contactus-errormsg');
     document.contactus_form[formElmName].focus();
     ErrorMsgElm.style.visibility = "visible";
-    ErrorMsgElm.style.borderColor = "red";
+    document.contactus_form[formElmName].style.borderColor = "red";
     ErrorMsgElm.innerHTML = errorhtml;
     return;
 }
 
-function validateSignupFrom(e) {
+function validateContactFrom(e) {
     const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
     const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const phoneno = /^\d{10}$/;
@@ -30,9 +30,16 @@ function validateSignupFrom(e) {
     let errorhtml = "";
     //Cannot read property 'forEach' of undefined
     for(let i=0; i<document.contactus_form.elements.length;i++){
+        document.contactus_form.elements[i].style.borderColor = "#d1d1d1";
         if (document.contactus_form.elements[i].required && document.contactus_form.elements[i].value === '') {
             errorhtml = '<span> Please enter '+document.contactus_form.elements[i].name+'<span>';
-            displayError(errorhtml, document.contactus_form.elements[i].name);
+            displayFormError(errorhtml, document.contactus_form.elements[i].name);
+            isValid = false;
+            return false;
+        }
+        if (document.contactus_form.elements[i].type =='email' && !document.contactus_form.elements[i].value.match(mailformat)){
+            errorhtml = '<span> Please enter valid mail format <span>';
+            displayFormError(errorhtml, document.contactus_form.elements[i].name);
             isValid = false;
             return false;
         }

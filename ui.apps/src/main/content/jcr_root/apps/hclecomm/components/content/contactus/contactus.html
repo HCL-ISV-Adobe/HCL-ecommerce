@@ -18,7 +18,7 @@
       method="${container.method}" action="${container.action}" id="${container.id}" 
       enctype="${container.enctype}"
       class="cmp-form ${grid.cssClass}" name="contactus_form"
-      onsubmit="return validateSignupFrom(event);" novalidate>
+      onsubmit="return validateContactFrom(event);" novalidate>
     <input type="hidden" name=":formstart" value="${resource.path}"/>
     <input type="hidden" name="_charset_" value="utf-8"/>
     <input data-sly-test="${container.redirect}" type="hidden" name=":redirect" value="${container.redirect @ extension='html'}"/>
