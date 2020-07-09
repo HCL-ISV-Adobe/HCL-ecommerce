@@ -123,27 +123,65 @@ $(document).ready(function () {
 	$('.cvv-btn-continue').children('.cvv-continue').children().removeAttr("href");
 	// using thie cookies value just for testing purpose , remove it after intrgation with other component
 
-	const stateArray = ['Uttar-Pradesh', 'Andhra-Pradesh', 'Maharashtra'];
-	let selectHTML = "<select class ='add-addr-feilds' name ='state'>";
-	if (stateArray) {
-		stateArray.forEach((item) => {
-			selectHTML += "<option value='" + item + "'>" + item + "</option>";
-		})
-		selectHTML += "</select>";
-        const getstatecollection= document.getElementById('state-collection');
-		if(selectHTML && getstatecollection ){
-    			//document.getElementById('state-collection').appendChild(selectHTML);
-    			getstatecollection.innerHTML = selectHTML;
-    		}
-	}
-
-
+    if(document.querySelector(".add-new-address-form #country")){
+       getCountriesList();
+    }
 });
+let countriesList = [];
 let doValidation = false;
 let submitForm = false;
 let guestEmail = false;
 let cvvSubmission = false;
 let validatecardNExpDate = false;
+
+const getCountriesList = function () {
+    let url = '/bin/hclecomm/countrystatelist';
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if(this.readyState == 4 && this.status == 200 ) {
+            countriesList = JSON.parse(this.responseText);
+            
+            //update the country select box
+            let selectHTMLCnty = '<option value="none">Select Country</option>';
+            const countryELm = document.getElementById('country');
+            countriesList.forEach(item => {
+                 selectHTMLCnty += "<option value='"+ item.country_id + "' />" + item.country_name + "</option>";
+            });
+            if(countryELm && selectHTMLCnty) {
+                countryELm.innerHTML = selectHTMLCnty;
+            }
+            countryELm.addEventListener('change', function(event) {
+                updateStateList(this.value,event);
+            });
+    	}
+    }
+    xhttp.open('GET',url,true);
+    xhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
+    xhttp.send();
+}
+
+const updateStateList = function(countryId,event) {
+    //this method is also a onchange trigger for country select
+    //if (submitForm) {letValidateField(event.name, event.value, event)};
+    //console.log(event);
+	onEnterDeatils(event);
+
+    const stateELm = document.getElementById('state');
+    let selectHTMLstate = '<option value="none">Select State</option>';
+    stateELm.innerHTML = selectHTMLstate;
+    stateELm.disabled = true;
+    if(countryId == "none") {
+        return ;
+    }
+    let countryItem = countriesList.filter(item => item.country_id == countryId);
+    if(countryItem[0].states && countryItem[0].states.length > 0 ){
+        countryItem[0].states.forEach(st => {
+           selectHTMLstate += "<option value='"+ st.region_code + "' data-attribute='"+ st.region_id +"'/>" + st.state_name + "</option>";
+        })
+        stateELm.disabled = false;
+        stateELm.innerHTML = selectHTMLstate;
+	}
+}
 
 function onValidatingGuestMail(event) {
 	guestEmail = true;
@@ -247,12 +285,24 @@ function onSaveNDeliver() {
 			}
 
 			if (userDetails === 'Pin Number' && userDetailsValue) {
-				const pinRegexp = /^[0-9]{6}(?:-[0-9]{4})?$/;
+				const pinRegexp = /^[0-9]{5,6}(?:-[0-9]{4})?$/;
 				if (!userDetailsValue.match(pinRegexp)) {
 
 					validateFormFields = false;
 				}
 			}
+        	if (userDetails === 'Country' && userDetailsValue == 'none') {
+				validateFormFields = false;
+			}
+
+            if (userDetails === 'State') {
+               if($('.add-new-address-form #country').val() == 'none' || $('.add-new-address-form #state option').size() <= 1) {
+                    return;
+                } else if($('.add-new-address-form #state option').size() > 1 && userDetailsValue == 'none') {
+                    validateFormFields = false;
+                }
+            }
+
 			letValidateField(userDetails, userDetailsValue, fieldItem);
 
 
@@ -272,17 +322,19 @@ function onSaveNDeliver() {
 	if (!doValidation && checkoutcartId) {
 		$('.empty-cartid').text("");
 		getUserDeatils['cartId'] = checkoutcartId;
-		getUserDeatils['region'] = "MH";
-		getUserDeatils['region_id'] = 0;
-		getUserDeatils['country_id'] = 'IN';
-		getUserDeatils['region_code'] = 'MH';
+	    getUserDeatils['region'] = getUserDeatils['region_code']; //MH
+        if(!getUserDeatils['region_id']) {
+			console.log("no region id");
+            getUserDeatils['region_id'] = 0;
+        }
+		//getUserDeatils['country_id'] = 'IN';
+		//getUserDeatils['region_code'] = 'MH';
+
 		getUserDeatils['shipping_method_code'] = "flatrate";
 		getUserDeatils['shipping_carrier_code'] = "flatrate";
 	}
-
 	if (validationFeilds && validateFormFields) {
 		onToggleDescription(event);
-		
 	}
 
 
@@ -354,19 +406,19 @@ function letValidateField(userDetails, userDetailsValue, event) {
 
 			break;
 		case 'Pin Number':
-			const pinRegexp = /^[0-9]{6}(?:-[0-9]{4})?$/;
+			const pinRegexp = /^[0-9]{5,6}(?:-[0-9]{4})?$/;
 			if (!userDetailsValue) {
 				event.nextElementSibling.innerText = `Please Enter ${userDetails}`;
 				doValidation = true;
 				return
 			}
-
-			if (!userDetailsValue.match(pinRegexp)) {
+			if (userDetailsValue.match(pinRegexp) === null) {
 				event.nextElementSibling.innerText = `Please Enter valid ${userDetails}`;
 				doValidation = true;
 				return
 			}
-			getUserDeatils['postcode'] = userDetailsValue
+			getUserDeatils['postcode'] = userDetailsValue;
+            break;
 
 		case 'City':
 			if (!userDetailsValue) {
@@ -389,19 +441,38 @@ function letValidateField(userDetails, userDetailsValue, event) {
 
 			getUserDeatils['street'] = streetArr;
 			break;
-		case 'state':
-			return
+		case 'Country':
+			if (userDetailsValue == "none") {
+				event.nextElementSibling.innerText = `Please Select ${userDetails}`;
+                doValidation = true;
+				return
+            }
+            getUserDeatils['country_id'] = userDetailsValue;
+            //getUserDeatils['country_name'] = $(".add-new-address-form #country option:selected").text();
+			break;
+
+		case 'State':
+			if (userDetailsValue == "none") {
+				event.nextElementSibling.innerText = `Please Select ${userDetails}`;
+                doValidation = true;
+				return
+            }
+            getUserDeatils['region_code'] = userDetailsValue;
+            let stElm = document.querySelector(".add-new-address-form #state");
+            getUserDeatils['region_id'] = stElm.options[stElm.selectedIndex].getAttribute('data-attribute');
 			break;
 
 		case 'optional-phone':
 			return
-
-
 			break;
 		default:
 			break;
 	}
-	event.nextElementSibling.innerText = '';
+    if(event.type === "change"){
+		event.target.nextElementSibling.innerText = '';
+    } else {
+		event.nextElementSibling.innerText = '';
+    }
 	doValidation = false;
 
 

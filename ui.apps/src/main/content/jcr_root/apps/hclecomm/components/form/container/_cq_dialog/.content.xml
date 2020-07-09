@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="nt:unstructured"
-    jcr:title="Shopping Cart"
+    jcr:title="Form Container"
     sling:resourceType="cq/gui/components/authoring/dialog"
-    helpPath="https://www.adobe.com/go/aem_cmp_teaser_v1">
+    extraClientlibs="[core.wcm.components.form.container.v2.editor]"
+    helpPath="https://www.adobe.com/go/aem_cmp_form_container_v2"
+    trackingFeature="core-components:form-container:v2">
     <content
         jcr:primaryType="nt:unstructured"
         sling:resourceType="granite/ui/components/coral/foundation/container">
@@ -28,25 +30,19 @@
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/container">
                                         <items jcr:primaryType="nt:unstructured">
-                                            <productcart
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                fieldDescription="Enter Cart Item Text"
-                                                fieldLabel="Product Cart"
-                                                name="./productcart"/>
-                                            <redirect
+                                            <attachment
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                                                fieldDescription="Enter the redirect path here"
-                                                fieldLabel="Redirect Path"
-                                                name="./redirectpath"
+                                                fieldLabel="Attachment"
+                                                name="./attachment"
                                                 rootPath="/content"/>
-                                            <msg
+                                            <templatepath
                                                 jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                fieldDescription="Enter the Custom Message here"
-                                                fieldLabel="Custom Message"
-                                                name="./msg"/>
+                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                fieldLabel="Template Path"
+                                                name="./templatePath"
+                                                predicate="hierarchy"
+                                                rootPath="/etc"/>
                                         </items>
                                     </column>
                                 </items>
