@@ -137,18 +137,23 @@ $(document).ready(function () {
                                         $('.cartproductdisplay').css('display', 'none');
                                         }
 
-                                    $(".product").prepend(("<h4><span >" + msg + "</span></h4>"));
+                                    $(".product").prepend(("<h4><span >" + msg + "</span></h4>")),emptyRedirect();
 									//code for adding custom msg and redirect path
-									if(document.querySelectorAll(".emptyBag").length>0)
-                                    {
+
+                                    function emptyRedirect(){
+                                        console.log('executed');
+
                                     setTimeout(function(){
                                                          var url = window.location.href;
                                                          url = url.substring(0, url.indexOf('/content/'));
                                                          url+=path;
+
                                                          console.log("hi ",url);
                                                          window.location=url+'.html';
-                                                         },5000);
+
+                                                         },7000);
                                     }
+
 
 
 
