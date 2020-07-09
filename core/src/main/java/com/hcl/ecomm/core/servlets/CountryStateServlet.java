@@ -37,11 +37,11 @@ public class CountryStateServlet extends SlingSafeMethodsServlet {
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
 
-		LOG.info("inside CountryState Servlet  doGET method");
+		LOG.debug("inside CountryState Servlet  doGET method");
 		try {
 
 			JSONArray responseStream = shippingInfoService.getStateCountryList();
-			LOG.info("responseStream is {}", responseStream.toString());
+			LOG.debug("responseStream is {}", responseStream.toString());
 
 			JSONArray countryStateRes = new JSONArray();
 			for(int i= 0 ;i<responseStream.length(); i++){

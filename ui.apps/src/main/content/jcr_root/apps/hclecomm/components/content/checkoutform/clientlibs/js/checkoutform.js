@@ -322,10 +322,7 @@ function onSaveNDeliver() {
 	if (!doValidation && checkoutcartId) {
 		$('.empty-cartid').text("");
 		getUserDeatils['cartId'] = checkoutcartId;
-
-        console.log("getUserDeatils", getUserDeatils);
-
-		getUserDeatils['region'] = getUserDeatils['region_code']; //MH
+	    getUserDeatils['region'] = getUserDeatils['region_code']; //MH
         if(!getUserDeatils['region_id']) {
 			console.log("no region id");
             getUserDeatils['region_id'] = 0;
