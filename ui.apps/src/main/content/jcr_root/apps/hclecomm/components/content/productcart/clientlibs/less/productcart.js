@@ -9,6 +9,10 @@ $(document).ready(function () {
     var value = $('#mydiv').data('custom-property');
     console.log(value);
 
+    var path= $('#redirect').data('custom-property');
+    console.log(path);
+    var msg = $('#msg').data('custom-property');
+    console.log(msg);
     var checkmode = $('.cart-detail-container').attr('checkmode');
 
    if(checkmode == 'edit'){
@@ -133,7 +137,18 @@ $(document).ready(function () {
                                         $('.cartproductdisplay').css('display', 'none');
                                         }
 
-								$(".product").prepend(("<h4><span >" + value + "</span><div>Shopping Bag is Empty.You need to add item to cart</div></h4>"));
+                                    $(".product").prepend(("<h4><span >" + msg + "</span></h4>"));
+									//code for adding custom msg and redirect path
+                                    setTimeout(function(){
+                                                         var url = window.location.href;
+                                                         url = url.substring(0, url.indexOf('/content/'));
+                                                         url+=path;
+                                                         console.log("hi ",url);
+                                                         window.location=url+'.html';
+                                                         },5000);
+
+
+
                                 }
     							else{
                                     $('.cartproductdisplay').css('display', 'block');
