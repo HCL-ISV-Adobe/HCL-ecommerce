@@ -56,7 +56,7 @@ public class WishListServiceimpl implements WishListService {
     private String schema = "http";
     @Override
     public JSONObject addToWishList(String Sku, String custToken) {
-        LOG.info("addToWishList method start  product={}: " + Sku);
+        
         LOG.debug("addToWishList method start  product={}: " + Sku);
 
         String addTowishlistPath = "";
@@ -108,7 +108,7 @@ public class WishListServiceimpl implements WishListService {
                 wishlistresponse.put("response",str);
                 addToWishlistResponse.put("statusCode", statusCode);
                 addToWishlistResponse.put("message", wishlistresponse);
-               // addToWishlistResponse.put("message", httpResponse.getEntity().getContent().toString());
+               
                 LOG.error("Error while add to wishlist. status code:{} and message={}",statusCode,httpResponse.getEntity().getContent().toString());
             }else{
                 LOG.error("Error while add to wishlist. status code:{}",statusCode);

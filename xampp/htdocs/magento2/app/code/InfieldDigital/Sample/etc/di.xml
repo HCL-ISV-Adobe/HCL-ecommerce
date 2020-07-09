@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+@copyright: Copyright © 2017 mediaman GmbH. All rights reserved.
+@see LICENSE.txt
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+		<preference for="InfieldDigital\Sample\Api\WishlistRepositoryInterface"
+                type="InfieldDigital\Sample\Model\WishlistRepository"/>
+        <preference for="InfieldDigital\Sample\ApiWishlistInterface"
+                type="InfieldDigital\Sample\Model\Wishlist"/>
+        <preference for="InfieldDigital\Sample\Api\ItemInterface"
+                type="InfieldDigital\Sample\Model\Item"/>
+    
+</config>

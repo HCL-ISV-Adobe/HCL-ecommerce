@@ -73,7 +73,7 @@ public class AddToWishListServlet extends SlingAllMethodsServlet {
             LOG.error("Error Occured while executing AddToWishListServlet doPost() - add item in wishlist. responseObject={} ", responseObject);
             LOG.error("Full Error={} ", e);
         }
-        LOG.debug("addtocart doPost()  method end.");
+        LOG.debug("addtowishlist doPost()  method end.");
     }
 
     private boolean isValidPayload(JSONObject jsonPayload) {
