@@ -7,12 +7,12 @@ $(document).ready(function () {
     }
 
     var value = $('#mydiv').data('custom-property');
-    console.log(value);
+
 
     let path= $('#redirect').data('custom-property');
-    console.log(path);
+
     var msg = $('#msg').data('custom-property');
-    console.log(msg);
+
     var checkmode = $('.cart-detail-container').attr('checkmode');
 
    if(checkmode == 'edit'){
@@ -119,7 +119,7 @@ $(document).ready(function () {
 
                                 });
                                 var mybagcount = bagCount(data);
-                                console.log(mybagcount);
+
     							if(mybagcount == 0){
 
 
@@ -141,14 +141,14 @@ $(document).ready(function () {
 									//code for adding custom msg and redirect path
 
                                     function emptyRedirect(){
-                                        console.log('executed');
+
 
                                     setTimeout(function(){
                                                          var url = window.location.href;
                                                          url = url.substring(0, url.indexOf('/content/'));
                                                          url+=path;
 
-                                                         console.log("hi ",url);
+
                                                          window.location=url+'.html';
 
                                                          },7000);
