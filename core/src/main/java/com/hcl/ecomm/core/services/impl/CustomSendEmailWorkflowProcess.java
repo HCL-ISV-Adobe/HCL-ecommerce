@@ -85,7 +85,7 @@ public class CustomSendEmailWorkflowProcess implements WorkflowProcess {
             List<String> failureList = new ArrayList<String>();
 
             if (recipients == null || recipients.length() <= 0) {
-                throw new IllegalArgumentException("Invalid Recepient");
+                throw new IllegalArgumentException("Invalid Recipient");
             }
 
             List<InternetAddress> addresses = new ArrayList<InternetAddress>(recipients.length());
@@ -97,7 +97,13 @@ public class CustomSendEmailWorkflowProcess implements WorkflowProcess {
 
             Map<String, String> params = new HashMap<>();
             InternetAddress[] iAddressRecipients = addresses.toArray(new InternetAddress[addresses.size()]);
-            List<InternetAddress> failureInternetAddresses = emailService.sendEmail(templatePath, params, attachments, iAddressRecipients);
+            if(attachments.isEmpty())
+            {
+                List<InternetAddress> failureInternetAddresses = emailService.sendEmail(templatePath, params, iAddressRecipients);
+            }
+            else{
+                List<InternetAddress> failureInternetAddresses = emailService.sendEmail(templatePath, params, attachments, iAddressRecipients);
+            }
 
 
         } catch (Exception e) {
