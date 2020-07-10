@@ -445,7 +445,7 @@
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Form Container Policy"
                         sling:resourceType="wcm/core/components/policy/policy"
-                        components="group:hclecomm.Form">
+                        components="group:hclecomm.Form,group:hclecomm.Content">
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_1594020188218>
                 </newsletter>            

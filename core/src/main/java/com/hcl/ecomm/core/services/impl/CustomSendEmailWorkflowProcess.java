@@ -127,7 +127,7 @@ public class CustomSendEmailWorkflowProcess implements WorkflowProcess {
 
         for (final InternetAddress address : recipients) {
             try {
-                LOG.info("Sending Email to :" ,address);
+                LOG.debug("Sending Email to :" ,address);
                 final Email email = getEmail(mailTemplate, mailType, params);
                 email.setTo(Collections.singleton(address));
 
