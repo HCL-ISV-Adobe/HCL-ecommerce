@@ -296,9 +296,9 @@ function onSaveNDeliver() {
 			}
 
             if (userDetails === 'State') {
-               if($('.add-new-address-form #country').val() == 'none' || $('.add-new-address-form #state option').size() <= 1) {
+               if($('.add-new-address-form #country').val() == 'none' || $('.add-new-address-form #state option').length <= 1) {
                     return;
-                } else if($('.add-new-address-form #state option').size() > 1 && userDetailsValue == 'none') {
+                } else if($('.add-new-address-form #state option').length > 1 && userDetailsValue == 'none') {
                     validateFormFields = false;
                 }
             }
