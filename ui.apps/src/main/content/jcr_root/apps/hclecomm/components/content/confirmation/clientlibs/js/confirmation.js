@@ -21,7 +21,7 @@ $(document).ready(function () {
             return (
                 `<div class="product-item-container">
                                 <div>
-                                    <img class ='check-out-total-product-img' src= ${item['cartItem'].image}/>
+                                    <img class ='check-out-total-product-img' src= ${item['cartItem'].image}></img>
                                 </div>
                                 <div>
                                     <div>
