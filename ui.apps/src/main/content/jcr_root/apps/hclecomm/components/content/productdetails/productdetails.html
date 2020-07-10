@@ -27,7 +27,11 @@
             /><span class="plus" onclick = "onQuantityChnage('+')">+</span>
       <div class ='product-details-cmp--btn-wrapper'>
       <div class ='btn-product-card' onClick="addtoCart()" data-sly-resource="${'btn' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
-      <div class ='btn-product-card' data-sly-resource="${'btn button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+      <div class ='btn-product-card' onClick="addtoWishlist()"data-sly-resource="${'btn button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
     </div>
 <p class ='product-details-cmp--no-product'>${properties.noProductAvailable}</p>
+<p class ='cmp--wishlist--product'>${properties.loginUser}</p>
+<p class ='cmp--wishlist--outofstock'>${properties.OutofstockItem}</p>
+<p class ='cmp--wishlist--product-add'>${properties.addItemWishlist}</p>
 </div>
+
