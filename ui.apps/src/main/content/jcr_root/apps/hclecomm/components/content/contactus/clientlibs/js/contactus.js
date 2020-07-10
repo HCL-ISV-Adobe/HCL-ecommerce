@@ -1,0 +1,57 @@
+
+if(document.contactus_form){
+    let formLabels = document.contactus_form.querySelectorAll('label');
+    for(let i=0; i<formLabels.length;i++){
+        if (document.contactus_form.querySelectorAll('label')[i].nextElementSibling.required) {
+            let startHtml = document.createElement('span'); 
+            startHtml.classList.add('star');
+            startHtml.innerHTML = '*';
+          document.contactus_form.querySelectorAll('label')[i].appendChild(startHtml);
+        }
+    }
+}
+function displayFormError(errorhtml, formElmName) {
+    const ErrorMsgElm = document.getElementById('cmp-contactus-errormsg');
+    document.contactus_form[formElmName].focus();
+    ErrorMsgElm.style.visibility = "visible";
+    document.contactus_form[formElmName].style.borderColor = "red";
+    ErrorMsgElm.innerHTML = errorhtml;
+    return;
+}
+
+function validateContactFrom(e) {
+    const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
+    const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const phoneno = /^\d{10}$/;
+    const ErrorMsgElm = document.getElementById('cmp-contactus-errormsg');
+    let isValid = true;     
+    ErrorMsgElm.innerHTML = "";
+    ErrorMsgElm.style.visibility = "hidden";
+    let errorhtml = "";
+    for(let i=0; i<document.contactus_form.elements.length;i++){
+        document.contactus_form.elements[i].style.borderColor = "#d1d1d1";
+        if (document.contactus_form.elements[i].required && document.contactus_form.elements[i].value === '') {
+            errorhtml = '<span> Please enter '+document.contactus_form.elements[i].name+'<span>';
+            displayFormError(errorhtml, document.contactus_form.elements[i].name);
+            isValid = false;
+            return false;
+        }
+        if (document.contactus_form.elements[i].type =='email' && !document.contactus_form.elements[i].value.match(mailformat)){
+            errorhtml = '<span> Please enter valid mail format <span>';
+            displayFormError(errorhtml, document.contactus_form.elements[i].name);
+            isValid = false;
+            return false;
+        }
+        if (document.contactus_form.elements[i].type =='tel' && !document.contactus_form.elements[i].value.match(phoneno)){
+		  errorhtml = '<span>Please enter a valid phone number<span>';
+		  displayFormError(errorhtml, document.contactus_form.elements[i].name);
+            isValid = false;
+            return false;
+	  }
+    }
+  
+    if(isValid){
+        return true;
+    }
+    
+}
