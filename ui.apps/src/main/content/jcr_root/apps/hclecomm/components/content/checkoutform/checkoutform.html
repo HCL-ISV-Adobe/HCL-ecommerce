@@ -121,16 +121,22 @@
 					<p class ='error-message'></p>
 					</div>
 
-                    <div>
-					<!-- <input type="text" 
-					class ='mrgn-rght add-addr-feilds' 
-					name ='state'/> -->
-					<div id= 'state-collection'>
-
-					</div>
-					<p class ='error-message'></p>
-					</div>
 				</div>
+				<div>
+                    <div>
+                        <select class="mrgn-rght add-addr-feilds" name="Country" id="country">
+							<option value="none">Select Country</option>
+                        </select>
+                        <p class ='error-message'></p>
+                    </div>
+                
+                    <div>
+                        <select class="add-addr-feilds" name="State" id="state" disabled="disabled" onChange="onEnterDeatils(this)">
+                            <option value="none">Select State</option>
+                        </select>
+                        <p class ='error-message'></p>
+                    </div>
+                </div>
 				<div class ='add-address-btn'>
 
 					<!--/*<input type="button" value ='Save And Deliver Here'  class='continue-btn-add' onclick = "onSaveNDeliver()"/>*/-->

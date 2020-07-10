@@ -56,12 +56,19 @@
                     <properties>
                         <cloudManagerTarget>none</cloudManagerTarget>>
                     </properties>
-					<repositoryStructurePackages>
+
+                    <filters>
+                        <filter><root>/etc/acs-commons</root></filter>
+                        <filter><root>/etc/notification</root></filter>
+                    </filters>
+                   
+                    <repositoryStructurePackages>
                         <repositoryStructurePackage>
                             <groupId>com.hcl.ecomm</groupId>
                             <artifactId>hclecomm.repository-structure</artifactId>
                         </repositoryStructurePackage>
                     </repositoryStructurePackages>                  
+
                     <embeddeds>
                         <embedded>
                             <groupId>com.adobe.cq</groupId>

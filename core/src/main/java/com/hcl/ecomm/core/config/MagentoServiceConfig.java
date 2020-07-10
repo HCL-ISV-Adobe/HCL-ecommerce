@@ -17,9 +17,11 @@ public @interface MagentoServiceConfig {
 	String emptyCartPah = "/us/V1/guest-carts";
 	String guestCartItemDeletePah = "/us/V1/guest-carts/{cartId}/items/{itemId}";
   String couponListPath = "/etc/acs-commons/lists/coupon-list";
-  String servicePathCartUpdateItems = "/V1/guest-carts/";
+    String countryStateListPath = "/content/dam/hclecomm/en/json/countries+states-min.json";
+    String servicePathCartUpdateItems = "/V1/guest-carts/";
   String guestCartShippingInformationPath = "/us/V1/guest-carts/{cartId}/shipping-information";
   String guestCartCreateOrderPath = "/us/V1/guest-carts/{cartId}/order";
+
     //Customer API
   String customerSignupPath = "/V1/customers";
   String customerSigninPath = "/V1/integration/customer/token";
@@ -31,6 +33,10 @@ public @interface MagentoServiceConfig {
     String customerGetCartPath = "/V1/carts/mine/items";
     String customerShippingInfoPath = "/V1/carts/mine/shipping-information";
     String customerCreateOrderPath = "/V1/carts/mine/payment-information";
+
+  String customerAddToWishListPath = "/us/V1/wishlist/sku";
+  String customerGetWishListPath = "/us/V1/wishlist";
+
 
 
 
@@ -79,6 +85,9 @@ public @interface MagentoServiceConfig {
     @AttributeDefinition(name = "COUPON_LIST", description = "This is path of Coupon list under ACS-Commons list", defaultValue = {couponListPath} )
     String getCouponlistPath_string() default couponListPath;
 
+    @AttributeDefinition(name = "Country_State_List", description = "This is the Dam path for getting Country-State List", defaultValue = {countryStateListPath} )
+    String countryStateListPath_string() default countryStateListPath;
+
     @AttributeDefinition(name = "Customer Create Cart Service Path", description = "This is the API path for creating customer's cart", defaultValue = customerProfilePath, type = AttributeType.STRING )
     String customer_createCart_string() default customerCreateCartPath;
 
@@ -99,6 +108,13 @@ public @interface MagentoServiceConfig {
 
   @AttributeDefinition(name = "Customer Create Order Service Path", description = "This is the API path for creating order for customer", defaultValue = customerProfilePath, type = AttributeType.STRING )
   String customer_createOrder_string() default customerCreateOrderPath;
+
+  @AttributeDefinition(name = "Customer Add To WishList Service Path", description = "This is the API path for adding product into customer's wishlist", defaultValue = customerAddToWishListPath, type = AttributeType.STRING )
+  String customer_addToWishList_string() default customerAddToWishListPath;
+
+  @AttributeDefinition(name = "Customer Get wishlist Service Path", description = "This is the API path for getting customer wishlist", defaultValue = customerGetWishListPath, type = AttributeType.STRING )
+  String customer_getWishList_string() default customerGetWishListPath;
+
 
 
 }
