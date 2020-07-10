@@ -5,17 +5,24 @@
     }
     .cmp-contactus-errormsg{
         color: red;
+        text-align: center;
         font-size: 14px;
-        float: left;
+        width: 100%;
         position: absolute;
-        bottom: 40px;
+        top: -30px;    
         font-family: sans-serif;
     }
     .text{ 
         padding:10px 5px;
+        @media only screen and (max-width: 1024px) {
+			float: none !important;
+            //margin:5px 0;
+
+    	}
     }
     .cmp-form-text{
         float: none;
     }
+
 
 }

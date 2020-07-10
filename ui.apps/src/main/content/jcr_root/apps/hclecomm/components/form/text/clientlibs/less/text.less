@@ -8,26 +8,41 @@
     &:focus{
         outline: 0;
     }
+    @media only screen and (max-width: 1024px) {
+            margin:5px 0;
+
+    }
     @media only screen and (max-width: 768px) {       
             font-size: 12px;        
     }
+
 }
 .text-box {
 	.input-style();
 }
 .text-area {
 	.input-style();
+    min-width:192px;
 }
 .form-label{
     font-size: 14px;
     font-weight: 600;
     font-family: Arial, Helvetica, sans-serif;
-    & + .text-box , & + .text-area{
-        float: right;
+    @media only screen and (min-width: 1024px) {
+			& + .text-box , & + .text-area{
+        		float: right;
+    		}
     }
     .star{
         color: red;
     }
 }
 
+.float-right{
+    	.cmp-form-text{
+            input{
+            	float: right;
+            }
+    }
+}
 

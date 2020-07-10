@@ -42,10 +42,15 @@ function validateContactFrom(e) {
             isValid = false;
             return false;
         }
+        if (document.contactus_form.elements[i].type =='tel' && !document.contactus_form.elements[i].value.match(phoneno)){
+		  errorhtml = '<span>Please enter a valid phone number<span>';
+		  displayFormError(errorhtml, document.contactus_form.elements[i].name);
+            isValid = false;
+            return false;
+	  }
     }
   
     if(isValid){
-        debugger;
         return true;
     }
     

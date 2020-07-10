@@ -11,6 +11,7 @@ button {
 	box-sizing: border-box;
 	word-break: break-all;
 	font-family: sans-serif;
+
 }
 
 
@@ -28,6 +29,8 @@ button {
 
 .submit-btn
 {
+    float:right;
+     width:150px;
 	background: #2979be;
 	border: 1px solid #165fab;
 	color: #fff;
@@ -37,10 +40,28 @@ button {
 }
 .cancel-btn
 {
-	background: #ddd;
-	border: 1px solid #ddd;
+    float:right;
+     width:150px;
+	background: #827f7f;
+	border: 1px solid #827f7f;
 	color: #fff;
 	&:hover {
-		background: #ddd;
+		background: #827f7f;
+	}
+}
+
+
+.submit-btn-secondary {
+	.cmp-button {
+        .cmp-form-button{
+            .btn();
+            width:150px;
+            background: #2979be;
+            border: 1px solid #165fab;
+            color: #fff;
+            &:hover {
+                background: #0c4f95;
+            }
+        }
 	}
 }
