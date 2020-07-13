@@ -5,4 +5,4 @@ $(document).ready(function () {
          custEmail = JSON.parse(userData).email;
         document.querySelector(".cmp-newsletter-form .text  input").value = custEmail;
     }
- )};
+ });
