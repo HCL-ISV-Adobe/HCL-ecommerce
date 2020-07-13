@@ -96,7 +96,7 @@ $(document).ready(function () {
                                         </div>
 											<div class="cmp-cart-price" style="display:none">${item.price}</div>
                                        <div class="cmp-cart-total"><i class="fa fa-usd" style="margin-right:5px"></i><span>${(item.price*item.qty).toFixed(2)}</span></div>
-                                        <div class="cmp-cart-button"> <button class="cmp-btn-danger" type="button" onclick="deleteproduct(event,'${item.item_id}','${item.quote_id}');"><i class="fa fa-trash" ></i></button> </div>
+                                        <div class="cmp-cart-button"> <i class="fa fa-trash" onclick="deleteproduct(event,'${item.item_id}','${item.quote_id}');" ></i> </div>
                                             </div>
 
                                         </div>
