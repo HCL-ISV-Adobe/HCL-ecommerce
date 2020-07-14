@@ -10,10 +10,11 @@
     }
     @media only screen and (max-width: 1024px) {
             margin:5px 0;
-
+            width: 100%;  
     }
     @media only screen and (max-width: 768px) {       
-            font-size: 12px;        
+            font-size: 12px;  
+              
     }
 
 }
@@ -21,7 +22,8 @@
 	.input-style();
 }
 .text-area {
-	.input-style();
+    .input-style();
+    resize: none;
     min-width:192px;
 }
 .form-label{
@@ -29,6 +31,7 @@
     font-weight: 600;
     font-family: Arial, Helvetica, sans-serif;
     @media only screen and (min-width: 1024px) {
+        display: block;
 			& + .text-box , & + .text-area{
         		float: right;
     		}
