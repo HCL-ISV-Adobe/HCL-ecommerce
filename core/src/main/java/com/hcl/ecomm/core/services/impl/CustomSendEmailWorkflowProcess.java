@@ -97,14 +97,7 @@ public class CustomSendEmailWorkflowProcess implements WorkflowProcess {
 
             Map<String, String> params = new HashMap<>();
             InternetAddress[] iAddressRecipients = addresses.toArray(new InternetAddress[addresses.size()]);
-            if(attachments.isEmpty())
-            {
-                List<InternetAddress> failureInternetAddresses = emailService.sendEmail(templatePath, params, iAddressRecipients);
-            }
-            else{
-                List<InternetAddress> failureInternetAddresses = emailService.sendEmail(templatePath, params, attachments, iAddressRecipients);
-            }
-
+            List<InternetAddress> failureInternetAddresses = emailService.sendEmail(templatePath, params, attachments, iAddressRecipients);
 
         } catch (Exception e) {
             LOG.error("Exception while sending email : ", e.getMessage());
