@@ -26,7 +26,7 @@ import java.io.IOException;
  */
 @Component(
 		service = Servlet.class,
-		property = { 
+		property = {
 				Constants.SERVICE_DESCRIPTION + "= Create Order Servlet",
 				"sling.servlet.paths=/bin/hclecomm/createOrder",
 				"sling.servlet.method=" + HttpConstants.METHOD_PUT,
@@ -51,7 +51,7 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 		try {
 			responseObject.put("message", "Response");
 			responseObject.put("status", Boolean.FALSE);
-			
+
 			StringBuilder buffer = new StringBuilder();
 			BufferedReader reader = request.getReader();
 			String line;
@@ -65,7 +65,7 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 				LOG.info("CreateOrder iNfo ()  payload={}",jsonPayload);
 				if (isValidItem(jsonPayload)) {
 					JSONObject createOrderItem = jsonItemObj( jsonPayload,customerToken);
-					JSONObject createOrderItemResponse = createOrderService.createOrderItem(createOrderItem,jsonPayload.getString("cartId"), customerToken);
+					JSONObject createOrderItemResponse = getCreateOrderItem(createOrderItem, jsonPayload, customerToken);
 					if (createOrderItemResponse.has("statusCode") && createOrderItemResponse.getInt("statusCode") == HttpStatus.SC_OK) {
 						LOG.info("createOrderItemResponse is {}" ,createOrderItemResponse);
 						responseObject.put("message", createOrderItemResponse.getJSONObject("message"));
@@ -83,7 +83,10 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 			LOG.error("Error Occured while executing create order using shipinfo. Full Error={} ", e);
 		}
 	}
-	
+    public JSONObject getCreateOrderItem(JSONObject createOrderItem, JSONObject jsonPayload, String customerToken) throws JSONException {
+        return createOrderService.createOrderItem(createOrderItem, jsonPayload.getString("cartId"), customerToken);
+    }
+
 	private boolean isValidItem(JSONObject jsonPayload) {
 		boolean isValidItem=Boolean.TRUE;
 		if(!jsonPayload.has("cartId")){

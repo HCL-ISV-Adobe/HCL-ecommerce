@@ -39,7 +39,7 @@ public class CartItemServlet extends SlingSafeMethodsServlet {
 			String customerToken = request.getHeader("CustomerToken");
 			String cartItems = null;
 			String cartId = request.getParameter("cartId");
-			JsonArray responseStream = cartService.getCartItemsDetails(cartId, customerToken);
+			JsonArray responseStream = getCartItemsDetails(cartId, customerToken);
 			LOG.info("responseStream is {}", responseStream.toString());
 
 			JsonArray itemsarr= responseStream.getAsJsonArray();
@@ -57,7 +57,8 @@ public class CartItemServlet extends SlingSafeMethodsServlet {
 				productMap.put("name", itemsarr.get(i).getAsJsonObject().get("name").getAsString());
 				productMap.put("price",itemsarr.get(i).getAsJsonObject().get("price").getAsInt());
 				productMap.put("quote_id",itemsarr.get(i).getAsJsonObject().get("quote_id").getAsString());
-				productMap.put("image_url", checkNullString(itemsarr.get(i).getAsJsonObject().get("extension_attributes").getAsJsonObject().get("image_url").getAsString()));
+				//productMap.put("image_url", checkNullString(itemsarr.get(i).getAsJsonObject().get("extension_attributes").getAsJsonObject().get("image_url").getAsString()));
+				productMap.put("image_url", "https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png");
 				list.add(productMap);
 				 cartArray = new Gson().toJsonTree(list).getAsJsonArray();
 
@@ -74,14 +75,16 @@ public class CartItemServlet extends SlingSafeMethodsServlet {
 			LOG.error("error in product servlet {} ",e.getMessage());
 			//response.setStatus(500);
 		}
-
+	}
+	public JsonArray getCartItemsDetails(String cartId,String customerToken){
+		return cartService.getCartItemsDetails(cartId, customerToken);
 	}
 		
-		public String checkNullString(String value) {
+		/*public String checkNullString(String value) {
 		LOG.debug("value :::::: {}", value);
 		//return value.equals("null") ? "http://127.0.0.1/magento2/pub/media/catalog/product\\\\cache\\\\84e3ec616dfeead44f09ae682858fa68\\\\//t/h/thumnail-adi-tshirt-black.jpg" : value;
-		return value.contains("placeholder")?"https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png" : value;
-	}
+		return value.contains("placeholder")?"http://127.0.0.1/magento2/pub/media/catalog/product\\\\cache\\\\84e3ec616dfeead44f09ae682858fa68\\\\//t/h/thumnail-adi-tshirt-black.jpg" : value;
+	}*/
 
 
 }
