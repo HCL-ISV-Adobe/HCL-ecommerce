@@ -58,3 +58,7 @@ function validateContactFrom(e) {
     }
 
 }
+document.querySelector('.cancel-btn').addEventListener("click", function(){
+    document.querySelector(".contactus form").reset();
+  });
+
