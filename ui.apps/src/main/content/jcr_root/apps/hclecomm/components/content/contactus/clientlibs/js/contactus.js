@@ -23,7 +23,6 @@ function validateContactFrom(e) {
     const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
     const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const phoneno = /^\d{10}$/;
-    debugger;
     const errorMsgElm = document.getElementsByClassName("cmp-contactus-errormsg");
     for (let i = 0; i < errorMsgElm.length; i++) {
         errorMsgElm[i].innerHTML = "";
