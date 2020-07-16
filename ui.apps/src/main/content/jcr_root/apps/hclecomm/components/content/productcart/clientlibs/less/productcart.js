@@ -147,10 +147,9 @@ $(document).ready(function () {
                                                          var url = window.location.href;
                                                          url = url.substring(0, url.indexOf('/content/'));
                                                          url+=path;
-
-
-                                                         window.location=url+'.html';
-
+                                                        if(url){
+                                                              window.location=url+'.html';
+                                                                }
                                                          },7000);
                                     }
 
