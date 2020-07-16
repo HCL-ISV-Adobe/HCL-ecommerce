@@ -18,6 +18,7 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -56,7 +57,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public JsonArray getCartItemsDetails(String cartId, String customerToken) {
+    public JSONArray getCartItemsDetails(String cartId, String customerToken) {
         String token = "";
         String url = "";
         String domainName = loginService.getDomainName();
@@ -69,7 +70,7 @@ public class CartServiceImpl implements CartService {
             token = loginService.getToken();
             url = schema + "://" + domainName + getServicePath() + cartId + "/items";
         }
-        JsonArray cartItems = null;
+        JSONArray cartItems = null;
         LOG.debug("url : " + url);
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -86,7 +87,7 @@ public class CartServiceImpl implements CartService {
             {
                 responseStream = "Failed to fetch cart details.";
             }
-            cartItems = new Gson().fromJson(responseStream, JsonArray.class);
+            cartItems = new JSONArray(responseStream);
             LOG.info( "Cart Items Response in Json Array : " + cartItems);
 
         }
@@ -100,8 +101,8 @@ public class CartServiceImpl implements CartService {
     @Override
     public int getCartItemCount(String cartId, String customerToken) {
         int cartItemCount = 0;
-        JsonArray cartItemsArray = getCartItemsDetails(cartId, customerToken);
-        cartItemCount = cartItemsArray.size();
+        JSONArray cartItemsArray = getCartItemsDetails(cartId, customerToken);
+        cartItemCount = cartItemsArray.length();
         return cartItemCount;
     }
 
