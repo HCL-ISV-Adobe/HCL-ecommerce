@@ -44,6 +44,7 @@ class SimpleServletTest {
 
         fixture.doGet(request, response);
 
+
         assertEquals("Title = resource title", response.getOutputAsString());
     }
 }

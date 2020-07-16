@@ -1,17 +1,17 @@
 package com.hcl.ecomm.core.servlets;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.hcl.ecomm.core.services.ProductService;
 
+import com.hcl.ecomm.core.services.ProductService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import java.io.IOException;
@@ -40,19 +40,19 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
 		String  sku = request.getParameter("sku");
         if(StringUtils.isNotEmpty(sku)) {
 		
-        JsonObject productResponse = productService.getProductDetail(sku);
+        JSONObject productResponse = getProductDetail(sku);
         LOG.info(" productResponse is {}", productResponse.toString());
         List<HashMap<String, String>> productList = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> productMap = new HashMap<String, String>();
-        productMap.put("sku", productResponse.get("sku").getAsString());
-        productMap.put("name", productResponse.get("name").getAsString());
-        productMap.put("price", productResponse.get("price").getAsString());
-        productMap.put("stock", productResponse.get("extension_attributes").getAsJsonObject().get("stock_item").getAsJsonObject().get("is_in_stock").getAsString());
-        productMap.put("qty",  productResponse.get("extension_attributes").getAsJsonObject().get("stock_item").getAsJsonObject().get("qty").getAsString());
+        productMap.put("sku", productResponse.get("sku").toString());
+        productMap.put("name", productResponse.get("name").toString());
+        productMap.put("price", productResponse.get("price").toString());
+        productMap.put("stock", productResponse.getJSONObject("extension_attributes").getJSONObject("stock_item").get("is_in_stock").toString());
+        productMap.put("qty", productResponse.getJSONObject("extension_attributes").getJSONObject("stock_item").get("qty").toString());
         productList.add(productMap);
         LOG.debug("ProductDetails  list is {}",productList.toString());
 
-        String productDetailsJson = new Gson().toJson(productList);
+            String productDetailsJson = productList.toString();
 
 
         response.setContentType("application/json");
@@ -69,4 +69,8 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
             LOG.error("error in ProductDetailsServlet {} ",e.getMessage());
         }
     }
+    public JSONObject getProductDetail(String sku){
+        return productService.getProductDetail(sku);
+    }
 }
+

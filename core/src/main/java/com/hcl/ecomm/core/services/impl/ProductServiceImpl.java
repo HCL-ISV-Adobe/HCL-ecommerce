@@ -1,18 +1,18 @@
 package com.hcl.ecomm.core.services.impl;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.hcl.ecomm.core.config.MagentoServiceConfig;
 import com.hcl.ecomm.core.services.LoginService;
 import com.hcl.ecomm.core.services.ProductService;
-import com.hcl.ecomm.core.utility.ProductUtility;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -34,8 +34,8 @@ public class ProductServiceImpl implements ProductService {
 
 	String scheme = "http";
 	String responseStream = null;
-	JsonArray productJsonArray = null;
-	JsonObject productJsonObject = null;
+	JSONArray productJsonArray = null;
+	JSONObject productJsonObject = null;
 
 	@Activate
 	private MagentoServiceConfig config;
@@ -58,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
 	
 
 	@Override
-	public JsonArray getAllProductDetails() {
+	public JSONArray getAllProductDetails() throws JSONException {
 
 		
 		String token = loginService.getToken();
@@ -95,7 +95,7 @@ public class ProductServiceImpl implements ProductService {
 		} catch (Exception e) {
 			LOG.error(" getAllProductDetails method caught an exception" + e.getMessage());
 		}
-		productJsonArray = ProductUtility.fromStringToJsonArray(responseStream);
+		productJsonArray =new JSONArray(responseStream);
 		LOG.info("Json Array formed : " + productJsonArray);
 
 		return productJsonArray;
@@ -114,7 +114,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public JsonObject getProductDetail(String sku) {
+	public JSONObject getProductDetail(String sku) {
 
 		String token = loginService.getToken();
 		String domainName = loginService.getDomainName();
@@ -142,7 +142,7 @@ public class ProductServiceImpl implements ProductService {
 				responseStream = "Failed to fetch product details from the store";
 				LOG.error("Failed to fetch products details from the store");
 			}
-			productJsonObject = new Gson().fromJson(responseStream, JsonObject.class);
+			productJsonObject = new JSONObject(responseStream);
 			LOG.info("product details Response in Json object : " + productJsonObject);
 		} catch (Exception e) {
 			LOG.error(" getProductDetail method caught an exception" + e.getMessage());

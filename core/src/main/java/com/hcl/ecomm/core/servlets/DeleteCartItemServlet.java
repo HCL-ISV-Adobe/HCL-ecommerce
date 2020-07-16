@@ -12,6 +12,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
@@ -40,14 +41,12 @@ public class DeleteCartItemServlet extends SlingAllMethodsServlet {
 	@Reference
 	private DeleteCartItemService deleteCartItemService;
 
-    /**
-     * doPut to  delete the cart item in magento.
-     *
-     * @param request
-     *            - sling servlet request object
-     * @param response
-     *            - sling servlet response object
-     */
+	/**
+	 * doPut to  delete the cart item in magento.
+	 *
+	 * @param request  - sling servlet request object
+	 * @param response - sling servlet response object
+	 */
 	@Override
 	protected void doPut(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
@@ -58,7 +57,7 @@ public class DeleteCartItemServlet extends SlingAllMethodsServlet {
 		try {
 			responseObject.put("message", "Response");
 			responseObject.put("status", Boolean.FALSE);
-			
+
 			StringBuilder buffer = new StringBuilder();
 			BufferedReader reader = request.getReader();
 			String line;
@@ -68,9 +67,9 @@ public class DeleteCartItemServlet extends SlingAllMethodsServlet {
 			String payload = buffer.toString();
 			String customerToken = request.getHeader("CustomerToken");
 			if (StringUtils.isNotEmpty(payload)) {
-				JSONObject jsonPayload =  new JSONObject(payload);
+				JSONObject jsonPayload = new JSONObject(payload);
 				if (isValidItem(jsonPayload)) {
-					JSONObject deleteCartItemResponse = deleteCartItemService.deleteCartItem(jsonPayload.getString("cartId"), jsonPayload.getString("itemId"), customerToken);
+					JSONObject deleteCartItemResponse = getDeleteCartItem( jsonPayload , customerToken);
 					if (deleteCartItemResponse.has("statusCode") && deleteCartItemResponse.getInt("statusCode") == HttpStatus.SC_OK) {
 						responseObject.put("message", deleteCartItemResponse.getJSONObject("message"));
 						responseObject.put("status", Boolean.TRUE);
@@ -87,12 +86,16 @@ public class DeleteCartItemServlet extends SlingAllMethodsServlet {
 			LOG.info("Error Occured while executing delete item from cart. Full Error={} ", e);
 		}
 	}
-	
+
 	private boolean isValidItem(JSONObject jsonPayload) {
-		boolean isValidItem=Boolean.TRUE;
-		if(!jsonPayload.has("cartId") && !jsonPayload.has("itemId")){
+		boolean isValidItem = Boolean.TRUE;
+		if (!jsonPayload.has("cartId") && !jsonPayload.has("itemId")) {
 			isValidItem = Boolean.FALSE;
 		}
 		return isValidItem;
+	}
+
+	public JSONObject getDeleteCartItem(  JSONObject jsonPayload, String customerToken) throws JSONException {
+		return deleteCartItemService.deleteCartItem(jsonPayload.getString("cartId"), jsonPayload.getString("itemId"), customerToken);
 	}
 }

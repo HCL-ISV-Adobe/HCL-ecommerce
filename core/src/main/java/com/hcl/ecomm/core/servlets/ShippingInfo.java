@@ -60,7 +60,7 @@ public class ShippingInfo extends SlingAllMethodsServlet{
 				LOG.info("Shipping iNfo ()  payload={}",jsonPayload);
 				if (isValidPayload(jsonPayload,customerToken )) {
 					JSONObject shipItem = jsonItemObj( jsonPayload);
-					JSONObject shippingInfoResponse = shippingInfoService.createShipInfo(shipItem,jsonPayload.getString("cartId"), customerToken);
+					JSONObject shippingInfoResponse = createShipInfo(shipItem,jsonPayload, customerToken);
 					if (shippingInfoResponse.has("statusCode") && shippingInfoResponse.getInt("statusCode") == HttpStatus.OK_200) {
 						LOG.info("shippingInfoResponse is {}" ,shippingInfoResponse);
 						JSONObject message= shippingInfoResponse.getJSONObject("message");
@@ -122,6 +122,8 @@ public class ShippingInfo extends SlingAllMethodsServlet{
 		}
 		return shipInfo;
 	}
-
+	public JSONObject createShipInfo(JSONObject shipItem, JSONObject jsonPayload ,String customerToken) throws JSONException {
+		return shippingInfoService.createShipInfo(shipItem,jsonPayload.getString("cartId"), customerToken);
+	}
 
 }
