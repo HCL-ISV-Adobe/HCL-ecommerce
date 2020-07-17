@@ -117,11 +117,15 @@ function callbackwishlist(cartId) {
  xhr.setRequestHeader("CustomerToken", custToken);
  xhr.onreadystatechange = function() {
   if (xhr.readyState === 4 && xhr.status === 200) {
-       $('.cmp-wisthlit-item-product-move-to-shoping-bag').fadeIn('slow', function() {
-    $(this).delay(5000).fadeOut('slow');
-   });
+    $('.cmp-wisthlit-item-product-move-to-shoping-bag').fadeIn('slow', function() {
+        $(this).delay(5000).fadeOut('slow',function(){
+          location.reload();
+        });
 
-  }
+
+});
+
+}
  };
  xhr.send(JSON.stringify(data));
 }
