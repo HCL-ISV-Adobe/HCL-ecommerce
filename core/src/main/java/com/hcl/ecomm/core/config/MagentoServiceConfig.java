@@ -36,6 +36,7 @@ public @interface MagentoServiceConfig {
 
   String customerAddToWishListPath = "/us/V1/wishlist/sku";
   String customerGetWishListPath = "/us/V1/wishlist";
+  String customerDeleteWishListItemPath = "/us/V1/wishlist/item-id";
 
 
 
@@ -114,6 +115,10 @@ public @interface MagentoServiceConfig {
 
   @AttributeDefinition(name = "Customer Get wishlist Service Path", description = "This is the API path for getting customer wishlist", defaultValue = customerGetWishListPath, type = AttributeType.STRING )
   String customer_getWishList_string() default customerGetWishListPath;
+  
+  @AttributeDefinition(name = "Customer Delete Cart Item Service Path", description = "This is the API path for deleting item from customer's wishlist", defaultValue = customerDeleteWishListItemPath, type = AttributeType.STRING )
+  String customer_deleteWishListItem_string() default customerDeleteWishListItemPath;
+
 
 
 
