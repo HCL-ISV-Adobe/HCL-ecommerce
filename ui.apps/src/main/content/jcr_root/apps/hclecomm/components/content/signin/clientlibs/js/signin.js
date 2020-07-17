@@ -141,6 +141,13 @@ const handleHttpServerRequestJson = function (url, formdata) {
 	  document.login_form.password.focus();
 	  return false;
 	}
+	if(validateRecaptcha() == false) {
+        ErrorMsgElm.style.visibility = "visible";
+        ErrorMsgElm.innerHTML = "<span>please verify you are humann!<span>";
+          //errorhtml = '<span>please verify you are humann!<span>';
+          //displayError(errorhtml, 'terms');
+        return false;
+    }
 
 	const data = {
 		username: document.login_form.username.value,
