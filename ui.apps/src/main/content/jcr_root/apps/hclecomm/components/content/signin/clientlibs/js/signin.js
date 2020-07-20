@@ -1,4 +1,5 @@
 let hasCart = false;
+let failedLoginCounter = 0;
 const findRedriectUrl = function(domId) {
 		let redirectURL = "";
 		const params = new URLSearchParams(window.location.search);
@@ -41,11 +42,17 @@ const handleHttpServerRequestJson = function (url, formdata) {
             .then(
                 (response) => {return response.json();},
                 (rejected) => {console.log(rejected);
+                 failedLoginCounter++;
+                               if(failedLoginCounter > 1) {
+                                   document.getElementById('recaptcha').style.visibility = "visible";
+                               }
             })
             .then(data => {
 				loader(false);
                 const status = (data.status)?JSON.parse(data.status): false;
                 if(status === true) {
+                  failedLoginCounter = 0;
+                  document.getElementById('recaptcha').style.visibility = "hidden";
                   if(checkUserCookie("hcluser") === false){
                     const exdays = (formdata.rememberme)?5:1;
                     setUserCookie("hcluser",JSON.stringify(data.message),exdays);
@@ -113,6 +120,10 @@ const handleHttpServerRequestJson = function (url, formdata) {
                   }
 		} else {
                   let error = "Server status failed. ";
+                  failedLoginCounter++;
+                                            if(failedLoginCounter > 1) {
+                                   document.getElementById('recaptcha').style.visibility = "visible";
+                               }
                   if(data.message.error) {
                     console.log(data.message.error);
                      error = data.message.error;
@@ -141,14 +152,13 @@ const handleHttpServerRequestJson = function (url, formdata) {
 	  document.login_form.password.focus();
 	  return false;
 	}
-	if(validateRecaptcha() == false) {
-        ErrorMsgElm.style.visibility = "visible";
+	if(validateRecaptcha() == false && failedLoginCounter > 1) {
+		ErrorMsgElm.style.visibility = "visible";
         ErrorMsgElm.innerHTML = "<span>please verify you are humann!<span>";
           //errorhtml = '<span>please verify you are humann!<span>';
           //displayError(errorhtml, 'terms');
         return false;
     }
-
 	const data = {
 		username: document.login_form.username.value,
 		password: document.login_form.password.value,

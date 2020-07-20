@@ -14,8 +14,11 @@
 	 <div class="cmp-form-text">
 		  <input class="" type="password" id="password" placeholder="${properties.passwordPlaceholder}" name="password" autocomplete="off">
 		</div>
-	  
+		
+	  <div id="recaptcha" style="visibility: hidden">
 		<sly data-sly-resource="${'recaptcha' @ resourceType='/apps/hclecomm/components/content/recaptcha', decoration=true}"> </sly>
+		</div>
+		
 		<label>
 			<input class="" name="rememberme" value="rememberme" type="checkbox">
 			<span class="">${properties.rememberMeLabel}</span>
