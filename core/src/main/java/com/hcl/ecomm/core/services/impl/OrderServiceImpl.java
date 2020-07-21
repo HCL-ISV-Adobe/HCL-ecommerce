@@ -45,7 +45,10 @@ public class OrderServiceImpl implements OrderService {
         String authToken = loginService.getToken();
         String url = scheme + "://" + domainName + getOrderServicePath
                 + "?searchCriteria[filterGroups][0][filters][0][field]=" + "customer_email"
-                + "&searchCriteria[filterGroups][0][filters][0][value]=" + customerEmail;;
+                + "&searchCriteria[filterGroups][0][filters][0][value]=" + customerEmail
+                + "&searchCriteria[sortOrders][0][field]=" + "created_at"
+                + "&searchCriteria[sortOrders][0][direction]=" + "DESC";
+
         LOG.info("createGuestCartPath  : " + url);
         JSONObject getOrderResponse = new JSONObject();
 
