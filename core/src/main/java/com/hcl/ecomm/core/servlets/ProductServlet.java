@@ -53,7 +53,7 @@ public class ProductServlet extends SlingSafeMethodsServlet {
 				productMap.put("name", name);
 				productMap.put("price", price);
 				list.add(productMap);
-				LOG.info("Array list is {}",list.get(i).toString());
+				LOG.info("Array list is {}",list.toString());
 
 			}
 
