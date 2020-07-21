@@ -38,7 +38,17 @@ $(document).ready(function() {
       $('.btn-product-card').removeClass("btn-product-card-disabled");
       $(".btn-product-card").removeAttr('disabled');
       $('.product-details-cmp--no-product').css("display", "none");
-
+	
+	  const domProdList = document.querySelectorAll('#cross-sell-products .product-listing-tile');
+      let crosssellSkuList = productDetail[0].related_products_sku;
+      for(const tile of domProdList) {
+          if(!tile.dataset.productsku || !crosssellSkuList.includes(tile.dataset.productsku)){
+              console.log(tile.parentElement.style);
+              tile.parentElement.style.display = 'none';
+          }
+        console.log(tile, tile.dataset.productsku);
+        console.log(tile.parentElement)
+      }
      }
     } catch (e) {
      console.log(e)
