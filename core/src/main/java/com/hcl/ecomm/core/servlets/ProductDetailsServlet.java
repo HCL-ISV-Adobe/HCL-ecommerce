@@ -1,6 +1,7 @@
 package com.hcl.ecomm.core.servlets;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.hcl.ecomm.core.services.ProductService;
 
@@ -49,9 +50,17 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
         String skuId = Objects.nonNull(productResponse.get("sku")) ? productResponse.get("sku").getAsString() : "";
         String name = Objects.nonNull(productResponse.get("name")) ? productResponse.get("name").getAsString() : "";
         String price = Objects.nonNull(productResponse.get("price")) ? productResponse.get("price").getAsString() : "0.0";
-        String stock = Objects.nonNull(productResponse.get("extension_attributes").getAsJsonObject().get("stock_item").getAsJsonObject().get("is_in_stock")) ? productResponse.get("extension_attributes").getAsJsonObject().get("stock_item").getAsJsonObject().get("is_in_stock").getAsString() : "false";
-        String qty = Objects.nonNull(productResponse.get("extension_attributes").getAsJsonObject().get("stock_item").getAsJsonObject().get("qty")) ? productResponse.get("extension_attributes").getAsJsonObject().get("stock_item").getAsJsonObject().get("qty").getAsString() : "0";
-
+        String stock = "false";
+        String qty = "0";
+        JsonElement stock_item = productResponse.get("extension_attributes").getAsJsonObject().get("stock_item");
+        if(stock_item != null){
+            if(stock_item.getAsJsonObject().get("is_in_stock") != null){
+                stock = stock_item.getAsJsonObject().get("is_in_stock").getAsString();
+            }
+            if(stock_item.getAsJsonObject().get("qty") != null){
+                qty = stock_item.getAsJsonObject().get("qty").getAsString();
+            }
+        }
         productMap.put("sku", skuId);
         productMap.put("name", name);
         productMap.put("price", price);
