@@ -116,7 +116,7 @@ public @interface MagentoServiceConfig {
   @AttributeDefinition(name = "Customer Get wishlist Service Path", description = "This is the API path for getting customer wishlist", defaultValue = customerGetWishListPath, type = AttributeType.STRING )
   String customer_getWishList_string() default customerGetWishListPath;
   
-  @AttributeDefinition(name = "Customer Delete Cart Item Service Path", description = "This is the API path for deleting item from customer's wishlist", defaultValue = customerDeleteWishListItemPath, type = AttributeType.STRING )
+  @AttributeDefinition(name = "Customer Delete Wishlist Item Service Path", description = "This is the API path for deleting item from customer's wishlist", defaultValue = customerDeleteWishListItemPath, type = AttributeType.STRING )
   String customer_deleteWishListItem_string() default customerDeleteWishListItemPath;
 
 
