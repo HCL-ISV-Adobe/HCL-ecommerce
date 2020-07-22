@@ -1,6 +1,5 @@
 package com.hcl.ecomm.core.services.impl;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -36,6 +35,10 @@ public class ProductServiceImpl implements ProductService {
 	String responseStream = null;
 	JsonArray productJsonArray = null;
 	JsonObject productJsonObject = null;
+	String searchCriteriaFilterField_1 = "searchCriteria[filterGroups][0][filters][0][field]";
+	String searchCriteriaFilterValue_1 = "searchCriteria[filterGroups][0][filters][0][value]";
+	String searchCriteriaFilterField_2 = "searchCriteria[filterGroups][0][filters][1][field]";
+	String searchCriteriaFilterValue_2 = "searchCriteria[filterGroups][0][filters][1][value]";
 
 	@Activate
 	private MagentoServiceConfig config;
@@ -68,10 +71,10 @@ public class ProductServiceImpl implements ProductService {
 		String searchCriteriaValue = getSearchCriteriaValue();
 		
 		String productUrl = scheme + "://" + domainName + servicePath
-				+ "?searchCriteria[filterGroups][0][filters][0][field]=" + searchCriteriaField
-				+ "&searchCriteria[filterGroups][0][filters][0][value]=" + searchCriteriaValue;
+				+ "?" + searchCriteriaFilterField_1 + "=" + searchCriteriaField
+				+ "&" + searchCriteriaFilterValue_1 + "=" + searchCriteriaValue;
 				
-
+		LOG.info("All Product URL : " + productUrl);
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(productUrl);
 
@@ -114,15 +117,22 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public JsonObject getProductDetail(String sku) {
+	public JsonArray getProductDetail(String sku) {
 
 		String token = loginService.getToken();
 		String domainName = loginService.getDomainName();
 		String servicePath = getServicePath();
+		String searchCriteriaField = getSearchCriteriaField();
+		String searchCriteriaValue = getSearchCriteriaValue();
 		
-        String productUrl = scheme + "://" + domainName + servicePath + "/" + sku;
+        //String productUrl = scheme + "://" + domainName + servicePath + "/" + sku;
+		String productUrl = scheme + "://" + domainName + servicePath
+				+ "?" + searchCriteriaFilterField_1 + "=" + searchCriteriaField
+				+ "&" + searchCriteriaFilterValue_1 + "=" + searchCriteriaValue
+				+ "&" + searchCriteriaFilterField_2 + "=sku"
+				+ "&" + searchCriteriaFilterValue_2 + "=" + sku;
 		
-
+		LOG.info("FinalURL for product is : " + productUrl);
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(productUrl);
 
@@ -142,13 +152,13 @@ public class ProductServiceImpl implements ProductService {
 				responseStream = "Failed to fetch product details from the store";
 				LOG.error("Failed to fetch products details from the store");
 			}
-			productJsonObject = new Gson().fromJson(responseStream, JsonObject.class);
-			LOG.info("product details Response in Json object : " + productJsonObject);
+			productJsonArray = ProductUtility.fromStringToJsonArray(responseStream);
+			LOG.info("product details Response in Json object : " + productJsonArray);
 		} catch (Exception e) {
 			LOG.error(" getProductDetail method caught an exception" + e.getMessage());
 		}
 		
-		return productJsonObject;
+		return productJsonArray;
 	}
 
 

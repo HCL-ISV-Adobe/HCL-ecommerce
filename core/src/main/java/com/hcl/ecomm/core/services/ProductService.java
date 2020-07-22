@@ -17,7 +17,7 @@ public interface ProductService {
 
 	public List<String> getAllProductSkus(JsonArray productJson);
 
-	public JsonObject getProductDetail(String sku);
+	public JsonArray getProductDetail(String sku);
 
 
 }
