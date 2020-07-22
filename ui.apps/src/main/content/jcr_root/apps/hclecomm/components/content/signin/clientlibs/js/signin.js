@@ -43,6 +43,7 @@ const handleHttpServerRequestJson = function (url, formdata) {
 				(response) => {return response.json();},
 				(rejected) => {console.log(rejected);
 				 failedLoginCounter++;
+				 console.log('Failed Login Counter:' + failedLoginCounter);
 							   if(failedLoginCounter > 1) {
 								   document.getElementById('recaptcha').style.display = "block";
 							   }
@@ -52,6 +53,7 @@ const handleHttpServerRequestJson = function (url, formdata) {
 				const status = (data.status)?JSON.parse(data.status): false;
 				if(status === true) {
 				  failedLoginCounter = 0;
+				  console.log('Failed Login Counter resetted to:' + failedLoginCounter);
 				  document.getElementById('recaptcha').style.display = "none";
 				  if(checkUserCookie("hcluser") === false){
 					const exdays = (formdata.rememberme)?5:1;
@@ -121,6 +123,7 @@ const handleHttpServerRequestJson = function (url, formdata) {
 		} else {
 				  let error = "Server status failed. ";
 				  failedLoginCounter++;
+				  console.log('Failed Login Counter:' + failedLoginCounter);
 											if(failedLoginCounter > 1) {
 								   document.getElementById('recaptcha').style.display = "block";
 							   }
