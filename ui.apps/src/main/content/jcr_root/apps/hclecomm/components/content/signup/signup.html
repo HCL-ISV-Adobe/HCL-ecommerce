@@ -26,7 +26,8 @@
 		<div class="cmp-form-text right">
 			<input class="" type="password" id="cfpassword" placeholder="${properties.confirmPasswordPlaceholder}*" name="cfpassword" autocomplete="off" title="Same as Password" >
 		</div>
-	  
+		
+		<sly data-sly-resource="${'recaptcha-signup' @ resourceType='/apps/hclecomm/components/content/recaptcha', decoration=true}"> </sly>
 		
 		<div class="cmp-form-button">
 		  <div class="cmp-form-button-text">

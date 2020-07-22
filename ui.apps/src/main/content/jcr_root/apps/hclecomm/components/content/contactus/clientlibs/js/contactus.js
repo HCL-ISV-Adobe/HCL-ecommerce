@@ -55,6 +55,17 @@ function validateContactFrom(e) {
     if (isValid) {
         return true;
     }
+	
+	const ErrorMsgElement = document.getElementById('cmp-contactus-errormsg');
+    if(validateRecaptcha() == false) {
+        ErrorMsgElement.style.visibility = "visible";
+        ErrorMsgElement.innerHTML = '<span>please verify you are humann!<span>';
+         isValid = false;
+        return false;
+    } else {
+        ErrorMsgElement.style.visibility = "hidden";
+        ErrorMsgElement.innerHTML = '';
+    }
 
 }
 document.querySelector('.cancel-btn').addEventListener("click", function(){

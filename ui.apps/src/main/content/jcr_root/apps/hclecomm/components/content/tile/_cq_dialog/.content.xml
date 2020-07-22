@@ -27,6 +27,12 @@
                         fieldDescription="enter the tag here"
                         fieldLabel="Data-Tag Value"
                         name="./tag"/>
+					<productSku
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldLabel="Product SKU"
+                        name="./productSku"
+                        required="{Boolean}true"/>
                 </items>
             </column>
         </items>
