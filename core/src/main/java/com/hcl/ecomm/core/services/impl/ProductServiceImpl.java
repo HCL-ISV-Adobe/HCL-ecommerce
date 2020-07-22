@@ -95,7 +95,8 @@ public class ProductServiceImpl implements ProductService {
 		} catch (Exception e) {
 			LOG.error(" getAllProductDetails method caught an exception" + e.getMessage());
 		}
-		productJsonArray =new JSONArray(responseStream);
+		productJsonObject = new JSONObject(responseStream);
+		JSONArray productJsonArray = productJsonObject.getJSONArray("items");
 		LOG.info("Json Array formed : " + productJsonArray);
 
 		return productJsonArray;
