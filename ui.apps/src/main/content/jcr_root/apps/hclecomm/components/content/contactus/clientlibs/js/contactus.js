@@ -52,10 +52,7 @@ function validateContactFrom(e) {
         }
     }
 
-    if (isValid) {
-        return true;
-    }
-	
+   
 	const ErrorMsgElement = document.getElementById('cmp-contactus-errormsg');
     if(validateRecaptcha() == false) {
         ErrorMsgElement.style.visibility = "visible";
@@ -65,6 +62,10 @@ function validateContactFrom(e) {
     } else {
         ErrorMsgElement.style.visibility = "hidden";
         ErrorMsgElement.innerHTML = '';
+    }
+	
+	 if (isValid) {
+        return true;
     }
 
 }
