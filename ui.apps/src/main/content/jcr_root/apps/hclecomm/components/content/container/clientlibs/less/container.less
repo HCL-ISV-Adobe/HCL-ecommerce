@@ -13,6 +13,10 @@ position: relative;
 header.header{
 	
 	.container{
+		max-height:42px;
+        	@media screen and (max-width:768px){
+            	max-height:80px;
+        }
         .btn-cmp-signup, .minicart, .btn-cmp-logout, .btn-cmp-signin, .languagenavigation, .wishlist{
             float:right !important;
 			a{
