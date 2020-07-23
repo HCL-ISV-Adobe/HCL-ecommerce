@@ -52,19 +52,20 @@ function validateContactFrom(e) {
         }
     }
 
-    if (isValid) {
-        return true;
-    }
-	
+   
 	const ErrorMsgElement = document.getElementById('cmp-contactus-errormsg');
     if(validateRecaptcha() == false) {
         ErrorMsgElement.style.visibility = "visible";
-        ErrorMsgElement.innerHTML = '<span>please verify you are humann!<span>';
+        ErrorMsgElement.innerHTML = '<span>please verify you are human!<span>';
          isValid = false;
         return false;
     } else {
         ErrorMsgElement.style.visibility = "hidden";
         ErrorMsgElement.innerHTML = '';
+    }
+	
+	 if (isValid) {
+        return true;
     }
 
 }
