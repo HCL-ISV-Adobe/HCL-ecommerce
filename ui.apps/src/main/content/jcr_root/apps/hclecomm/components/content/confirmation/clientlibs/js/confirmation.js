@@ -60,14 +60,25 @@ $(document).ready(function () {
         const getOrderId = `<span> </span> <span>Order No : ${checkOutDeatils['orderId']}</span>`
         const getCustomerName = `<div class ='cmp-confirmation-subHead'>Delivery For </div> <div class ='cmp-confirmation-text'> ${checkOutDeatils['firstname']}  ${checkOutDeatils['lastname']}</div>`
         const getCustomerAdd = `<div class ='cmp-confirmation-subHead'>Address </div> <div class ='cmp-confirmation-text'> ${checkOutDeatils['street']}  ${checkOutDeatils['city']} ${checkOutDeatils['postcode']}</div>`
-        const cartNumber = checkOutDeatils['cardNumber'];
-        let hiddenCardNumber = null;
+		const paymentMode = checkOutDeatils['PaymentMode'];
 
-        {checkOutDeatils['cardNumber'] ?  hiddenCardNumber = cartNumber.slice((cartNumber.length)-5) : null;} 
-        const getCradDeatils = `
+        if(paymentMode == 'Card') {
+
+            document.getElementById('COD').style.display = "none";
+
+            const cartNumber = checkOutDeatils['cardNumber'];
+
+            let hiddenCardNumber = null;
+
+            {checkOutDeatils['cardNumber'] ?  hiddenCardNumber = cartNumber.slice((cartNumber.length)-5) : null;}
+            const getCradDeatils = `
                         <div>Card Number: <span class ='cmp-confirmation-cardInfo--mrgn-left'>***********${hiddenCardNumber}</span></div>
                             <div>Expiry Date: <span class ='cmp-confirmation-cardInfo--mrgn-left'>${checkOutDeatils['cardExpDate']}<span></div>
                             <div>Amount:<span class ='cmp-confirmation-cardInfo--mrgn-left'>$${getPorductDetails['fprice']}</span></div>`
+        } else if(paymentMode == 'COD') {
+            document.getElementById('Card').style.display = "none";
+            const getCradDeatils = `<div>Amount:<span class ='cmp-confirmation-cardInfo--mrgn-left'>$${getPorductDetails['fprice']}</span></div>`
+        }
         if (prodcutDeatilsEle && fiNalAmount && getOrderId && target) {
             target.innerHTML = prodcutDeatilsEle;
             subTotal.innerHTML = fiNalAmount;

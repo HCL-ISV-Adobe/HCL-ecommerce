@@ -523,92 +523,86 @@ function onCvvKeyUp() {
 
 
 function onContinueCvv() {
-	validatecardNExpDate = true;
-	let validateCardNExpiry = true;
-    let validateCardNo = true;
-	const regexCradNumber = /^\d{16}$/;
-	const getNewCardNumber = $('.new-card');
-	const getCardNumberValidation = $('.new-card-validation');
+    let paymentMode = document.getElementById("cod").checked ? 'COD' : 'Card'
+    if(paymentMode == 'Card') {
+        validatecardNExpDate = true;
+        let validateCardNExpiry = true;
+        let validateCardNo = true;
+        const regexCradNumber = /^\d{16}$/;
+        const getNewCardNumber = $('.new-card');
+        const getCardNumberValidation = $('.new-card-validation');
 
-	if (!regexCradNumber.test(getNewCardNumber[0].value)) {
-		$('.new-card-validation')[0].innerText = 'Please Enter A Card Number';
-		validateCardNExpiry = false;
-        validateCardNo= false;
-	} else {
-		$('.new-card-validation')[0].innerText = ' ';
-        validateCardNo = true;
-		validateCardNExpiry = true;
-	}
-
-     if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth ){
-
-			$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
-         	return
+        if (!regexCradNumber.test(getNewCardNumber[0].value)) {
+            $('.new-card-validation')[0].innerText = 'Please Enter A Card Number';
+            validateCardNExpiry = false;
+            validateCardNo= false;
+        } else {
+            $('.new-card-validation')[0].innerText = ' ';
+            validateCardNo = true;
+            validateCardNExpiry = true;
         }
 
+         if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth ){
+            $('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
+             return
+        }
+    }
 
-	if(validateCardNExpiry && validateCardNo){
-	//localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
-	 const xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function () {
-			if (this.readyState == 4 && this.status == 200 ) {
-				if (this.responseText) {
-					const jsonObject = JSON.parse(this.responseText)
+    if(paymentMode == 'COD' || (validateCardNExpiry && validateCardNo)){
+    //localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
+     const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200 ) {
+                if (this.responseText) {
+                    const jsonObject = JSON.parse(this.responseText)
                     if(!jsonObject["status"]  ){
 
-						localStorage.removeItem("checkOutDetails");
+                        localStorage.removeItem("checkOutDetails");
                         //document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-						getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
+                        getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
                         return;
-
                     }
-
                     else{
-					getCodeskmu(jsonObject["payment_methods"])
+                    getCodeskmu(jsonObject["payment_methods"], paymentMode)
                     }
-				}
-			}
-		};
-		xhttp.open("POST", "/bin/hclecomm/shipinfo", true);
-		xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-		xhttp.setRequestHeader("CustomerToken", custToken);
-		xhttp.send(JSON.stringify(getUserDeatils)); 
-		
-	}
-		
-		function getCodeskmu(skmuObj) {
-		if(custToken)
-		{
-			let paymentMode = skmuObj['code'];
-			skmuObj = getUserDeatils;
-			skmuObj['code'] = paymentMode;
-		}
-		else {
-			  skmuObj['cartId'] = checkoutcartId;
-		}
-		const xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function () {
-			if (this.readyState == 4 && this.status == 200) {
+                }
+            }
+        };
+        xhttp.open("POST", "/bin/hclecomm/shipinfo", true);
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhttp.setRequestHeader("CustomerToken", custToken);
+        xhttp.send(JSON.stringify(getUserDeatils));
+
+    }
+
+        function getCodeskmu(skmuObj, pmtMod) {
+        if(custToken)
+        {
+            let paymentMode = skmuObj['code'];//what is this?
+            skmuObj = getUserDeatils;
+            skmuObj['code'] = paymentMode;
+        }
+        else {
+              skmuObj['cartId'] = checkoutcartId;
+        }
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
                 const message= JSON.parse(this.responseText)['message']['orderId']
                 getUserDeatils['orderId']=message;
-				const checkOutDetails = {...getUserDeatils, cardNumber : getNewCardNumber[0].value, cardExpDate : `${getExpiryMonth}-${getExpiryYear}`}
-            	console.log(checkOutDetails)
+                const checkOutDetails = {...getUserDeatils,PaymentMode : pmtMod, cardNumber : getNewCardNumber[0].value, cardExpDate : `${getExpiryMonth}-${getExpiryYear}`}
+                console.log(checkOutDetails)
                 localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
-				document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-				getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
-
-			}
-		};
-		xhttp.open("PUT", "/bin/hclecomm/createOrder", true);
-		xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-		xhttp.setRequestHeader("CustomerToken", custToken);
-		xhttp.send(JSON.stringify(skmuObj));
-
-	}
-
-
+                document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
+            }
+        };
+        xhttp.open("PUT", "/bin/hclecomm/createOrder", true);
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhttp.setRequestHeader("CustomerToken", custToken);
+        xhttp.send(JSON.stringify(skmuObj));
+    }
 }
-
 
 function onValidateCardNumber() {
 	if (validatecardNExpDate) {
@@ -645,4 +639,11 @@ function onValidateCardExpiryDate() {
 			validateCardNExpiry = true;
 		}
 	}
+}
+function showHideCardDetails() {
+    if (document.getElementById('card').checked) {
+        document.getElementById('cardDetails').style.display = 'block';
+    } else {
+        document.getElementById('cardDetails').style.display = 'none';
+    }
 }
