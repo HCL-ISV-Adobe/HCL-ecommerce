@@ -229,12 +229,12 @@ function onToggleDescription(event) {
 		trackIndex = getAllSection.toArray().findIndex(function (descriptionItem, index) {
 			return descriptionItem.classList.contains('toggle-checkout-description');
 		})
-		if (trackIndex <= getAllSection.toArray().length) {
+		if (trackIndex != -1 && trackIndex <= getAllSection.toArray().length) {
 			getAllSection.toArray()[trackIndex].classList.remove('toggle-checkout-description')
 			getAllSection.toArray()[trackIndex + 1].classList.add('toggle-checkout-description')
 		}
 	}
-	if (getAllEditButton) {
+	if (trackIndex != -1 && getAllEditButton) {
 		getAllEditButton.toArray()[trackIndex].classList.add('toggle-checkout-description')
 	}
 }
@@ -459,7 +459,7 @@ function letValidateField(userDetails, userDetailsValue, event) {
             }
             getUserDeatils['region_code'] = userDetailsValue;
             let stElm = document.querySelector(".add-new-address-form #state");
-            getUserDeatils['region_id'] = stElm.options[stElm.selectedIndex].getAttribute('data-attribute');
+            getUserDeatils['region_id'] = "0";
 			break;
 
 		case 'optional-phone':
@@ -523,14 +523,15 @@ function onCvvKeyUp() {
 
 
 function onContinueCvv() {
-    let paymentMode = document.getElementById("cod").checked ? 'COD' : 'Card'
-    if(paymentMode == 'Card') {
-        validatecardNExpDate = true;
-        let validateCardNExpiry = true;
+    let paymentMode = document.getElementById("cod").checked ? 'COD' : 'Card';
+    let validateCardNExpiry = true;
         let validateCardNo = true;
         const regexCradNumber = /^\d{16}$/;
         const getNewCardNumber = $('.new-card');
         const getCardNumberValidation = $('.new-card-validation');
+    if(paymentMode == 'Card') {
+        validatecardNExpDate = true;
+
 
         if (!regexCradNumber.test(getNewCardNumber[0].value)) {
             $('.new-card-validation')[0].innerText = 'Please Enter A Card Number';
