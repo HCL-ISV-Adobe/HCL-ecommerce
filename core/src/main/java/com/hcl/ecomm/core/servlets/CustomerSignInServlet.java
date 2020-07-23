@@ -71,10 +71,10 @@ public class CustomerSignInServlet extends SlingAllMethodsServlet{
 				JSONObject jsonPayload =  new JSONObject(payload);
 				if (isValidPayload(jsonPayload)) {
 					JSONObject customerSigninObj = customerSigninObj(jsonPayload);
-					JSONObject customerSigninRes = customerService.customerSignin(customerSigninObj);
+					JSONObject customerSigninRes = getcustomerSignin(customerSigninObj);
 					if (customerSigninRes.has("statusCode") && customerSigninRes.getInt("statusCode") == HttpStatus.OK_200) {
 						String customerToken=customerSigninRes.getString("customerToken");
-						JSONObject customerProfileRes = customerService.customerProfile(customerToken);
+						JSONObject customerProfileRes = getCustomerProfile(customerToken);
 						if (customerProfileRes.has("statusCode") && customerProfileRes.getInt("statusCode") == HttpStatus.OK_200) {
 							customerProfileRes.put("customerToken", customerToken);
 							JSONObject custRes = customerProfileRes.getJSONObject("message").put("customerToken", customerToken);
@@ -102,8 +102,13 @@ public class CustomerSignInServlet extends SlingAllMethodsServlet{
 		}
 		LOG.debug("CustomerSignin doPost()  method end.");
 	}
-	
-	
+	public JSONObject getcustomerSignin(JSONObject customerSigninObj){
+		return customerService.customerSignin(customerSigninObj);
+	}
+	public JSONObject getCustomerProfile(String customerToken) {
+		return customerService.customerProfile(customerToken);
+	}
+
 	private boolean isValidPayload(JSONObject jsonPayload) {
 		boolean isValidData=Boolean.TRUE;
 		if(!jsonPayload.has("username") || !jsonPayload.has("password")){

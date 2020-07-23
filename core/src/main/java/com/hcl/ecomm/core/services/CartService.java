@@ -9,7 +9,7 @@ public interface CartService {
     String getServicePath();
 
     public int getCartItemCount(String cartId, String custToken);
-    public JsonArray getCartItemsDetails(String cartId, String custToken);
+    public JSONArray getCartItemsDetails(String cartId, String custToken);
     public String updateCartDetails(String payload, String custToken);
     public String applyCoupon(String coupon);
     public JSONObject getCustomerCart(String custToken);

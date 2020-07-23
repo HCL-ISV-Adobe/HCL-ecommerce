@@ -55,7 +55,7 @@ public class CreateCartServlet extends SlingSafeMethodsServlet {
 		JSONObject responseObject = new JSONObject();
 		String customerToken = request.getHeader("CustomerToken");
 		try {
-			JSONObject createCartResponse = createCartService.createCart(customerToken);
+			JSONObject createCartResponse = getJSONFromCartService(customerToken);
 			if (createCartResponse.has("statusCode") && createCartResponse.getInt("statusCode") == HttpStatus.OK_200) {
 				responseObject.put("message", createCartResponse.getJSONObject("message"));
 				responseObject.put("status", Boolean.TRUE);
@@ -67,5 +67,8 @@ public class CreateCartServlet extends SlingSafeMethodsServlet {
 			LOG.error("while while creating cart for user. Error={}", e);
 		}
 		response.getWriter().println(responseObject);
+	}
+	public JSONObject getJSONFromCartService( String customerToken){
+		return createCartService.createCart(customerToken);
 	}
 }

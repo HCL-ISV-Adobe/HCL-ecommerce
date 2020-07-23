@@ -12,4 +12,7 @@
         <preference for="InfieldDigital\Sample\Api\ItemInterface"
                 type="InfieldDigital\Sample\Model\Item"/>
     
+	<type name="Magento\Catalog\Api\ProductRepositoryInterface">
+            <plugin name="joinStockToProductRepositoryList" type="InfieldDigital\Sample\Model\ReadHandler"/>
+        </type>
 </config>

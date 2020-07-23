@@ -42,8 +42,8 @@ import org.osgi.framework.Constants;
  */
 
 @Component(
-		service = Servlet.class, 
-		property = { 
+		service = Servlet.class,
+		property = {
 				 Constants.SERVICE_DESCRIPTION + "= Add to Cart Servlet",
 				"sling.servlet.paths=/bin/hclecomm/addToCart",
 				"sling.servlet.method=" + HttpConstants.METHOD_POST,
@@ -52,10 +52,10 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 
 	private static final long serialVersionUID = 175460834851290225L;
 	private static final Logger LOG = LoggerFactory.getLogger(AddToCartServlet.class);
-	
+
 	@Reference
 	private AddToCartService addToCartService;
-	
+
     /**
      * doPost add the item in the Magento cart so that it can be persisted at their end.
      *
@@ -74,7 +74,7 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 		try {
 			responseObject.put("message", "Request failed");
 			responseObject.put("status", Boolean.FALSE);
-			
+
 			StringBuilder buffer = new StringBuilder();
 			BufferedReader reader = request.getReader();
 			String line;
@@ -87,7 +87,7 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 				JSONObject jsonPayload =  new JSONObject(payload);
 				if (isValidPayload(jsonPayload)) {
 					JSONObject cartItem = jsonItemObj( jsonPayload);
-					JSONObject addToCartResponse = addToCartService.addToCart(cartItem, customerToken);
+					JSONObject addToCartResponse = getAddToCartResponse(cartItem, customerToken);
 					if (addToCartResponse.has("statusCode") && addToCartResponse.getInt("statusCode") == HttpStatus.OK_200) {
 						responseObject.put("message", addToCartResponse.getJSONObject("message"));
 						responseObject.put("status", Boolean.TRUE);
@@ -106,15 +106,19 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 		}
 		LOG.debug("addtocart doPost()  method end.");
 	}
-	
-    /**
-     * doPut posts update the item details in the Magento cart so that it can be persisted at their end.
-     *
-     * @param request
-     *            - sling servlet request object
-     * @param response
-     *            - sling servlet response object
-     */
+
+	public JSONObject getAddToCartResponse(JSONObject cartItem, String customerToken) {
+		return addToCartService.addToCart(cartItem, customerToken);
+	}
+
+	/**
+	 * doPut posts update the item details in the Magento cart so that it can be persisted at their end.
+	 *
+	 * @param request
+	 *            - sling servlet request object
+	 * @param response
+	 *            - sling servlet response object
+	 */
 	@Override
 	protected void doPut(SlingHttpServletRequest request, SlingHttpServletResponse response) {
 		LOG.debug("addtocart doPut()  method start.");
@@ -124,7 +128,7 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 		try {
 			responseObject.put("message", "Request failed");
 			responseObject.put("status", Boolean.FALSE);
-			
+
 			StringBuilder buffer = new StringBuilder();
 			BufferedReader reader = request.getReader();
 			String line;
@@ -138,7 +142,7 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 				LOG.info("addtocart Put()  payload={}",jsonPayload);
 				if (isValidPayload(jsonPayload) && jsonPayload.has("itemid")) {
 					JSONObject cartItem = jsonItemObj( jsonPayload);
-					JSONObject updateCartItemResponse = addToCartService.updateCartItem(cartItem, jsonPayload.getString("itemid"), customerToken);
+					JSONObject updateCartItemResponse = getUpdateCartItem(cartItem, jsonPayload, customerToken);
 					if (updateCartItemResponse.has("statusCode") && updateCartItemResponse.getInt("statusCode") == HttpStatus.OK_200) {
 						responseObject.put("message", updateCartItemResponse.getJSONObject("message"));
 						responseObject.put("status", Boolean.TRUE);
@@ -157,8 +161,10 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 		}
 		LOG.debug("addtocart doPut()  method end.");
 	}
-	
-	
+	public JSONObject getUpdateCartItem(JSONObject cartItem,JSONObject jsonPayload,String customerToken) throws JSONException {
+		return addToCartService.updateCartItem(cartItem, jsonPayload.getString("itemid"), customerToken);
+	}
+
 	private boolean isValidPayload(JSONObject jsonPayload) {
 		boolean isValidData=Boolean.TRUE;
 		if(!jsonPayload.has("cartid") && !jsonPayload.has("sku") && !jsonPayload.has("qty")){
@@ -166,7 +172,7 @@ public class AddToCartServlet extends SlingAllMethodsServlet{
 		}
 		return isValidData;
 	}
-	
+
 	private JSONObject jsonItemObj(JSONObject itemData) {
 		JSONObject item = new JSONObject();
 		JSONObject cartItem = new JSONObject();
