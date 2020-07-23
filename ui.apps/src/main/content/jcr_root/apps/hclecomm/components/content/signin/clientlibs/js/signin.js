@@ -157,7 +157,7 @@ const handleHttpServerRequestJson = function (url, formdata) {
 	}
 	if(validateRecaptcha() == false && failedLoginCounter > 1) {
 		ErrorMsgElm.style.visibility = "visible";
-		ErrorMsgElm.innerHTML = "<span>please verify you are humann!<span>";
+		ErrorMsgElm.innerHTML = "<span>please verify you are human!<span>";
 		  //errorhtml = '<span>please verify you are humann!<span>';
 		  //displayError(errorhtml, 'terms');
 		return false;

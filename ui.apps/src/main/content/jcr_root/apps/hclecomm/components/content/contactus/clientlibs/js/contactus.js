@@ -56,7 +56,7 @@ function validateContactFrom(e) {
 	const ErrorMsgElement = document.getElementById('cmp-contactus-errormsg');
     if(validateRecaptcha() == false) {
         ErrorMsgElement.style.visibility = "visible";
-        ErrorMsgElement.innerHTML = '<span>please verify you are humann!<span>';
+        ErrorMsgElement.innerHTML = '<span>please verify you are human!<span>';
          isValid = false;
         return false;
     } else {
