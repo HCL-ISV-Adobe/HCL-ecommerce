@@ -58,10 +58,7 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
                 stock = stock_item.getAsJsonObject().get("is_in_stock").getAsString();
             }
             if(stock_item.getAsJsonObject().get("qty") != null ){
-                JsonElement quantity =  stock_item.getAsJsonObject().get("qty");
-               if(("null").equals(quantity)){
-                   qty = stock_item.getAsJsonObject().get("qty").getAsString();
-               }
+                qty = stock_item.getAsJsonObject().get("qty").getAsString();
             }
         }
         productMap.put("sku", skuId);
