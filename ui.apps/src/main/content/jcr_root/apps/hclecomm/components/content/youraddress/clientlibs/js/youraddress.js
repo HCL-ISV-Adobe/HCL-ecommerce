@@ -24,14 +24,10 @@ $( document ).ready(function() {
                                     `<div class ='cmp-my-address-users-address'>
                         <p>${userAddressItem.firstname} ${userAddressItem.lastname}<p>
                         <p>${userAddressItem.street.join()}<p>
-                        <p>${userAddressItem.city}, ${userAddressItem.region.region}<p>
+                        <p>Post Code-${userAddressItem.postcode}<p>
                         <p>Mob No - ${userAddressItem.telephone}<p>
-                        <p>Company - ${userAddressItem.company}<p>
-                        <a class ='cmp-my-address-update-user-address' onclick = "updateUserProfile('${userAddressItem.firstname}', '${userAddressItem.lastname}', '${userAddressItem.street.join()}',
-                            '${userAddressItem.city}','${userAddressItem.region.region}', '${userAddressItem.telephone}',
-                            '${userAddressItem.company}'
 
-                        )">Update</a>
+
                     </div>`
                                 )
                             })

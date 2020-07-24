@@ -131,7 +131,7 @@ function onSaveNDeliverAddress() {
 
         $('.empty-cartid').text("");
 
-  console.log("region_code outside"+ region_code);
+
         getUserDeatilsAddAddress['region'] = region_code;
 		getUserDeatilsAddAddress['region_code'] = region_code;
         if(!getUserDeatilsAddAddress['region_id']) {
@@ -147,7 +147,7 @@ function onSaveNDeliverAddress() {
     			if (this.readyState == 4 && this.status == 200 ) {
     				if (this.responseText) {
     					const jsonObject = JSON.parse(this.responseText)
-                      console.log("Servlet Response"+this.responseText)
+                      	window.location.reload();
     				}
     			}
     		};
@@ -265,7 +265,7 @@ function letValidateFieldAdd(userDetails, userDetailsValue, event) {
                 doValidationAddAddress = true;
                 return
             }
-            debugger
+
             region_code=userDetailsValue;
             getUserDeatilsAddAddress['region_code'] = userDetailsValue;
             console.log("region_code inside"+ getUserDeatilsAddAddress['region_code']);
