@@ -42,7 +42,7 @@ public class CouponServlet extends SlingSafeMethodsServlet {
         String couponApplied = request.getParameter("coupon");
         String couponDiscount = "";
         try {
-            couponDiscount = cartService.applyCoupon(couponApplied);
+            couponDiscount= getDiscountValue(couponApplied);
         }
         catch (Exception e)
         {
@@ -50,5 +50,6 @@ public class CouponServlet extends SlingSafeMethodsServlet {
         }
         response.getWriter().write(couponDiscount);
     }
+    public String getDiscountValue(String couponApplied){ return cartService.applyCoupon(couponApplied); }
 }
 

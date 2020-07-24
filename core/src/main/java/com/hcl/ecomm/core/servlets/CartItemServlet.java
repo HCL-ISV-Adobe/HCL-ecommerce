@@ -9,6 +9,8 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
@@ -39,32 +41,27 @@ public class CartItemServlet extends SlingSafeMethodsServlet {
 			String customerToken = request.getHeader("CustomerToken");
 			String cartItems = null;
 			String cartId = request.getParameter("cartId");
-			JsonArray responseStream = cartService.getCartItemsDetails(cartId, customerToken);
+			JSONArray responseStream = getCartItemsDetails(cartId, customerToken);
 			LOG.info("responseStream is {}", responseStream.toString());
 
-			JsonArray itemsarr= responseStream.getAsJsonArray();
-
 			List<HashMap<String, Object>> list = new ArrayList<>();
-			JsonArray cartArray=new JsonArray();
+			JSONArray cartArray=null;
 
-			for(int i=0; i<itemsarr.size();i++){
+			for(int i=0; i<responseStream.length();i++){
 				HashMap<String, Object> productMap = new HashMap<String, Object>();
-				JsonObject cartObj = itemsarr.get(i).getAsJsonObject();
+				JSONObject cartObj = responseStream.getJSONObject(i);
 				LOG.info("cartObj is {}", cartObj);
-				productMap.put("item_id",itemsarr.get(i).getAsJsonObject().get("item_id").getAsInt());
-				productMap.put("sku", itemsarr.get(i).getAsJsonObject().get("sku").getAsString());
-				productMap.put("qty",itemsarr.get(i).getAsJsonObject().get("qty").getAsInt());
-				productMap.put("name", itemsarr.get(i).getAsJsonObject().get("name").getAsString());
-				productMap.put("price",itemsarr.get(i).getAsJsonObject().get("price").getAsInt());
-				productMap.put("quote_id",itemsarr.get(i).getAsJsonObject().get("quote_id").getAsString());
-				productMap.put("image_url", checkNullString(itemsarr.get(i).getAsJsonObject().get("extension_attributes").getAsJsonObject().get("image_url").getAsString()));
+				productMap.put("item_id",responseStream.getJSONObject(i).get("item_id"));
+				productMap.put("sku", responseStream.getJSONObject(i).get("sku").toString());
+				productMap.put("qty",responseStream.getJSONObject(i).get("qty"));
+				productMap.put("name", responseStream.getJSONObject(i).get("name").toString());
+				productMap.put("price",responseStream.getJSONObject(i).get("price"));
+				productMap.put("quote_id",responseStream.getJSONObject(i).get("quote_id").toString());
+				//productMap.put("image_url", checkNullString(itemsarr.get(i).getAsJsonObject().get("extension_attributes").getAsJsonObject().get("image_url").getAsString()));
+				productMap.put("image_url", "https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png");
 				list.add(productMap);
-				 cartArray = new Gson().toJsonTree(list).getAsJsonArray();
-
-
+				cartArray = new JSONArray(list);
 			}
-
-
 
 			response.setContentType("application/json");
 			response.getWriter().write(cartArray.toString());
@@ -74,14 +71,14 @@ public class CartItemServlet extends SlingSafeMethodsServlet {
 			LOG.error("error in product servlet {} ",e.getMessage());
 			//response.setStatus(500);
 		}
-
 	}
-		
-		public String checkNullString(String value) {
+	public JSONArray getCartItemsDetails(String cartId,String customerToken){
+		return cartService.getCartItemsDetails(cartId, customerToken);
+	}
+		/*public String checkNullString(String value) {
 		LOG.debug("value :::::: {}", value);
 		//return value.equals("null") ? "http://127.0.0.1/magento2/pub/media/catalog/product\\\\cache\\\\84e3ec616dfeead44f09ae682858fa68\\\\//t/h/thumnail-adi-tshirt-black.jpg" : value;
-		return value.contains("placeholder")?"https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png" : value;
-	}
-
+		return value.contains("placeholder")?"http://127.0.0.1/magento2/pub/media/catalog/product\\\\cache\\\\84e3ec616dfeead44f09ae682858fa68\\\\//t/h/thumnail-adi-tshirt-black.jpg" : value;
+	}*/
 
 }

@@ -33,9 +33,9 @@ const wisthListUrl = window.location.href.includes("my-wishlist-bag.html");
 
                                                         </div>
                                                         <div class ='wish-list-item--right-container'>
-                                                        <button class='wishlis-cmp--move-to-bag' onclick = "onMoveToBag('${wishListArrItem.sku}')"> Move to Bag </button>
+                                                        <button class='wishlis-cmp--move-to-bag' onclick = "onMoveToBag('${wishListArrItem.sku}')"> Add to Bag </button>
                                                             <p><span>$ ${wishListArrItem.price}</span></p>
-                                                            <i class=" wishlist-cm-delete-icon fa fa-trash " aria-hidden="true"></i>
+                                                            <i class=" wishlist-cm-delete-icon fa fa-trash " onclick = "onDeleteItem('${wishListArrItem.item_id}')" aria-hidden="true"></i>
                                                         </div>
                                                     </div>`
                                                 )
@@ -117,15 +117,15 @@ function callbackwishlist(cartId) {
  xhr.setRequestHeader("CustomerToken", custToken);
  xhr.onreadystatechange = function() {
   if (xhr.readyState === 4 && xhr.status === 200) {
-    $('.cmp-wisthlit-item-product-move-to-shoping-bag').fadeIn('slow', function() {
-        $(this).delay(5000).fadeOut('slow',function(){
-          location.reload();
-        });
+       $('.cmp-wisthlit-item-product-move-to-shoping-bag').fadeIn('slow', function() {
+           $(this).delay(5000).fadeOut('slow',function(){
+             location.reload();
+           });
 
 
-});
+   });
 
-}
+  }
  };
  xhr.send(JSON.stringify(data));
 }
@@ -134,3 +134,28 @@ function onMoveToBag(prodsku) {
     wishlistProdSku =prodsku;
  cartID = getCookieWishlist('cartId', callbackwishlist);
 }
+function onDeleteItem(itemId) {
+ var data = {
+  "itemId":itemId
+ }
+ 
+ //sending data to server
+ var xhr = new XMLHttpRequest();
+ var url = "/bin/hclecomm/deleteWishListItem";
+ xhr.open("DELETE", url, true);
+ xhr.setRequestHeader("Content-Type", "application/json");
+ xhr.setRequestHeader("CustomerToken", custToken);
+ xhr.onreadystatechange = function() {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+       console.log('item deleted');
+      const response = JSON.parse(this.responseText);
+      if(response['status']){
+      location.reload();
+ }
+   }
+
+  }
+
+  xhr.send(JSON.stringify(data));
+ };
+
