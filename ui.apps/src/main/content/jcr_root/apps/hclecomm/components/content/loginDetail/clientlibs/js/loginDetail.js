@@ -1,3 +1,11 @@
+const successSignUpCallback = (respData) => {
+    if (checkUserCookie("hcluser") === false) {
+        setUserCookie("hcluser", JSON.stringify(respData.message), 1);
+        document.cookie = "cartId" + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+    setTimeout(function () { window.location = findRedriectUrl2(document.signup_form); }, 1000);
+}
+
 function changePasswordServerRequest(url, formdata) {
     loader(true);
     const othrParm = {
@@ -25,7 +33,9 @@ function changePasswordServerRequest(url, formdata) {
             loader(false);
             const status = (data.status) ? JSON.parse(data.status) : false;
             if (status === true) {
-                // successSignUpCallback(data);
+                const ErrorMsgElm = document.getElementById('cp-errormsg');
+                ErrorMsgElm.style.visibility = "visible";
+                ErrorMsgElm.innerHTML = '<span> Password Updated Successfully </span>';
             } else {
                 let error = "Server status failed. ";
                 if (data.message.error) {
@@ -86,9 +96,25 @@ async function validateChangePasswordForm(e) {
         displaySettingError(errorhtml, 'confirmpassword');
         return false;
     }
+
+    // getting token from cookie
+    let customerToken = '';
+    let custId = '';
+    const getCookies = document.cookie;
+    if (getCookies.indexOf('hcluser') > -1) {
+        const userCookies = getCookies.split(';');
+        userCookies && userCookies.length > 0 ?
+            (Object.keys(userCookies).forEach((item) => {
+                const splitCookie = userCookies[item].split('=')
+                if (splitCookie[0] === 'hcluser') {
+                    customerToken = splitCookies[1].customerToken;
+                    custId = splitCookie[1].custId;
+                }
+            })) : null;
+    }
     const changePasswordData = {
-        customerToken: "g35vgzblzswb7d5lvg8nlgiougltlegp",
-        custId: "24",
+        customerToken: customerToken,
+        custId: custId,
         currentPassword: document.changePasswordForm.oldpassword.value,
         newpassword: document.changePasswordForm.newpassword.value
     }
