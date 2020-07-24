@@ -1,0 +1,25 @@
+
+<div class="account-menu">
+    <ul>
+        <li>Change Email</li>
+        <li>Change Password</li>
+    </ul>
+</div>
+<div class="account-content">
+    <form method="POST" action="" id="changePasswordForm" name="changePasswordForm" enctype="multipart/form-data"  data-default="${properties.defaultPage}.html"  onsubmit="event.preventDefault();return validateChangePasswordForm(event);">
+        <div>
+            <label class="form-label">Old Password </label>
+            <input class="text-box" type="password" name="oldpassword"/>
+        </div>
+        <div>
+            <label class="form-label">New Password </label>
+             <input class="text-box" type="password" name="newpassword"/>
+        </div>
+        <div>
+            <label class="form-label">Confirm Password </label>
+             <input class="text-box" type="password" name="confirmpassword"/>
+        </div>
+        <span class="cp-errormsg" id="cp-errormsg" style="visibility: hidden"></span>
+            <button class="submit-btn" type="submit">Submit</button>            
+    </form>
+</div>
