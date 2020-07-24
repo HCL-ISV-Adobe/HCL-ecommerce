@@ -3,10 +3,12 @@ package com.hcl.ecomm.core.services.impl;
 import com.hcl.ecomm.core.config.MagentoServiceConfig;
 import com.hcl.ecomm.core.services.CreateOrderService;
 
+import com.hcl.ecomm.core.services.CustomEmailService;
 import com.hcl.ecomm.core.services.LoginService;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ContentType;
@@ -23,6 +25,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component(
 		immediate = true,
@@ -38,6 +42,9 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 
 	@Reference
 	LoginService loginService;
+
+	@Reference
+	CustomEmailService customEmailService;
 
 
 	@Override
@@ -94,6 +101,44 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 					order +=output;
 				}
 				JSONObject orderId = new JSONObject();
+
+				if(customerToken != null && !customerToken.isEmpty()) {
+					LOG.info("Get Order Detail for order Id: ",orderId);
+
+					String authToken = loginService.getToken();
+					url = scheme + "://" + domainName + "/us/V1/orders/"+orderId;
+					LOG.info("createOrderInfo url ={}",url);
+					HttpGet httpGet = new HttpGet(url);
+					httpGet.setHeader("Content-Type", "application/json");
+					httpGet.setHeader("Authorization", "Bearer " + authToken);
+					CloseableHttpResponse Httpresponse = httpClient.execute(httpGet);
+					statusCode = Httpresponse.getStatusLine().getStatusCode();
+					if(org.eclipse.jetty.http.HttpStatus.OK_200 == statusCode){
+						String orderRes = EntityUtils.toString(Httpresponse.getEntity());
+						JSONObject jsonRes = new JSONObject();
+						Map emailParams = new HashMap<>();
+						jsonRes = new JSONObject(orderRes);
+						if(jsonRes.length()!=0) {
+							emailParams.put("orderId", orderId);
+							emailParams.put("grandTotal", jsonRes.get("base_grand_total"));
+							emailParams.put("address",jsonRes.getJSONObject("billing_address").get("street"));
+
+							//send Email
+							String templatePath="/etc/notification/email/hclecomm/order-confirmation-email-template.html";
+							String smail=jsonRes.getString("customer_email");
+							String firstname=jsonRes.getString("customer_firstname");
+							emailParams.put("receiveremail",smail);
+							emailParams.put("firstname",firstname);
+							customEmailService.sendEmail(templatePath,emailParams,smail);
+						}
+					}else if(org.eclipse.jetty.http.HttpStatus.BAD_REQUEST_400 == statusCode){
+						LOG.error("Error while  getting customer Orders. status code:{} and message={}",statusCode,Httpresponse.getEntity().getContent().toString());
+					}else{
+						LOG.error("Error while getting customer orders. status code:{}",statusCode);
+					}
+
+
+				}
 				orderId.put("orderId",order);
 				createOrderItemRes.put("statusCode", statusCode);
 				createOrderItemRes.put("message", orderId);
