@@ -13,6 +13,8 @@ public interface ShippingInfoService {
 
     public JSONArray getStateCountryList();
 
+    public JSONObject getPickupStoreList();
+
 
 
 

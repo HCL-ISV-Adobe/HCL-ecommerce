@@ -158,5 +158,29 @@ public class ShippingInfoServiceImpl implements ShippingInfoService {
         return countryStateList  ;
     }
 
+    @Override
+    public JSONObject getPickupStoreList() {
+        JSONObject pickupStore = new JSONObject();
+        Resource original;
+        try {
+            Map<String,Object> param = new HashMap<>();
+            param.put(ResourceResolverFactory.SUBSERVICE,"userName");
+            ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(param);
+            Resource resource = resourceResolver.getResource(config.pickupStoreListPath_string());
+            Asset asset = resource.adaptTo(Asset.class);
+            original = asset.getOriginal();
+            InputStream content = original.adaptTo(InputStream.class);
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readValue(content,JsonNode.class);
+            pickupStore = new JSONObject(jsonNode.toString());
+
+        }
+        catch (Exception e)
+        {
+            LOG.error("error while executing getPickupStoreList() method. Error={}" + e);
+        }
+        return pickupStore;
+    }
+
 
 }

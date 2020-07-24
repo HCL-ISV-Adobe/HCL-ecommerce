@@ -137,6 +137,12 @@
                         <p class ='error-message'></p>
                     </div>
                 </div>
+                <div class = 'radio-options'>
+                <div><input type="radio" checked id="shippingAdd" name="address"  onchange = 'onDeliveryMethodChange(this)'>
+				<label>Ship To Address</label> </div>
+                <div><input type="radio" id="storeAdd" name="address"  onchange = 'onDeliveryMethodChange(this)'>
+                <label>Store Pick-up</label> </div>
+				</div>
 				<div class ='add-address-btn'>
 
 					<!--/*<input type="button" value ='Save And Deliver Here'  class='continue-btn-add' onclick = "onSaveNDeliver()"/>*/-->
@@ -147,12 +153,21 @@
 
 				</div>
 
+
+
+
 			</div>
 			</div>
 				<input type="checkbox" id="same-as-billing" name="billing-shipping-same" value="billing-check-box">
 				<label for="same-as-billing">Billing Address is same as Shipping Address</label>
 			</div>
-		</div>
+
+                <div>
+
+                  <div class ='confirmation-page-deleivery-option confirmation-page-deleivery-option-hide'> 
+                  <div class = 'store-delivery-options confirmation-page-deleivery-option-hide'> 
+                  </div> 
+                  </div>
 
 		<div class = 'billing-separator' data-sly-resource="${'./separator' @ resourceType='hclecomm/components/content/separator', decoration=true}"> </div>
 		<div class="check-out-section">
