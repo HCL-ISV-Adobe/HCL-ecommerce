@@ -5,6 +5,7 @@ import com.day.cq.mailer.MessageGateway;
 import com.day.cq.mailer.MessageGatewayService;
 import com.hcl.ecomm.core.services.CustomEmailService;
 import org.apache.commons.lang.text.StrLookup;
+import org.apache.commons.logging.Log;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -43,6 +44,37 @@ public class CustomEmailServiceImpl implements CustomEmailService {
 
     private Session session;
 
+    //recipient in string format
+
+    public List<String> sendEmail(final String templatePath,
+                                  final Map<String, String> emailParams,
+                                  final String... recipients) {
+
+        List<String> failureList = new ArrayList<String>();
+
+        if (recipients == null || recipients.length <= 0) {
+            throw new IllegalArgumentException("Invalid Recipient");
+        }
+
+        List<InternetAddress> addresses = new ArrayList<InternetAddress>(recipients.length);
+
+        for (String recipient : recipients) {
+            try {
+                addresses.add(new InternetAddress(recipient));
+            } catch (AddressException e) {
+                LOG.warn("Invalid email address {} passed to sendEmail(). Skipping.", recipient);
+            }
+        }
+
+        InternetAddress[] iAddressRecipients = addresses.toArray(new InternetAddress[addresses.size()]);
+        List<InternetAddress> failureInternetAddresses = sendEmail(templatePath, emailParams, iAddressRecipients);
+
+        for (InternetAddress address : failureInternetAddresses) {
+            failureList.add(address.toString());
+        }
+        return failureList;
+    }
+
     public List<InternetAddress> sendEmail(final String templatePath, Map<String, String> params,
                                            final InternetAddress... recipients) {
 
@@ -71,6 +103,8 @@ public class CustomEmailServiceImpl implements CustomEmailService {
         }
         return failureList;
     }
+
+
 
     /* Sends Email with Attachment*/
     public List<InternetAddress> sendEmail(String templatePath, Map<String, String> emailParams, Map<String, DataSource> attachments, InternetAddress... recipients) {

@@ -459,7 +459,7 @@ function letValidateField(userDetails, userDetailsValue, event) {
             }
             getUserDeatils['region_code'] = userDetailsValue;
             let stElm = document.querySelector(".add-new-address-form #state");
-            getUserDeatils['region_id'] = stElm.options[stElm.selectedIndex].getAttribute('data-attribute');
+            getUserDeatils['region_id'] = "0";
 			break;
 
 		case 'optional-phone':
