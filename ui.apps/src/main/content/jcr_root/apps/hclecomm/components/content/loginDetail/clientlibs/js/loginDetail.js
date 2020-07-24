@@ -1,11 +1,3 @@
-const successSignUpCallback = (respData) => {
-    if (checkUserCookie("hcluser") === false) {
-        setUserCookie("hcluser", JSON.stringify(respData.message), 1);
-        document.cookie = "cartId" + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    }
-    setTimeout(function () { window.location = findRedriectUrl2(document.signup_form); }, 1000);
-}
-
 function changePasswordServerRequest(url, formdata) {
     loader(true);
     const othrParm = {
