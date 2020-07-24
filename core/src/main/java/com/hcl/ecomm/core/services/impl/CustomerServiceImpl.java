@@ -2,7 +2,9 @@ package com.hcl.ecomm.core.services.impl;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
+import java.util.HashMap;
+import java.util.Map;
+import com.hcl.ecomm.core.services.CustomEmailService;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -19,24 +21,33 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.hcl.ecomm.core.config.MagentoServiceConfig;
-import com.hcl.ecomm.core.services.AddToCartService;
 import com.hcl.ecomm.core.services.CustomerService;
 import com.hcl.ecomm.core.services.LoginService;
+
 
 
 @Component(
 		immediate = true,
 		enabled = true,
 		service = CustomerService.class)
+
+
+
 public class CustomerServiceImpl implements CustomerService{
 
 	private static final Logger LOG = LoggerFactory.getLogger(CustomerServiceImpl.class);
 
+	private String templatePath;
+	private String smail;
+	private String firstname;
+	private Map emailParams = new HashMap<>();
 
 	@Reference
 	LoginService loginService;
+
+	@Reference
+	CustomEmailService customEmailService;
 
 	@Activate
 	private MagentoServiceConfig config;
@@ -101,6 +112,14 @@ public class CustomerServiceImpl implements CustomerService{
 				if(customerTokenObj.length() !=0 && (HttpStatus.SC_OK == customerTokenObj.getInt("statusCode")))
 				{
 					response.put("customerToken", customerTokenObj.get("customerToken"));
+
+					templatePath="/etc/notification/email/hclecomm/successful-sign-up-template.html";
+					smail=(String)response.get("email");
+					firstname=(String)response.get("firstname");
+					emailParams.put("receiveremail",smail);
+					emailParams.put("firstname",firstname);
+					customEmailService.sendEmail(templatePath,emailParams,smail);
+
 				}
 				customerSignupResponse.put("statusCode", statusCode);
 				customerSignupResponse.put("message", response);
