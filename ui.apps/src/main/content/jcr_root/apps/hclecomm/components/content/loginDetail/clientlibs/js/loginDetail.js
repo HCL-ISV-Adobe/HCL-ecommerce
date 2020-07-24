@@ -1,4 +1,4 @@
-function changePasswordServerRequest (url, formdata) {
+function changePasswordServerRequest(url, formdata) {
     loader(true);
     const othrParm = {
         headers: { "content-type": "application/json; charset=UTF-8", 'Accept': 'application/json' },
@@ -55,23 +55,17 @@ async function validateChangePasswordForm(e) {
     ErrorMsgElm.style.visibility = "hidden";
     let errorhtml = "";
     var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
-    if (document.changePasswordForm.oldpassword.value == "") {
-        errorhtml = '<span>Please enter Old Password<span>';
+    if ((document.changePasswordForm.oldpassword.value == "") ||
+        (!document.changePasswordForm.oldpassword.value.match(passw))) {
+        errorhtml = (document.changePasswordForm.oldpassword.value == "") ? '<span>Please enter Old Password<span>' :
+            '<span>Password must contain at least one numeric digit, one uppercase and one lowercase letter and lenght 8 to 10<span>';
         displaySettingError(errorhtml, 'oldpassword');
         return false;
     }
-    if (!document.changePasswordForm.oldpassword.value.match(passw)) {
-        errorhtml = '<span>Password must contain at least one numeric digit, one uppercase and one lowercase letter and lenght 8 to 10<span>';
-        displaySettingError(errorhtml, 'oldpassword');
-        return false;
-    }
-    if (document.changePasswordForm.newpassword.value == "") {
-        errorhtml = '<span>Please enter New Password<span>';
-        displaySettingError(errorhtml, 'newpassword');
-        return false;
-    }
-    if (!document.changePasswordForm.newpassword.value.match(passw)) {
-        errorhtml = '<span>Password must contain at least one numeric digit, one uppercase and one lowercase letter and lenght 8 to 10<span>';
+    if ((document.changePasswordForm.newpassword.value == "") ||
+        (!document.changePasswordForm.newpassword.value.match(passw))) {
+        errorhtml = (document.changePasswordForm.newpassword.value == "") ? '<span>Please enter New Password<span>' :
+            '<span>Password must contain at least one numeric digit, one uppercase and one lowercase letter and lenght 8 to 10<span>';
         displaySettingError(errorhtml, 'newpassword');
         return false;
     }
@@ -80,13 +74,10 @@ async function validateChangePasswordForm(e) {
         displaySettingError(errorhtml, 'confirmpassword');
         return false;
     }
-    if (document.changePasswordForm.confirmpassword.value == "") {
-        errorhtml = 'Please enter Confirm Password';
-        displaySettingError(errorhtml, 'confirmpassword');
-        return false;
-    }
-    if (!document.changePasswordForm.confirmpassword.value.match(passw)) {
-        errorhtml = '<span>Password must contain at least one numeric digit, one uppercase and one lowercase letter and lenght 8 to 10<span>';
+    if ((document.changePasswordForm.confirmpassword.value == "") ||
+        (!document.changePasswordForm.confirmpassword.value.match(passw))) {
+        errorhtml = (document.changePasswordForm.confirmpassword.value == "") ? '<span>Please enter Confirm Password<span>' :
+            '<span>Password must contain at least one numeric digit, one uppercase and one lowercase letter and lenght 8 to 10<span>';
         displaySettingError(errorhtml, 'confirmpassword');
         return false;
     }
