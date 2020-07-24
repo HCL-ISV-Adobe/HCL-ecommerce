@@ -3,6 +3,8 @@ $(document).ready(function () {
     let custEmail;
     if(userData != "") {
          custEmail = JSON.parse(userData).email;
-        document.querySelector(".cmp-newsletter-form .text  input").value = custEmail;
+        if(document.querySelector(".cmp-newsletter-form .text  input")){
+        	document.querySelector(".cmp-newsletter-form .text  input").value = custEmail;
+        }
     }
  });
