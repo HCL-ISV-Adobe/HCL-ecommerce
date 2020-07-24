@@ -7,6 +7,7 @@ import java.util.Map;
 
 public interface CustomEmailService {
 
+    public List<String> sendEmail(final String templatePath,final Map<String, String> emailParams,final String... recipients);
 
     public List<InternetAddress> sendEmail(final String templatePath, Map<String, String> params,final InternetAddress... recipients);
 
