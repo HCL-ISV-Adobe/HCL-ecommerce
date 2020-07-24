@@ -8,6 +8,7 @@ let getExpiryYear = '';
 let currentMonth = '';
 let currentYear = '';
 let customerEmail = '';
+let deleveryOptions = '';
 
 $(document).ready(function () {
 
@@ -646,3 +647,67 @@ function onValidateCardExpiryDate() {
 		}
 	}
 }
+
+const onDeliveryMethodChange = (ele) =>{
+	const getPlaceHolderDeliveryOption = $('.store-delivery-options');
+    if(ele.id=== 'storeAdd'){
+	getPlaceHolderDeliveryOption.css('display', 'flex');
+     $('.confirmation-page-deleivery-option').css('display','block');
+	let url = '/bin/hclecomm/pickupstorelist';
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if(this.readyState == 4 && this.status == 200 ) {
+            deleveryOptions = JSON.parse(this.responseText);
+
+			if(deleveryOptions && deleveryOptions.length> 0){
+
+            storeDeliveryOption = deleveryOptions.map((deleveryOptionsItem, index) =>{
+
+                return (`<div class = "store-address"><div class = "store-radiobutton-contactname"><input type="radio"  name="store"   onchange = "onSelectingStore('${index}')"><div>${deleveryOptionsItem.contact_name}</div></div>
+                <div>${deleveryOptionsItem.name}</div>
+                <div>${deleveryOptionsItem.street}</div>
+                 <div>${deleveryOptionsItem.phone}</div>
+                 <div>${deleveryOptionsItem.city}</div>
+                 <div>${deleveryOptionsItem.postcode}</div>
+                 <div>${deleveryOptionsItem.region}</div></div>`)
+            })
+            const storelistcontainer = `<div><div class = "store-header-select"><span>SELECT STORE</span><i class="fa fa-window-close" aria-hidden="true" onclick = "closeStoreOptions()"></i></div>${storeDeliveryOption}</div>`
+            if(getPlaceHolderDeliveryOption && storeDeliveryOption){
+            getPlaceHolderDeliveryOption.addClass('confirmation-page-deleivery-option-transition');
+                getPlaceHolderDeliveryOption[0].innerHTML = storelistcontainer;
+			}
+
+        }
+
+    	}
+    }
+
+    xhttp.open('GET',url,true);
+    xhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
+    xhttp.send();
+
+
+    }
+    else {
+        getPlaceHolderDeliveryOption.removeClass('confirmation-page-deleivery-option-transition');
+        localStorage.removeItem('storeAddress');
+    }
+ }
+
+ const onSelectingStore = (storeAddressIndex) =>{
+     const getPlaceHolderDeliveryOption = $('.store-delivery-options');
+	getPlaceHolderDeliveryOption.css('display', 'none');
+     $('.confirmation-page-deleivery-option').css('display','none');
+    localStorage.removeItem('storeAddress');
+    const storeAdressStringyfy = JSON.stringify(deleveryOptions[storeAddressIndex]);
+    localStorage.setItem('storeAddress', storeAdressStringyfy);
+   console.log(deleveryOptions[storeAddressIndex]);
+ }
+
+ function closeStoreOptions(){
+
+	const getPlaceHolderDeliveryOption = $('.store-delivery-options');
+	getPlaceHolderDeliveryOption.css('display', 'none');
+     $('.confirmation-page-deleivery-option').css('display','none');
+
+ }
