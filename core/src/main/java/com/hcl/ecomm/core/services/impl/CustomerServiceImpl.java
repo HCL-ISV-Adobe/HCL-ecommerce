@@ -1,8 +1,8 @@
 package com.hcl.ecomm.core.services.impl;
 
-import com.hcl.ecomm.core.config.MagentoServiceConfig;
-import com.hcl.ecomm.core.services.CustomerService;
-import com.hcl.ecomm.core.services.LoginService;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -20,8 +20,10 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import com.hcl.ecomm.core.config.MagentoServiceConfig;
+import com.hcl.ecomm.core.services.AddToCartService;
+import com.hcl.ecomm.core.services.CustomerService;
+import com.hcl.ecomm.core.services.LoginService;
 
 
 @Component(
@@ -213,53 +215,50 @@ public class CustomerServiceImpl implements CustomerService{
 		LOG.debug("customerProfile method end  customerProfileResponse={}", customerProfileResponse);
 		return customerProfileResponse;
 	}
-    @Override
-    public JSONObject customerProfileAddDetails(String customerToken, JSONObject payload) {
-        LOG.debug("Inside customerProfileAddDetails customerToken:: " + customerToken);
-        LOG.debug("Inside customerProfileAddDetails payload:: " + payload);
-        String scheme = "http";
-        JSONObject customerProfileAddDetails = new JSONObject();
-        try {
-            String domainName = getDomainName();
-            String customerProfilePath = customerProfileServicePath();
-            String url = scheme + "://" + domainName + customerProfilePath;
-            LOG.info("customerProfilePath Put  : " + url);
+	@Override
+	public JSONObject customerProfileAddDetails(String customerToken, JSONObject payload) {
+		String scheme = "http";
+		JSONObject customerProfileAddDetails = new JSONObject();
+		try {
+			String domainName = getDomainName();
+			String customerProfilePath = customerProfileServicePath();
+			String url = scheme + "://" + domainName + customerProfilePath;
 
-            Integer statusCode;
-            JSONObject response = new JSONObject();
-            StringEntity input = new StringEntity(payload.toString(), ContentType.APPLICATION_JSON);
-            CloseableHttpClient httpClient = HttpClients.createDefault();
-            HttpPut httput = new HttpPut(url);
-            if (customerToken != null && !customerToken.isEmpty()) {
-                httput.setHeader("Authorization", "Bearer " + customerToken);
-                httput.setHeader("Content-Type", "application/json");
-            }
-            httput.setEntity(input);
 
-            CloseableHttpResponse httpResponse = httpClient.execute(httput);
-            LOG.info("httpResponse is {}", httpResponse);
-            statusCode = httpResponse.getStatusLine().getStatusCode();
-            if (HttpStatus.SC_OK == statusCode) {
-                BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
-                String output;
-                while ((output = br.readLine()) != null) {
-                    response = new JSONObject(output);
-                }
-                customerProfileAddDetails.put("statusCode", statusCode);
-                customerProfileAddDetails.put("message", response);
-            } else if (HttpStatus.SC_BAD_REQUEST == statusCode) {
-                customerProfileAddDetails.put("statusCode", statusCode);
-                customerProfileAddDetails.put("message", httpResponse.getEntity().getContent().toString());
-                LOG.error("Error while customerProfileAddDetails status code:{} and message={}", statusCode, httpResponse.getEntity().getContent().toString());
-            } else {
-                LOG.error("Error while customerProfileAddDetails status code:{}", statusCode);
-            }
-        } catch (Exception e) {
-            LOG.error("Error while executing customerProfileAddDetails() method. Error={} ", e);
-        }
-        LOG.debug("customerProfile method end  customerProfileAddDetails={}", customerProfileAddDetails);
-        return customerProfileAddDetails;
-    }
+			Integer statusCode;
+			JSONObject response = new JSONObject();
+			StringEntity input = new StringEntity(payload.toString(), ContentType.APPLICATION_JSON);
+			CloseableHttpClient httpClient = HttpClients.createDefault();
+			HttpPut httput = new HttpPut(url);
+			if (customerToken != null && !customerToken.isEmpty()) {
+				httput.setHeader("Authorization", "Bearer " + customerToken);
+				httput.setHeader("Content-Type", "application/json");
+			}
+			httput.setEntity(input);
+
+			CloseableHttpResponse httpResponse = httpClient.execute(httput);
+			statusCode = httpResponse.getStatusLine().getStatusCode();
+			if (HttpStatus.SC_OK == statusCode) {
+				BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
+				String output;
+				while ((output = br.readLine()) != null) {
+					response = new JSONObject(output);
+				}
+				customerProfileAddDetails.put("statusCode", statusCode);
+				customerProfileAddDetails.put("message", response);
+			} else if (HttpStatus.SC_BAD_REQUEST == statusCode) {
+				customerProfileAddDetails.put("statusCode", statusCode);
+				customerProfileAddDetails.put("message", httpResponse.getEntity().getContent().toString());
+				LOG.error("Error while customerProfileAddDetails status code:{} and message={}", statusCode, httpResponse.getEntity().getContent().toString());
+			} else {
+				LOG.error("Error while customerProfileAddDetails status code:{}", statusCode);
+			}
+		} catch (Exception e) {
+			LOG.error("Error while executing customerProfileAddDetails() method. Error={} ", e);
+		}
+		LOG.debug("customerProfile method end  customerProfileAddDetails={}", customerProfileAddDetails);
+		return customerProfileAddDetails;
+	}
 
 
 }
