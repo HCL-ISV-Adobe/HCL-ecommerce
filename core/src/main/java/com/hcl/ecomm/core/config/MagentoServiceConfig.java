@@ -25,6 +25,7 @@ public @interface MagentoServiceConfig {
   String customerSignupPath = "/V1/customers";
   String customerSigninPath = "/V1/integration/customer/token";
   String customerProfilePath = "/V1/customers/me";
+  String customerChangePasswordPath = "/V1/customers/me/password?customerId=";
     String customerCreateCartPath = "/V1/carts/mine";
     String customerAddToCartPath = "/V1/carts/mine/items";
     String customerUpdateCartPath = "/V1/carts/mine/items";
@@ -75,6 +76,9 @@ public @interface MagentoServiceConfig {
     
     @AttributeDefinition(name = "Customer Profile Service Path", description = "This is the API path for customer profile", defaultValue = customerProfilePath, type = AttributeType.STRING )
     String customerService_profilePath() default customerProfilePath;
+ 
+    @AttributeDefinition(name = "Customer Change Password Service Path", description = "This is the API path for customer change password", defaultValue = customerChangePasswordPath, type = AttributeType.STRING )
+    String customerService_changePasswordPath() default customerChangePasswordPath;
 
     @AttributeDefinition(name = "Shipping Information Service Path", description = "This is the API path for getting shipping information details", defaultValue = guestCartShippingInformationPath, type = AttributeType.STRING )
     String shippingInfo_servicePath_string() default guestCartShippingInformationPath;
