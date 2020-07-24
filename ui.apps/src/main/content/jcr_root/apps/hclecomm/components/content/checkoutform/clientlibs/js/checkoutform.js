@@ -8,7 +8,6 @@ let getExpiryYear = '';
 let currentMonth = '';
 let currentYear = '';
 let customerEmail = '';
-let deleveryOptions = '';
 
 $(document).ready(function () {
 
@@ -524,90 +523,79 @@ function onCvvKeyUp() {
 
 
 function onContinueCvv() {
-	validatecardNExpDate = true;
+    let paymentMode = document.getElementById("cod").checked ? 'COD' : 'Card'
 	let validateCardNExpiry = true;
     let validateCardNo = true;
-	const regexCradNumber = /^\d{16}$/;
-	const getNewCardNumber = $('.new-card');
-	const getCardNumberValidation = $('.new-card-validation');
-
-	if (!regexCradNumber.test(getNewCardNumber[0].value)) {
-		$('.new-card-validation')[0].innerText = 'Please Enter A Card Number';
-		validateCardNExpiry = false;
-        validateCardNo= false;
-	} else {
-		$('.new-card-validation')[0].innerText = ' ';
-        validateCardNo = true;
-		validateCardNExpiry = true;
-	}
-
-     if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth ){
-
-			$('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
-         	return
+    const regexCradNumber = /^\d{16}$/;
+    const getNewCardNumber = $('.new-card');
+    const getCardNumberValidation = $('.new-card-validation');
+	if(paymentMode == 'Card') {
+        validatecardNExpDate = true;    
+        if (!regexCradNumber.test(getNewCardNumber[0].value)) {
+            $('.new-card-validation')[0].innerText = 'Please Enter A Card Number';
+            validateCardNExpiry = false;
+            validateCardNo= false;
+        } else {
+            $('.new-card-validation')[0].innerText = ' ';
+            validateCardNo = true;
+            validateCardNExpiry = true;
         }
-
-
-	if(validateCardNExpiry && validateCardNo){
-	//localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
-	 const xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function () {
-			if (this.readyState == 4 && this.status == 200 ) {
-				if (this.responseText) {
-					const jsonObject = JSON.parse(this.responseText)
+         if( getExpiryYear === currentYear && currentMonth >   getExpiryMonth ){
+            $('.new-card-expiry-date-validation')[0].innerText = 'Please Enter A Valid Date';
+             return
+        }
+    }
+    if(paymentMode == 'COD' || (validateCardNExpiry && validateCardNo)){
+    //localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
+     const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200 ) {
+                if (this.responseText) {
+                    const jsonObject = JSON.parse(this.responseText)
                     if(!jsonObject["status"]  ){
-
-						localStorage.removeItem("checkOutDetails");
+                        localStorage.removeItem("checkOutDetails");
                         //document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-						getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
+                        getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
                         return;
-
                     }
-
                     else{
-					getCodeskmu(jsonObject["payment_methods"])
+                    getCodeskmu(jsonObject["payment_methods"], paymentMode)
                     }
-				}
-			}
-		};
-		xhttp.open("POST", "/bin/hclecomm/shipinfo", true);
-		xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-		xhttp.setRequestHeader("CustomerToken", custToken);
-		xhttp.send(JSON.stringify(getUserDeatils)); 
-		
-	}
-		
-		function getCodeskmu(skmuObj) {
-		if(custToken)
-		{
-			let paymentMode = skmuObj['code'];
-			skmuObj = getUserDeatils;
-			skmuObj['code'] = paymentMode;
-		}
-		else {
-			  skmuObj['cartId'] = checkoutcartId;
-		}
-		const xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function () {
-			if (this.readyState == 4 && this.status == 200) {
+                }
+            }
+        };
+        xhttp.open("POST", "/bin/hclecomm/shipinfo", true);
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhttp.setRequestHeader("CustomerToken", custToken);
+        xhttp.send(JSON.stringify(getUserDeatils));    
+    }
+        function getCodeskmu(skmuObj, pmtMod) {
+        if(custToken)
+        {
+            let paymentMode = skmuObj['code'];//what is this?
+            skmuObj = getUserDeatils;
+            skmuObj['code'] = paymentMode;
+        }
+        else {
+              skmuObj['cartId'] = checkoutcartId;
+        }
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
                 const message= JSON.parse(this.responseText)['message']['orderId']
                 getUserDeatils['orderId']=message;
-				const checkOutDetails = {...getUserDeatils, cardNumber : getNewCardNumber[0].value, cardExpDate : `${getExpiryMonth}-${getExpiryYear}`}
-            	console.log(checkOutDetails)
+                const checkOutDetails = {...getUserDeatils,PaymentMode : pmtMod, cardNumber : getNewCardNumber[0].value, cardExpDate : `${getExpiryMonth}-${getExpiryYear}`}
+                console.log(checkOutDetails)
                 localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
-				document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-				getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
-
-			}
-		};
-		xhttp.open("PUT", "/bin/hclecomm/createOrder", true);
-		xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-		xhttp.setRequestHeader("CustomerToken", custToken);
-		xhttp.send(JSON.stringify(skmuObj));
-
-	}
-
-
+                document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                getHrefForCvvButton ? window.location.href = getHrefForCvvButton : null;
+            }
+        };
+        xhttp.open("PUT", "/bin/hclecomm/createOrder", true);
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhttp.setRequestHeader("CustomerToken", custToken);
+        xhttp.send(JSON.stringify(skmuObj));
+    }
 }
 
 
@@ -648,66 +636,10 @@ function onValidateCardExpiryDate() {
 	}
 }
 
-const onDeliveryMethodChange = (ele) =>{
-	const getPlaceHolderDeliveryOption = $('.store-delivery-options');
-    if(ele.id=== 'storeAdd'){
-	getPlaceHolderDeliveryOption.css('display', 'flex');
-     $('.confirmation-page-deleivery-option').css('display','block');
-	let url = '/bin/hclecomm/pickupstorelist';
-    const xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if(this.readyState == 4 && this.status == 200 ) {
-            deleveryOptions = JSON.parse(this.responseText);
-
-			if(deleveryOptions && deleveryOptions.length> 0){
-
-            storeDeliveryOption = deleveryOptions.map((deleveryOptionsItem, index) =>{
-
-                return (`<div class = "store-address"><div class = "store-radiobutton-contactname"><input type="radio"  name="store"   onchange = "onSelectingStore('${index}')"><div>${deleveryOptionsItem.contact_name}</div></div>
-                <div>${deleveryOptionsItem.name}</div>
-                <div>${deleveryOptionsItem.street}</div>
-                 <div>${deleveryOptionsItem.phone}</div>
-                 <div>${deleveryOptionsItem.city}</div>
-                 <div>${deleveryOptionsItem.postcode}</div>
-                 <div>${deleveryOptionsItem.region}</div></div>`)
-            })
-            const storelistcontainer = `<div><div class = "store-header-select"><span>SELECT STORE</span><i class="fa fa-window-close" aria-hidden="true" onclick = "closeStoreOptions()"></i></div>${storeDeliveryOption}</div>`
-            if(getPlaceHolderDeliveryOption && storeDeliveryOption){
-            getPlaceHolderDeliveryOption.addClass('confirmation-page-deleivery-option-transition');
-                getPlaceHolderDeliveryOption[0].innerHTML = storelistcontainer;
-			}
-
-        }
-
-    	}
+function showHideCardDetails() {
+    if (document.getElementById('card').checked) {
+        document.getElementById('cardDetails').style.display = 'block';
+    } else {
+        document.getElementById('cardDetails').style.display = 'none';
     }
-
-    xhttp.open('GET',url,true);
-    xhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
-    xhttp.send();
-
-
-    }
-    else {
-        getPlaceHolderDeliveryOption.removeClass('confirmation-page-deleivery-option-transition');
-        localStorage.removeItem('storeAddress');
-    }
- }
-
- const onSelectingStore = (storeAddressIndex) =>{
-     const getPlaceHolderDeliveryOption = $('.store-delivery-options');
-	getPlaceHolderDeliveryOption.css('display', 'none');
-     $('.confirmation-page-deleivery-option').css('display','none');
-    localStorage.removeItem('storeAddress');
-    const storeAdressStringyfy = JSON.stringify(deleveryOptions[storeAddressIndex]);
-    localStorage.setItem('storeAddress', storeAdressStringyfy);
-   console.log(deleveryOptions[storeAddressIndex]);
- }
-
- function closeStoreOptions(){
-
-	const getPlaceHolderDeliveryOption = $('.store-delivery-options');
-	getPlaceHolderDeliveryOption.css('display', 'none');
-     $('.confirmation-page-deleivery-option').css('display','none');
-
- }
+}
