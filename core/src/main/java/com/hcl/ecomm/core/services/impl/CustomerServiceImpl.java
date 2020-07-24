@@ -1,13 +1,14 @@
 package com.hcl.ecomm.core.services.impl;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
+import com.hcl.ecomm.core.config.MagentoServiceConfig;
+import com.hcl.ecomm.core.services.CustomerService;
+import com.hcl.ecomm.core.services.LoginService;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -19,24 +20,22 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.hcl.ecomm.core.config.MagentoServiceConfig;
-import com.hcl.ecomm.core.services.AddToCartService;
-import com.hcl.ecomm.core.services.CustomerService;
-import com.hcl.ecomm.core.services.LoginService;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 
 @Component(
 		immediate = true,
-		enabled = true, 
+		enabled = true,
 		service = CustomerService.class)
 public class CustomerServiceImpl implements CustomerService{
 
 	private static final Logger LOG = LoggerFactory.getLogger(CustomerServiceImpl.class);
-	
+
 
 	@Reference
 	LoginService loginService;
-	
+
 	@Activate
 	private MagentoServiceConfig config;
 
@@ -44,7 +43,7 @@ public class CustomerServiceImpl implements CustomerService{
 	public String getDomainName() {
 		return loginService.getDomainName();
 	}
-	
+
 	@Override
 	public String customerSignupServicePath() {
 		return config.customerService_signupPath();
@@ -72,7 +71,7 @@ public class CustomerServiceImpl implements CustomerService{
 			String customerSignupPath = customerSignupServicePath();
 			String url = scheme + "://" + domainName + customerSignupPath;
 			LOG.info("customerSignupPath  : " + url);
-			
+
 			Integer statusCode;
 			JSONObject response = new JSONObject();
 			StringEntity signupInput = new StringEntity(signupObject.toString(),ContentType.APPLICATION_JSON);
@@ -83,9 +82,9 @@ public class CustomerServiceImpl implements CustomerService{
 			httppost.setEntity(signupInput);
 			CloseableHttpResponse httpResponse = httpClient.execute(httppost);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
-			
+
 			LOG.info("customer Signup: magento statusCode ={}",statusCode);
-			
+
 			if(HttpStatus.SC_OK == statusCode){
 				BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
 				String output;
@@ -122,7 +121,7 @@ public class CustomerServiceImpl implements CustomerService{
 		LOG.debug("customerSignin() method start. signObject={}",signinObject);
 		String scheme = "http";
 		JSONObject customerSigninRes = new JSONObject();
-		
+
 
 		try {
 			String authToken = loginService.getToken();
@@ -130,7 +129,7 @@ public class CustomerServiceImpl implements CustomerService{
 			String customerSigninPath = customerSigninServicePath();
 			String url = scheme + "://" + domainName + customerSigninPath;
 			LOG.info("customerSigninPath  : " + url);
-			
+
 			Integer statusCode;
 			StringEntity signinInput = new StringEntity(signinObject.toString(),ContentType.APPLICATION_JSON);
 			CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -140,9 +139,9 @@ public class CustomerServiceImpl implements CustomerService{
 			httpPost.setEntity(signinInput);
 			CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
-			
+
 			LOG.info("customer Signin: magento statusCode ={}",statusCode);
-			
+
 			if(HttpStatus.SC_OK == statusCode){
 				BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
 				String str = "";
@@ -169,7 +168,7 @@ public class CustomerServiceImpl implements CustomerService{
 		return customerSigninRes;
 	}
 
-	
+
 	@Override
 	public JSONObject customerProfile(String customerToken) {
 		LOG.debug("customerProfile method start  customerToken={}: " + customerToken);
@@ -181,7 +180,7 @@ public class CustomerServiceImpl implements CustomerService{
 			String customerProfilePath = customerProfileServicePath();
 			String url = scheme + "://" + domainName + customerProfilePath;
 			LOG.info("customerProfilePath  : " + url);
-			
+
 			Integer statusCode;
 			JSONObject response = new JSONObject();
 			CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -190,9 +189,9 @@ public class CustomerServiceImpl implements CustomerService{
 			httpGet.setHeader("Authorization", "Bearer " +customerToken);
 			CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
-			
+
 			LOG.info("customer profile: magento statusCode ={}",statusCode);
-			
+
 			if(HttpStatus.SC_OK == statusCode){
 				BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
 				String output;
@@ -214,6 +213,53 @@ public class CustomerServiceImpl implements CustomerService{
 		LOG.debug("customerProfile method end  customerProfileResponse={}", customerProfileResponse);
 		return customerProfileResponse;
 	}
-	
+    @Override
+    public JSONObject customerProfileAddDetails(String customerToken, JSONObject payload) {
+        LOG.debug("Inside customerProfileAddDetails customerToken:: " + customerToken);
+        LOG.debug("Inside customerProfileAddDetails payload:: " + payload);
+        String scheme = "http";
+        JSONObject customerProfileAddDetails = new JSONObject();
+        try {
+            String domainName = getDomainName();
+            String customerProfilePath = customerProfileServicePath();
+            String url = scheme + "://" + domainName + customerProfilePath;
+            LOG.info("customerProfilePath Put  : " + url);
+
+            Integer statusCode;
+            JSONObject response = new JSONObject();
+            StringEntity input = new StringEntity(payload.toString(), ContentType.APPLICATION_JSON);
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            HttpPut httput = new HttpPut(url);
+            if (customerToken != null && !customerToken.isEmpty()) {
+                httput.setHeader("Authorization", "Bearer " + customerToken);
+                httput.setHeader("Content-Type", "application/json");
+            }
+            httput.setEntity(input);
+
+            CloseableHttpResponse httpResponse = httpClient.execute(httput);
+            LOG.info("httpResponse is {}", httpResponse);
+            statusCode = httpResponse.getStatusLine().getStatusCode();
+            if (HttpStatus.SC_OK == statusCode) {
+                BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
+                String output;
+                while ((output = br.readLine()) != null) {
+                    response = new JSONObject(output);
+                }
+                customerProfileAddDetails.put("statusCode", statusCode);
+                customerProfileAddDetails.put("message", response);
+            } else if (HttpStatus.SC_BAD_REQUEST == statusCode) {
+                customerProfileAddDetails.put("statusCode", statusCode);
+                customerProfileAddDetails.put("message", httpResponse.getEntity().getContent().toString());
+                LOG.error("Error while customerProfileAddDetails status code:{} and message={}", statusCode, httpResponse.getEntity().getContent().toString());
+            } else {
+                LOG.error("Error while customerProfileAddDetails status code:{}", statusCode);
+            }
+        } catch (Exception e) {
+            LOG.error("Error while executing customerProfileAddDetails() method. Error={} ", e);
+        }
+        LOG.debug("customerProfile method end  customerProfileAddDetails={}", customerProfileAddDetails);
+        return customerProfileAddDetails;
+    }
+
 
 }
