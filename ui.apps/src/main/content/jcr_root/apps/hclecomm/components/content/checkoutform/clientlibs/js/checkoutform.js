@@ -637,9 +637,5 @@ function onValidateCardExpiryDate() {
 }
 
 function showHideCardDetails() {
-    if (document.getElementById('card').checked) {
-        document.getElementById('cardDetails').style.display = 'block';
-    } else {
-        document.getElementById('cardDetails').style.display = 'none';
-    }
+ document.getElementById('cardDetails').style.display = document.getElementById('card').checked ? 'block' : 'none';
 }
