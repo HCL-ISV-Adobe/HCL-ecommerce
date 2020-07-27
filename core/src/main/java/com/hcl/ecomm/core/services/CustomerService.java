@@ -12,6 +12,8 @@ public interface CustomerService {
 
 	public String customerProfileServicePath();
 
+	public String getRecaptchaSiteKey();
+
 	public JSONObject customerSignup(JSONObject signupObject);
 	
 	public JSONObject customerSignin(JSONObject signObject);	

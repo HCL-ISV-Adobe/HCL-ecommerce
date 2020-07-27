@@ -72,6 +72,9 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
+    public String getRecaptchaSiteKey() { return  config.getRecaptchaSiteKey_string();}
+
+    @Override
     public JSONObject customerSignup(JSONObject signupObject) {
         LOG.debug("customerSignup method start  signupObject={}: " + signupObject);
         String scheme = "http";
