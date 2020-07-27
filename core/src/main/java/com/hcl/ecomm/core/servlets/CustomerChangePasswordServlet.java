@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 import com.hcl.ecomm.core.services.CustomerService;
 
 /**
- * Servlet that provide the customer profile update functionality by hitting the Magento service.
+ * Servlet that provide the customer change password functionality by hitting the Magento service.
  * 
  * 
  */
@@ -31,7 +31,7 @@ import com.hcl.ecomm.core.services.CustomerService;
 @Component(
 		service = Servlet.class, 
 		property = { 
-				 Constants.SERVICE_DESCRIPTION + "= Customer Profile Update Servlet",
+				 Constants.SERVICE_DESCRIPTION + "= Customer Change Password Servlet",
 				"sling.servlet.paths=/bin/hclecomm/customerChangePassword",
 				"sling.servlet.method=" + HttpConstants.METHOD_PUT,
 				"sling.servlet.extensions=json"})
