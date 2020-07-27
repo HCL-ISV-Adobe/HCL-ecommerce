@@ -295,6 +295,11 @@
                                         cq:styleId="1591609684335"
                                         cq:styleLabel="Logout"
                                         jcr:primaryType="nt:unstructured"/>
+									<item4
+                                        cq:styleClasses="btn-cmp-account"
+                                        cq:styleId="1595592177588"
+                                        cq:styleLabel="My Account"
+                                        jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item2>
                             <item1
@@ -341,7 +346,7 @@
                 </accordion>
 				<container jcr:primaryType="nt:unstructured">
                     <policy_1588584656785
-                        jcr:lastModified="{Date}2020-06-18T11:12:53.209+05:30"
+                        jcr:lastModified="{Date}2020-07-21T21:17:09.586+05:30"
                         jcr:lastModifiedBy="admin"
                         jcr:primaryType="nt:unstructured"
                         jcr:title="containerpolicy"
@@ -371,6 +376,16 @@
                                         cq:styleClasses="cmp-product-tileOverflow"
                                         cq:styleId="1592935092952"
                                         cq:styleLabel="cmp-product-tileOverflow"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item3
+                                        cq:styleClasses="cmp-container-simple-box"
+                                        cq:styleId="1595346375279"
+                                        cq:styleLabel="container-simple-border"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item4
+                                        cq:styleClasses="cmp-container-box-shadow"
+                                        cq:styleId="1595346377242"
+                                        cq:styleLabel="conatiner-box-shadow"
                                         jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item0>
