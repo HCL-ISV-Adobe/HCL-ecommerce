@@ -25,9 +25,7 @@ function changePasswordServerRequest(url, formdata) {
             loader(false);
             const status = (data.status) ? JSON.parse(data.status) : false;
             if (status === true) {
-                const ErrorMsgElm = document.getElementById('cp-errormsg');
-                ErrorMsgElm.style.visibility = "visible";
-                ErrorMsgElm.innerHTML = '<span> Password Updated Successfully </span>';
+                setTimeout(function(){window.location.pathname = '/content/hclecomm/us/en/sign-in.html';}, 1000);                  
             } else {
                 let error = "Server status failed. ";
                 if (data.message.error) {
@@ -51,7 +49,7 @@ function displaySettingError(errorhtml, formElmName) {
     ErrorMsgElm.innerHTML = errorhtml;
     return;
 }
-async function validateChangePasswordForm(e) {
+async function validateChangePasswordForm(e) {                  
     const ErrorMsgElm = document.getElementById('cp-errormsg');
     ErrorMsgElm.innerHTML = "";
     ErrorMsgElm.style.visibility = "hidden";
