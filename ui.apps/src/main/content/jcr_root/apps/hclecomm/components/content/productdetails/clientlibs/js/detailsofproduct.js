@@ -41,8 +41,9 @@ $(document).ready(function() {
 
      if(checkmode !== 'edit') {
       const domProdList = document.querySelectorAll('#cross-sell-products .product-listing-tile');
-      let crosssellSkuList = JSON.parse(productDetail[0].related_products_sku);
-         if(!crosssellSkuList || crosssellSkuList.length === 0){
+
+      let crosssellSkuList = productDetail[0].related_products_sku;
+         if(!crosssellSkuList || crosssellSkuList.length === 0 || crosssellSkuList == '[]'){
             document.querySelector('.cmp-experiencefragment--product-listing').style.display = 'none';
          } else {
               for(const tile of domProdList) {

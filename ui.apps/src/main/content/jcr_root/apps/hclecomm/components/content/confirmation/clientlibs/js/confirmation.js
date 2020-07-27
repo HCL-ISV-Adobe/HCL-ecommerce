@@ -4,7 +4,26 @@ $(document).ready(function () {
 
     const getPorductDetails = JSON.parse(localStorage.getItem('productDescription'));
     const checkOutDeatils = JSON.parse(localStorage.getItem('checkOutDetails')); 
+	const storeAddressDeatils = JSON.parse(localStorage.getItem('storeAddress'));
 
+	if(storeAddressDeatils){
+        $('#cmp-delivery-section').addClass('hide-delivery-section');
+		const pickupAddressContainer = $('.cmp-storepickup-section');
+		 const getCradDeatils = `
+                        <div>Contact Person Name: <span class ='cmp-confirmation-cardInfo--mrgn-left'>${storeAddressDeatils['contact_name']}</span></div>
+                            <div>Store Name: <span class ='cmp-confirmation-cardInfo--mrgn-left'>${storeAddressDeatils['name']}<span></div>
+                            <div>Phone No:<span class ='cmp-confirmation-cardInfo--mrgn-left'>${storeAddressDeatils['phone']}</span></div>
+                                <div>Address:<span class ='cmp-confirmation-cardInfo--mrgn-left'>${storeAddressDeatils['street']},${storeAddressDeatils['city']}</span></div>
+                                    <div>Region:<span class ='cmp-confirmation-cardInfo--mrgn-left'>${storeAddressDeatils['region']}</span></div>
+                                        <div>Postcode:<span class ='cmp-confirmation-cardInfo--mrgn-left'>${storeAddressDeatils['postcode']}</span></div>`
+                                        if(pickupAddressContainer[0]){
+                                         pickupAddressContainer[0].innerHTML = getCradDeatils
+                                        }
+
+    	}
+    else{
+		 $('#store-pickup-point').addClass('hide-delivery-section');
+    }
     if(checkOutDeatils && checkOutDeatils['orderId'])
     {
         document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';

@@ -18,5 +18,7 @@ public interface CustomerService {
 	
 	public JSONObject customerProfile(String customerToken);	
 	
-	public JSONObject changePassword(JSONObject jsonPayload);	
+	public JSONObject changePassword(JSONObject jsonPayload);
+
+	public JSONObject customerProfileAddDetails(String customerToken,JSONObject payload);
 }
