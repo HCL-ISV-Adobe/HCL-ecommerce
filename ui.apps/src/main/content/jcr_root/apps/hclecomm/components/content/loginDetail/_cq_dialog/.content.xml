@@ -27,11 +27,33 @@
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/container">
                                         <items jcr:primaryType="nt:unstructured">
-                                            <sectionTitle
+                                            <changePasswordLabel
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                fieldLabel="Section Title"
-                                                name="./sectionTitle"/>
+                                                fieldLabel="Change Password Label"
+                                                name="./changePasswordLabel"/>
+                                            <oldPasswordLabel
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldLabel="Old Password Label"
+                                                name="./oldPasswordLabel"/>
+                                            <newPasswordLabel
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldLabel="New Password Label"
+                                                name="./newPasswordLabel"/>
+                                            <confirmNewPasswordLabel
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldLabel="Confrim New Password Label"
+                                                name="./confirmNewPasswordLabel"/> 
+                                            <redirectionPage
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="cq/gui/components/coral/common/form/pagefield"
+                                                fieldDescription="End uder will redirect on this page after successful change password."
+                                                fieldLabel="Redirection Page"
+                                                name="./redirectionPage"
+                                                rootPath="/content"/>                                                                                                                                                                                               
                                         </items>
                                     </column>
                                 </items>
