@@ -135,8 +135,10 @@ public class CustomerSignInServlet extends SlingAllMethodsServlet{
 			response.put("firstname", magentoRes.getString("firstname"));
 			response.put("lastname", magentoRes.getString("lastname"));
 			response.put("customerToken", magentoRes.getString("customerToken"));
+			response.put("custId", magentoRes.getInt("id"));
 			response.put("website_id", magentoRes.getInt("website_id"));
 			response.put("store_id", magentoRes.getInt("store_id"));
+
 		} catch (JSONException e) {
 			LOG.error("Error while executing customerSigninObj. Error={}",e);
 		}

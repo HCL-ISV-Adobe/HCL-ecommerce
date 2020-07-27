@@ -279,5 +279,49 @@ public class CustomerServiceImpl implements CustomerService{
 		return customerProfileAddDetails;
 	}
 
+	@Override
+	public JSONObject changePassword(JSONObject jsonPayload) {
+		String scheme = "http";
+		JSONObject changePasswordResponse = new JSONObject();
+
+		try {
+			LOG.debug("changePassword method start  customerToken={} and custId={} ", jsonPayload.getString("customerToken"),jsonPayload.getString("custId"));
+
+			String domainName = getDomainName();
+			JSONObject changePassReq = new JSONObject();
+			changePassReq.put("currentPassword", jsonPayload.getString("currentPassword"));
+			changePassReq.put("newPassword", jsonPayload.getString("newPassword"));
+			String changePasswordPath = config.customerService_changePasswordPath();
+			String url = scheme + "://" + domainName + changePasswordPath + jsonPayload.getString("custId");
+			LOG.info("changePasswordPath  : " + url);
+			
+			Integer statusCode;
+			StringEntity changePassInput = new StringEntity(changePassReq.toString(),ContentType.APPLICATION_JSON);
+
+			JSONObject response = new JSONObject();
+			CloseableHttpClient httpClient = HttpClients.createDefault();
+			HttpPut httpPut = new HttpPut(url);
+			httpPut.setHeader("Content-Type", "application/json");
+			httpPut.setHeader("Authorization", "Bearer " +jsonPayload.getString("customerToken"));
+			httpPut.setEntity(changePassInput);
+			CloseableHttpResponse httpResponse = httpClient.execute(httpPut);
+			statusCode = httpResponse.getStatusLine().getStatusCode();
+			LOG.info("customer changePassword : magento statusCode ={}",statusCode);
+			
+				BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
+				String str = "";
+				String output;
+				while ((output = br.readLine()) != null) {
+					str+= output;
+				}
+				changePasswordResponse.put("statusCode", statusCode);
+				changePasswordResponse.put("message", str);
+			
+		} catch (Exception e) {
+			LOG.error("Error while executing changePassword() method. Error={} ",e);
+		}
+		LOG.debug("changePassword method end  changePassword={}", changePasswordResponse);
+		return changePasswordResponse;
+	}
 
 }
