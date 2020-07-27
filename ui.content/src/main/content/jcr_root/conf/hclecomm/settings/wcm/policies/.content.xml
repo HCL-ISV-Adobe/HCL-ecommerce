@@ -295,6 +295,11 @@
                                         cq:styleId="1591609684335"
                                         cq:styleLabel="Logout"
                                         jcr:primaryType="nt:unstructured"/>
+									<item4
+                                        cq:styleClasses="btn-cmp-account"
+                                        cq:styleId="1595592177588"
+                                        cq:styleLabel="My Account"
+                                        jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item2>
                             <item1
