@@ -3,7 +3,7 @@ function changePasswordServerRequest(url, formdata) {
     const othrParm = {
         headers: { "content-type": "application/json; charset=UTF-8", 'Accept': 'application/json' },
         body: JSON.stringify(formdata),
-        method: "POST"
+        method: "PUT"
     }
 
     fetch('/libs/granite/csrf/token.json')
@@ -92,23 +92,17 @@ async function validateChangePasswordForm(e) {
     // getting token from cookie
     let customerToken = '';
     let custId = '';
-    const getCookies = document.cookie;
-    if (getCookies.indexOf('hcluser') > -1) {
-        const userCookies = getCookies.split(';');
-        userCookies && userCookies.length > 0 ?
-            (Object.keys(userCookies).forEach((item) => {
-                const splitCookie = userCookies[item].split('=')
-                if (splitCookie[0] === 'hcluser') {
-                    customerToken = splitCookies[1].customerToken;
-                    custId = splitCookie[1].custId;
-                }
-            })) : null;
+	let userData = getUserCookie("hcluser");
+    if(userData != "") {
+         customerToken = JSON.parse(userData).customerToken;
+	 custId = JSON.parse(userData).custId;
     }
+
     const changePasswordData = {
         customerToken: customerToken,
-        custId: custId,
+        custId: custId.toString(),
         currentPassword: document.changePasswordForm.oldpassword.value,
-        newpassword: document.changePasswordForm.newpassword.value
+        newPassword: document.changePasswordForm.newpassword.value
     }
 
 
