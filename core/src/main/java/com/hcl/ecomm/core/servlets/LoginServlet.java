@@ -37,11 +37,15 @@ public class LoginServlet extends SlingSafeMethodsServlet{
 		LOG.info("loginService : " + loginService);
 		
 		
-		String token = loginService.getToken();		
+		String token = getToken();
+
 		response.getWriter().append("Token Value : "+token);
 		
 		
 	}
 	
-	
+	public String getToken()
+	{
+		return loginService.getToken();
+	}
 }

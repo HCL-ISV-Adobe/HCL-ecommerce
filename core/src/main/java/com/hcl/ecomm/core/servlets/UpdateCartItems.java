@@ -34,7 +34,7 @@ public class UpdateCartItems extends SlingAllMethodsServlet {
             String payload = request.getParameter("payload");
             if(payload!=null || !"".equals(payload))
             {
-                cartItemResponse = cartService.updateCartDetails(payload, customerToken);
+                cartItemResponse = updateCartDetails(payload, customerToken);
                 LOG.info("cartItemCount : " + cartItemResponse);
             }
             else{
@@ -49,4 +49,8 @@ public class UpdateCartItems extends SlingAllMethodsServlet {
             LOG.error("Exception while fetching cart details: " + e.getMessage());
         }
     }
+    public String updateCartDetails(String payload,String customerToken){
+        return cartService.updateCartDetails(payload, customerToken);
+    }
 }
+
