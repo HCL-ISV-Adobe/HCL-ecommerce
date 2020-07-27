@@ -1,23 +1,23 @@
 <div class="account-menu">
     <ul>
-        <li>Change Password</li>
+        <li>${properties.changePasswordLabel}</li>
     </ul>
 </div>
 <div class="account-content">
-    <form method="POST" action="" id="changePasswordForm" name="changePasswordForm" enctype="multipart/form-data"  data-default="${properties.defaultPage}.html"  onsubmit="event.preventDefault();return validateChangePasswordForm(event);">
+    <form method="POST" action="" id="changePasswordForm" data-changePassRedirect="${properties.redirectionPage}" name="changePasswordForm" enctype="multipart/form-data"  data-default="${properties.defaultPage}.html"  onsubmit="event.preventDefault();return validateChangePasswordForm(event);">
         <div>
-            <label class="form-label">Old Password </label>
+            <label class="form-label">${properties.oldPasswordLabel}</label>
             <input class="text-box" type="password" name="oldpassword"/>
         </div>
         <div>
-            <label class="form-label">New Password </label>
+            <label class="form-label">${properties.newPasswordLabel}</label>
              <input class="text-box" type="password" name="newpassword"/>
         </div>
         <div>
-            <label class="form-label">Confirm Password </label>
+            <label class="form-label">${properties.confirmNewPasswordLabel} </label>
              <input class="text-box" type="password" name="confirmpassword"/>
         </div>
         <span class="cp-errormsg" id="cp-errormsg" style="visibility: hidden"></span>
-            <button class="submit-btn" type="submit">Submit</button>            
+            <button class="submit-btn" type="submit">${properties.submitButtonLabel}</button>            
     </form>
 </div>
