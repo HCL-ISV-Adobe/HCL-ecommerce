@@ -11,7 +11,55 @@ position: relative;
     }
 }
 header.header{
-	
+		.container{
+		max-height:42px;
+        	@media screen and (max-width:768px){
+            	max-height:80px;
+        }
+        .btn-cmp-signup, .minicart, .btn-cmp-logout, .btn-cmp-signin, .languagenavigation, .wishlist{
+            float:right !important;
+			a{
+                 height: 38px;
+             }
+        }
+        .languagenavigation{
+            margin-left:0px !important;
+        }
+        .wishlist{
+            width: 2% !important;
+        }
+        @media screen and (max-width:768px){
+            .minicart, .btn-cmp-logout, .btn-cmp-signin, .languagenavigation{
+                float:right !important;
+            }
+			.search{
+                 position:relative !important;
+                 width: 60% !important;
+                 .cmp-search__input{
+                     left: -15px !important;
+                 }
+                 .cmp-search__results{
+                     top: 219% !important;
+                 }
+             }
+            .minicart{
+                width: 31% !important;
+            }
+            .btn-cmp-logout{
+                width: 27% !important;
+            }
+            .btn-cmp-signin{
+                width: 27% !important;
+            }
+            .languagenavigation{
+                width: 21% !important;
+            }
+            .wishlist{
+                width: 16% !important;
+            }
+        }
+    }
+  
     .btn-phone-call{	
 		@media screen and (max-width:768px){	
 			display:none;		

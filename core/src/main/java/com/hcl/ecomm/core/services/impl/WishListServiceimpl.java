@@ -52,6 +52,11 @@ public class WishListServiceimpl implements WishListService {
         return config.customer_getWishList_string();
     }
 
+    @Override
+    public String getDeleteWishListPath() {
+        return config.customer_deleteWishListItem_string();
+    }
+
     private String responseStream = null;
     private String schema = "http";
     @Override
@@ -152,6 +157,60 @@ public class WishListServiceimpl implements WishListService {
         }
         return WishListItems ;
     }
+
+
+    @Override
+    public JSONObject deleteWishListItem(String itemId, String customerToken) {
+        LOG.debug("deleteWishListItem method start.itemId={}",itemId);
+        String url = "";
+        String token = "";
+        JSONObject deleteWishListItemRes = new JSONObject();
+
+        try {
+            String domainName = loginService.getDomainName();
+            String itemDeletePath = "";
+            if(customerToken != null && !customerToken.isEmpty()) {
+                token = customerToken;
+                itemDeletePath= getDeleteWishListPath().replace("item-id", itemId);
+                url = schema + "://" + domainName + itemDeletePath ;
+            }
+
+            LOG.debug("itemDeletePath  : " + url);
+            Integer statusCode;
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            HttpDelete httpDelete = new HttpDelete(url);
+            httpDelete.setHeader("Authorization", "Bearer " +token);
+            CloseableHttpResponse httpResponse = httpClient.execute(httpDelete);
+            statusCode = httpResponse.getStatusLine().getStatusCode();
+            LOG.info("Delete WishList item: magento statusCode ={}",statusCode);
+
+            if(org.eclipse.jetty.http.HttpStatus.OK_200 == statusCode){
+                BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
+                String str = "";
+                String output;
+                while ((output = br.readLine()) != null) {
+                    str += output;
+                }
+                JSONObject WishListitem = new JSONObject();
+                WishListitem.put("isDeleted", str);
+                deleteWishListItemRes.put("statusCode", statusCode);
+                deleteWishListItemRes.put("message", WishListitem);
+            }else if(org.eclipse.jetty.http.HttpStatus.BAD_REQUEST_400 == statusCode){
+                deleteWishListItemRes.put("statusCode", statusCode);
+                deleteWishListItemRes .put("message", httpResponse.getEntity().getContent().toString());
+                LOG.error("Error while  Delete WishListitem. status code:{} and message={}",statusCode,httpResponse.getEntity().getContent().toString());
+            }else{
+                LOG.error("Error while  Delete WishListitem. status code:{}",statusCode);
+            }
+        } catch (Exception e) {
+            LOG.error("deleteWishListItem method caught an exception " + e);
+        }
+
+        return deleteWishListItemRes;
+    }
+
+
+
 
 }
 

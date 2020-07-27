@@ -48,13 +48,11 @@ $( document ).ready(function() {
 
                                                     </div> `
                                              )
-											//$(lowerItems).insertAfter( ".cmp-orders-list--upper-container" );
-
-
+											
                                        })	
-
-                                       orderListContainer[0].innerHTML = ordersElmen.join(" ");
-
+									 if(orderListContainer[0]) {
+                                           orderListContainer[0].innerHTML = ordersElmen.join(" "); }
+                                       
 				}
                 else
                 {

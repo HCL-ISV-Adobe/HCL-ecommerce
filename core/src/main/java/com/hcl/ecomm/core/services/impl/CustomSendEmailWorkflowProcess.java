@@ -5,8 +5,6 @@ import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.Rendition;
 import com.day.cq.mailer.MessageGateway;
 import com.day.cq.mailer.MessageGatewayService;
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
 import com.day.cq.workflow.WorkflowException;
 import com.day.cq.workflow.WorkflowSession;
 import com.day.cq.workflow.exec.WorkItem;
@@ -15,18 +13,18 @@ import com.day.cq.workflow.exec.WorkflowProcess;
 import com.day.cq.workflow.metadata.MetaDataMap;
 import com.hcl.ecomm.core.services.CustomEmailService;
 import org.apache.commons.lang.text.StrLookup;
-import org.apache.commons.mail.*;
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.HtmlEmail;
+import org.apache.commons.mail.SimpleEmail;
 import org.apache.sling.api.resource.*;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.rmi.runtime.Log;
 
 import javax.activation.DataSource;
 import javax.jcr.Node;
-import javax.jcr.Property;
-import javax.jcr.PropertyIterator;
 import javax.jcr.Session;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -64,6 +62,15 @@ public class CustomSendEmailWorkflowProcess implements WorkflowProcess {
             ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authInfo);
             session = resourceResolver.adaptTo(Session.class);
             Node item = session.getNode(path);
+            Resource form = resourceResolver.getResource(path);
+
+            Map<String, String> params = new HashMap<>();
+
+            ValueMap valueMap = form.adaptTo(ValueMap.class);
+            for (String key : valueMap.keySet()) {
+                params.put(key, valueMap.get(key, String.class));
+            }
+
             String recipients = item.getProperty("receipent").getString();
 
             Node parentNode = item.getParent();
@@ -80,7 +87,7 @@ public class CustomSendEmailWorkflowProcess implements WorkflowProcess {
             String inputString = inputStream.toString();
             ByteArrayDataSource assetDataDource = new ByteArrayDataSource(inputStream, "application/pdf");
             Map<String, DataSource> attachments = new HashMap<>();
-            attachments.put("Newsletter.pdf", assetDataDource );
+            attachments.put(asset.getName(), assetDataDource);
 
             List<String> failureList = new ArrayList<String>();
 
@@ -95,7 +102,7 @@ public class CustomSendEmailWorkflowProcess implements WorkflowProcess {
                 LOG.error("Invalid email address {} passed to sendEmail(). Skipping.", recipients);
             }
 
-            Map<String, String> params = new HashMap<>();
+
             InternetAddress[] iAddressRecipients = addresses.toArray(new InternetAddress[addresses.size()]);
             List<InternetAddress> failureInternetAddresses = emailService.sendEmail(templatePath, params, attachments, iAddressRecipients);
 
@@ -120,7 +127,7 @@ public class CustomSendEmailWorkflowProcess implements WorkflowProcess {
 
         for (final InternetAddress address : recipients) {
             try {
-                LOG.debug("Sending Email to :" ,address);
+                LOG.debug("Sending Email to :", address);
                 final Email email = getEmail(mailTemplate, mailType, params);
                 email.setTo(Collections.singleton(address));
 
@@ -133,7 +140,6 @@ public class CustomSendEmailWorkflowProcess implements WorkflowProcess {
         }
         return failureList;
     }
-
 
 
     private Email getEmail(final MailTemplate mailTemplate,
@@ -174,4 +180,3 @@ public class CustomSendEmailWorkflowProcess implements WorkflowProcess {
         return mailTemplate;
     }
 }
-
