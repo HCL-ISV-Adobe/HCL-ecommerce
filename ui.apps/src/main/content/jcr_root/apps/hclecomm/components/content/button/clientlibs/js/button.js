@@ -5,6 +5,7 @@ $(function() {
                 $('.signin').css('display','none');
                 $('.signup').css('display','none');
                 $('.logout').css('display','inline-block');
+				$('.myaccount').css('display','inline-block');
                 let html = '<span class="btn-cmp-logout-text">Hi, '+ username +'</span>';
                 const logoutIconElm = document.querySelector('.btn-cmp-logout-icon');
                 logoutIconElm.insertAdjacentHTML("beforebegin",html);
@@ -17,8 +18,10 @@ $(function() {
             	 let currentWCMMode = getUserCookie("wcmmode");
 				 if (currentWCMMode == "edit") {
 							$('.logout').css('display', 'inline-block');
+							$('.myaccount').css('display','inline-block');
 				 }else{
 					 $('.logout').css('display', 'none');
+					 $('.myaccount').css('display','none');
 				 }
                 $('.signin').css('display','inline-block');
                 $('.signup').css('display','inline-block');

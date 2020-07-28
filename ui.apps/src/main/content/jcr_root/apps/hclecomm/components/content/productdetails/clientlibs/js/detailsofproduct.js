@@ -39,20 +39,27 @@ $(document).ready(function() {
       $(".btn-product-card").removeAttr('disabled');
       $('.product-details-cmp--no-product').css("display", "none");
 
-     if(checkmode !== 'edit') {
-      const domProdList = document.querySelectorAll('#cross-sell-products .product-listing-tile');
-
-      let crosssellSkuList = JSON.parse(productDetail[0].related_products_sku);
-         if(!crosssellSkuList || crosssellSkuList.length === 0){
-            document.querySelector('.cmp-experiencefragment--product-listing').style.display = 'none';
-         } else {
-              for(const tile of domProdList) {
-                  if(!tile.dataset.productsku || !crosssellSkuList.includes(tile.dataset.productsku)){
-                      tile.parentElement.style.display = 'none';
-                  }
-              }
-         }
-      }
+      if(checkmode !== 'edit') {
+        const domProdList = document.querySelectorAll('.cmp-experiencefragment--product-listing .product-listing-tile');  
+        let crosssellSkuList = productDetail[0].related_products_sku;
+    
+       if(!crosssellSkuList || crosssellSkuList.length === 0 || crosssellSkuList == '[]'){
+          document.querySelector('.cmp-experiencefragment--product-listing').style.display = 'none';
+       } else {
+            let prodVisibleCount = 0;
+            for(const tile of domProdList) {
+                if(!tile.dataset.productsku || !crosssellSkuList.includes(tile.dataset.productsku)){
+                    tile.parentElement.style.display = 'none';
+                } else {
+                  prodVisibleCount ++
+                }
+            }
+            if(prodVisibleCount <= 0) {
+              document.querySelector('.cmp-experiencefragment--product-listing').style.display = 'none';
+            }
+       }
+     }
+     
      }
     } catch (e) {
      console.log(e)

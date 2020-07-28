@@ -36,20 +36,21 @@
 				<div class = "checkout-title-number">
 					<span  class="check-out-number">2</span>
 				    <sly data-sly-resource="${'shipping-title' @ resourceType='hclecomm/components/content/title', decoration=true}"> </sly>
-			    </div>
+			    
 					<!--/*<input type="button" value ='Edit' 
 					class = 'edit-check-out-section' 
 					onclick = "onEditCheckOutSection(this)"/>*/-->
-
+				</div>
        	 	<div class= 'edit-check-out-section' onclick = 'onEditCheckOutSection(this)' data-sly-resource="${'editship-button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
 
 			</div>
 			<div class="check-out-section-description">
 			<sly data-sly-resource="${'shipping-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
-			<div>
+			
 				<!--/*<input type="button" 
 				value ='Continue'  
 				onclick = "onToggleDescription(this)"/>*/-->
+			<div>
                 <div class= 'edit-shipping-details'  data-sly-resource="${'ship-button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
 			</div>
 
@@ -154,6 +155,10 @@
 			</div>
 		</div>
 
+
+                  </div> 
+		</div>
+
 		<div class = 'billing-separator' data-sly-resource="${'./separator' @ resourceType='hclecomm/components/content/separator', decoration=true}"> </div>
 		<div class="check-out-section">
 
@@ -161,19 +166,21 @@
 				<div class ='checkout-title-number'>
 					<span  class="check-out-number">3</span>
 				    <sly data-sly-resource="${'billing-title' @ resourceType='hclecomm/components/content/title', decoration=true}"> </sly>
-			    </div>
+			    
 					<!--/*<input type="button" value ='Edit' class = 'edit-check-out-section' 
 					onclick = "onEditCheckOutSection(this)"/>*/-->
+				</div>
                     <div class= 'edit-check-out-section' onclick = 'onEditCheckOutSection(this)' data-sly-resource="${'editbill-button' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
 			</div>
 			<div class="check-out-section-description">
 
-			<div class ='billing-cvv'>
+				<div class ='billing-cvv'>
 
 				<div class ='billing-cvv-section'>
 					<div class="payment-type">
 						<input type="radio" id="cod" name="billingType" value="cod" checked="checked" onclick="javascript:showHideCardDetails();">
 						<label for="cod">COD</label>
+
 					</div>
 					<div>
 						<input type="radio" id="card" name="billingType" value="card" onclick="javascript:showHideCardDetails();">
@@ -203,7 +210,9 @@
 				</div>
 			</div>
 			</div>
-		</div>
 
+		</div>
+	
+		</div>
 	</div>
-	</div>
+</div>
