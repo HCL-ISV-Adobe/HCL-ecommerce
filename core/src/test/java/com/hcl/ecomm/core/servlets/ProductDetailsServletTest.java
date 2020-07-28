@@ -2,6 +2,7 @@ package com.hcl.ecomm.core.servlets;
 
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletRequest;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletResponse;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,23 +34,33 @@ class ProductDetailsServletTest {
         verify(productDetailsServlet, times(1)).doGet(request, response);
 
     }
-    private JSONObject getSubmitResponse() throws JSONException {
+    private JSONArray getSubmitResponse() throws JSONException {
         String submitResponse =  "{\n" +
-                "    \"id\": 1,\n" +
-                "    \"sku\": \"24-WG085\",\n" +
-                "    \"name\": \"Sprite Yoga Strap 6 foot\",\n" +
-                "    \"price\": 14,\n" +
-                "    \"product_type\": \"simple\",\n" +
-                "    \"visibility\": 4,\n" +
-                "    \"status\": 1,\n" +
-                "    \"attribute_set_id\": 4,\n" +
-                "    \"type_id\": \"simple\",\n" +
+                "  \"id\": 1,\n" +
+                "  \"sku\": \"24-WG085\",\n" +
+                "  \"name\": \"Sprite Yoga Strap 6 foot\",\n" +
+                "  \"price\": 14,\n" +
+                "  \"product_type\": \"simple\",\n" +
+                "  \"visibility\": 4,\n" +
+                "  \"status\": 1,\n" +
+                "  \"attribute_set_id\": 4,\n" +
+                "  \"type_id\": \"simple\",\n" +
                 "  \"extension_attributes\": {\n" +
-                "  \"stock_item\": {\n" +
-                "    \"qty\": 100,\n" +
-                "    \"is_in_stock\": true\n" +
-                "}}}";
+                "    \"stock_item\": {\n" +
+                "      \"qty\": 100,\n" +
+                "      \"is_in_stock\": true\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"product_links\": [\n" +
+                "    {\n" +
+                "      \"linked_product_sku\": \"12453\"\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
+
         JSONObject jsonObject =new JSONObject(submitResponse);
-        return jsonObject;
+        JSONArray jsonArray=new JSONArray();
+        jsonArray.put(jsonObject);
+        return jsonArray;
     }
 }

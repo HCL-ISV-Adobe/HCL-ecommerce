@@ -2,16 +2,17 @@ package com.hcl.ecomm.core.services.impl;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.hcl.ecomm.core.config.MagentoServiceConfig;
 import com.hcl.ecomm.core.services.LoginService;
 import com.hcl.ecomm.core.services.ProductService;
-import com.hcl.ecomm.core.utility.ProductUtility;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -33,12 +34,8 @@ public class ProductServiceImpl implements ProductService {
 
 	String scheme = "http";
 	String responseStream = null;
-	JsonArray productJsonArray = null;
-	JsonObject productJsonObject = null;
-	String searchCriteriaFilterField_1 = "searchCriteria[filterGroups][0][filters][0][field]";
-	String searchCriteriaFilterValue_1 = "searchCriteria[filterGroups][0][filters][0][value]";
-	String searchCriteriaFilterField_2 = "searchCriteria[filterGroups][0][filters][1][field]";
-	String searchCriteriaFilterValue_2 = "searchCriteria[filterGroups][0][filters][1][value]";
+	JSONArray productJsonArray = null;
+	JSONObject productJsonObject = null;
 
 	@Activate
 	private MagentoServiceConfig config;
@@ -61,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
 	
 
 	@Override
-	public JsonArray getAllProductDetails() {
+	public JSONArray getAllProductDetails() throws JSONException {
 
 		
 		String token = loginService.getToken();
@@ -71,10 +68,10 @@ public class ProductServiceImpl implements ProductService {
 		String searchCriteriaValue = getSearchCriteriaValue();
 		
 		String productUrl = scheme + "://" + domainName + servicePath
-				+ "?" + searchCriteriaFilterField_1 + "=" + searchCriteriaField
-				+ "&" + searchCriteriaFilterValue_1 + "=" + searchCriteriaValue;
+				+ "?searchCriteria[filterGroups][0][filters][0][field]=" + searchCriteriaField
+				+ "&searchCriteria[filterGroups][0][filters][0][value]=" + searchCriteriaValue;
 				
-		LOG.info("All Product URL : " + productUrl);
+
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(productUrl);
 
@@ -98,7 +95,8 @@ public class ProductServiceImpl implements ProductService {
 		} catch (Exception e) {
 			LOG.error(" getAllProductDetails method caught an exception" + e.getMessage());
 		}
-		productJsonArray = ProductUtility.fromStringToJsonArray(responseStream);
+		productJsonObject = new JSONObject(responseStream);
+		JSONArray productJsonArray = productJsonObject.getJSONArray("items");
 		LOG.info("Json Array formed : " + productJsonArray);
 
 		return productJsonArray;
@@ -117,22 +115,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public JsonArray getProductDetail(String sku) {
+	public JSONArray getProductDetail(String sku) {
 
 		String token = loginService.getToken();
 		String domainName = loginService.getDomainName();
 		String servicePath = getServicePath();
-		String searchCriteriaField = getSearchCriteriaField();
-		String searchCriteriaValue = getSearchCriteriaValue();
 		
-        //String productUrl = scheme + "://" + domainName + servicePath + "/" + sku;
-		String productUrl = scheme + "://" + domainName + servicePath
-				+ "?" + searchCriteriaFilterField_1 + "=" + searchCriteriaField
-				+ "&" + searchCriteriaFilterValue_1 + "=" + searchCriteriaValue
-				+ "&" + searchCriteriaFilterField_2 + "=sku"
-				+ "&" + searchCriteriaFilterValue_2 + "=" + sku;
+        String productUrl = scheme + "://" + domainName + servicePath + "/" + sku;
 		
-		LOG.info("FinalURL for product is : " + productUrl);
+
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(productUrl);
 
@@ -152,8 +143,9 @@ public class ProductServiceImpl implements ProductService {
 				responseStream = "Failed to fetch product details from the store";
 				LOG.error("Failed to fetch products details from the store");
 			}
-			productJsonArray = ProductUtility.fromStringToJsonArray(responseStream);
-			LOG.info("product details Response in Json object : " + productJsonArray);
+			productJsonObject = new JSONObject(responseStream);
+			JSONArray productJsonArray = productJsonObject.getJSONArray("items");
+			LOG.info("product details Response in Json object : " + productJsonObject);
 		} catch (Exception e) {
 			LOG.error(" getProductDetail method caught an exception" + e.getMessage());
 		}

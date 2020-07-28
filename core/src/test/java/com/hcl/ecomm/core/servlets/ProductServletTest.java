@@ -1,9 +1,6 @@
 package com.hcl.ecomm.core.servlets;
 
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.hcl.ecomm.core.utility.ProductUtility;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletRequest;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletResponse;
 import org.json.JSONArray;
