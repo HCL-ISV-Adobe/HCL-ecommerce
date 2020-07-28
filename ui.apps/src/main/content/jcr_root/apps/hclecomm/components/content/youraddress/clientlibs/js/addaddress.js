@@ -60,7 +60,6 @@ function onEnterDeatilsAdd(event) {
     const userDetails = event.name;
     const userDetailsValue = event.value;
     //$('.add-new-address-form').toggleClass('toggle-checkout-description')
-    debugger
 
 
         letValidateFieldAdd(userDetails, userDetailsValue, event)
