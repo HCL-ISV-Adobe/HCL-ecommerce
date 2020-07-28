@@ -11,7 +11,6 @@ public @interface MagentoServiceConfig {
     String searchFieldDefaultValue = "store_id";
     String searchFieldValueDefaultValue = "2";
     String servicePathCartFetchItems = "/us/V1/guest-carts/";
-    //String recaptchaSiteKey = "6LfrFKQUAAAAAMzFobDZ7ZWy982lDxeps8cd1I2i";
 
 	String addToCartPath = "/us/V1/guest-carts/{cartId}/items";
 	String updateCartItemPath = "/us/V1/guest-carts/{cartId}/items/{ItemId}";
