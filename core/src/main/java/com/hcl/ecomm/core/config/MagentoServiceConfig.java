@@ -88,8 +88,8 @@ public @interface MagentoServiceConfig {
 
     @AttributeDefinition(name = "COUPON_LIST", description = "This is path of Coupon list under ACS-Commons list", defaultValue = {couponListPath} )
     String getCouponlistPath_string() default couponListPath;
-	
-	@AttributeDefinition(name = "Country_State_List", description = "This is the Dam path for getting Country-State List", defaultValue = {countryStateListPath} )
+
+    @AttributeDefinition(name = "Country_State_List", description = "This is the Dam path for getting Country-State List", defaultValue = {countryStateListPath} )
     String countryStateListPath_string() default countryStateListPath;
 
     @AttributeDefinition(name = "Pickup_Store_List", description = "This is the Dam path for getting Pickup Store List", defaultValue = {pickupStoreListPath} )
