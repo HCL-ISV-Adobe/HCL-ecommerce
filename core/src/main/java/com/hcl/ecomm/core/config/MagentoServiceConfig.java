@@ -11,7 +11,7 @@ public @interface MagentoServiceConfig {
     String searchFieldDefaultValue = "store_id";
     String searchFieldValueDefaultValue = "2";
     String servicePathCartFetchItems = "/us/V1/guest-carts/";
-    String recaptchaSiteKey = "6LfrFKQUAAAAAMzFobDZ7ZWy982lDxeps8cd1I2i";
+    //String recaptchaSiteKey = "6LfrFKQUAAAAAMzFobDZ7ZWy982lDxeps8cd1I2i";
 
 	String addToCartPath = "/us/V1/guest-carts/{cartId}/items";
 	String updateCartItemPath = "/us/V1/guest-carts/{cartId}/items/{ItemId}";
@@ -86,10 +86,7 @@ public @interface MagentoServiceConfig {
     @AttributeDefinition(name = "COUPON_LIST", description = "This is path of Coupon list under ACS-Commons list", defaultValue = {couponListPath} )
     String getCouponlistPath_string() default couponListPath;
 
-    @AttributeDefinition(name = "Recaptcha Site Key", description = "This is for getting the Recaptcha Site Key", defaultValue = {recaptchaSiteKey} )
-    String getRecaptchaSiteKey_string() default recaptchaSiteKey;
-
-	@AttributeDefinition(name = "Country_State_List", description = "This is the Dam path for getting Country-State List", defaultValue = {countryStateListPath} )
+    @AttributeDefinition(name = "Country_State_List", description = "This is the Dam path for getting Country-State List", defaultValue = {countryStateListPath} )
     String countryStateListPath_string() default countryStateListPath;
 
     @AttributeDefinition(name = "Pickup_Store_List", description = "This is the Dam path for getting Pickup Store List", defaultValue = {pickupStoreListPath} )

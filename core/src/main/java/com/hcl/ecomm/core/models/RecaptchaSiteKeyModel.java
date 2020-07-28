@@ -1,5 +1,6 @@
 package com.hcl.ecomm.core.models;
 
+import com.hcl.ecomm.core.services.CommonService;
 import com.hcl.ecomm.core.services.CustomerService;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
@@ -10,12 +11,12 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 @Model(adaptables = Resource.class)
-public class RecaptchaSiteKey {
+public class RecaptchaSiteKeyModel {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
-    private CustomerService customerService;
+    CommonService commonService;
 
     private String siteKey;
 
@@ -24,7 +25,7 @@ public class RecaptchaSiteKey {
 
         logger.debug("In init method of RecaptchaSiteKey model.");
 
-        siteKey = customerService.getRecaptchaSiteKey();
+        siteKey = commonService.getRecaptchaSiteKey();
 
     }
 

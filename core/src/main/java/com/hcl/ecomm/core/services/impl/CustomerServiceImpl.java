@@ -71,8 +71,7 @@ public class CustomerServiceImpl implements CustomerService{
         return config.customerService_profilePath();
     }
 
-    @Override
-    public String getRecaptchaSiteKey() { return  config.getRecaptchaSiteKey_string();}
+
 
     @Override
     public JSONObject customerSignup(JSONObject signupObject) {
