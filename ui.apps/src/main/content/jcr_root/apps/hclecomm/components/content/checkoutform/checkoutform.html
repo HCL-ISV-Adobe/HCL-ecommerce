@@ -138,6 +138,12 @@
                         <p class ='error-message'></p>
                     </div>
                 </div>
+                <div class = 'radio-options'>
+                <div><input type="radio" checked id="shippingAdd" name="address"  onchange = 'onDeliveryMethodChange(this)'>
+				<label>Ship To Address</label> </div>
+                <div><input type="radio" id="storeAdd" name="address"  onchange = 'onDeliveryMethodChange(this)'>
+                <label>Store Pick-up</label> </div>
+				</div>
 				<div class ='add-address-btn'>
 
 					<!--/*<input type="button" value ='Save And Deliver Here'  class='continue-btn-add' onclick = "onSaveNDeliver()"/>*/-->
@@ -148,12 +154,21 @@
 
 				</div>
 
+
+
+
 			</div>
 			</div>
 				<input type="checkbox" id="same-as-billing" name="billing-shipping-same" value="billing-check-box">
 				<label for="same-as-billing">Billing Address is same as Shipping Address</label>
 			</div>
-		</div>
+
+                <div>
+
+                  <div class ='confirmation-page-deleivery-option confirmation-page-deleivery-option-hide'> 
+                  <div class = 'store-delivery-options confirmation-page-deleivery-option-hide'> 
+                  </div> 
+                  </div>
 
 
                   </div> 
@@ -176,41 +191,29 @@
 
 				<div class ='billing-cvv'>
 
-				<div class ='billing-cvv-section'>
-					<div class="payment-type">
-						<input type="radio" id="cod" name="billingType" value="cod" checked="checked" onclick="javascript:showHideCardDetails();">
-						<label for="cod">COD</label>
+					<div class ='billing-cvv-section'>
 
+                	<sly data-sly-resource="${'cardno-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
+
+					<div class ='new-crad-number-validation'>
+					<input type="text" placeholder="Card Number" name = 'cvv-new-number' class ='card-number-new new-card' onkeyup ="onValidateCardNumber(this)" />
+                    <p class ='new-cvv-validation-mssg new-card-validation'></p>
 					</div>
+					<sly data-sly-resource="${'expirydate-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
+					<div class= 'expiry-date-btn'>
 					<div>
-						<input type="radio" id="card" name="billingType" value="card" onclick="javascript:showHideCardDetails();">
-						<label for="card">Credit/Debit Card</label>
-						<div id="cardDetails" class="card-details">
-							<sly data-sly-resource="${'cardno-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
+					<div class ='new-crad-number-validation-expiry-date'>
+                    	<select class ='new-card-expiry-calender-month'></select>
+						<select class ='new-card-expiry-calender-year'></select>
 
-							<div class ='new-crad-number-validation'>
-							<input type="text" placeholder="Card Number" name = 'cvv-new-number' class ='card-number-new new-card' onkeyup ="onValidateCardNumber(this)" />
-							<p class ='new-cvv-validation-mssg new-card-validation'></p>
-							</div>
-							<sly data-sly-resource="${'expirydate-text' @ resourceType='hclecomm/components/content/text', decoration=true}"> </sly>
-							<div class= 'expiry-date-btn'>
-							<div>
-							<div class ='new-crad-number-validation-expiry-date'>
-								<select class ='new-card-expiry-calender-month'></select>
-								<select class ='new-card-expiry-calender-year'></select>
-
-							</div>
-							<p class ='new-cvv-validation-mssg new-card-expiry-date-validation'></p>
-							</div>
-							<!--/*<input type="button" value ='Continue'  onclick = "onContinueCvv()"/>*/-->
-							</div>
-						</div>
+                    </div>
+                    <p class ='new-cvv-validation-mssg new-card-expiry-date-validation'></p>
 					</div>
-					<div class= 'cvv-btn-continue billing-btn' onclick = 'onContinueCvv()' data-sly-resource="${'cvv-continue' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+                    <div class= 'cvv-btn-continue billing-btn' onclick = 'onContinueCvv()' data-sly-resource="${'cvv-continue' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+					<!--/*<input type="button" value ='Continue'  onclick = "onContinueCvv()"/>*/-->
+					</div>
 				</div>
 			</div>
-			</div>
-
 		</div>
 	
 		</div>
