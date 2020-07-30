@@ -37,19 +37,21 @@ public class GetCustomerCartServlet extends SlingSafeMethodsServlet {
 			String customerToken = request.getHeader("CustomerToken");
 			String cartItems = null;
 			JSONObject responseObject = new JSONObject();
-			JSONObject responseStream = cartService.getCustomerCart(customerToken);
+			JSONObject responseStream = getCustomerCart(customerToken);
 			LOG.info("responseStream is {}", responseStream.toString());
 
 			response.setContentType("application/json");
-			responseObject.put("message",responseStream.get("message").toString());
+			responseObject.put("message", responseStream.get("message").toString());
 			responseObject.put("status", responseStream.get("statusCode"));
 			response.getWriter().print(responseObject);
 
-		}
-		catch (Exception e){
-			LOG.error("error in product servlet {} ",e.getMessage());
+		} catch (Exception e) {
+			LOG.error("error in product servlet {} ", e.getMessage());
 			response.setStatus(500);
 		}
 
+	}
+	public JSONObject getCustomerCart(String customerToken){
+		return cartService.getCustomerCart(customerToken);
 	}
 }
