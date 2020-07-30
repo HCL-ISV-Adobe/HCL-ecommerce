@@ -45,14 +45,14 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
                 JSONArray responseStream = getProductDetail(sku);
                 LOG.info("JsonResponse : "+responseStream);
                 List<HashMap<String, String>> productList = new ArrayList<HashMap<String, String>>();
-                HashMap<String, String> productMap = new HashMap<String, String>();
+                JSONObject productObject = new JSONObject();
 
                 String skuId = "";
                 String name = "";
                 String price = "0.0";
                 String stock = "false";
                 String qty = "0";
-                String related_products_sku = "";
+                JSONArray related_products_sku = new JSONArray();
 
                 if(responseStream.length()>0){
                     JSONObject productResponse = responseStream.getJSONObject(0);
@@ -79,26 +79,22 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
                     }
 
                     if(productResponse.getJSONArray("product_links") != null){
-                        related_products_sku = getRelatedProductSkus(productResponse.getJSONArray("product_links")).toString();
+                        related_products_sku = getRelatedProductSkus(productResponse.getJSONArray("product_links"));
                     }
                 }
 
-                productMap.put("sku", skuId);
-                productMap.put("name", name);
-                productMap.put("price", price);
-                productMap.put("stock", stock);
-                productMap.put("qty", qty);
-                productMap.put("related_products_sku",related_products_sku);
-                productList.add(productMap);
-                LOG.debug("ProductDetails  list is {}",productList.toString());
-                String productDetailsJson = productList.toString();
-
+                productObject.put("sku", skuId);
+                productObject.put("name", name);
+                productObject.put("price", price);
+                productObject.put("stock", stock);
+                productObject.put("qty", qty);
+                productObject.put("related_products_sku",related_products_sku);
                 response.setContentType("application/json");
-                response.getWriter().write(productDetailsJson);
+                response.getWriter().print(productObject);
             }
             else{
                 String productSku= "passing empty  sku parameter";
-                response.getWriter().write(productSku);
+                response.getWriter().print("");
             }
 
         }
@@ -107,14 +103,13 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
         }
     }
 
-    private List<String> getRelatedProductSkus(JSONArray relatedProductArray) throws JSONException {
-        List<String> relatedProductSkuList = new ArrayList<>();
-
+    private JSONArray getRelatedProductSkus(JSONArray relatedProductArray) throws JSONException {
+        JSONArray relatedProductSkuArray = new JSONArray();
         for (int i = 0; i < relatedProductArray.length(); i++) {
             String productSku = relatedProductArray.getJSONObject(i).get("linked_product_sku").toString();
-            relatedProductSkuList.add(productSku);
+            relatedProductSkuArray.put(productSku);
         }
-        return relatedProductSkuList;
+        return relatedProductSkuArray;
     }
     public JSONArray getProductDetail(String sku){
         return  productService.getProductDetail(sku);
