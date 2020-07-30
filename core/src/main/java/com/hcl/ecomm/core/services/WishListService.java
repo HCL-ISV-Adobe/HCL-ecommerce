@@ -15,4 +15,8 @@ public interface WishListService {
 
     public JsonObject getWishListItems(String custToken);
 
+    public String getDeleteWishListPath();
+
+    public JSONObject deleteWishListItem(String itemId, String customerToken);
+
 }

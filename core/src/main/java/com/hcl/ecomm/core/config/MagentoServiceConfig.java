@@ -18,6 +18,7 @@ public @interface MagentoServiceConfig {
 	String guestCartItemDeletePah = "/us/V1/guest-carts/{cartId}/items/{itemId}";
   String couponListPath = "/etc/acs-commons/lists/coupon-list";
   String countryStateListPath = "/content/dam/hclecomm/en/json/countries+states-min.json";
+  String pickupStoreListPath = "/content/dam/hclecomm/en/json/pickup-stores.json";
   String servicePathCartUpdateItems = "/V1/guest-carts/";
   String guestCartShippingInformationPath = "/us/V1/guest-carts/{cartId}/shipping-information";
   String guestCartCreateOrderPath = "/us/V1/guest-carts/{cartId}/order";
@@ -32,9 +33,10 @@ public @interface MagentoServiceConfig {
     String customerGetCartPath = "/V1/carts/mine/items";
     String customerShippingInfoPath = "/V1/carts/mine/shipping-information";
     String customerCreateOrderPath = "/V1/carts/mine/payment-information";
-	String customerAddToWishListPath = "/us/V1/wishlist/sku";
-    String customerGetWishListPath = "/us/V1/wishlist";
-    String customerGetOrders = "/us/V1/orders";
+  String customerAddToWishListPath = "/us/V1/wishlist/sku";
+  String customerGetWishListPath = "/us/V1/wishlist";
+  String customerDeleteWishListItemPath = "/us/V1/wishlist/item-id";
+  String customerGetOrders = "/us/V1/orders";
 
 
 
@@ -86,6 +88,9 @@ public @interface MagentoServiceConfig {
 	@AttributeDefinition(name = "Country_State_List", description = "This is the Dam path for getting Country-State List", defaultValue = {countryStateListPath} )
     String countryStateListPath_string() default countryStateListPath;
 
+    @AttributeDefinition(name = "Pickup_Store_List", description = "This is the Dam path for getting Pickup Store List", defaultValue = {pickupStoreListPath} )
+    String pickupStoreListPath_string() default pickupStoreListPath;
+
     @AttributeDefinition(name = "Customer Create Cart Service Path", description = "This is the API path for creating customer's cart", defaultValue = customerCreateCartPath, type = AttributeType.STRING )
     String customer_createCart_string() default customerCreateCartPath;
 
@@ -112,6 +117,9 @@ public @interface MagentoServiceConfig {
 
   @AttributeDefinition(name = "Customer Get wishlist Service Path", description = "This is the API path for getting customer wishlist", defaultValue = customerGetWishListPath, type = AttributeType.STRING )
   String customer_getWishList_string() default customerGetWishListPath;
+  
+  @AttributeDefinition(name = "Customer Delete Wishlist Item Service Path", description = "This is the API path for deleting item from customer's wishlist", defaultValue = customerDeleteWishListItemPath, type = AttributeType.STRING )
+  String customer_deleteWishListItem_string() default customerDeleteWishListItemPath;
 
   @AttributeDefinition(name = "Customer Get Order Service Path", description = "This is the API path for creating order for customer", defaultValue = customerGetOrders, type = AttributeType.STRING )
   String customer_getOrder_string() default customerGetOrders;

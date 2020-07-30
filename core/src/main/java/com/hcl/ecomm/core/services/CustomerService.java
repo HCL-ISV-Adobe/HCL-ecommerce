@@ -16,5 +16,7 @@ public interface CustomerService {
 	
 	public JSONObject customerSignin(JSONObject signObject);	
 	
-	public JSONObject customerProfile(String customerToken);	
+	public JSONObject customerProfile(String customerToken);
+
+	public JSONObject customerProfileAddDetails(String customerToken,JSONObject payload);
 }

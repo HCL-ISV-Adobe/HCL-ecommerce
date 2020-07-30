@@ -77,7 +77,7 @@ public class CustomerSignUpServlet extends SlingAllMethodsServlet{
 				JSONObject jsonPayload =  new JSONObject(payload);
 				if (isValidPayload(jsonPayload)) {
 					JSONObject customerSignupObj = customerSignupObj(jsonPayload);
-					JSONObject customerSignupResponse = customerService.customerSignup(customerSignupObj);
+					JSONObject customerSignupResponse = getCustomerSignUp(customerSignupObj);
 					if (customerSignupResponse.has("statusCode") && customerSignupResponse.getInt("statusCode") == HttpStatus.OK_200) {
 						responseObject.put("message", customerSignupResponse.getJSONObject("message"));
 						responseObject.put("status", Boolean.TRUE);
@@ -95,6 +95,9 @@ public class CustomerSignUpServlet extends SlingAllMethodsServlet{
 			LOG.error("Full Error={} ", e);
 		}
 		LOG.debug("CustomerSignup doPost()  method end.");
+	}
+	public JSONObject getCustomerSignUp(JSONObject customerSignupObj){
+		return  customerService.customerSignup(customerSignupObj);
 	}
 
 	private boolean isValidPayload(JSONObject jsonPayload) {
