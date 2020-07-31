@@ -28,16 +28,22 @@ $(document).ready(function() {
     try {
      productDetail = JSON.parse(this.responseText);
      $('.product-details-cmp__prduct-price-sign').css("display", "inline-block");
+     if(productDetail.sku) {
      $(".product-details-cmp__prduct-price").text(productDetail.price);
+     } else {
+		$(".product-details-cmp__prduct-price").text('Price not available');
+         $(".product-details-cmp__prduct-price-sign").html('');
+     }
      const isProductAvilable = (productDetail.stock === 'true');
 
-     let recommendedProdElmContainer = document.querySelector('.cmp-experiencefragment--ProductListing');
+     let recommendedProdElmContainer = document.querySelector('.pdp-recommended-products');
      let crosssellSkuList = productDetail.related_products_sku;
      if(recommendedProdElmContainer && checkmode !== 'edit') {
 		if(!crosssellSkuList || crosssellSkuList.length === 0 || crosssellSkuList == '[]'){
           recommendedProdElmContainer.style.display = 'none';
         }
      }
+
      if (!isProductAvilable) {
       $('.btn-product-card').children().children().addClass("btn-product-card-disabled");
       $(".btn-product-card").attr('disabled', 'disabled');
@@ -49,7 +55,7 @@ $(document).ready(function() {
       $('.product-details-cmp--no-product').css("display", "none");
 
       if(recommendedProdElmContainer && checkmode !== 'edit' && crosssellSkuList) {
-            const domProdList = document.querySelectorAll('.cmp-experiencefragment--ProductListing .product-listing-tile'); 
+            const domProdList = document.querySelectorAll('.pdp-recommended-products .product-listing-tile'); 
             let prodVisibleCount = 0;
             for(const tile of domProdList) {																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
                 if(!tile.dataset.productsku || !crosssellSkuList.includes(tile.dataset.productsku)){
