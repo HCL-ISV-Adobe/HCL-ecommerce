@@ -28,39 +28,43 @@ $(document).ready(function() {
     try {
      productDetail = JSON.parse(this.responseText);
      $('.product-details-cmp__prduct-price-sign').css("display", "inline-block");
-     $(".product-details-cmp__prduct-price").text(productDetail[0].price);
-     const isProductAvilable = (productDetail[0].stock === 'true');
+     $(".product-details-cmp__prduct-price").text(productDetail.price);
+     const isProductAvilable = (productDetail.stock === 'true');
+
+     let recommendedProdElmContainer = document.querySelector('.cmp-experiencefragment--ProductListing');
+     let crosssellSkuList = productDetail.related_products_sku;
+     if(recommendedProdElmContainer && checkmode !== 'edit') {
+		if(!crosssellSkuList || crosssellSkuList.length === 0 || crosssellSkuList == '[]'){
+          recommendedProdElmContainer.style.display = 'none';
+        }
+     }
      if (!isProductAvilable) {
       $('.btn-product-card').children().children().addClass("btn-product-card-disabled");
       $(".btn-product-card").attr('disabled', 'disabled');
+      $(".btn-product-card").removeAttr("onclick");
       $('.product-details-cmp--no-product').css("display", "block");
      } else {
       $('.btn-product-card').removeClass("btn-product-card-disabled");
       $(".btn-product-card").removeAttr('disabled');
       $('.product-details-cmp--no-product').css("display", "none");
 
-      if(checkmode !== 'edit') {
-        const domProdList = document.querySelectorAll('.cmp-experiencefragment--product-listing .product-listing-tile');  
-        let crosssellSkuList = productDetail[0].related_products_sku;
-    
-       if(!crosssellSkuList || crosssellSkuList.length === 0 || crosssellSkuList == '[]'){
-          document.querySelector('.cmp-experiencefragment--product-listing').style.display = 'none';
-       } else {
+      if(recommendedProdElmContainer && checkmode !== 'edit' && crosssellSkuList) {
+            const domProdList = document.querySelectorAll('.cmp-experiencefragment--ProductListing .product-listing-tile'); 
             let prodVisibleCount = 0;
-            for(const tile of domProdList) {
+            for(const tile of domProdList) {																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
                 if(!tile.dataset.productsku || !crosssellSkuList.includes(tile.dataset.productsku)){
                     tile.parentElement.style.display = 'none';
                 } else {
                   prodVisibleCount ++
                 }
             }
+
             if(prodVisibleCount <= 0) {
-              document.querySelector('.cmp-experiencefragment--product-listing').style.display = 'none';
+              recommendedProdElmContainer.style.display = 'none';
             }
-       }
+     	}
      }
-     
-     }
+
     } catch (e) {
      console.log(e)
     }
