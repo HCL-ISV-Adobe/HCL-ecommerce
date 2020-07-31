@@ -94,7 +94,7 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
             }
             else{
                 String productSku= "passing empty  sku parameter";
-                response.getWriter().print("");
+                response.getWriter().print(productSku);
             }
 
         }
