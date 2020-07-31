@@ -102,43 +102,41 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 				}
 				JSONObject orderId = new JSONObject();
 
-				if(customerToken != null && !customerToken.isEmpty()) {
-					LOG.info("Get Order Detail for order Id: ",orderId);
+				/*if(customerToken != null && !customerToken.isEmpty()) {*/
+				LOG.info("Get Order Detail for order Id: ",order);
 
-					String authToken = loginService.getToken();
-					url = scheme + "://" + domainName + "/us/V1/orders/"+orderId;
-					LOG.info("createOrderInfo url ={}",url);
-					HttpGet httpGet = new HttpGet(url);
-					httpGet.setHeader("Content-Type", "application/json");
-					httpGet.setHeader("Authorization", "Bearer " + authToken);
-					CloseableHttpResponse Httpresponse = httpClient.execute(httpGet);
-					statusCode = Httpresponse.getStatusLine().getStatusCode();
-					if(org.eclipse.jetty.http.HttpStatus.OK_200 == statusCode){
-						String orderRes = EntityUtils.toString(Httpresponse.getEntity());
-						JSONObject jsonRes = new JSONObject();
-						Map emailParams = new HashMap<>();
-						jsonRes = new JSONObject(orderRes);
-						if(jsonRes.length()!=0) {
-							emailParams.put("orderId", orderId);
-							emailParams.put("grandTotal", jsonRes.get("base_grand_total"));
-							emailParams.put("address",jsonRes.getJSONObject("billing_address").get("street"));
+				String authToken = loginService.getToken();
+				url = scheme + "://" + domainName + "/us/V1/orders/"+order;
+				LOG.info("createOrderInfo url ={}",url);
+				HttpGet httpGet = new HttpGet(url);
+				httpGet.setHeader("Content-Type", "application/json");
+				httpGet.setHeader("Authorization", "Bearer " + authToken);
+				CloseableHttpResponse Httpresponse = httpClient.execute(httpGet);
+				statusCode = Httpresponse.getStatusLine().getStatusCode();
+				if(org.eclipse.jetty.http.HttpStatus.OK_200 == statusCode){
+					String orderRes = EntityUtils.toString(Httpresponse.getEntity());
+					JSONObject jsonRes = new JSONObject();
+					Map emailParams = new HashMap<>();
+					jsonRes = new JSONObject(orderRes);
+					if(jsonRes.length()!=0) {
+						emailParams.put("orderId", order);
+						emailParams.put("grandTotal", jsonRes.get("base_grand_total"));
+						emailParams.put("address",jsonRes.getJSONObject("billing_address").get("street"));
 
-							//send Email
-							String templatePath="/etc/notification/email/hclecomm/order-confirmation-email-template.html";
-							String smail=jsonRes.getString("customer_email");
-							String firstname=jsonRes.getString("customer_firstname");
-							emailParams.put("receiveremail",smail);
-							emailParams.put("firstname",firstname);
-							customEmailService.sendEmail(templatePath,emailParams,smail);
-						}
-					}else if(org.eclipse.jetty.http.HttpStatus.BAD_REQUEST_400 == statusCode){
-						LOG.error("Error while  getting customer Orders. status code:{} and message={}",statusCode,Httpresponse.getEntity().getContent().toString());
-					}else{
-						LOG.error("Error while getting customer orders. status code:{}",statusCode);
+						//send Email
+						String templatePath="/etc/notification/email/hclecomm/order-confirmation-email-template.html";
+						String smail=jsonRes.getString("customer_email");
+						String firstname=jsonRes.getString("customer_firstname");
+						emailParams.put("receiveremail",smail);
+						emailParams.put("firstname",firstname);
+						customEmailService.sendEmail(templatePath,emailParams,smail);
 					}
-
-
+				}else if(org.eclipse.jetty.http.HttpStatus.BAD_REQUEST_400 == statusCode){
+					LOG.error("Error while  getting customer Orders. status code:{} and message={}",statusCode,Httpresponse.getEntity().getContent().toString());
+				}else{
+					LOG.error("Error while getting customer orders. status code:{}",statusCode);
 				}
+				/*}*/
 				orderId.put("orderId",order);
 				createOrderItemRes.put("statusCode", statusCode);
 				createOrderItemRes.put("message", orderId);
@@ -155,7 +153,4 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 		LOG.debug("createOrderCart method {}: " + createOrderItemRes);
 		return createOrderItemRes;
 	}
-
-
-
 }
