@@ -40,7 +40,7 @@ public class CartItemCountServlet extends SlingSafeMethodsServlet
             LOG.info("Cart Id id : " + cartId);
             if(cartId!=null || !"".equals(cartId))
             {
-                int cartItemCount = cartService.getCartItemCount(cartId, customerToken);
+                int cartItemCount = getCartItemCount(cartId, customerToken);
                 LOG.info("cartItemCount : " + cartItemCount);
                 cartItemResponse = String.valueOf(cartItemCount);
             }
@@ -55,6 +55,10 @@ public class CartItemCountServlet extends SlingSafeMethodsServlet
         {
             LOG.error("Exception while fetching cart details: " + e.getMessage());
         }
+    }
+
+    public int getCartItemCount(String cartId, String customerToken){
+        return cartService.getCartItemCount(cartId, customerToken);
     }
 }
 
