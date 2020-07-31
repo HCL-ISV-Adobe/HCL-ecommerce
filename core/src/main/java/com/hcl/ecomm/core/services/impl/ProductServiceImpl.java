@@ -36,6 +36,10 @@ public class ProductServiceImpl implements ProductService {
 	String responseStream = null;
 	JSONArray productJsonArray = null;
 	JSONObject productJsonObject = null;
+	String searchCriteriaFilterField_1 = "searchCriteria[filterGroups][0][filters][0][field]";
+	String searchCriteriaFilterValue_1 = "searchCriteria[filterGroups][0][filters][0][value]";
+	String searchCriteriaFilterField_2 = "searchCriteria[filterGroups][0][filters][1][field]";
+	String searchCriteriaFilterValue_2 = "searchCriteria[filterGroups][0][filters][1][value]";
 
 	@Activate
 	private MagentoServiceConfig config;
@@ -55,22 +59,23 @@ public class ProductServiceImpl implements ProductService {
 		return config.productService_searchCriteriaValue();
 	}
 
-	
+
 
 	@Override
 	public JSONArray getAllProductDetails() throws JSONException {
 
-		
+
 		String token = loginService.getToken();
 		String domainName = loginService.getDomainName();
 		String servicePath = getServicePath();
 		String searchCriteriaField = getSearchCriteriaField();
 		String searchCriteriaValue = getSearchCriteriaValue();
-		
+
+
 		String productUrl = scheme + "://" + domainName + servicePath
-				+ "?searchCriteria[filterGroups][0][filters][0][field]=" + searchCriteriaField
-				+ "&searchCriteria[filterGroups][0][filters][0][value]=" + searchCriteriaValue;
-				
+				+ "?" + searchCriteriaFilterField_1 + "=" + searchCriteriaField
+				+ "&" + searchCriteriaFilterValue_1 + "=" + searchCriteriaValue;
+
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(productUrl);
@@ -105,7 +110,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<String> getAllProductSkus(JsonArray productJson) {
 
-		ArrayList<String> productSkuList = new ArrayList<String>();
+		ArrayList<String> productSkuList = new ArrayList<>();
 
 		for (JsonElement jel : productJson) {
 			String sku = jel.getAsJsonObject().get("sku").getAsString();
@@ -120,9 +125,15 @@ public class ProductServiceImpl implements ProductService {
 		String token = loginService.getToken();
 		String domainName = loginService.getDomainName();
 		String servicePath = getServicePath();
-		
-        String productUrl = scheme + "://" + domainName + servicePath + "/" + sku;
-		
+		String searchCriteriaField = getSearchCriteriaField();
+		String searchCriteriaValue = getSearchCriteriaValue();
+
+		String productUrl = scheme + "://" + domainName + servicePath
+				+ "?" + searchCriteriaFilterField_1 + "=" + searchCriteriaField
+				+ "&" + searchCriteriaFilterValue_1 + "=" + searchCriteriaValue
+				+ "&" + searchCriteriaFilterField_2 + "=sku"
+				+ "&" + searchCriteriaFilterValue_2 + "=" + sku;
+
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(productUrl);
@@ -144,12 +155,15 @@ public class ProductServiceImpl implements ProductService {
 				LOG.error("Failed to fetch products details from the store");
 			}
 			productJsonObject = new JSONObject(responseStream);
-			JSONArray productJsonArray = productJsonObject.getJSONArray("items");
-			LOG.info("product details Response in Json object : " + productJsonObject);
+			if(productJsonObject.getJSONArray("items") != null){
+				productJsonArray = productJsonObject.getJSONArray("items");
+			}
+
+			LOG.info("product details Response in Json object : " + productJsonArray);
 		} catch (Exception e) {
 			LOG.error(" getProductDetail method caught an exception" + e.getMessage());
 		}
-		
+
 		return productJsonArray;
 	}
 

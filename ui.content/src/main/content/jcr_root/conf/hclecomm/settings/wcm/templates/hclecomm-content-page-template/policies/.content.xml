@@ -62,6 +62,10 @@
 								jcr:primaryType="nt:unstructured" 
 								cq:policy="hclecomm/components/content/button/policy_1588076880690" 
 								sling:resourceType="wcm/core/components/policies/mapping"/>
+                            <experiencefragment
+                                    cq:policy="hclecomm/components/content/experiencefragment/policy_1596179436508"
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="wcm/core/components/policies/mapping"/>
                         </content>
                     </components>
                 </hclecomm>
@@ -69,7 +73,7 @@
             <footer
                 cq:policy="hclecomm/components/structure/footer/policy_1587530568542"
                 jcr:primaryType="nt:unstructured"
-                sling:resourceType="wcm/core/components/policies/mapping"/>
+                sling:resourceType="wcm/core/components/policies/mapping">
 		<newsletter
                     cq:policy="hclecomm/components/content/newsletter/policy_1594020188218"
                     jcr:primaryType="nt:unstructured"
