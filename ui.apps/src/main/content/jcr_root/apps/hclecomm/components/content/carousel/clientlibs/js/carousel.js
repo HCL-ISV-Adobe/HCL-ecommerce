@@ -39,7 +39,7 @@ $(document).ready(function () {
             var itemNumbers = $(this).find(itemClass).length;
             incno = (bodyWidth >= 768) ? 3 : 1;
             itemWidth = sampwidth / incno;
-            $(this).css({ 'transform': 'translateX(0px)', 'width': (itemWidth * itemNumbers)});
+            $(this).css({ 'transform': 'translateX(0px)', 'width': (itemWidth * itemNumbers) });
             $(this).find(itemClass).each(function () {
                 $(this).outerWidth(itemWidth);
             });
@@ -63,19 +63,16 @@ $(document).ready(function () {
             $('.cmp-carousel__item.active').removeClass('active').prev().addClass('active');
             translateXval = parseInt(xds) - parseInt(itemWidth * s);
             $(el + ' ' + rightBtn).removeClass("over");
-            if (translateXval <= itemWidth / 2) {
-                translateXval = 0;
+            if (!$('.cmp-carousel__item.active').prev().hasClass('cmp-carousel__item')) {
                 $(el + ' ' + leftBtn).addClass("over");
             }
         }
         else if (e == 1) {
-            var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
+            translateXval = (!$('.cmp-carousel__item.active').prev().hasClass('cmp-carousel__item')) ? 0 :
+                parseInt(xds) + parseInt(itemWidth * s);
             $('.cmp-carousel__item.active').removeClass('active').next().addClass('active');
-            translateXval = parseInt(xds) + parseInt(itemWidth * s);
             $(el + ' ' + leftBtn).removeClass("over");
-
-            if (translateXval >= itemsCondition - itemWidth / 2) {
-                translateXval = itemsCondition;
+            if (!$('.cmp-carousel__item.active').next().hasClass('cmp-carousel__item')) {
                 $(el + ' ' + rightBtn).addClass("over");
             }
         }
