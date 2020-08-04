@@ -58,7 +58,7 @@ public class MyAccountAddAddress extends SlingAllMethodsServlet {
 
             if (StringUtils.isNotEmpty(payload)) {
                 JSONObject jsonPayload = new JSONObject(payload);
-                LOG.info("Shipping Address inside If", jsonPayload);
+                LOG.debug("Shipping Address inside If", jsonPayload);
                 if (isValidPayload(jsonPayload, customerToken)) {
                     JSONObject customerAddress =  jsonPayload;
                     LOG.debug("customerAddress:: "+customerAddress);
