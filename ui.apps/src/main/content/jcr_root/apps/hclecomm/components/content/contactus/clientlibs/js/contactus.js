@@ -71,7 +71,7 @@ function validateContactFrom(e) {
 }
 if(document.querySelector('.cancel-btn'))
 {
-	document.querySelector('.cancel-btn').addEventListener("click", function(){
+	document.querySelector('.cancel-btn')?.addEventListener("click", function(){
     document.querySelector(".contactus form").reset();
   });
 }
