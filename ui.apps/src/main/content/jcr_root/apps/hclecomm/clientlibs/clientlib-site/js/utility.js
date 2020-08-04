@@ -49,21 +49,16 @@ window.XMLHttpRequest = newXHR;
 
 
 $(function() {
-    var dataTag =$('.checkmode').attr('data-tag');
-    if(dataTag && checkmode !== 'edit')
-    {
-        var dataTagArray = dataTag.split(",");
 
-        for (i = 0; i < dataTagArray.length; i++) {
-              if(dataTagArray[i].includes("loginauth") )
-              {
-                    let userData = null;
-                    userData = getUserCookie("hcluser");
-                    if (userData === null || userData === "" ) {
-                       const signInUrl = $('.signin')[0].href;
-                        window.location.href = signInUrl;
-                    }
-              }
+    var isLoginRequired =$('#isloginRequired').val();
+    if(isLoginRequired )
+    {
+        let userData = null;
+        userData = getUserCookie("hcluser");
+		if (userData === null || userData === "" ) 
+        {
+                const signInUrl = $('.signin')[0].href;
+                window.location.href = signInUrl;
         }
     }
 });
