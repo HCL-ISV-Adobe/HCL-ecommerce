@@ -44,7 +44,7 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
             if(StringUtils.isNotEmpty(sku)) {
                 JSONArray responseStream = getProductDetail(sku);
                 LOG.info("JsonResponse : "+responseStream);
-                List<HashMap<String, String>> productList = new ArrayList<HashMap<String, String>>();
+                List<HashMap<String, String>> productList = new ArrayList<>();
                 JSONObject productObject = new JSONObject();
 
                 String skuId = "";
@@ -58,27 +58,24 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
                     JSONObject productResponse = responseStream.getJSONObject(0);
                     LOG.info(" productResponse is {}", productResponse.toString());
 
-                    if(productResponse.get("sku") != null){
+                    if(productResponse.has("sku") && productResponse.has("name") && productResponse.has("price")){
                         skuId = productResponse.get("sku").toString();
-                    }
-                    if(productResponse.get("name") != null){
                         name = productResponse.get("name").toString();
-                    }
-                    if(productResponse.get("price") != null){
                         price = productResponse.get("price").toString();
                     }
 
-                    JSONObject stock_item=productResponse.getJSONObject("extension_attributes").getJSONObject("stock_item");
-                    if(stock_item != null){
-                        if(stock_item.get("is_in_stock") != null){
+                    if(productResponse.getJSONObject("extension_attributes").has("stock_item")){
+                        JSONObject stock_item=productResponse.getJSONObject("extension_attributes").getJSONObject("stock_item");
+                        if(stock_item.has("is_in_stock")){
                             stock = stock_item.get("is_in_stock").toString();
                         }
-                        if(stock_item.get("qty") != null ){
+                        if(stock_item.has("qty")){
                             qty = stock_item.get("qty").toString();
                         }
                     }
 
-                    if(productResponse.getJSONArray("product_links") != null){
+
+                    if(productResponse.has("product_links")){
                         related_products_sku = getRelatedProductSkus(productResponse.getJSONArray("product_links"));
                     }
                 }
