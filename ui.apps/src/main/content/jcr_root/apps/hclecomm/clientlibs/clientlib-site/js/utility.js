@@ -51,7 +51,7 @@ window.XMLHttpRequest = newXHR;
 $(function() {
 
     var isLoginRequired =$('#isloginRequired').val();
-    if(isLoginRequired )
+    if(isLoginRequired && checkmode !== 'edit')
     {
         let userData = null;
         userData = getUserCookie("hcluser");
