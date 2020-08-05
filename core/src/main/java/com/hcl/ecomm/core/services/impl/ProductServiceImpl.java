@@ -153,7 +153,7 @@ public class ProductServiceImpl implements ProductService {
                 JSONArray array = productJsonObject.getJSONObject("extension_attributes").getJSONArray("website_ids");
 
                 for (int i = 0; i < array.length(); i++) {
-                    if (array.get(i).toString().matches(websiteId)) {
+                    if (array.get(i).toString().equals(websiteId)) {
                         return productJsonObject;
                     }
                 }
