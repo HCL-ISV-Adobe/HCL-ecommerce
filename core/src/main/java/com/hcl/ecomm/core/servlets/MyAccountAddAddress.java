@@ -58,9 +58,9 @@ public class MyAccountAddAddress extends SlingAllMethodsServlet {
 
             if (StringUtils.isNotEmpty(payload)) {
                 JSONObject jsonPayload = new JSONObject(payload);
-                LOG.info("Shipping Address inside If", jsonPayload);
+                LOG.debug("Shipping Address inside If", jsonPayload);
                 if (isValidPayload(jsonPayload, customerToken)) {
-                    JSONObject customerAddress = jsonItemObj( jsonPayload);
+                    JSONObject customerAddress =  jsonPayload;
                     LOG.debug("customerAddress:: "+customerAddress);
 
                     JSONObject customerProfileAddress = customerService.customerProfileAddDetails(customerToken,customerAddress);
@@ -93,42 +93,5 @@ public class MyAccountAddAddress extends SlingAllMethodsServlet {
         return isValidData;
     }
 
-    private JSONObject jsonItemObj(JSONObject shipData) throws JSONException {
-        LOG.debug("Inside jsonItemObj response"+shipData);
-        JSONObject customer= new JSONObject();
-        JSONObject innerResponse=new JSONObject();
-        JSONArray addresses=new JSONArray();
-        JSONObject address = new JSONObject();
-        try {
 
-            address.put("city", shipData.getString("city"));
-            address.put("country_id", shipData.getString("country_id"));
-            address.put("firstname", shipData.getString("firstname"));
-            address.put("lastname", shipData.getString("lastname"));
-            address.put("postcode", shipData.getString("postcode"));
-            address.put("region", shipData.getString("region"));
-            address.put("region_id", 0);
-            address.put("street", shipData.get("street"));
-            address.put("telephone", shipData.getString("telephone"));
-            address.put("default_billing", true);
-            address.put("default_shipping", true);
-            LOG.debug("address:: "+address.toString());
-            addresses.put(address);
-            LOG.debug("address:: "+addresses.toString());
-
-            innerResponse.put("email",shipData.getString("email"));
-            innerResponse.put("firstname", shipData.getString("first_name"));
-            innerResponse.put("lastname", shipData.getString("last_name"));
-            innerResponse.put("websiteId", 0);
-            innerResponse.put("addresses", addresses);
-
-            LOG.debug("innerResponse "+innerResponse.toString());
-            customer.put("customer",innerResponse);
-            LOG.debug("customer ::"+customer.toString());
-
-        } catch (JSONException e) {
-            LOG.error("Error while executing. Error={}", e);
-        }
-        return customer;
-    }
 }

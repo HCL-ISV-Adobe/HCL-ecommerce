@@ -17,14 +17,10 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
 
 @Component(service = Servlet.class,
-        property = { "sling.servlet.paths=/bin/hclecomm/productDetails",
-                "sling.servlet.method=" + HttpConstants.METHOD_GET, "sling.servlet.extensions=json" })
+        property = {"sling.servlet.paths=/bin/hclecomm/productDetails",
+                "sling.servlet.method=" + HttpConstants.METHOD_GET, "sling.servlet.extensions=json"})
 public class ProductDetailsServlet extends SlingSafeMethodsServlet {
 
     private static final long serialVersionUID = 849553733784661541L;
@@ -40,66 +36,49 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
 
         try {
 
-            String  sku = request.getParameter("sku");
-            if(StringUtils.isNotEmpty(sku)) {
-                JSONArray responseStream = getProductDetail(sku);
-                LOG.info("JsonResponse : "+responseStream);
-                List<HashMap<String, String>> productList = new ArrayList<HashMap<String, String>>();
+            String sku = request.getParameter("sku");
+            if (StringUtils.isNotEmpty(sku)) {
                 JSONObject productObject = new JSONObject();
 
-                String skuId = "";
-                String name = "";
-                String price = "0.0";
+                JSONObject productResponse = getProductDetail(sku);
+                if (productResponse.length() == 0) {
+                    response.getWriter().print("Product is not available in required website id");
+                    return;
+                }
+                LOG.info("JsonResponse : " + productResponse);
+
                 String stock = "false";
                 String qty = "0";
                 JSONArray related_products_sku = new JSONArray();
 
-                if(responseStream.length()>0){
-                    JSONObject productResponse = responseStream.getJSONObject(0);
-                    LOG.info(" productResponse is {}", productResponse.toString());
-
-                    if(productResponse.get("sku") != null){
-                        skuId = productResponse.get("sku").toString();
+                if (productResponse.getJSONObject("extension_attributes").has("stock_item")) {
+                    JSONObject stock_item = productResponse.getJSONObject("extension_attributes").getJSONObject("stock_item");
+                    if (stock_item.has("is_in_stock")) {
+                        stock = stock_item.get("is_in_stock").toString();
                     }
-                    if(productResponse.get("name") != null){
-                        name = productResponse.get("name").toString();
-                    }
-                    if(productResponse.get("price") != null){
-                        price = productResponse.get("price").toString();
-                    }
-
-                    JSONObject stock_item=productResponse.getJSONObject("extension_attributes").getJSONObject("stock_item");
-                    if(stock_item != null){
-                        if(stock_item.get("is_in_stock") != null){
-                            stock = stock_item.get("is_in_stock").toString();
-                        }
-                        if(stock_item.get("qty") != null ){
-                            qty = stock_item.get("qty").toString();
-                        }
-                    }
-
-                    if(productResponse.getJSONArray("product_links") != null){
-                        related_products_sku = getRelatedProductSkus(productResponse.getJSONArray("product_links"));
+                    if (stock_item.has("qty")) {
+                        qty = stock_item.get("qty").toString();
                     }
                 }
+                if (productResponse.has("product_links")) {
+                    related_products_sku = getRelatedProductSkus(productResponse.getJSONArray("product_links"));
+                }
 
-                productObject.put("sku", skuId);
-                productObject.put("name", name);
-                productObject.put("price", price);
+                productObject.put("sku", productResponse.get("sku").toString());
+                productObject.put("name", productResponse.get("name").toString());
+                productObject.put("price", productResponse.get("price").toString());
                 productObject.put("stock", stock);
                 productObject.put("qty", qty);
-                productObject.put("related_products_sku",related_products_sku);
+                productObject.put("related_products_sku", related_products_sku);
                 response.setContentType("application/json");
                 response.getWriter().print(productObject);
-            }
-            else{
-                String productSku= "passing empty  sku parameter";
+            } else {
+                String productSku = "passing empty sku parameter";
                 response.getWriter().print(productSku);
             }
 
-        }
-        catch (Exception e){
-            LOG.error("error in ProductDetailsServlet {} ",e.getMessage());
+        } catch (Exception e) {
+            LOG.error("error in ProductDetailsServlet {} ", e.getMessage());
         }
     }
 
@@ -111,7 +90,8 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
         }
         return relatedProductSkuArray;
     }
-    public JSONArray getProductDetail(String sku){
-        return  productService.getProductDetail(sku);
+
+    public JSONObject getProductDetail(String sku) {
+        return productService.getProductDetail(sku);
     }
 }

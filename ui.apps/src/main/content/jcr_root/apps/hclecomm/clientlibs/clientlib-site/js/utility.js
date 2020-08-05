@@ -46,3 +46,19 @@ function newXHR() {
     return realXHR;
 }
 window.XMLHttpRequest = newXHR;
+
+
+$(function() {
+
+    var isLoginRequired =$('#isloginRequired').val();
+    if(isLoginRequired && checkmode !== 'edit')
+    {
+        let userData = null;
+        userData = getUserCookie("hcluser");
+		if (userData === null || userData === "" ) 
+        {
+                const signInUrl = $('.signin')[0].href;
+                window.location.href = signInUrl;
+        }
+    }
+});

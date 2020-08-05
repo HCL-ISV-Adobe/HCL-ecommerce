@@ -53,7 +53,7 @@ $(document).ready(function() {
       $('.btn-product-card').removeClass("btn-product-card-disabled");
       $(".btn-product-card").removeAttr('disabled');
       $('.product-details-cmp--no-product').css("display", "none");
-
+        }
       if(recommendedProdElmContainer && checkmode !== 'edit' && crosssellSkuList) {
             const domProdList = document.querySelectorAll('.pdp-recommended-products .product-listing-tile'); 
             let prodVisibleCount = 0;
@@ -69,7 +69,7 @@ $(document).ready(function() {
               recommendedProdElmContainer.style.display = 'none';
             }
      	}
-     }
+     
 
     } catch (e) {
      console.log(e)
