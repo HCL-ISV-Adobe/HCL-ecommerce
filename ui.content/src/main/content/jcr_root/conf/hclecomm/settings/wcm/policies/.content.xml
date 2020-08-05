@@ -67,7 +67,7 @@
                 </container>
                 <text jcr:primaryType="nt:unstructured">
                     <policy_1594215389761
-                            cq:styleDefaultClasses="cmp-form input"
+                            cq:styleDefaultClasses="cmp-full-width-input"
                             jcr:lastModified="{Date}2020-07-30T14:41:31.662+05:30"
                             jcr:lastModifiedBy="admin"
                             jcr:primaryType="nt:unstructured"
