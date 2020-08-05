@@ -63,11 +63,11 @@ public class MyAccountAddAddress extends SlingAllMethodsServlet {
                     JSONObject customerAddress =  jsonPayload;
                     LOG.debug("customerAddress:: "+customerAddress);
 
-                    JSONObject customerProfileAddress = customerService.customerProfileAddDetails(customerToken,customerAddress);
+                    JSONObject customerProfileAddress = customerProfileAddDetails(customerToken,customerAddress);
                     LOG.debug("customerProfileAddress after servlet"+customerProfileAddress.toString());
                     if (customerProfileAddress.has("statusCode") && customerProfileAddress.getInt("statusCode") == HttpStatus.OK_200) {
                         responseObject.put("message", customerProfileAddress.getJSONObject("message"));
-                        responseObject.put("status", Boolean.TRUE);
+                            responseObject.put("status", Boolean.TRUE);
                     } else {
                         responseObject.put("message", "something went wrong while customerProfileAddDetails");
                     }
@@ -93,5 +93,8 @@ public class MyAccountAddAddress extends SlingAllMethodsServlet {
         return isValidData;
     }
 
+    public JSONObject customerProfileAddDetails(String customerToken,JSONObject customerAddress) throws JSONException {
+        return customerService.customerProfileAddDetails(customerToken,customerAddress);
+    }
 
 }

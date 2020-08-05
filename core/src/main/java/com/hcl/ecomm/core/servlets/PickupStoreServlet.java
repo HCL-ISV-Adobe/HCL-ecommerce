@@ -33,7 +33,7 @@ public class PickupStoreServlet extends SlingSafeMethodsServlet {
 		LOG.debug("inside PickupStore Servlet  doGET method");
 		try {
 
-			JSONObject respObj = shippingInfoService.getPickupStoreList();
+			JSONObject respObj = getPickupStoreList();
 			JSONArray itemsArr  = respObj.getJSONArray("items");
 			LOG.debug("itemsArr is {}", itemsArr.toString());
 			JSONArray pickupStoreRes = new JSONArray();
@@ -61,6 +61,10 @@ public class PickupStoreServlet extends SlingSafeMethodsServlet {
 		}
 
 
+	}
+
+	public JSONObject getPickupStoreList() throws JSONException {
+		return shippingInfoService.getPickupStoreList();
 	}
 
 

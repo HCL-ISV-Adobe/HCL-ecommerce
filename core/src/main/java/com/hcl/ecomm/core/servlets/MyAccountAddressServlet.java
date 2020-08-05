@@ -5,6 +5,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
@@ -38,7 +39,7 @@ public class MyAccountAddressServlet extends SlingAllMethodsServlet {
         try {
             LOG.debug("customerToken value : " + customerToken);
             if (customerToken != null) {
-                JSONObject customerProfileAddress = customerService.customerProfile(customerToken);
+                JSONObject customerProfileAddress = customerProfile(customerToken);
                 JSONObject message = customerProfileAddress.getJSONObject("message");
                 LOG.debug("message : " + message);
                 addressDetails = message.get("addresses").toString();
@@ -51,5 +52,9 @@ public class MyAccountAddressServlet extends SlingAllMethodsServlet {
         } catch (Exception e) {
             LOG.debug("Exception while fetching Customer Address details: " + e.getMessage());
         }
+    }
+
+    public JSONObject customerProfile(String customerToken) throws JSONException {
+        return customerService.customerProfile(customerToken);
     }
 }
