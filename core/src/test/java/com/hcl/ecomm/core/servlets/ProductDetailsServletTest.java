@@ -2,7 +2,6 @@ package com.hcl.ecomm.core.servlets;
 
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletRequest;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletResponse;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,9 +19,10 @@ class ProductDetailsServletTest {
     private ProductDetailsServlet productDetailsServlet;
 
     @BeforeEach
-    protected  void setUp()  {
-        productDetailsServlet = spy (new ProductDetailsServlet());
+    protected void setUp() {
+        productDetailsServlet = spy(new ProductDetailsServlet());
     }
+
     @Test
     void doGet() throws ServletException, IOException, JSONException {
         MockSlingHttpServletRequest request = mock(MockSlingHttpServletRequest.class);
@@ -30,12 +30,13 @@ class ProductDetailsServletTest {
         when(request.getParameter("sku")).thenReturn("24-WG085");
 
         doReturn(getSubmitResponse()).when(productDetailsServlet).getProductDetail(anyString());
-        productDetailsServlet.doGet(request,response);
+        productDetailsServlet.doGet(request, response);
         verify(productDetailsServlet, times(1)).doGet(request, response);
 
     }
-    private JSONArray getSubmitResponse() throws JSONException {
-        String submitResponse =  "{\n" +
+
+    private JSONObject getSubmitResponse() throws JSONException {
+        String submitResponse = "{\n" +
                 "  \"id\": 1,\n" +
                 "  \"sku\": \"24-WG085\",\n" +
                 "  \"name\": \"Sprite Yoga Strap 6 foot\",\n" +
@@ -58,9 +59,7 @@ class ProductDetailsServletTest {
                 "  ]\n" +
                 "}";
 
-        JSONObject jsonObject =new JSONObject(submitResponse);
-        JSONArray jsonArray=new JSONArray();
-        jsonArray.put(jsonObject);
-        return jsonArray;
+        JSONObject jsonObject = new JSONObject(submitResponse);
+        return jsonObject;
     }
 }
