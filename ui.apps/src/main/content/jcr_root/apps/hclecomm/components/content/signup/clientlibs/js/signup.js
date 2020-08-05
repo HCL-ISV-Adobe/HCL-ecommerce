@@ -1,7 +1,7 @@
   const findRedriectUrl2 = function(domId) {
 		let redirectURL = "";
 		const params = new URLSearchParams(window.location.search);
-		const keys = ['signin.html', 'signup.html'];
+		const keys = ['sign-in.html', 'sign-up.html'];
 		if(params.has('referer')) {
 			if(!keys.some(k => params.get('referer').includes(k) )) {
 				redirectURL = params.get('referer');
