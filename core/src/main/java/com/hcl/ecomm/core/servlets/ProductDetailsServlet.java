@@ -69,7 +69,7 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
                 productObject.put("price", productResponse.get("price").toString());
                 productObject.put("stock", stock);
                 productObject.put("qty", qty);
-                productObject.put("related_products_sku", "");
+                productObject.put("related_products_sku", related_products_sku);
                 response.setContentType("application/json");
                 response.getWriter().print(productObject);
             } else {
