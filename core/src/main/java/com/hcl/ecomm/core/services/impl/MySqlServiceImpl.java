@@ -52,7 +52,7 @@ public class MySqlServiceImpl implements MySqlService {
 		try {
 			connection = getConnection();
 			PreparedStatement ps = null;
-			String insert = "INSERT INTO complaint(first_name, last_name, email, subject, complaint, status) VALUES(?,?,?,?,?,?);";
+			String insert = "INSERT INTO complaints(first_name, last_name, email, subject, complaint, status) VALUES(?,?,?,?,?,?);";
 			ps = connection.prepareStatement(insert);
 			ps.setString(1, first_Name);
 			ps.setString(2, last_Name);
