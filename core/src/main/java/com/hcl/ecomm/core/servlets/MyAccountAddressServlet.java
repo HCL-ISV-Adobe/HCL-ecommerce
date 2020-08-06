@@ -32,6 +32,14 @@ public class MyAccountAddressServlet extends SlingAllMethodsServlet {
     @Reference
     private CustomerService customerService;
 
+    /**
+     * doGet gets to fetch all addresses of customer from Magento service.
+     *
+     * @param request
+     *            - sling servlet request object
+     * @param response
+     *            - sling servlet response object
+     */
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
         String addressDetails = "";

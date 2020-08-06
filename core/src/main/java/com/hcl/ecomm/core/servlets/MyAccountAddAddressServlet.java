@@ -35,6 +35,14 @@ public class MyAccountAddAddressServlet extends SlingAllMethodsServlet {
     @Reference
     private CustomerService customerService;
 
+    /**
+     * doPut gets to add address of customer in Magento and returns status message from Magento service.
+     *
+     * @param request
+     *            - sling servlet request object
+     * @param response
+     *            - sling servlet response object
+     */
     @Override
     protected void doPut(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {

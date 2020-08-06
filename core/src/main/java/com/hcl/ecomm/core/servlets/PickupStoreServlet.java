@@ -27,6 +27,14 @@ public class PickupStoreServlet extends SlingSafeMethodsServlet {
 	@Reference
 	private ShippingInfoService shippingInfoService;
 
+	/**
+	 * doGet gets to fetch the list of pickup stores available from the dam json file.
+	 *
+	 * @param request
+	 *            - sling servlet request object
+	 * @param response
+	 *            - sling servlet response object
+	 */
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
 
