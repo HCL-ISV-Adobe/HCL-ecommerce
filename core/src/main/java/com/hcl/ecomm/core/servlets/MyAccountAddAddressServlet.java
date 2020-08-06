@@ -7,7 +7,6 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.eclipse.jetty.http.HttpStatus;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.framework.Constants;
@@ -28,10 +27,10 @@ import java.io.IOException;
                 "sling.servlet.paths=/bin/hclecomm/addAddress",
                 "sling.servlet.method=" + HttpConstants.METHOD_POST,
                 "sling.servlet.extensions=json"})
-public class MyAccountAddAddress extends SlingAllMethodsServlet {
+public class MyAccountAddAddressServlet extends SlingAllMethodsServlet {
 
     private static final long serialVersionUID = 2731083214874663626L;
-    private static final Logger LOG = LoggerFactory.getLogger(MyAccountAddAddress.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MyAccountAddAddressServlet.class);
 
     @Reference
     private CustomerService customerService;

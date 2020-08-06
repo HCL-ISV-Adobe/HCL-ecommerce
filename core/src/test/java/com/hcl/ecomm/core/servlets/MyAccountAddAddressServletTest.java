@@ -17,13 +17,13 @@ import java.io.StringReader;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class MyAccountAddAddressTest {
+public class MyAccountAddAddressServletTest {
 
-    private MyAccountAddAddress myAccountAddAddress;
+    private MyAccountAddAddressServlet myAccountAddAddressServlet;
 
     @BeforeEach
     void setUp(){
-        myAccountAddAddress = spy(new MyAccountAddAddress());
+        myAccountAddAddressServlet = spy(new MyAccountAddAddressServlet());
     }
 
     @Test
@@ -36,9 +36,9 @@ public class MyAccountAddAddressTest {
 
         JSONObject jsonObject = new JSONObject(getAddressResponse());
 
-        doReturn(jsonObject).when(myAccountAddAddress).customerProfileAddDetails(anyString(),any());
-        myAccountAddAddress.doPut(request,response);
-        verify(myAccountAddAddress, times(1)).doPut(request, response);
+        doReturn(jsonObject).when(myAccountAddAddressServlet).customerProfileAddDetails(anyString(),any());
+        myAccountAddAddressServlet.doPut(request,response);
+        verify(myAccountAddAddressServlet, times(1)).doPut(request, response);
         }
 
     private String getPayload() {
