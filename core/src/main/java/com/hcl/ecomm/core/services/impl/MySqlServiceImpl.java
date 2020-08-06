@@ -8,6 +8,8 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.*;
@@ -16,8 +18,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-//Add the DataSourcePool package
 import com.day.commons.datasource.poolservice.DataSourcePool;
+import com.hcl.ecomm.core.services.CustomEmailService;
 import com.hcl.ecomm.core.services.MySqlService;
 
 import java.sql.Connection;
@@ -35,12 +37,15 @@ public class MySqlServiceImpl implements MySqlService {
 
 	@Reference
 	private DataSourcePool source;
+	
+	@Reference
+    CustomEmailService customEmailService;
 
 	@Override
 	public void userComplaintSubmission(String first_Name, String last_Name, String email, String subject,
 			String complaint) {
 
-		LOG.info("userComplaintSubmission method start");
+		LOG.info("userComplaintSubmission method start. email="+email);
 
 		Connection connection = null;
 
@@ -55,7 +60,12 @@ public class MySqlServiceImpl implements MySqlService {
 			ps.setString(4, subject);
 			ps.setString(5, complaint);
 			ps.setString(6, "Open");
-			ps.execute();
+			int responseCode=ps.executeUpdate();
+			if (responseCode>0) {
+				triggerNotifyMail(first_Name, email);
+			} else {
+				LOG.error("Something went wrong while inserting in mysql db.");
+			}
 
 		} catch (Exception e) {
 			LOG.error("Error while executing th sql query. Error = {}", e);
@@ -71,6 +81,15 @@ public class MySqlServiceImpl implements MySqlService {
 
 	}
 
+	private void triggerNotifyMail(String first_Name, String email) {
+		Map emailParams = new HashMap<>();
+		LOG.info("Email =="+email);
+		String templatePath = "/etc/notification/email/hclecomm/user-complaint-email-template.html";
+		emailParams.put("receiveremail", email);
+		emailParams.put("firstname", first_Name);
+		customEmailService.sendEmail(templatePath, emailParams, email);
+	}
+	
 	private Connection getConnection() {
 		DataSource dataSource = null;
 		Connection con = null;
