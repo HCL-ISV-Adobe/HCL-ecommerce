@@ -25,6 +25,7 @@ function changePasswordServerRequest(url, formdata) {
             loader(false);
             const status = (data.status) ? JSON.parse(data.status) : false;
             if (status === true) {
+				document.cookie = "hcluser" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                 setTimeout(function(){window.location.pathname = '/content/hclecomm/us/en/sign-in.html';}, 1000);                  
             } else {
                 let error = "Server status failed. ";
