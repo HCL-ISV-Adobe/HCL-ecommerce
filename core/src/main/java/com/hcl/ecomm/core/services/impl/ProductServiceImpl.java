@@ -27,131 +27,145 @@ import java.util.List;
 @Designate(ocd = MagentoServiceConfig.class)
 public class ProductServiceImpl implements ProductService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ProductServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ProductServiceImpl.class);
 
-	@Reference
-	LoginService loginService;
+    @Reference
+    LoginService loginService;
 
-	String scheme = "http";
-	String responseStream = null;
-	JSONArray productJsonArray = null;
-	JSONObject productJsonObject = null;
+    String scheme = "http";
+    String responseStream = null;
+    JSONArray productJsonArray = null;
+    JSONObject productJsonObject = null;
+    String searchCriteriaFilterField_1 = "searchCriteria[filterGroups][0][filters][0][field]";
+    String searchCriteriaFilterValue_1 = "searchCriteria[filterGroups][0][filters][0][value]";
+    String searchCriteriaFilterField_2 = "searchCriteria[filterGroups][0][filters][1][field]";
+    String searchCriteriaFilterValue_2 = "searchCriteria[filterGroups][0][filters][1][value]";
 
-	@Activate
-	private MagentoServiceConfig config;
+    @Activate
+    private MagentoServiceConfig config;
 
-	@Override
-	public String getServicePath() {
-		return config.productService_servicePath();
-	}
+    @Override
+    public String getServicePath() {
+        return config.productService_servicePath();
+    }
 
-	@Override
-	public String getSearchCriteriaField() {
-		return config.productService_searchCriteriaField();
-	}
+    @Override
+    public String getSearchCriteriaField() {
+        return config.productService_searchCriteriaField();
+    }
 
-	@Override
-	public String getSearchCriteriaValue() {
-		return config.productService_searchCriteriaValue();
-	}
+    @Override
+    public String getSearchCriteriaValue() {
+        return config.productService_searchCriteriaValue();
+    }
 
-	
 
-	@Override
-	public JSONArray getAllProductDetails() throws JSONException {
 
-		
-		String token = loginService.getToken();
-		String domainName = loginService.getDomainName();
-		String servicePath = getServicePath();
-		String searchCriteriaField = getSearchCriteriaField();
-		String searchCriteriaValue = getSearchCriteriaValue();
-		
-		String productUrl = scheme + "://" + domainName + servicePath
-				+ "?searchCriteria[filterGroups][0][filters][0][field]=" + searchCriteriaField
-				+ "&searchCriteria[filterGroups][0][filters][0][value]=" + searchCriteriaValue;
-				
+    @Override
+    public JSONArray getAllProductDetails() throws JSONException {
 
-		CloseableHttpClient httpClient = HttpClients.createDefault();
-		HttpGet httpGet = new HttpGet(productUrl);
 
-		httpGet.setHeader("Content-Type", "application/json");
-		String bearerToken = "Bearer " + token;
-		String finalToken = bearerToken.replaceAll("\"", "");
-		LOG.info("Final Token Value is : " + finalToken);
-		httpGet.setHeader("Authorization", finalToken);
+        String token = loginService.getToken();
+        String domainName = loginService.getDomainName();
+        String servicePath = getServicePath();
+        String searchCriteriaField = getSearchCriteriaField();
+        String searchCriteriaValue = getSearchCriteriaValue();
 
-		try {
-			CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
 
-			if (httpResponse.getStatusLine().getStatusCode() == 200) {
-				responseStream = EntityUtils.toString(httpResponse.getEntity());
-				LOG.info("Product Response Json : " + responseStream);
+        String productUrl = scheme + "://" + domainName + servicePath
+                + "?" + searchCriteriaFilterField_1 + "=" + searchCriteriaField
+                + "&" + searchCriteriaFilterValue_1 + "=" + searchCriteriaValue;
 
-			} else {
-				responseStream = "Failed to fetch products from the store";
-				LOG.error("Failed to fetch products from the store");
-			}
-		} catch (Exception e) {
-			LOG.error(" getAllProductDetails method caught an exception" + e.getMessage());
-		}
-		productJsonObject = new JSONObject(responseStream);
-		JSONArray productJsonArray = productJsonObject.getJSONArray("items");
-		LOG.info("Json Array formed : " + productJsonArray);
 
-		return productJsonArray;
-	}
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(productUrl);
 
-	@Override
-	public List<String> getAllProductSkus(JsonArray productJson) {
+        httpGet.setHeader("Content-Type", "application/json");
+        String bearerToken = "Bearer " + token;
+        String finalToken = bearerToken.replaceAll("\"", "");
+        LOG.info("Final Token Value is : " + finalToken);
+        httpGet.setHeader("Authorization", finalToken);
 
-		ArrayList<String> productSkuList = new ArrayList<String>();
+        try {
+            CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
 
-		for (JsonElement jel : productJson) {
-			String sku = jel.getAsJsonObject().get("sku").getAsString();
-			productSkuList.add(sku);
-		}
-		return productSkuList;
-	}
+            if (httpResponse.getStatusLine().getStatusCode() == 200) {
+                responseStream = EntityUtils.toString(httpResponse.getEntity());
+                LOG.info("Product Response Json : " + responseStream);
 
-	@Override
-	public JSONArray getProductDetail(String sku) {
+            } else {
+                responseStream = "Failed to fetch products from the store";
+                LOG.error("Failed to fetch products from the store");
+            }
+        } catch (Exception e) {
+            LOG.error(" getAllProductDetails method caught an exception" + e.getMessage());
+        }
+        productJsonObject = new JSONObject(responseStream);
+        JSONArray productJsonArray = productJsonObject.getJSONArray("items");
+        LOG.info("Json Array formed : " + productJsonArray);
 
-		String token = loginService.getToken();
-		String domainName = loginService.getDomainName();
-		String servicePath = getServicePath();
-		
-        String productUrl = scheme + "://" + domainName + servicePath + "/" + sku;
-		
+        return productJsonArray;
+    }
 
-		CloseableHttpClient httpClient = HttpClients.createDefault();
-		HttpGet httpGet = new HttpGet(productUrl);
+    @Override
+    public List<String> getAllProductSkus(JsonArray productJson) {
 
-		httpGet.setHeader("Content-Type", "application/json");
-		String bearerToken = "Bearer " + token;
-		String finalToken = bearerToken.replaceAll("\"", "");
-		LOG.info("Final Token Value is : " + finalToken);
-		httpGet.setHeader("Authorization", finalToken);
+        ArrayList<String> productSkuList = new ArrayList<>();
 
-		try {
-			CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
+        for (JsonElement jel : productJson) {
+            String sku = jel.getAsJsonObject().get("sku").getAsString();
+            productSkuList.add(sku);
+        }
+        return productSkuList;
+    }
 
-			if (httpResponse.getStatusLine().getStatusCode() == 200) {
-				responseStream = EntityUtils.toString(httpResponse.getEntity());
-				LOG.info("Product Details Response Json : " + responseStream);
-			} else {
-				responseStream = "Failed to fetch product details from the store";
-				LOG.error("Failed to fetch products details from the store");
-			}
-			productJsonObject = new JSONObject(responseStream);
-			JSONArray productJsonArray = productJsonObject.getJSONArray("items");
-			LOG.info("product details Response in Json object : " + productJsonObject);
-		} catch (Exception e) {
-			LOG.error(" getProductDetail method caught an exception" + e.getMessage());
-		}
-		
-		return productJsonArray;
-	}
+    @Override
+    public JSONObject getProductDetail(String sku) {
+
+        String token = loginService.getToken();
+        String domainName = loginService.getDomainName();
+        String servicePath = getServicePath();
+
+        String productUrl = scheme + "://" + domainName + servicePath
+                + "/" + sku;
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(productUrl);
+        String websiteId = getSearchCriteriaValue();
+        httpGet.setHeader("Content-Type", "application/json");
+        String bearerToken = "Bearer " + token;
+        String finalToken = bearerToken.replaceAll("\"", "");
+        LOG.info("Final Token Value is : " + finalToken);
+        httpGet.setHeader("Authorization", finalToken);
+
+        try {
+            CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
+
+            if (httpResponse.getStatusLine().getStatusCode() == 200) {
+                responseStream = EntityUtils.toString(httpResponse.getEntity());
+                LOG.info("Product Details Response Json : " + responseStream);
+            } else {
+                responseStream = "Failed to fetch product details from the store";
+                LOG.error("Failed to fetch products details from the store");
+            }
+            productJsonObject = new JSONObject(responseStream);
+            if (productJsonObject.getJSONObject("extension_attributes").has("website_ids")) {
+                JSONArray array = productJsonObject.getJSONObject("extension_attributes").getJSONArray("website_ids");
+
+                for (int i = 0; i < array.length(); i++) {
+                    if (array.get(i).toString().equals(websiteId)) {
+                        return productJsonObject;
+                    }
+                }
+            }
+
+            LOG.info("product details Response in Json object : " + productJsonObject);
+        } catch (Exception e) {
+            LOG.error(" getProductDetail method caught an exception" + e.getMessage());
+        }
+
+        return new JSONObject();
+    }
 
 
 }

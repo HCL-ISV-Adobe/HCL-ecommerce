@@ -102,9 +102,9 @@
                         </cq:styleGroups>
                     </policy_1592474735653>
                 </list>
-                <carousel jcr:primaryType="nt:unstructured">
+                                <carousel jcr:primaryType="nt:unstructured">
                     <policy_1588575545478
-                        jcr:lastModified="{Date}2020-05-05T11:10:24.063+05:30"
+                        jcr:lastModified="{Date}2020-08-03T13:40:23.395+05:30"
                         jcr:lastModifiedBy="admin"
                         jcr:primaryType="nt:unstructured"
                         jcr:title="carousel policy"
@@ -113,7 +113,27 @@
                         autoplay="true"
                         components="[/apps/hclecomm/components/content/image,/apps/hclecomm/components/content/teaser,/apps/hclecomm/components/content/text]"
                         delay="5000">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <jcr:content
+                            jcr:mixinTypes="[]"
+                            jcr:primaryType="nt:unstructured"/>
+                        <cq:styleGroups jcr:primaryType="nt:unstructured">
+                            <item0
+                                cq:styleGroupLabel="Styles"
+                                jcr:primaryType="nt:unstructured">
+                                <cq:styles jcr:primaryType="nt:unstructured">
+                                    <item0
+                                        cq:styleClasses="carousel-single"
+                                        cq:styleId="1596442077535"
+                                        cq:styleLabel="Single"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item1
+                                        cq:styleClasses="carousel-multi"
+                                        cq:styleId="1596442133611"
+                                        cq:styleLabel="Multi"
+                                        jcr:primaryType="nt:unstructured"/>
+                                </cq:styles>
+                            </item0>
+                        </cq:styleGroups>
                     </policy_1588575545478>
                 </carousel>
                 <text jcr:primaryType="nt:unstructured">
@@ -463,7 +483,30 @@
                         components="group:hclecomm.Form,group:hclecomm.Content">
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_1594020188218>
-                </newsletter>            
+                </newsletter>
+                <experiencefragment jcr:primaryType="nt:unstructured">
+                    <policy_1596179436508
+                        jcr:lastModified="{Date}2020-07-31T12:42:17.728+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Experience Fragment Policy"
+                        sling:resourceType="wcm/core/components/policy/policy">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <cq:styleGroups jcr:primaryType="nt:unstructured">
+                            <item0
+                                cq:styleGroupLabel="Styles"
+                                jcr:primaryType="nt:unstructured">
+                                <cq:styles jcr:primaryType="nt:unstructured">
+                                    <item0
+                                        cq:styleClasses="pdp-recommended-products"
+                                        cq:styleId="1596179454090"
+                                        cq:styleLabel="Recommended products"
+                                        jcr:primaryType="nt:unstructured"/>
+                                </cq:styles>
+                            </item0>
+                        </cq:styleGroups>
+                    </policy_1596179436508>
+                </experiencefragment>
             </content>
             <structure jcr:primaryType="nt:unstructured">
                 <page jcr:primaryType="nt:unstructured">

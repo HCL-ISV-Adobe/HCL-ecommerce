@@ -17,14 +17,10 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
 
 @Component(service = Servlet.class,
-        property = { "sling.servlet.paths=/bin/hclecomm/productDetails",
-                "sling.servlet.method=" + HttpConstants.METHOD_GET, "sling.servlet.extensions=json" })
+        property = {"sling.servlet.paths=/bin/hclecomm/productDetails",
+                "sling.servlet.method=" + HttpConstants.METHOD_GET, "sling.servlet.extensions=json"})
 public class ProductDetailsServlet extends SlingSafeMethodsServlet {
 
     private static final long serialVersionUID = 849553733784661541L;
@@ -40,66 +36,62 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
 
         try {
 
-            String  sku = request.getParameter("sku");
-            if(StringUtils.isNotEmpty(sku)) {
-                JSONArray responseStream = getProductDetail(sku);
-                JSONObject productResponse = responseStream.getJSONObject(0);
-                LOG.info(" productResponse is {}", productResponse.toString());
-                List<HashMap<String, String>> productList = new ArrayList<HashMap<String, String>>();
-                HashMap<String, String> productMap = new HashMap<String, String>();
-                String skuId = Objects.nonNull(productResponse.get("sku")) ? productResponse.get("sku").toString() : "";
-                String name = Objects.nonNull(productResponse.get("name")) ? productResponse.get("name").toString() : "";
-                String price = Objects.nonNull(productResponse.get("price")) ? productResponse.get("price").toString() : "0.0";
+            String sku = request.getParameter("sku");
+            if (StringUtils.isNotEmpty(sku)) {
+                JSONObject productObject = new JSONObject();
+
+                JSONObject productResponse = getProductDetail(sku);
+                if (productResponse.length() == 0) {
+                    response.getWriter().print("Product is not available in required website id");
+                    return;
+                }
+                LOG.info("JsonResponse : " + productResponse);
 
                 String stock = "false";
                 String qty = "0";
-                JSONObject stock_item=productResponse.getJSONObject("extension_attributes").getJSONObject("stock_item");
-                if(stock_item != null){
-                    if(stock_item.get("is_in_stock") != null){
+                JSONArray related_products_sku = new JSONArray();
+
+                if (productResponse.getJSONObject("extension_attributes").has("stock_item")) {
+                    JSONObject stock_item = productResponse.getJSONObject("extension_attributes").getJSONObject("stock_item");
+                    if (stock_item.has("is_in_stock")) {
                         stock = stock_item.get("is_in_stock").toString();
                     }
-                    if(stock_item.get("qty") != null ){
+                    if (stock_item.has("qty")) {
                         qty = stock_item.get("qty").toString();
                     }
                 }
+                if (productResponse.has("product_links")) {
+                    related_products_sku = getRelatedProductSkus(productResponse.getJSONArray("product_links"));
+                }
 
-                productMap.put("sku", skuId);
-                productMap.put("name", name);
-                productMap.put("price", price);
-                productMap.put("stock", stock);
-                productMap.put("qty", qty);
-
-                productMap.put("related_products_sku",getRelatedProductSkus(productResponse.getJSONArray("product_links")).toString());
-                productList.add(productMap);
-                LOG.debug("ProductDetails  list is {}",productList.toString());
-                String productDetailsJson = productList.toString();
-
-
+                productObject.put("sku", productResponse.get("sku").toString());
+                productObject.put("name", productResponse.get("name").toString());
+                productObject.put("price", productResponse.get("price").toString());
+                productObject.put("stock", stock);
+                productObject.put("qty", qty);
+                productObject.put("related_products_sku", related_products_sku);
                 response.setContentType("application/json");
-                response.getWriter().write(productDetailsJson);
+                response.getWriter().print(productObject);
+            } else {
+                String productSku = "passing empty sku parameter";
+                response.getWriter().print(productSku);
             }
 
-            else{
-                String productSku= "passing empty  sku parameter";
-                response.getWriter().write(productSku);
-            }
-
-        }
-        catch (Exception e){
-            LOG.error("error in ProductDetailsServlet {} ",e.getMessage());
+        } catch (Exception e) {
+            LOG.error("error in ProductDetailsServlet {} ", e.getMessage());
         }
     }
 
-    private List<String> getRelatedProductSkus(JSONArray relatedProductArray) throws JSONException {
-        List<String> relatedProductSkuList = new ArrayList<>();
-
+    private JSONArray getRelatedProductSkus(JSONArray relatedProductArray) throws JSONException {
+        JSONArray relatedProductSkuArray = new JSONArray();
         for (int i = 0; i < relatedProductArray.length(); i++) {
             String productSku = relatedProductArray.getJSONObject(i).get("linked_product_sku").toString();
-            relatedProductSkuList.add(productSku);
+            relatedProductSkuArray.put(productSku);
         }
-        return relatedProductSkuList;
+        return relatedProductSkuArray;
     }
-    public JSONArray getProductDetail(String sku){
-        return  productService.getProductDetail(sku);
+
+    public JSONObject getProductDetail(String sku) {
+        return productService.getProductDetail(sku);
     }
 }

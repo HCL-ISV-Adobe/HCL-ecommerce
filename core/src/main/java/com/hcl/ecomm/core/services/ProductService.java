@@ -19,7 +19,7 @@ public interface ProductService {
 
 	public List<String> getAllProductSkus(JsonArray productJson);
 
-	public JSONArray getProductDetail(String sku);
+	public JSONObject getProductDetail(String sku);
 
 
 }
