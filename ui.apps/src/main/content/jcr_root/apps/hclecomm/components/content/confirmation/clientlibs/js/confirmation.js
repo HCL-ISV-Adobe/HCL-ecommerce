@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     const getPorductDetails = JSON.parse(localStorage.getItem('productDescription'));
     const checkOutDeatils = JSON.parse(localStorage.getItem('checkOutDetails')); 
-	const storeAddressDeatils = JSON.parse(localStorage.getItem('storeAddress'));
+    const storeAddressDeatils = JSON.parse(localStorage.getItem('storeAddress'));
 
 	if(storeAddressDeatils){
         $('#cmp-delivery-section').addClass('hide-delivery-section');
@@ -24,6 +24,7 @@ $(document).ready(function () {
     else{
 		 $('#store-pickup-point').addClass('hide-delivery-section');
     }
+
     if(checkOutDeatils && checkOutDeatils['orderId'])
     {
         document.cookie = "cartId" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -35,6 +36,7 @@ $(document).ready(function () {
     let customerName = document.querySelector(".cmp-confirmation-section-customer-name");
     let customerADD = document.querySelector(".cmp-confirmation-section-customer-address");
     let customerCradDeatils = document.querySelector(".cmp-confirmation-subhead-card-details");
+    let customerCodDetails = document.querySelector(".cmp-confirmation-subhead-cod-details");
     if (getPorductDetails && checkOutDeatils) {
         let prodcutDeatilsEle = getPorductDetails['cartdetails'].map((item) => {
             return (
@@ -80,13 +82,20 @@ $(document).ready(function () {
         const getCustomerName = `<div class ='cmp-confirmation-subHead'>Delivery For </div> <div class ='cmp-confirmation-text'> ${checkOutDeatils['firstname']}  ${checkOutDeatils['lastname']}</div>`
         const getCustomerAdd = `<div class ='cmp-confirmation-subHead'>Address </div> <div class ='cmp-confirmation-text'> ${checkOutDeatils['street']}  ${checkOutDeatils['city']} ${checkOutDeatils['postcode']}</div>`
         const cartNumber = checkOutDeatils['cardNumber'];
-        let hiddenCardNumber = null;
+            let hiddenCardNumber = null;
 
-        {checkOutDeatils['cardNumber'] ?  hiddenCardNumber = cartNumber.slice((cartNumber.length)-5) : null;} 
+            {checkOutDeatils['cardNumber'] ?  hiddenCardNumber = cartNumber.slice((cartNumber.length)-5) : null;} 
+        const paymentMode = checkOutDeatils['PaymentMode'];
+        if(paymentMode == 'Card') {
+            document.getElementById('COD').style.display = "none";
+            } else if(paymentMode == 'COD') {
+            document.getElementById('Card').style.display = "none";
+        }
+        const getCodDetails = `<div>Amount:<span class ='cmp-confirmation-codInfo--mrgn-left'>$${getPorductDetails['fprice']}</span></div>`
         const getCradDeatils = `
                         <div>Card Number: <span class ='cmp-confirmation-cardInfo--mrgn-left'>***********${hiddenCardNumber}</span></div>
                             <div>Expiry Date: <span class ='cmp-confirmation-cardInfo--mrgn-left'>${checkOutDeatils['cardExpDate']}<span></div>
-                            <div>Amount:<span class ='cmp-confirmation-cardInfo--mrgn-left'>$${getPorductDetails['fprice']}</span></div>`
+                            <div>Amount:<span class ='cmp-confirmation-cardInfo--mrgn-left'>$${getPorductDetails['fprice']}</span></div>`;
         if (prodcutDeatilsEle && fiNalAmount && getOrderId && target) {
             target.innerHTML = prodcutDeatilsEle;
             subTotal.innerHTML = fiNalAmount;
@@ -94,6 +103,7 @@ $(document).ready(function () {
             customerName.innerHTML = getCustomerName;
             customerADD.innerHTML = getCustomerAdd;
             customerCradDeatils.innerHTML = getCradDeatils;
+            customerCodDetails.innerHTML = getCodDetails;
         }
     }
 }

@@ -1,14 +1,13 @@
+let userAddress=null;
 $( document ).ready(function() {
    let addressCustToken = null;
 
             let userData = getUserCookie("hcluser");
             if (userData != "") {
                 addressCustToken = JSON.parse(userData).customerToken;
-                console.log("addressCustToken::"+addressCustToken);
             }
             const xhttp = new XMLHttpRequest();
             if (addressCustToken) {
-                console.log("In");
                 xhttp.onreadystatechange = function() {
 
                     if (this.readyState == 4 && this.status == 200) {
@@ -16,30 +15,68 @@ $( document ).ready(function() {
                         userAddress = JSON.parse(this.responseText);
 
                         if (userAddress && userAddress.length > 0) {
+                        $('.cmp-my-address--add-address').css('display', 'none');
+                   const userALLSection = userAddress.map((userAddressItems,index) => {
+                        return (
+                        `
+           	            <div class ='cmp-my-address-users-address'>
+                             <p>Shipping Address: <p>
+                        	<p>${userAddressItems.firstname} ${userAddressItems.lastname}<p>
+                        	<p>${userAddressItems.street.join()}, ${userAddressItems.city}<p>
+                        	<p>Post Code-${userAddressItems.postcode}<p>
+                        	<p>Mob No - ${userAddressItems.telephone}<p>
+                                <a class ='cmp-my-address-update-user-address' onclick = "updateUserProfile('${index}')">Update</a>
+						 </div>
 
-                          $('.cmp-my-address--add-address').css('display', 'none');
-                            const userAddSection = userAddress.map((userAddressItem) => {
-                                //const userDeatails = {'firstname' : ${userAddressItem.firstname} };
-                                return (
-                                    `<div class ='cmp-my-address-users-address'>
-                        <p>${userAddressItem.firstname} ${userAddressItem.lastname}<p>
-                        <p>${userAddressItem.street.join()}<p>
-                        <p>Post Code-${userAddressItem.postcode}<p>
-                        <p>Mob No - ${userAddressItem.telephone}<p>
+						<div class ='cmp-my-address-users-address'>
+                            <p> Billing Address: <p>
+                        	<p>${userAddressItems.firstname} ${userAddressItems.lastname}<p>
+                                <p>${userAddressItems.street.join()}, ${userAddressItems.city}<p>
+                        	<p>Post Code-${userAddressItems.postcode}<p>
+                        	<p>Mob No - ${userAddressItems.telephone}<p>
+                              <a class ='cmp-my-address-update-user-address' onclick = "updateUserProfile('${index}')">Update</a>
+						 </div>
 
+                        `)})
 
-                    </div>`
-                                )
-                            })
 
                             const userAddressPlaceHolder = $('.cmp-my-address--user-address');
-                            if (userAddressPlaceHolder[0] && userAddSection) {
+                            if (userAddressPlaceHolder[0] && userAddress) {
+                                for(var i=0;i<userAddress.length;i++){
+ 					               if(userAddress[i].default_shipping && userAddress[i].default_billing){
+                                    userAddressPlaceHolder[0].innerHTML=userALLSection.join(" ");
+                               		 }
+                                	else if(userAddress[i].default_shipping){
+									 const userShippingAddress = (
+        								`<div class ='cmp-my-address-users-address'>
+                                               <p>Shipping Address: <p>
+                        					<p>${userAddress[i].firstname} ${userAddress[i].lastname}<p>
+                                         <p>${userAddress[i].street.join()}, ${userAddress[i].city}<p>
+                      						  <p>Post Code-${userAddress[i].postcode}<p>
+                     						   <p>Mob No - ${userAddress[i].telephone}<p>
+                                                 <a class ='cmp-my-address-update-user-address' onclick = "updateUserProfile('${i}')">Update</a>
+										 </div>
+									  `  )
 
-                                userAddressPlaceHolder[0].innerHTML = userAddSection.join(" ");
+									userAddressPlaceHolder[0].innerHTML += userShippingAddress;
+                                }
+                                else if(userAddress[i].default_billing){
+									 const userBillingAddress = (
+        								`<div class ='cmp-my-address-users-address'>
+                                               <p>Billing Address: <p>
+                        					<p>${userAddress[i].firstname} ${userAddress[i].lastname}<p>
+                                         <p>${userAddress[i].street.join()}, ${userAddress[i].city}<p>
+                      						  <p>Post Code-${userAddress[i].postcode}<p>
+                     						   <p>Mob No - ${userAddress[i].telephone}<p>
+                                                   <a class ='cmp-my-address-update-user-address' onclick = "updateUserProfile('${i}')">Update</a>
+
+										 </div>
+									  `  )
+									userAddressPlaceHolder[0].innerHTML += userBillingAddress;
+                                }
+                                }
                             }
-
                         }
-
                     };
 
 
@@ -67,9 +104,9 @@ const onUserUpdateFormFieldChange = (ele) =>{
                 if (findIndex > -1) {
                 addresseFormName.splice(findIndex, 1);
                 }
-               
+
             }
-       
+
         break;
         case 'street':
         if(ele.value.length > 0){
@@ -122,15 +159,15 @@ const onUserUpdateFormFieldChange = (ele) =>{
                 if (findIndex > -1) {
                 addresseFormName.splice(findIndex, 1);
                 }
-               
+
             }
-           
+
         }
             else {
                 if (findIndex > -1) {
                 addresseFormName.splice(findIndex, 1);
                 }
-               
+
             }
         break;
 
@@ -145,7 +182,7 @@ const onUserUpdateFormFieldChange = (ele) =>{
                 addresseFormName.splice(findIndex, 1);
                 }
         break;
-   
+
 }
 
 }
@@ -168,82 +205,121 @@ const onClosePop = () =>{
 }
 
 
-const updateUserProfile = (...userAddDetails) =>{
+const updateUserProfile = (index) =>{
+
     $('.cmp-my-address--user-update-form').css('display', 'block');
-    const userObj = {
-        'firstname' : userAddDetails[0],
-        'lastname' : userAddDetails[1],
-        'street' : [userAddDetails[2],userAddDetails[3],userAddDetails[4],],
-       
-        'telephone' : userAddDetails[5],
-        'company' : userAddDetails[6],
-    }
    const userUpdateForm = (
         `
-            <form class='updated-user-form'>
-                <div class='updated-user-form--header'> <p>Update Details</p>
+          <div class ='add-new-address-form-add-address'>
+    			<div class='updated-user-form--header'> <p>Update Details</p>
                     <i class="fa fa-window-close" aria-hidden="true" onclick = "onClosePop()"></i>
 
                 </div>
+
+ 			 <div class="add-new-address-bottom-container">
+                <p class='empty-cartid'></p>
                 <div>
-                <input type ='text' value = ${userAddDetails[0]} placeholder ='first name' class ='update-form-field'
-                name ='first name'  onkeyup = "onUserUpdateFormFieldChange(this)" disabled/>
-               
-                </div>
-                <input type ='text' value = ${userAddDetails[1]} placeholder ='last name' class ='update-form-field'
-                name ='last name' disabled
-                />
+                    <div>
+                        <input
+                        type="text"
+                        class ='add-addr-feilds-add-address'
+                        onkeyup ="onEnterDeatilsAdd(this)"
+                        name ='First Name'
+                        placeholder="First Name"
+    					value = ${userAddress[index].firstname}
+                        />
+                        <p class ='error-message-add-address'></p>
+                    </div>
+                    <div>
+                            <input
+                        type="text"
+                        class ='add-addr-feilds-add-address'
+                        onkeyup ="onEnterDeatilsAdd(this)"
+                        name ='Last Name'
+                        placeholder="Last Name"
+    					value = ${userAddress[index].lastname}
+                        />
+                            <p class ='error-message-add-address'></p>
+                    </div>
+                    </div>
                 <div>
-                <input type ='text' value = ${userAddDetails[2]} placeholder ='street' class ='update-form-field'
-                name ='street' disabled
-                />
-               
+                    <div>
+                        <input type="text"
+                        class ='add-addr-feilds-add-address' onkeyup ="onEnterDeatilsAdd(this)"
+                        name ='Pin Number'
+                        placeholder="Pin Code"
+    					value=${userAddress[index].postcode}
+                        />
+                        <p class ='error-message-add-address'></p>
+                    </div>
+                    <div>
+                    <input type="text"
+                    class ='add-addr-feilds-add-address'
+                    onkeyup ="onEnterDeatilsAdd(this)"
+                    name ='City'
+                    placeholder="City"
+    				value=${userAddress[index].city}
+                    />
+                    <p class ='error-message-add-address'></p>
+                    </div>
                 </div>
 
                 <div>
+                    <div>
+                    <textarea class ='add-addr-feilds-add-address'
+                    onkeyup ="onEnterDeatilsAdd(this)" name ='Street'
+                    placeholder="Street/Apartment"
 
-                    <input type ='text' value = ${userAddDetails[3]} placeholder ='area' class ='update-form-field'
-                    name ='area' disabled
-
-                />
-                 
-                </div>
-                 <div>
-                <input type ='text' value = ${userAddDetails[4]} placeholder ='zone' class ='update-form-field'
-                name ='zone' disabled
-                />
-               
+                    >${userAddress[index].street.join()}</textarea>
+                    <p class ='error-message-add-address txt-area-err-message'></p>
+                    </div>
                 </div>
                 <div>
-                <input type ='text' value = ${userAddDetails[5]} placeholder ='mobile number' class ='update-form-field'
-                name ='mobile number' disabled
-                />
-               
+                    <div>
+                    <input type="text" class ='add-addr-feilds-add-address'
+                    placeholder="Phone Number"
+                    onkeyup ="onEnterDeatilsAdd(this)"
+                    name ='Phone Number'
+					value=${userAddress[index].telephone}
+    				/>
+
+                    <p class ='error-message-add-address'></p>
+                    </div>
                 </div>
-                <div>
-                <input type ='text' value = ${userAddDetails[6]} placeholder ='company' class ='update-form-field'
-                 name ='company' disabled
-                />
-                 
+ 				<div>
+                    <div>
+                        <select class="add-addr-feilds-add-address" name="Country" id="update-country">
+                            <option value="none">Select Country</option>
+                        </select>
+                        <p class ='error-message-add-address'></p>
+                    </div>
+                    <div>
+                        <select class="add-addr-feilds-add-address" name="State" id="update-state" disabled="disabled" onChange="onEnterDeatilsAdd(this,'update-state')">
+                            <option value="none">Select State</option>
+                        </select>
+                        <p class ='error-message-add-address'></p>
+                    </div>
                 </div>
-                <button class = 'update-address-update-btn update-address-update-btn--disabled' disabled >Update Address</button>
-            </form>
+
+    <button class = 'update-address-update-btn ' onclick = "onSaveNDeliverAddress('${userAddress[index]}','${index}')">Update Address</button>
+</div>
 
         `
-
     )
 
    const userAddressFormPlaceHolder = $('.cmp-my-address--user-update-form');
     if(userAddressFormPlaceHolder ){
         userAddressFormPlaceHolder[0].innerHTML = userUpdateForm;
     }
+
+    getCountriesListDetails(userAddress[index].country_id,userAddress[index].region.region);
+   getUserDeatilsAddAddress=userAddress[index];
 }
 
 
 const addUserAddress = () =>{
-	getCountriesListDetails();
-
     $('.cmp-my-address--user-update-form').css({'display': 'block'} );
+
     $('.updated-user-form').css('height' , '600px');
    const addAddressForm = (
         `<div class ='add-new-address-form-add-address'>
@@ -251,24 +327,25 @@ const addUserAddress = () =>{
                     <i class="fa fa-window-close" aria-hidden="true" onclick = "onClosePop()"></i>
                 </div>
        <div class="add-new-address-bottom-container">
+         <label>Shipping Address:</label>
                 <p class='empty-cartid'></p>
                 <div>
                     <div>
-                        <input 
-                        type="text" 
-                        class ='add-addr-feilds-add-address' 
-                        onkeyup ="onEnterDeatilsAdd(this)" 
-                        name ='First Name' 
+                        <input
+                        type="text"
+                        class ='add-addr-feilds-add-address'
+                        onkeyup ="onEnterDeatilsAdd(this)"
+                        name ='First Name'
                         placeholder="First Name"
                         />
                         <p class ='error-message-add-address'></p>
                     </div>
                     <div>
-                            <input 
-                        type="text" 
-                        class ='add-addr-feilds-add-address' 
-                        onkeyup ="onEnterDeatilsAdd(this)" 
-                        name ='Last Name' 
+                            <input
+                        type="text"
+                        class ='add-addr-feilds-add-address'
+                        onkeyup ="onEnterDeatilsAdd(this)"
+                        name ='Last Name'
                         placeholder="Last Name"
                         />
                             <p class ='error-message-add-address'></p>
@@ -276,53 +353,40 @@ const addUserAddress = () =>{
                     </div>
                 <div>
                     <div>
-                        <input type="text" 
-                        class ='add-addr-feilds-add-address' onkeyup ="onEnterDeatilsAdd(this)" 
+                        <input type="text"
+                        class ='add-addr-feilds-add-address' onkeyup ="onEnterDeatilsAdd(this)"
                         name ='Pin Number'
-                        placeholder="Pin Code" 
+                        placeholder="Pin Code"
                         />
                         <p class ='error-message-add-address'></p>
                     </div>
                     <div>
-                    <input type="text" 
-                    class ='add-addr-feilds-add-address' 
-                    onkeyup ="onEnterDeatilsAdd(this)" 
+                    <input type="text"
+                    class ='add-addr-feilds-add-address'
+                    onkeyup ="onEnterDeatilsAdd(this)"
                     name ='City'
-                    placeholder="City" 
+                    placeholder="City"
                     />
                     <p class ='error-message-add-address'></p>
                     </div>
                 </div>
-
- 
-
-
                 <div>
                     <div>
-                    <textarea class ='add-addr-feilds-add-address' 
+                    <textarea class ='add-addr-feilds-add-address'
                     onkeyup ="onEnterDeatilsAdd(this)" name ='Street'
-                    placeholder="Street/Apartment" 
+                    placeholder="Street/Apartment"
                     ></textarea>
                     <p class ='error-message-add-address txt-area-err-message'></p>
                     </div>
                 </div>
-
- 
-
                 <div>
-
- 
-
                     <div>
-                    <input type="text" class ='add-addr-feilds-add-address' 
-                    placeholder="Phone Number" 
+                    <input type="text" class ='add-addr-feilds-add-address'
+                    placeholder="Phone Number"
                     onkeyup ="onEnterDeatilsAdd(this)"
                     name ='Phone Number'/>
                     <p class ='error-message-add-address'></p>
                     </div>
-
- 
-
                 </div>
                 <div>
                     <div>
@@ -331,7 +395,7 @@ const addUserAddress = () =>{
                         </select>
                         <p class ='error-message-add-address'></p>
                     </div>
-                
+
                     <div>
                         <select class="add-addr-feilds-add-address" name="State" id="state" disabled="disabled" onChange="onEnterDeatilsAdd(this)">
                             <option value="none">Select State</option>
@@ -339,18 +403,98 @@ const addUserAddress = () =>{
                         <p class ='error-message-add-address'></p>
                     </div>
                 </div>
-                <div class ='add-address-btn'>
+				<div class="switch-address">
+				<label class="switch">
+                <input type="checkbox" checked onchange="onSelectingAddress()">
+                <span class="slider round"></span>
 
- 
+                </label>
+                <span>Billing Address is same as Shipping Address</span>
 
-                    <!--/*<input type="button" value ='Save And Deliver Here'  class='continue-btn-add' onclick = "onSaveNDeliver()"/>*/-->
-                    <button onclick = 'onSaveNDeliverAddress()'>Add Address </button>
+       			</div>
 
-                    
+    			<div class='billing-address'>
+      		  <p class="billing-label"> Billing Address:</p>
+
+				<div>
+                    <div>
+                        <input
+                        type="text"
+                        class ='add-addr-feilds-add-address'
+                        onkeyup ="onEnterDeatilsAdd(this)"
+                        name ='Billing First Name'
+                        placeholder="First Name"
+                        />
+                        <p class ='error-message-add-address'></p>
+                    </div>
+                    <div>
+                            <input
+                        type="text"
+                        class ='add-addr-feilds-add-address'
+                        onkeyup ="onEnterDeatilsAdd(this)"
+                        name ='Billing Last Name'
+                        placeholder="Last Name"
+                        />
+                            <p class ='error-message-add-address'></p>
+                    </div>
+                    </div>
+                <div>
+                    <div>
+                        <input type="text"
+                        class ='add-addr-feilds-add-address' onkeyup ="onEnterDeatilsAdd(this)"
+                        name ='Billing Pin Number'
+                        placeholder="Pin Code"
+                        />
+                        <p class ='error-message-add-address'></p>
+                    </div>
+                    <div>
+                    <input type="text"
+                    class ='add-addr-feilds-add-address'
+                    onkeyup ="onEnterDeatilsAdd(this)"
+                    name ='Billing City'
+                    placeholder="City"
+                    />
+                    <p class ='error-message-add-address'></p>
+                    </div>
                 </div>
+                <div>
+                    <div>
+                    <textarea class ='add-addr-feilds-add-address'
+                    onkeyup ="onEnterDeatilsAdd(this)" name ='Billing Street'
+                    placeholder="Street/Apartment"
+                    ></textarea>
+                    <p class ='error-message-add-address txt-area-err-message'></p>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                    <input type="text" class ='add-addr-feilds-add-address'
+                    placeholder="Phone Number"
+                    onkeyup ="onEnterDeatilsAdd(this)"
+                    name ='Billing Phone Number'/>
+                    <p class ='error-message-add-address'></p>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <select class="add-addr-feilds-add-address" name="Billing Country" id="billing-country">
+                            <option value="none">Select Country</option>
+                        </select>
+                        <p class ='error-message-add-address'></p>
+                    </div>
 
- 
+                    <div>
+                        <select class="add-addr-feilds-add-address" name="Billing State" id="billing-state" disabled="disabled" onChange="onEnterDeatilsAdd(this)">
+                            <option value="none">Select State</option>
+                        </select>
+                        <p class ='error-message-add-address'></p>
+                    </div>
+                </div>
+       		</div>
 
+                <div class ='add-address-btn'>
+                    <button onclick = 'onSaveNDeliverAddress()'>Add Address </button>
+                </div>
             </div>
        </div>
 
@@ -365,4 +509,5 @@ const addUserAddress = () =>{
 	const onClosePop = () =>{
     $('.cmp-my-address--user-update-form').css('display', 'none');
 	}
+    getCountriesListDetails();
 }
