@@ -45,7 +45,7 @@ public class MySqlServiceImpl implements MySqlService {
 	public void userComplaintSubmission(String first_Name, String last_Name, String email, String subject,
 			String complaint) {
 
-		LOG.info("userComplaintSubmission method start. email="+email);
+		LOG.debug("userComplaintSubmission method start. email="+email);
 
 		Connection connection = null;
 
@@ -78,16 +78,18 @@ public class MySqlServiceImpl implements MySqlService {
 				LOG.error("Error while trying to close connection. SQLException = {}", e);
 			}
 		}
-
+		
+		LOG.debug("userComplaintSubmission method end.");
 	}
 
 	private void triggerNotifyMail(String first_Name, String email) {
 		Map emailParams = new HashMap<>();
-		LOG.info("Email =="+email);
+		LOG.debug("triggerNotifyMail() methid start: Email="+email);
 		String templatePath = "/etc/notification/email/hclecomm/user-complaint-email-template.html";
 		emailParams.put("receiveremail", email);
 		emailParams.put("firstname", first_Name);
 		customEmailService.sendEmail(templatePath, emailParams, email);
+		LOG.debug("triggerNotifyMail() method end:=");
 	}
 	
 	private Connection getConnection() {
