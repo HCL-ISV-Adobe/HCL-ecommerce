@@ -36,4 +36,9 @@ Or to deploy only the bundle to the author, run
 
 The project comes with the auto-public repository configured. To setup the repository in your Maven settings, refer to:
 
+
+## Mysql settings
+
+HCLecomm forms details storing in mysql database. Mysql database and table DML script are placed in under /mysql-schema folder
+
     http://helpx.adobe.com/experience-manager/kb/SetUpTheAdobeMavenRepository.html

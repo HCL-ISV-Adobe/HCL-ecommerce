@@ -8,4 +8,6 @@
     <filter root="/content/cq:tags/hclecommtags" mode="merge"/>
 	<filter root="/conf/global/settings/workflow/models/hclecomm" mode="merge"/>
 	<filter root="/var/workflow/models/hclecomm" mode="merge"/>
+	<filter root="/content/forms/af/hclecomm" mode="merge"/>
+	<filter root="/content/dam/formsanddocuments/hclecomm" mode="merge"/>
 </workspaceFilter>
