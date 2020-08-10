@@ -1,12 +1,7 @@
-
-<sly data-sly-test="${wcmmode.edit}">
-chatbot component
-</sly>
-
-<script src="${properties.botUrl}"></script>
-<div class="chatbtn" id="show-bp"><div data-sly-resource="${'img' @ resourceType='hclecomm/components/content/image', decoration=true}">
-</div></div>
-
+<sly data-sly-test="${wcmmode.edit}">chatbot component</sly>
+<sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
+ data-sly-call="${clientlib.all @ categories='hclecomm.chatbot'}"/>
+<div class="chatbtn" id="show-bp"><div data-sly-resource="${'img' @ resourceType='hclecomm/components/content/image', decoration=true}"></div></div>
 <p id="botid" data-custom-property="${properties.botId}"></p>
 <p id="hostPath" data-custom-property="${properties.hostPath}"></p>
 <p id="botTitle" data-custom-property="${properties.botTitle}"></p>

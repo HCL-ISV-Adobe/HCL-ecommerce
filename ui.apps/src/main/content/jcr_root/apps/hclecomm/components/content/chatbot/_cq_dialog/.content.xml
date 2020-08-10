@@ -37,13 +37,6 @@
                         fieldLabel="Bot Avatar"
                         name="./botAvatar"
                         rootPath="/content"/>
-                    <bot_url
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                        fieldDescription="Enter the bot script URL here."
-                        fieldLabel="Bot Url"
-                        name="./botUrl"
-                        rootPath="/content"/>
                 </items>
             </column>
         </items>
