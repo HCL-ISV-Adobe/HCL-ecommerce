@@ -188,6 +188,5 @@ Bundle-DocURL:
             <groupId>uk.org.lidalia</groupId>
             <artifactId>slf4j-test</artifactId>
         </dependency>
-
     </dependencies>
 </project>

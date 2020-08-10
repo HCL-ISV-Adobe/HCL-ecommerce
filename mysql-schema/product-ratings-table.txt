@@ -1,7 +1,0 @@
-CREATE TABLE `hclecomm`.`product_ratings` (
-	`rating_id`  INT NOT NULL AUTO_INCREMENT,
-    `sku` varchar(45) NOT NULL,
-    `name`   varchar(45) NOT NULL,
-    `rating`   INT NOT NULL,
-	PRIMARY KEY (`rating_id`));
-);

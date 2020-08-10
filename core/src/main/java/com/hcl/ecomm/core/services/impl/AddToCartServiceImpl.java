@@ -25,7 +25,7 @@ import com.hcl.ecomm.core.services.LoginService;
 
 @Component(
 		immediate = true,
-		enabled = true,
+		enabled = true, 
 		service = AddToCartService.class)
 public class AddToCartServiceImpl implements AddToCartService{
 
@@ -33,7 +33,7 @@ public class AddToCartServiceImpl implements AddToCartService{
 
 	@Reference
 	LoginService loginService;
-
+	
 	@Activate
 	private MagentoServiceConfig config;
 
@@ -47,12 +47,12 @@ public class AddToCartServiceImpl implements AddToCartService{
 	public String getAddToCartPath() {
 		return config.magentoService_addToCartPath();
 	}
-
+	
 	@Override
 	public String updateCartItemPath() {
 		return config.magentoService_updateCartItemPath();
 	}
-
+	
 	@Override
 	public JSONObject addToCart(JSONObject product, String custToken) {
 		LOG.debug("addToCart method start  product={}: " + product);
@@ -76,7 +76,7 @@ public class AddToCartServiceImpl implements AddToCartService{
 			addToCartPath = addToCartPath.replace("{cartId}", cartid);
 			String url = scheme + "://" + domainName + addToCartPath;
 			LOG.info("addToCartPath  : " + url);
-
+			
 			Integer statusCode;
 			JSONObject response = new JSONObject();
 			StringEntity input = new StringEntity(product.toString(),ContentType.APPLICATION_JSON);
@@ -87,9 +87,9 @@ public class AddToCartServiceImpl implements AddToCartService{
 			httppost.setEntity(input);
 			CloseableHttpResponse httpResponse = httpClient.execute(httppost);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
-
+			
 			LOG.info("add to cart: magento statusCode ={}",statusCode);
-
+			
 			if(HttpStatus.SC_OK == statusCode){
 				BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
 				String output;
@@ -137,9 +137,9 @@ public class AddToCartServiceImpl implements AddToCartService{
 			httput.setEntity(input);
 			CloseableHttpResponse httpResponse = httpClient.execute(httput);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
-
+			
 			LOG.info("update cart item: magento statusCode ={}",statusCode);
-
+			
 			if(HttpStatus.SC_OK == statusCode){
 				BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
 				String output;
@@ -161,6 +161,12 @@ public class AddToCartServiceImpl implements AddToCartService{
 		LOG.debug("updateCartItem() method end  updatedItem={}: " + updatedItem);
 		return updatedItem;
 	}
+
+
+
+
+	
+
 
 
 
