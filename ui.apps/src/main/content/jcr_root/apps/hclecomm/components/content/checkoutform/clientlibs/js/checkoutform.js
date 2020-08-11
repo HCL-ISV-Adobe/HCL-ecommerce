@@ -9,6 +9,8 @@ let currentMonth = '';
 let currentYear = '';
 let customerEmail = '';
 let deleveryOptions = '';
+let selectedCountry = '';
+let selectedState = '';
 
 $(document).ready(function () {
 
@@ -146,7 +148,7 @@ const getCountriesList = function () {
             let selectHTMLCnty = '<option value="none">Select Country</option>';
             const countryELm = document.getElementById('country');
             countriesList.forEach(item => {
-                 selectHTMLCnty += "<option value='"+ item.country_id + "' />" + item.country_name + "</option>";
+                 selectHTMLCnty += "<option value='"+ item.country_id + "' onclick = 'selectCountry(this)' />" + item.country_name + "</option>";
             });
             if(countryELm && selectHTMLCnty) {
                 countryELm.innerHTML = selectHTMLCnty;
@@ -159,6 +161,18 @@ const getCountriesList = function () {
     xhttp.open('GET',url,true);
     xhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8');
     xhttp.send();
+}
+
+const selectCountry = function(Element){
+
+   selectedCountry= $( "#country option:selected" ).text();
+
+}
+
+const selectState = function(Element){
+
+   selectedState= $( "#state option:selected" ).text();
+
 }
 
 const updateStateList = function(countryId,event) {
@@ -257,6 +271,7 @@ function onEditCheckOutSection(event) {
 function onEnterDeatils(event) {
 	const userDetails = event.name;
 	const userDetailsValue = event.value;
+	selectedState= $( "#state option:selected" ).text();
 	//$('.add-new-address-form').toggleClass('toggle-checkout-description')
 	if (submitForm) {
 		letValidateField(userDetails, userDetailsValue, event)
@@ -585,6 +600,8 @@ function onContinueCvv() {
             if (this.readyState == 4 && this.status == 200) {
                 const message= JSON.parse(this.responseText)['message']['orderId']
                 getUserDeatils['orderId']=message;
+				getUserDeatils['selectedCountry'] = selectedCountry;
+				getUserDeatils['selectedState'] = selectedState;
                 const checkOutDetails = {...getUserDeatils,PaymentMode : pmtMod, cardNumber : getNewCardNumber[0].value, cardExpDate : `${getExpiryMonth}-${getExpiryYear}`}
                 console.log(checkOutDetails)
                 localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails));
