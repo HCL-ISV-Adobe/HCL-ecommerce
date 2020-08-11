@@ -97,16 +97,15 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 				String output;
 
 				while ((output = br.readLine()) != null) {
-
 					order +=output;
 				}
 				JSONObject orderId = new JSONObject();
 
-				/*if(customerToken != null && !customerToken.isEmpty()) {*/
-				LOG.debug("Get Order Detail for order Id: ",order);
+				String order_Id=order.replaceAll("\\s", "").replaceAll("\"", "");
+				LOG.debug("order_Id: {}",order_Id);
 
 				String authToken = loginService.getToken();
-				url = scheme + "://" + domainName + "/us/V1/orders/"+order;
+				url = scheme + "://" + domainName + "/us/V1/orders/"+order_Id;
 				LOG.info("createOrderInfo url ={}",url);
 				HttpGet httpGet = new HttpGet(url);
 				httpGet.setHeader("Content-Type", "application/json");
@@ -118,8 +117,8 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 					JSONObject jsonRes = new JSONObject();
 					Map emailParams = new HashMap<>();
 					jsonRes = new JSONObject(orderRes);
-					if(jsonRes.length()!=0) {
-						emailParams.put("orderId", order);
+					if(jsonRes.length()!=0 && customerToken != null && !customerToken.isEmpty()) {
+						emailParams.put("orderId", order_Id);
 						emailParams.put("grandTotal", jsonRes.get("base_grand_total"));
 						emailParams.put("address",jsonRes.getJSONObject("billing_address").get("street"));
 
@@ -136,7 +135,7 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 				}else{
 					LOG.error("Error while getting customer orders. status code:{}",statusCode);
 				}
-				orderId.put("orderId",order);
+				orderId.put("orderId",order_Id);
 				createOrderItemRes.put("statusCode", statusCode);
 				createOrderItemRes.put("message", orderId);
 			}else if(HttpStatus.SC_BAD_REQUEST == statusCode){
