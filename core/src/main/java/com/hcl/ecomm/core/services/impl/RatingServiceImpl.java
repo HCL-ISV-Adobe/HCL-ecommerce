@@ -41,8 +41,6 @@ public class RatingServiceImpl implements RatingService {
          try {
 
             query = "INSERT INTO hclecomm.product_ratings(sku,name,rating) VALUES (?,?,?)";
-
-
             pstmt = connection.prepareStatement(query);
             pstmt.setString(1,ratItem.getString("sku"));
             pstmt.setString(2,ratItem.getString("name"));
@@ -68,12 +66,9 @@ public class RatingServiceImpl implements RatingService {
                  log.error("Error while trying to close connection. SQLException = {}", e);
              }
          }
-        log.info("inserted data is {}",rowInserted);
+        log.debug("inserted data is {}",rowInserted);
          return rateItemRes;
     }
-
-
-
 
     @Override
     public List<Ratings> getRatingDataSQL(String sku)  {
@@ -107,7 +102,7 @@ public class RatingServiceImpl implements RatingService {
                 log.error("Error while trying to close connection. SQLException = {}", e);
             }
         }
-        log.info("Rating List is {}",ratingsList.toString());
+        log.debug("Rating List is {}",ratingsList.toString());
         return ratingsList;
 
     }
@@ -118,10 +113,10 @@ public class RatingServiceImpl implements RatingService {
         DataSource dataSource = null;
         Connection con = null;
         try{
-            log.info("GET CONNECTION");
+            log.debug("GET CONNECTION");
             dataSource = (DataSource) source.getDataSource("hclecomm");
             con = dataSource.getConnection();
-            log.info("connection is returned");
+            log.debug("connection is returned");
 
         }
         catch (Exception e)
