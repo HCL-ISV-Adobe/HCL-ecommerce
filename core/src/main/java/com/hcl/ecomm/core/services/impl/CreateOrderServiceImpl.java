@@ -106,7 +106,7 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 
 				String authToken = loginService.getToken();
 				url = scheme + "://" + domainName + "/us/V1/orders/"+order_Id;
-				LOG.info("createOrderInfo url ={}",url);
+				LOG.info("OrderInfo url ={}",url);
 				HttpGet httpGet = new HttpGet(url);
 				httpGet.setHeader("Content-Type", "application/json");
 				httpGet.setHeader("Authorization", "Bearer " + authToken);
