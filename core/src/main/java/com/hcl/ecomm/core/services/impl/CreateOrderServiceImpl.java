@@ -74,7 +74,7 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 				httpost.setEntity(input);
 
 				httpResponse = httpClient.execute(httpost);
-				LOG.info("httpResponse is {}",httpResponse);
+				LOG.debug("httpResponse is {}",httpResponse);
 				statusCode = httpResponse.getStatusLine().getStatusCode();
 
 			}
@@ -86,10 +86,10 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 				HttpPut httput = new HttpPut(url);
 				httput.setEntity(input);
 				httpResponse = httpClient.execute(httput);
-				LOG.info("httpResponse is {}",httpResponse);
+				LOG.debug("httpResponse is {}",httpResponse);
 				statusCode = httpResponse.getStatusLine().getStatusCode();
 			}
-			LOG.info("createOrderInfo url ={}",url);
+			LOG.debug("createOrderInfo url ={}",url);
 
 			if(org.eclipse.jetty.http.HttpStatus.OK_200 == statusCode){
 				BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
@@ -103,7 +103,7 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 				JSONObject orderId = new JSONObject();
 
 				/*if(customerToken != null && !customerToken.isEmpty()) {*/
-				LOG.info("Get Order Detail for order Id: ",order);
+				LOG.debug("Get Order Detail for order Id: ",order);
 
 				String authToken = loginService.getToken();
 				url = scheme + "://" + domainName + "/us/V1/orders/"+order;
@@ -136,7 +136,6 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 				}else{
 					LOG.error("Error while getting customer orders. status code:{}",statusCode);
 				}
-				/*}*/
 				orderId.put("orderId",order);
 				createOrderItemRes.put("statusCode", statusCode);
 				createOrderItemRes.put("message", orderId);
