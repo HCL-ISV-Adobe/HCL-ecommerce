@@ -239,8 +239,8 @@ function updateCartTotal() {
 
 			bagDiscount = Number($('.bag-discount-amount').text());;
 
-			$('.total-bag-count').text(getSumOfAllItem);
-			 $('.delivery-charges').text(deliveryCharges);
+			$('.total-bag-count').text(getSumOfAllItem.toFixed(2));
+			 $('.delivery-charges').text(deliveryCharges.toFixed(2));
 			if(allowCouponOnce)
             {
 				$('.order-price').text((getSumOfAllItem - bagDiscount).toFixed(2));
@@ -317,8 +317,8 @@ function OnLoadCartCalculation() {
 
 			bagDiscount = Number($('.bag-discount-amount').text());;
 
-			$('.total-bag-count').text(total);
-			 $('.delivery-charges').text(deliveryCharges);
+			$('.total-bag-count').text(total.toFixed(2));
+			  $('.delivery-charges').text(deliveryCharges.toFixed(2));
 			if(allowCouponOnce)
             {
 				$('.order-price').text((total - bagDiscount).toFixed(2));
