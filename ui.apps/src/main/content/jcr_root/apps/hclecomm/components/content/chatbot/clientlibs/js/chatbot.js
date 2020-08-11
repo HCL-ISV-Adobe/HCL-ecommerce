@@ -1,3 +1,12 @@
+$(window).scroll(function() {
+    var height = $(window).scrollTop();
+    if (height > 500) {
+        $(".chatbtn").css({"bottom": "90px"});
+    } else {
+        $(".chatbtn").css({"bottom": "10px"});
+    }
+});
+
 $(document).ready(function() {
 var botid = $('#botid').data('custom-property');
 var hostPath = $('#hostPath').data('custom-property');
