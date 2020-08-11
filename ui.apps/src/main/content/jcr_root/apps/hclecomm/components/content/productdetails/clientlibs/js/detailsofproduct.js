@@ -1,7 +1,7 @@
 let prodSku = "";
 let AddtocartRedirection = "";
 let custToken = "";
-
+let prodName = "";
 $(document).ready(function() {
  AddtocartRedirection = $('.btn-product-card').children().children().attr('href');
  $('.btn-product-card').children().children().removeAttr("href");
@@ -27,6 +27,7 @@ $(document).ready(function() {
     let productDetail;
     try {
      productDetail = JSON.parse(this.responseText);
+	 prodName = productDetail.name;
      $('.product-details-cmp__prduct-price-sign').css("display", "inline-block");
      if(productDetail.sku) {
      $(".product-details-cmp__prduct-price").text(productDetail.price);
