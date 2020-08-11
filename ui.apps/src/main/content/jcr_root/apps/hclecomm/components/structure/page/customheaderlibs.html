@@ -13,3 +13,5 @@
 <span class ="checkmode" checkmode = "${wcmmode.edit ? 'edit' : 'notEdit'}" />
 <input type = "hidden" id="isloginRequired" value= "${pageProperties.isLoginRequired}" />
 
+<!--/* Google Analytics */-->
+<script data-sly-test="${pageProperties.addAnalyticsScript != 'false' && inheritedPageProperties.gaScript}" async src="${inheritedPageProperties.gaScript}"></script>
