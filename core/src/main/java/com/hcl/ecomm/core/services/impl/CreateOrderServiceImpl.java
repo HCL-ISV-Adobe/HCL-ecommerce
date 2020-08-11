@@ -89,7 +89,7 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 				LOG.debug("httpResponse is {}",httpResponse);
 				statusCode = httpResponse.getStatusLine().getStatusCode();
 			}
-			LOG.debug("createOrderInfo url ={}",url);
+			LOG.debug("orderInfo url ={}",url);
 
 			if(org.eclipse.jetty.http.HttpStatus.OK_200 == statusCode){
 				BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
@@ -101,7 +101,7 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 					order +=output;
 				}
 				JSONObject orderId = new JSONObject();
-
+				order = order.replace("\"", "");
 				/*if(customerToken != null && !customerToken.isEmpty()) {*/
 				LOG.debug("Get Order Detail for order Id: ",order);
 
