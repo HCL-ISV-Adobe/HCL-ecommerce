@@ -1,4 +1,4 @@
-# HCL 123eCommerce AEM project
+# HCL eCommerce AEM project
 
 This is a HCL eCommerce AEM project. Features of Core components are used extensively in this project
 

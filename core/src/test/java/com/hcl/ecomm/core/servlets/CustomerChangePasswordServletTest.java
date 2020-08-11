@@ -17,55 +17,58 @@ import java.io.IOException;
 import java.io.StringReader;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+
 import static org.mockito.Mockito.*;
 
 
 @MockitoSettings(strictness = Strictness.LENIENT)
-    @ExtendWith(MockitoExtension.class)
-    public class CustomerChangePasswordServletTest {
+@ExtendWith(MockitoExtension.class)
+public class CustomerChangePasswordServletTest {
 
-        private CustomerChangePasswordServlet customerChangePasswordServlet;
+    private CustomerChangePasswordServlet customerChangePasswordServlet;
 
 
-        @BeforeEach
-        protected  void setUp()  {
-            customerChangePasswordServlet = spy (new CustomerChangePasswordServlet());
-        }
-
-        @Test
-        void doPut() throws ServletException, IOException, JSONException {
-            MockSlingHttpServletRequest request = mock(MockSlingHttpServletRequest.class);
-            MockSlingHttpServletResponse response = mock(MockSlingHttpServletResponse.class);
-            when(request.getReader()).thenReturn(new BufferedReader(new StringReader(getPayload())));
-            when(request.getHeader("CustomerToken")).thenReturn("onoeyuminifo49pe1j7gfcn5c732jslu");
-            JSONObject jsonObject = new JSONObject(getSubmitResponse());
-            doReturn(jsonObject).when(customerChangePasswordServlet).changePassword(any());
-            customerChangePasswordServlet.doPut(request,response);
-            verify(customerChangePasswordServlet, times(1)).doPut(request, response);
-        }
-        private String getPayload() {
-            String payload = "{\n" +
-                    "\n" +
-                    "  \"customerToken\": \"onoeyuminifo49pe1j7gfcn5c732jslu\",\n" +
-                    "\n" +
-                    "  \"custId\": \"24\",\n" +
-                    "\n" +
-                    "  \"currentPassword\": \"Admin123\",\n" +
-                    "\n" +
-                    "  \"newPassword\": \"Admin1234\"\n" +
-                    "\n" +
-                    "}";
-            return payload;
-        }
-        private String getSubmitResponse() {
-            String submitResponse = "{\n" +
-                    "    \"message\": {\n" +
-                    "        \"success\": \"Password Changed.\"\n" +
-                    "    },\n" +
-                    "    \"status\": true\n" +
-                    "}";
-            return submitResponse;
-        }
+    @BeforeEach
+    protected void setUp() {
+        customerChangePasswordServlet = spy(new CustomerChangePasswordServlet());
     }
+
+    @Test
+    void doPut() throws ServletException, IOException, JSONException {
+        MockSlingHttpServletRequest request = mock(MockSlingHttpServletRequest.class);
+        MockSlingHttpServletResponse response = mock(MockSlingHttpServletResponse.class);
+        when(request.getReader()).thenReturn(new BufferedReader(new StringReader(getPayload())));
+        when(request.getHeader("CustomerToken")).thenReturn("ae5koz3io5tvhbgy7p2gsxla2fqxiu98");
+        JSONObject jsonObject = new JSONObject(getSubmitResponse());
+        doReturn(jsonObject).when(customerChangePasswordServlet).changePassword(any());
+        customerChangePasswordServlet.doPut(request, response);
+        verify(customerChangePasswordServlet, times(1)).doPut(request, response);
+    }
+
+    private String getPayload() {
+        String payload = "{\n" +
+                "\n" +
+                "  \"customerToken\": \"ae5koz3io5tvhbgy7p2gsxla2fqxiu98\",\n" +
+                "\n" +
+                "  \"custId\": \"24\",\n" +
+                "\n" +
+                "  \"currentPassword\": \"Admin1234\",\n" +
+                "\n" +
+                "  \"newPassword\": \"Admin12345\"\n" +
+                "\n" +
+                "}";
+        return payload;
+    }
+
+    private String getSubmitResponse() {
+        String submitResponse = "{\n" +
+                "    \"message\": {\n" +
+                "        \"success\": \"Password Changed.\"\n" +
+                "    },\n" +
+                "    \"status\": true,\n" +
+                "  \"statusCode\": 200\n" +
+                "}";
+        return submitResponse;
+    }
+}
 
