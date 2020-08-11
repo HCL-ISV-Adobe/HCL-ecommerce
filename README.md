@@ -1,4 +1,4 @@
-# HCL Test123 eCommerce AEM project
+# HCL Test eCommerce AEM project
 
 This is a HCL eCommerce AEM project. Features of Core components are used extensively in this project
 
