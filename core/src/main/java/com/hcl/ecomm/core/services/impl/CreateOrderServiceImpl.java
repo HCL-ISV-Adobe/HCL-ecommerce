@@ -118,7 +118,7 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 					JSONObject jsonRes = new JSONObject();
 					Map emailParams = new HashMap<>();
 					jsonRes = new JSONObject(orderRes);
-					if(jsonRes.length()!=0) {
+					if(jsonRes.length()!=0 && customerToken != null && !customerToken.isEmpty()) {
 						emailParams.put("orderId", order);
 						emailParams.put("grandTotal", jsonRes.get("base_grand_total"));
 						emailParams.put("address",jsonRes.getJSONObject("billing_address").get("street"));
