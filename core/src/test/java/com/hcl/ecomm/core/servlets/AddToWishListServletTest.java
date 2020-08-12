@@ -1,0 +1,65 @@
+package com.hcl.ecomm.core.servlets;
+
+import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletRequest;
+import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+
+import javax.servlet.ServletException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
+class AddToWishListServletTest {
+    private AddToWishListServlet addToWishListServlet;
+
+    @BeforeEach
+    void setUp() {
+        addToWishListServlet = spy(new AddToWishListServlet());
+    }
+
+    @Test
+    void doPost() throws JSONException, ServletException, IOException {
+
+        MockSlingHttpServletRequest request = mock(MockSlingHttpServletRequest.class);
+        MockSlingHttpServletResponse response = mock(MockSlingHttpServletResponse.class);
+        when(request.getReader()).thenReturn(new BufferedReader(new StringReader(getPayload())));
+        when(request.getHeader("CustomerToken")).thenReturn("3vgvz9ncjgzpzxkfvr3l58nw28rne06z");
+
+        JSONObject jsonObject = new JSONObject(getSubmitResponse());
+        doReturn(jsonObject).when(addToWishListServlet).getAddToWishListResponse(anyString(),anyString());
+        addToWishListServlet.doPost(request,response);
+        verify(addToWishListServlet, times(1)).doPost(request, response);
+    }
+    private String getPayload() {
+        String payload = "\n{\n" +
+                "  \"name\":Sprite Yoga Strap 6 foot,\n" +
+                "  \"price\": 14,\n" +
+                "  \"cartid\": \"j7KaMe1zWFfopDFOVTdFZV0rokpjwzam\",\n" +
+                "  \"qty\": 100,\n" +
+                "  \"sku\": \"24-WG085\"\n" +
+                "}";
+        return payload;
+    }
+
+    private String getSubmitResponse() {
+        String submitResponse = "{\n" +
+                "    \"message\": {\n" +
+                "        \"response\": \"true\"\n" +
+                "    },\n" +
+                "  \"statusCode\": 200\n" +
+                "}";
+        return submitResponse;
+    }
+}
