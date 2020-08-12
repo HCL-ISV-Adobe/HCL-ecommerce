@@ -39,7 +39,7 @@ $(document).ready(function () {
             var itemNumbers = $(this).find(itemClass).length;
             incno = (bodyWidth >= 768) ? 3 : 1;
             itemWidth = sampwidth / incno;
-            $(this).css({ 'transform': 'translateX(0px)', 'width': (itemWidth * itemNumbers) });
+            $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
             $(this).find(itemClass).each(function () {
                 $(this).outerWidth(itemWidth);
             });
@@ -47,7 +47,9 @@ $(document).ready(function () {
             $(".cmp-carousel__action--previous").addClass("over");
             $(".cmp-carousel__action--next").removeClass("over");
 
-        });
+        });   
+     //   autoPlay();    
+  
     }
 
 
@@ -76,13 +78,33 @@ $(document).ready(function () {
                 $(el + ' ' + rightBtn).addClass("over");
             }
         }
-        $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
+        $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');  
+
     }
 
     function click(ell, ee) {
         var Parent = ('.cmp-carousel');
         var slide = 1;
         ResCarousel(ell, Parent, slide);
+    }
+
+    function autoPlay(){
+        var isPaused = false;
+        var time = 0;
+        var movedRight = false;
+        var move = 0;
+        window.setInterval(function() {
+      //  if(!isPaused) {
+        if($(itemsDiv).width() > move  && !movedRight){
+            move += itemWidth;
+        }else{
+            move += -itemWidth;
+            movedRight = true;
+        }     
+        debugger
+            $(itemsDiv).css({ 'transform': 'translateX('+- move + 'px)' });
+      //  }
+        }, 5000);
     }
 
 });
