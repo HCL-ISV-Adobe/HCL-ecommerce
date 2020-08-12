@@ -8,6 +8,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
@@ -15,6 +16,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.json.JsonObject;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import java.io.BufferedReader;
@@ -57,7 +59,7 @@ public class DeleteWishListItemServlet  extends SlingAllMethodsServlet {
             if (StringUtils.isNotEmpty(payload)) {
                 JSONObject jsonPayload =  new JSONObject(payload);
                 if (isValidItem(jsonPayload)) {
-                    JSONObject deleteWishListResponse = deleteWishListService.deleteWishListItem(jsonPayload.getString("itemId"), customerToken);
+                    JSONObject deleteWishListResponse =getdeleteWishListItem(jsonPayload,customerToken);
                     if (deleteWishListResponse.has("statusCode") && deleteWishListResponse.getInt("statusCode") == HttpStatus.SC_OK) {
                         responseObject.put("message", deleteWishListResponse.getJSONObject("message"));
                         responseObject.put("status", Boolean.TRUE);
@@ -75,6 +77,7 @@ public class DeleteWishListItemServlet  extends SlingAllMethodsServlet {
         }
     }
 
+
     private boolean isValidItem(JSONObject jsonPayload) {
         boolean isValidItem=Boolean.TRUE;
         if(!jsonPayload.has("itemId")){
@@ -82,5 +85,11 @@ public class DeleteWishListItemServlet  extends SlingAllMethodsServlet {
         }
         return isValidItem;
     }
+
+
+    public JSONObject  getdeleteWishListItem(JSONObject jsonPayload, String customerToken) throws JSONException {
+        return deleteWishListService.deleteWishListItem(jsonPayload.getString("itemId"), customerToken);
+    }
+
 }
 

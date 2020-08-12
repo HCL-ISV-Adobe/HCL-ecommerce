@@ -8,6 +8,9 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
@@ -37,25 +40,28 @@ public class GetWishListItemsServlet extends SlingSafeMethodsServlet {
 
          try {
             String customerToken = request.getHeader("CustomerToken");
-            JsonObject responseStream = wishListService.getWishListItems(customerToken);
+            JSONObject responseStream = getWishListItems(customerToken);
              LOG.debug("responseStream is {}", responseStream.toString());
-        
-            JsonArray wishlistitems= responseStream.get("items").getAsJsonArray();
+             JSONArray wishlistitems= responseStream.getJSONArray("items");
             List<HashMap<String, Object>> list = new ArrayList<>();
-            JsonArray wishlistArray=new JsonArray();
+            JSONArray wishlistArray=null;
 
-            for(int i=0; i<wishlistitems.size();i++){
+            for(int i=0; i<wishlistitems.length();i++){
                 HashMap<String, Object> itemdetails = new HashMap<String, Object>();
-                itemdetails.put("item_id",wishlistitems.get(i).getAsJsonObject().get("id").getAsInt());
-                itemdetails.put("sku", wishlistitems.get(i).getAsJsonObject().get("product").getAsJsonObject().get("sku").getAsString());
-                itemdetails.put("name", wishlistitems.get(i).getAsJsonObject().get("product").getAsJsonObject().get("name").getAsString());
-                itemdetails.put("price",wishlistitems.get(i).getAsJsonObject().get("product").getAsJsonObject().get("price").getAsInt());
+                JSONObject Obj = wishlistitems.getJSONObject(i);
+                LOG.info("wishlistitems is {}", Obj);
+                itemdetails.put("item_id",Obj.get("item_id"));
+                itemdetails.put("sku", Obj.get("sku"));
+                itemdetails.put("name", Obj.get("name"));
+                itemdetails.put("price",Obj.get("price"));
                 itemdetails.put("image_url", "https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png");
                 list.add(itemdetails);
-                wishlistArray = new Gson().toJsonTree(list).getAsJsonArray();
+                wishlistArray = new JSONArray(list);
 
             }
-            response.getWriter().write(wishlistArray.toString());
+             response.setContentType("application/json");
+             response.getWriter().write(wishlistArray.toString());
+             response.setStatus(200);
           
 
         }
@@ -63,5 +69,9 @@ public class GetWishListItemsServlet extends SlingSafeMethodsServlet {
             LOG.error("error in GetWishListItemsServlet {} ",e.getMessage());
         }
 
+    }
+    public JSONObject getWishListItems(String customerToken) throws JSONException {
+        JSONObject jo2 = new JSONObject(wishListService.getWishListItems(customerToken).toString());
+        return jo2;
     }
 }
