@@ -1,5 +1,7 @@
 <div class='product-listing-tile' data-productSku=${properties.productSku}  data-tag=${properties.tag}>
 <div data-sly-resource="${'img' @ resourceType='hclecomm/components/content/image', decoration=true}"> </div>
 <div class="cmp-productTile-heading">${properties.brand}</div>
+<div class="compare-product-sku">${properties.productSku}</div>
 <div class="cmp-productTile-btn" data-sly-resource="${'btn' @ resourceType='hclecomm/components/content/button', decoration=true}"> </div>
+<div> <input type="checkbox" onchange = "onAddToCompare(event,this)" class="compare-checkbox"><span>Add to compare</span></div>
 </div>
