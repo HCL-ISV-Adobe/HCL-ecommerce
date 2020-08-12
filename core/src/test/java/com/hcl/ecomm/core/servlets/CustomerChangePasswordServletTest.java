@@ -44,6 +44,19 @@ public class CustomerChangePasswordServletTest {
         customerChangePasswordServlet.doPut(request, response);
         verify(customerChangePasswordServlet, times(1)).doPut(request, response);
     }
+    
+   
+    @Test
+    void doPut_else() throws ServletException, IOException, JSONException {
+        MockSlingHttpServletRequest request = mock(MockSlingHttpServletRequest.class);
+        MockSlingHttpServletResponse response = mock(MockSlingHttpServletResponse.class);
+        when(request.getReader()).thenReturn(new BufferedReader(new StringReader(getPayload())));
+        when(request.getHeader("CustomerToken")).thenReturn("ae5koz3io5tvhbgy7p2gsxla2fqxiu98");
+        JSONObject jsonObject = new JSONObject(getSubmitResponse_else());
+        doReturn(jsonObject).when(customerChangePasswordServlet).changePassword(any());
+        customerChangePasswordServlet.doPut(request, response);
+        verify(customerChangePasswordServlet, times(1)).doPut(request, response);
+    }
 
     private String getPayload() {
         String payload = "{\n" +
@@ -69,6 +82,16 @@ public class CustomerChangePasswordServletTest {
                 "  \"statusCode\": 200\n" +
                 "}";
         return submitResponse;
+    }
+    
+    private String getSubmitResponse_else() {
+        String submitResponse_else = "{\n" +
+                "    \"message\": {\n" +
+                "        \"error\": \"Current password not matching. Please try again\"\n" +
+                "    },\n" +
+                "  \"statusCode\": 401\n" +
+                "}";
+        return submitResponse_else;
     }
 }
 
