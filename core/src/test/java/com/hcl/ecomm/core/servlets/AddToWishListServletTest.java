@@ -58,7 +58,7 @@ class AddToWishListServletTest {
                 "    \"message\": {\n" +
                 "        \"response\": \"true\"\n" +
                 "    },\n" +
-                "    \"status\": true\n" +
+                "  \"statusCode\": 200\n" +
                 "}";
         return submitResponse;
     }
