@@ -21,7 +21,7 @@ const onClickofCmpre  = () =>{
                                                      `<div class ='compare-product-details'>
                                                          <div><img class = 'cmp-product-img' src = ${selectedItems[index].productimgurl}></div>
                                                          <p><span>${productDetailsItem.name}</span></p>
-                                                         <p><span>${productDetailsItem.price}</span></p>
+                                                         <p><span>$ ${Number(productDetailsItem.price).toFixed(2)}</span></p>
                                                          <p><span>${productDetailsItem.sku}</span></p>
 							 <p><a class = 'compare-product-continue' href = ${selectedItems[index].producthref}> Continue </a></p>
 

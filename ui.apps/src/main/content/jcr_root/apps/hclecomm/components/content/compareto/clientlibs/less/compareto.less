@@ -10,7 +10,9 @@
     background-color :#2979be;
     color : #ffffff;
     width: 150px;
-    border : none;}
+    border : none;
+    outline:none;
+    }
 
 }
 
@@ -27,6 +29,7 @@
     background-color: rgba(0,0,0,0.5);
     z-index: 99999;
     cursor: pointer;
+    font-family: sans-serif;
     }
 
 .product-detail-table{
@@ -49,12 +52,13 @@
 .compare-product-footer{
    display: flex;
    justify-content: flex-end;
-   padding: 10px;
+   padding-right: 20px;
     .compare-footer-btn{
     background: #2979be;
     border: none;
     color: #ffffff;
-    width: 150px;
+    width: 100px;
+    outline:none;
     }
 
 
@@ -75,6 +79,9 @@
 
 .compare-product-details{
  min-width: 33%;
+    @media only screen and (max-width: 768px) {
+          min-width: 50%;
+            }
     &>p{
     padding : 15px 0;
     border-bottom : 1px solid #000000;
