@@ -45,19 +45,20 @@ public class GetWishListItemsServlet extends SlingSafeMethodsServlet {
              JSONArray wishlistitems= responseStream.getJSONArray("items");
             List<HashMap<String, Object>> list = new ArrayList<>();
             JSONArray wishlistArray=null;
-
-            for(int i=0; i<wishlistitems.length();i++){
+            
+            if(wishlistitems!=null) {
+             for(int i=0; i<wishlistitems.length();i++) {
                 HashMap<String, Object> itemdetails = new HashMap<String, Object>();
                 JSONObject Obj = wishlistitems.getJSONObject(i);
                 LOG.info("wishlistitems is {}", Obj);
-                itemdetails.put("item_id",Obj.get("item_id"));
+                itemdetails.put("item_id", Obj.get("item_id"));
                 itemdetails.put("sku", Obj.get("sku"));
                 itemdetails.put("name", Obj.get("name"));
-                itemdetails.put("price",Obj.get("price"));
+                itemdetails.put("price", Obj.get("price"));
                 itemdetails.put("image_url", "https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png");
                 list.add(itemdetails);
                 wishlistArray = new JSONArray(list);
-
+             }
             }
              response.setContentType("application/json");
              response.getWriter().write(wishlistArray.toString());
@@ -71,6 +72,7 @@ public class GetWishListItemsServlet extends SlingSafeMethodsServlet {
 
     }
     public JSONObject getWishListItems(String customerToken) throws JSONException {
+        //wishListService.getWishListItems() returns jsonObject, to convert jsonObject to JSONObject
         JSONObject jo2 = new JSONObject(wishListService.getWishListItems(customerToken).toString());
         return jo2;
     }
