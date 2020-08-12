@@ -26,18 +26,12 @@ const onAddToCompare = (event,ele) =>{
 
         if(selectedItems && (selectedItems.length  < 2)) {
                 $('.compare-to-cmp').css('display', 'none');
-
-
-
         }
-
- 
 
         if(selectedItems && (selectedItems.length  == 2)) {
                 $( "input.compare-checkbox:not(:checked) " ).attr("disabled", true);
              $('.compare-to-cmp').css('display', 'inline-block');
         }
         }
-
 
 }
