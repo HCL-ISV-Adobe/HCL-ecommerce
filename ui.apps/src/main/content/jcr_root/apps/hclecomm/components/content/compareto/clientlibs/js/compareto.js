@@ -1,6 +1,4 @@
 const onClickofCmpre  = () =>{
-        console.log('compare btn clicked');
-        console.log(selectedItems);
     const skuObj = {sku1 : selectedItems[0].id, sku2 : selectedItems[1].id} ;
          const productCompareContainer = $('.compare-product-pop-up');
         const xhr = new XMLHttpRequest();
@@ -13,7 +11,6 @@ const onClickofCmpre  = () =>{
                              const productDetails = JSON.parse(this.responseText);
                        const productCompareContainer = $('.compare-product-list');
           const productPopUpCompareContainer = $('.compare-product-pop-up');
-         // const productDetails = [{"sku":"24-WG086","stock":"true","name":"Sprite Yoga Strap 8 foot","price":"17"},{"sku":"24-WG085","name":"Sprite Yoga Strap 6 foot","price":"14","stock":"true"}];
           if(productDetails && productDetails.length > 0) {
 			  const header = `<div class = 'compare-product-header'>Compare Products <i onclick ="closeCompareProductPopup()" class="fa fa-window-close" aria-hidden="true"></i></div>`
               const footer = `<div class = 'compare-product-footer'><button onclick ="closeCompareProductPopup()" class = 'compare-footer-btn'>Ok</button></div>`
@@ -25,8 +22,8 @@ const onClickofCmpre  = () =>{
                                                          <div><img class = 'cmp-product-img' src = ${selectedItems[index].productimgurl}></div>
                                                          <p><span>${productDetailsItem.name}</span></p>
                                                          <p><span>${productDetailsItem.price}</span></p>
-                                                        <p><span>${productDetailsItem.sku}</span></p>
-														<p><a class = 'compare-product-continue' href = ${selectedItems[index].producthref}> Continue </a></p>
+                                                         <p><span>${productDetailsItem.sku}</span></p>
+							 <p><a class = 'compare-product-continue' href = ${selectedItems[index].producthref}> Continue </a></p>
 
                                                      </div>`
                                                  )
@@ -35,24 +32,10 @@ const onClickofCmpre  = () =>{
                   if( productCompareContainer && productDetailsItem){
                       productCompareContainer[0].innerHTML = (conatiner);
                       }
-
- 
-
     }
-
- 
-
-
                         }
-
- 
-
                }
                xhr.send(JSON.stringify(skuObj));
-
-
- 
-
     }
     const closeCompareProductPopup = () =>{
         const productPopUpCompareContainer = $('.compare-product-pop-up');
