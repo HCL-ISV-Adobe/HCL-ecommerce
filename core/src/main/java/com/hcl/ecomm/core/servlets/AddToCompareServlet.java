@@ -56,8 +56,8 @@ public class AddToCompareServlet extends SlingAllMethodsServlet {
                     response.getWriter().print("Products is not available in required website id");
                     return;
                 }
-                LOG.info("JsonResponse1 : " + productResponse1);
-                LOG.info("JsonResponse2 : " + productResponse2);
+                LOG.debug("JsonResponse1 : " + productResponse1);
+                LOG.debug("JsonResponse2 : " + productResponse2);
 
                 String stock1 = "false";
                 String stock2 = "false";
