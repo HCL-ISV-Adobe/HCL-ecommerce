@@ -1,5 +1,6 @@
 const selectedItems = [];
 const ImageandProductUrl = [];
+$( document ).ready(function() { $( "input.compare-checkbox").prop('checked',false); })
 const onAddToCompare = (event,ele) =>{
 
   const id = $(ele).parent().parent().attr('data-productSku');
