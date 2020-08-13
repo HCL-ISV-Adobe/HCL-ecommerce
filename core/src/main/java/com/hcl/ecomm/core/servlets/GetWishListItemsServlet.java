@@ -42,28 +42,34 @@ public class GetWishListItemsServlet extends SlingSafeMethodsServlet {
             String customerToken = request.getHeader("CustomerToken");
             JSONObject responseStream = getWishListItems(customerToken);
              LOG.debug("responseStream is {}", responseStream.toString());
-             JSONArray wishlistitems= responseStream.getJSONArray("items");
-            List<HashMap<String, Object>> list = new ArrayList<>();
-            JSONArray wishlistArray=null;
-            
-            if(wishlistitems!=null) {
-             for(int i=0; i<wishlistitems.length();i++) {
-                HashMap<String, Object> itemdetails = new HashMap<String, Object>();
-                JSONObject Obj = wishlistitems.getJSONObject(i);
-                LOG.info("wishlistitems is {}", Obj);
-                itemdetails.put("item_id", Obj.get("item_id"));
-                itemdetails.put("sku", Obj.get("sku"));
-                itemdetails.put("name", Obj.get("name"));
-                itemdetails.put("price", Obj.get("price"));
-                itemdetails.put("image_url", "https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png");
-                list.add(itemdetails);
-                wishlistArray = new JSONArray(list);
+             if(responseStream.length()!= 0) {
+                 JSONArray wishlistitems = responseStream.getJSONArray("items");
+                 //System.out.println(wishlistitems);
+                 List<HashMap<String, Object>> list = new ArrayList<>();
+                 JSONArray wishlistArray = null;
+                // System.out.println(wishlistitems.length());
+                 if (wishlistitems != null) {
+                     for (int i = 0; i < wishlistitems.length(); i++) {
+                         HashMap<String, Object> itemdetails = new HashMap<String, Object>();
+                         JSONObject Obj = wishlistitems.getJSONObject(i);
+                         LOG.info("wishlistitems is {}", Obj);
+                         itemdetails.put("item_id", Obj.get("item_id"));
+                         itemdetails.put("sku", Obj.get("sku"));
+                         itemdetails.put("name", Obj.get("name"));
+                         itemdetails.put("price", Obj.get("price"));
+                         itemdetails.put("image_url", "https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png");
+                         list.add(itemdetails);
+                         wishlistArray = new JSONArray(list);
+                     }
+                 }
+                 response.setContentType("application/json");
+                 response.getWriter().write(wishlistArray.toString());
+                 response.setStatus(200);
              }
-            }
-             response.setContentType("application/json");
-             response.getWriter().write(wishlistArray.toString());
-             response.setStatus(200);
-          
+else{
+                 response.getWriter().print(" Products is not available in Wishlist");
+        }
+
 
         }
         catch (Exception e){
