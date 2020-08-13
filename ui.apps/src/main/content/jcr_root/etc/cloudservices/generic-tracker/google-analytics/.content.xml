@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:cloudservicename="generictracker"
+        cq:lastModified="{Date}2020-07-30T16:47:48.588+05:30"
+        cq:lastModifiedBy="admin"
+        cq:template="/libs/cq/analytics/templates/generictracker"
+        jcr:lastModified="{Date}2020-07-30T16:47:48.586+05:30"
+        jcr:lastModifiedBy="admin"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="google-analytics"
+        sling:resourceType="cq/analytics/components/generictrackerpage"
+        snippetCode="  window.dataLayer = window.dataLayer || [];&#xa;  function gtag(){dataLayer.push(arguments);}&#xa;  gtag('js', new Date());&#xa;&#xa;  gtag('config', 'UA-173933021-1');&#xa;  gtag('create', 'UA-173933021-1', 'none');"/>
+</jcr:root>

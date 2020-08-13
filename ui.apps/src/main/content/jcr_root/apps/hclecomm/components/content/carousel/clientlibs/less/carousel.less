@@ -13,7 +13,7 @@
         .image {
           img {
             max-width: 100%;
-            height: auto;
+            max-height: 300px;
             margin: 0;
           }
         }
@@ -23,7 +23,7 @@
           .cmp-teaser__image {
             img {
               max-width: 100%;
-              height: auto;
+              max-height: 300px;
               margin: 0;
             }
           }
@@ -109,7 +109,7 @@
 .carousel-multi{
     position:relative;
     .cmp-carousel{
-        margin: 0 5%;
+        margin: 15px 5%;
         width: 90%;
         overflow: hidden;
         @media only screen and (max-width: 768px) {       
@@ -123,15 +123,27 @@
         align-items: center;
         .cmp-carousel__item {
             display: inline-block;
-            min-height: 50px;
-            float: left;
             opacity: 0.5;
+            height: 300px;
+            margin: 10px 0;
+            transition: all 0.25s ease 0s;
+            .image{
+              height: 100%;
+              .cmp-image{
+                height:  100%;
+                img{
+                  margin: 0;
+                  height:  100%;
+                }
+              }
+            }
             &.active{
             box-shadow: 0 0 10px rgba(0,0,0,0.6);
             opacity: 1;
-            transform: scale(1.2,1.2);
+            margin: 0;
             position: relative;
             z-index: 1;
+            height: 320px;
             @media only screen and (max-width: 768px) {       
                 transform: scale(1,1);                  
                 }
@@ -141,7 +153,7 @@
             .cmp-carousel__actions{
                 left: 0px;
                 right: 0;
-                top: 20%;
+                top: 40%;
                 .cmp-carousel__action--previous, .cmp-carousel__action--next {
                     position: absolute;
                     top: calc(17%);

@@ -7,7 +7,6 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.eclipse.jetty.http.HttpStatus;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.framework.Constants;
@@ -28,14 +27,22 @@ import java.io.IOException;
                 "sling.servlet.paths=/bin/hclecomm/addAddress",
                 "sling.servlet.method=" + HttpConstants.METHOD_POST,
                 "sling.servlet.extensions=json"})
-public class MyAccountAddAddress extends SlingAllMethodsServlet {
+public class MyAccountAddAddressServlet extends SlingAllMethodsServlet {
 
     private static final long serialVersionUID = 2731083214874663626L;
-    private static final Logger LOG = LoggerFactory.getLogger(MyAccountAddAddress.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MyAccountAddAddressServlet.class);
 
     @Reference
     private CustomerService customerService;
 
+    /**
+     * doPut gets to add address of customer in Magento and returns status message from Magento service.
+     *
+     * @param request
+     *            - sling servlet request object
+     * @param response
+     *            - sling servlet response object
+     */
     @Override
     protected void doPut(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
@@ -63,11 +70,11 @@ public class MyAccountAddAddress extends SlingAllMethodsServlet {
                     JSONObject customerAddress =  jsonPayload;
                     LOG.debug("customerAddress:: "+customerAddress);
 
-                    JSONObject customerProfileAddress = customerService.customerProfileAddDetails(customerToken,customerAddress);
+                    JSONObject customerProfileAddress = customerProfileAddDetails(customerToken,customerAddress);
                     LOG.debug("customerProfileAddress after servlet"+customerProfileAddress.toString());
                     if (customerProfileAddress.has("statusCode") && customerProfileAddress.getInt("statusCode") == HttpStatus.OK_200) {
                         responseObject.put("message", customerProfileAddress.getJSONObject("message"));
-                        responseObject.put("status", Boolean.TRUE);
+                            responseObject.put("status", Boolean.TRUE);
                     } else {
                         responseObject.put("message", "something went wrong while customerProfileAddDetails");
                     }
@@ -93,5 +100,8 @@ public class MyAccountAddAddress extends SlingAllMethodsServlet {
         return isValidData;
     }
 
+    public JSONObject customerProfileAddDetails(String customerToken,JSONObject customerAddress) throws JSONException {
+        return customerService.customerProfileAddDetails(customerToken,customerAddress);
+    }
 
 }

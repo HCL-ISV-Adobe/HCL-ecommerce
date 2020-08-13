@@ -65,6 +65,74 @@
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                     </policy_165205831103087>
                 </container>
+                <text jcr:primaryType="nt:unstructured">
+                    <policy_1594215389761
+                            cq:styleDefaultClasses="cmp-full-width-input"
+                            jcr:lastModified="{Date}2020-07-30T14:41:31.662+05:30"
+                            jcr:lastModifiedBy="admin"
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Form text Component"
+                            sling:resourceType="wcm/core/components/policy/policy">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <cq:styleGroups jcr:primaryType="nt:unstructured">
+                            <item0
+                                    cq:styleGroupLabel="Form Text Styles"
+                                    jcr:primaryType="nt:unstructured">
+                                <cq:styles jcr:primaryType="nt:unstructured">
+                                    <item0
+                                            cq:styleClasses="cmp-full-width-input"
+                                            cq:styleId="1594897899275"
+                                            cq:styleLabel="Full Width Input text Box"
+                                            jcr:primaryType="nt:unstructured"/>
+                                </cq:styles>
+                            </item0>
+                        </cq:styleGroups>
+                    </policy_1594215389761>
+                </text>
+                <button jcr:primaryType="nt:unstructured">
+                    <policy_1042904026915865
+                            jcr:lastModified="{Date}2020-07-28T19:17:33.508+05:30"
+                            jcr:lastModifiedBy="admin"
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Form Button Policy"
+                            sling:resourceType="wcm/core/components/policy/policy">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <cq:styleGroups jcr:primaryType="nt:unstructured">
+                            <item0
+                                    cq:styleGroupLabel="Submit Button Styles"
+                                    jcr:primaryType="nt:unstructured">
+                                <cq:styles jcr:primaryType="nt:unstructured">
+                                    <item0
+                                            cq:styleClasses="submit-btn"
+                                            cq:styleId="1594897730897"
+                                            cq:styleLabel="Submit button"
+                                            jcr:primaryType="nt:unstructured"/>
+                                    <item1
+                                            cq:styleClasses="submit-btn-primary"
+                                            cq:styleId="1595944016521"
+                                            cq:styleLabel="Submit Button Primary"
+                                            jcr:primaryType="nt:unstructured"/>
+                                </cq:styles>
+                            </item0>
+                            <item1
+                                    cq:styleGroupLabel="Cancel Button Styles"
+                                    jcr:primaryType="nt:unstructured">
+                                <cq:styles jcr:primaryType="nt:unstructured">
+                                    <item0
+                                            cq:styleClasses="cancel-btn"
+                                            cq:styleId="1594897783292"
+                                            cq:styleLabel="Cancel Button Primary"
+                                            jcr:primaryType="nt:unstructured"/>
+                                    <item1
+                                            cq:styleClasses="cancel-btn-secondary"
+                                            cq:styleId="1594897797744"
+                                            cq:styleLabel="Cancel Button Secondary"
+                                            jcr:primaryType="nt:unstructured"/>
+                                </cq:styles>
+                            </item1>
+                        </cq:styleGroups>
+                    </policy_1042904026915865>
+                </button>
             </form>
             <content jcr:primaryType="nt:unstructured">
 			    <list jcr:primaryType="nt:unstructured">
