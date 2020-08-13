@@ -24,6 +24,7 @@ $(document).ready(function() {
                                                                          </div>
                                                              			<div><span>Price: $</span>
                                                                              <span>${(item['cartItem'].qty *  item['cartItem'].price).toFixed(2)}</span>
+
                                                                          </div>
 
                                                                 </div>

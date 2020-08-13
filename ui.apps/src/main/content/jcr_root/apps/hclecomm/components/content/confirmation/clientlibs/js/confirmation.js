@@ -54,7 +54,7 @@ $(document).ready(function () {
                                         <span>${item['cartItem'].qty}</span></span>
                                     </div>
                                     <div><span>Price</span>
-                                        <span>$${item['cartItem'].qty *  item['cartItem'].price}</span>
+                                        <span>$${(item['cartItem'].qty *  item['cartItem'].price).toFixed(2)}</span>
                                     </div>
                                 </div>
                    </div>`
@@ -80,7 +80,7 @@ $(document).ready(function () {
 
         const getOrderId = `<span> </span> <span>Order No : ${checkOutDeatils['orderId']}</span>`
         const getCustomerName = `<div class ='cmp-confirmation-subHead'>Delivery For </div> <div class ='cmp-confirmation-text'> ${checkOutDeatils['firstname']}  ${checkOutDeatils['lastname']}</div>`
-        const getCustomerAdd = `<div class ='cmp-confirmation-subHead'>Address </div> <div class ='cmp-confirmation-text'> ${checkOutDeatils['street']}  ${checkOutDeatils['city']} ${checkOutDeatils['postcode']}</div>`
+        const getCustomerAdd = `<div class ='cmp-confirmation-subHead'>Address </div> <div class ='cmp-confirmation-text'> ${checkOutDeatils['street']}  ${checkOutDeatils['city']} ${checkOutDeatils['postcode']}</div><div> ${checkOutDeatils['selectedState']} ${checkOutDeatils['selectedCountry']}</div></div>`
         const cartNumber = checkOutDeatils['cardNumber'];
             let hiddenCardNumber = null;
 
