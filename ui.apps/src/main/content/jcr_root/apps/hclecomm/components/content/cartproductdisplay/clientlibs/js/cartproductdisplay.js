@@ -54,7 +54,7 @@ $(document).ready(function (){
 		$('.delivery-charges').text(0);
     }
 	//deliveryCharges = Number($('.delivery-charges').text());
-     $('.total-price').text(totalBagPrice - bagDiscount + Number($('.order-price').text()));
+     $('.total-price').text((totalBagPrice - bagDiscount + Number($('.order-price').text())));
 	 placeOrderRedirection = $('.place-order-button').children().children().attr('href');
 	 $('.place-order-button').children().children().removeAttr("href");
 
