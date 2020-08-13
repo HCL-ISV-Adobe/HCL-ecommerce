@@ -57,8 +57,8 @@ public class CartItemServlet extends SlingSafeMethodsServlet {
 				productMap.put("name", responseStream.getJSONObject(i).get("name").toString());
 				productMap.put("price",responseStream.getJSONObject(i).get("price"));
 				productMap.put("quote_id",responseStream.getJSONObject(i).get("quote_id").toString());
-				//productMap.put("image_url", checkNullString(itemsarr.get(i).getAsJsonObject().get("extension_attributes").getAsJsonObject().get("image_url").getAsString()));
-				productMap.put("image_url", "https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png");
+				productMap.put("image_url", checkNullString(responseStream.getJSONObject(i).getJSONObject("extension_attributes").get("image_url").toString()));
+				//productMap.put("image_url", "https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png");
 				list.add(productMap);
 				cartArray = new JSONArray(list);
 			}
@@ -75,10 +75,10 @@ public class CartItemServlet extends SlingSafeMethodsServlet {
 	public JSONArray getCartItemsDetails(String cartId,String customerToken){
 		return cartService.getCartItemsDetails(cartId, customerToken);
 	}
-		/*public String checkNullString(String value) {
+		public String checkNullString(String value) {
 		LOG.debug("value :::::: {}", value);
 		//return value.equals("null") ? "http://127.0.0.1/magento2/pub/media/catalog/product\\\\cache\\\\84e3ec616dfeead44f09ae682858fa68\\\\//t/h/thumnail-adi-tshirt-black.jpg" : value;
-		return value.contains("placeholder")?"http://127.0.0.1/magento2/pub/media/catalog/product\\\\cache\\\\84e3ec616dfeead44f09ae682858fa68\\\\//t/h/thumnail-adi-tshirt-black.jpg" : value;
-	}*/
+		return value.contains("placeholder")?"https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png" : value;
+	}
 
 }
