@@ -675,12 +675,11 @@ const onDeliveryMethodChange = (ele) =>{
 
                 return (`<div class = "store-address"><div class = "store-radiobutton-contactname"><input type="radio"  name="store"   onchange = "onSelectingStore('${index}')"><div>${deleveryOptionsItem.contact_name}</div></div>
                 <div>${deleveryOptionsItem.name}</div>
-                <div>${deleveryOptionsItem.street}</div>
-                 <div>${deleveryOptionsItem.phone}</div>
-                 <div>${deleveryOptionsItem.city}</div>
-                 <div>${deleveryOptionsItem.postcode}</div>
-                 <div>${deleveryOptionsItem.region}</div></div>`)
-            })
+                <p>${deleveryOptionsItem.street}</p>
+                 <p>${deleveryOptionsItem.phone}</p>
+                 <p><span>${deleveryOptionsItem.city}</span><span>(${deleveryOptionsItem.postcode})</span></p>
+					<p>${deleveryOptionsItem.region}</p></div>`)
+            }).join(' ');
             const storelistcontainer = `<div><div class = "store-header-select"><span>SELECT STORE</span><i class="fa fa-window-close" aria-hidden="true" onclick = "closeStoreOptions()"></i></div>${storeDeliveryOption}</div>`
             if(getPlaceHolderDeliveryOption && storeDeliveryOption){
             getPlaceHolderDeliveryOption.addClass('confirmation-page-deleivery-option-transition');
