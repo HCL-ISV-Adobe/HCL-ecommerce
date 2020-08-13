@@ -20,10 +20,11 @@ $(document).ready(function() {
                                                                              <span>${item['cartItem'].title}</span>
                                                                          </div>
                                                                           <div>
-                                                                             <span>${item['cartItem'].qty} * <span>$${Number(item['cartItem'].price).toFixed(2)}</span></span>
+                                                                             <span>${item['cartItem'].qty} * <span>$ ${parseInt(item['cartItem'].price).toFixed(2)}</span></span>
                                                                          </div>
                                                              			<div><span>Price: $</span>
-                                                                              <span>${(item['cartItem'].qty *  item['cartItem'].price).toFixed(2)}</span>
+                                                                             <span>${(item['cartItem'].qty *  item['cartItem'].price).toFixed(2)}</span>
+
                                                                          </div>
 
                                                                 </div>

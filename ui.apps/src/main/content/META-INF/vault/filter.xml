@@ -6,4 +6,5 @@
     <filter root="/etc/notification/email/hclecomm" mode="merge"/>
 	<filter root="/apps/msm/hclecomm_blueprint" mode="merge"/>
 	<filter root="/apps/custom_submit_action" mode="merge"/>
+    <filter root="/etc/cloudservices" mode="merge"/>
 </workspaceFilter>
