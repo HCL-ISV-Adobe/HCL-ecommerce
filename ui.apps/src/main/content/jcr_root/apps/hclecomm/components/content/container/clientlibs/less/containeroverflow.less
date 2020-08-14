@@ -3,29 +3,31 @@
     .tns-controls {
         margin-top: 30px;
         position: relative;
+        padding-bottom: 12px;
     }
     .tns-controls button {
         font-size: 0;
         position: absolute;
-        right: 55px;
+        right: 60px;
         top: -30px;
-        width: 30px;
-        height: 30px;
+        width: 35px;
+        height: 35px;
         border: 1px solid #e2e2e2;
         border-radius: 6px;
         background-color: #fff;
         font-family:FontAwesome;
         font-size:0;
         transition: all 0s;
-  
+
         &[data-controls="prev"]{
             &:after{
                 font-size:16px;
                 content:'\f053';
+                margin-left: -8px;
             }
         }
         &[data-controls="next"] {
-            right: 18px;
+            right: 10px;
             &:after{
               content:'\f054';
               font-size:16px;
@@ -38,17 +40,17 @@
     //end of arrows css
      @media only screen and (max-width: 500px) {
       .tns-controls {
-          margin-right: -45px;
-    	  padding-bottom: 5px;
+          margin-right: -50px;
+    	  padding-bottom: 12px;
         }
      }
-      
+
     // tiny-slider.css
     .tns-outer {
         padding: 0 !important;
         max-width: 1660px;
         margin: 0 auto;
-        
+
         [hidden] {
             display: none !important;
         }
