@@ -58,7 +58,7 @@ public class GetCustomerOrderServlet extends SlingAllMethodsServlet{
 			if (StringUtils.isNotEmpty(payload)) {
 				JSONObject jsonPayload =  new JSONObject(payload);
 
-				getOrderResponse = orderService.getOrders(jsonPayload.get("custEmail").toString());
+				getOrderResponse = getCustomerOrder(jsonPayload);
 				getOrderResponse.put("status", Boolean.TRUE);
 
 			} else {
@@ -73,7 +73,7 @@ public class GetCustomerOrderServlet extends SlingAllMethodsServlet{
 		LOG.debug("shipping info doPost()  method end.");
 	}
 
-
+/*
 	private boolean isValidPayload(JSONObject jsonPayload, String customerToken) {
 		boolean isValidData=Boolean.TRUE;
 		if(!jsonPayload.has("cartId") && (null==customerToken || customerToken=="")){
@@ -110,6 +110,9 @@ public class GetCustomerOrderServlet extends SlingAllMethodsServlet{
 		}
 		return shipInfo;
 	}
-
+*/
+	public JSONObject  getCustomerOrder(JSONObject jsonPayload) throws JSONException {
+		return orderService.getOrders(jsonPayload.get("custEmail").toString());
+	}
 
 }
