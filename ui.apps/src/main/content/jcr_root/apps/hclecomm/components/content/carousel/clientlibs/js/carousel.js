@@ -12,6 +12,7 @@ $(document).ready(function () {
     // Multi Slide 
     var itemsMainDiv = ('.carousel-multi .cmp-carousel');
     var itemsDiv = ('.carousel-multi .cmp-carousel__content');
+    var delay =  $(".carousel-multi .cmp-carousel").attr("data-cmp-delay");
     var itemWidth = "";
     $('.carousel-multi .cmp-carousel__action--previous, .carousel-multi .cmp-carousel__action--next').click(function () {
         var condition = $(this).hasClass("cmp-carousel__action--previous");
@@ -74,7 +75,7 @@ $(document).ready(function () {
             $('.cmp-carousel__item.active').removeClass('active').next().addClass('active');
          
         }
-      //  debugger
+      
         $(itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');  
 
     }
@@ -86,19 +87,18 @@ $(document).ready(function () {
     }
 
     function autoPlay(){
-        var delay =  $(".carousel-multi .cmp-carousel").attr("data-cmp-delay");
-        if(!$(".carousel-multi .cmp-carousel__action--pause").is('disabled') ||
-        $(".carousel-multi .cmp-carousel__action--play").is('disabled')){
+         delay= (delay =='') ? 5000 :$(".carousel-multi .cmp-carousel").attr("data-cmp-delay");
 
-        }
+
         window.setInterval(function() {
         
-        if(!$(".carousel-multi .cmp-carousel__action--pause").is('disabled')){
-            var first = $('.cmp-carousel__item').first()
+        if($(".carousel-multi .cmp-carousel__action--play").hasClass('cmp-carousel__action--disabled')){
+           
+           var first = $('.cmp-carousel__item').first()
             first.appendTo(itemsDiv);
             $('.cmp-carousel__item.active').removeClass('active').next().addClass('active');  
         }
-                 
+
       //  }
         }, delay);
 
