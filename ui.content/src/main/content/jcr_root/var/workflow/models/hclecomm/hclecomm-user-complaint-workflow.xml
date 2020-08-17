@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:isCheckedOut="{Boolean}false"
+    jcr:primaryType="cq:WorkflowModel"
+    jcr:uuid="ee1074d1-0004-45d2-8781-d4e9a4523e6f"
+    sling:resourceType="cq/workflow/components/model"
+    description="No Description"
+    title="HCLecomm User Complaint Workflow">
+    <metaData
+        cq:generatingPage="/conf/global/settings/workflow/models/hclecomm-user-complaint-workflow/jcr:content"
+        cq:lastModified="{Long}1597635995181"
+        cq:lastModifiedBy="admin"
+        jcr:primaryType="nt:unstructured"/>
+    <nodes jcr:primaryType="nt:unstructured">
+        <node0
+            jcr:primaryType="cq:WorkflowNode"
+            title="Start"
+            type="START">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node0>
+        <node1
+            jcr:primaryType="cq:WorkflowNode"
+            title="Process"
+            type="PROCESS">
+            <metaData
+                jcr:primaryType="nt:unstructured"
+                PROCESS="com.hcl.ecomm.core.services.impl.UserComplaintFormWorkflowProcess"
+                PROCESS_ARGS="/afData/afUnboundData/data/hide_support_section,no"
+                PROCESS_AUTO_ADVANCE="true"/>
+        </node1>
+        <node2
+            jcr:primaryType="cq:WorkflowNode"
+            description="Create and assign a task based on an adaptive form, non-interactive PDF, or interactive communication"
+            title="HCLecomm support review"
+            type="PROCESS">
+            <metaData
+                jcr:primaryType="nt:unstructured"
+                AF_PATH="/content/dam/formsanddocuments/hclecomm/user-complaint-form"
+                ALLOW_OUT_OF_OFFICE="false"
+                allowExplicitSharing="false"
+                allowInboxSharing="false"
+                DELEGATE_TO="assignee"
+                DUEDATE_UNIT="OFF"
+                DUEDATE_VALUE="[,]"
+                DYNAMIC_ASSIGNEE="[,]"
+                FORM_RESOLUTION="PATH"
+                FORM_TYPE="AF"
+                HISTORY_DOR="READONLY_AF"
+                HTML_EMAIL_TEMPLATE_LOCATION="/libs/fd/dashboard/templates/email/htmlEmailTemplate.txt"
+                icDataSourceType="PROVIDEDATADOCUMENT"
+                INPUT_COMBINED_DATAXML="FOLDER_PAYLOAD:Data.xml"
+                IS_ATTACHMENT_ALLOWED="false"
+                IS_COMMENT_ALLOWED="false"
+                IS_NEXT_STEP_DATA_ALLOWED="true"
+                IS_PREVIOUS_STEP_DATA_ALLOWED="true"
+                OUTPUT_COMBINED_DATAXML="FOLDER_PAYLOAD:Data.xml"
+                PARTICIPANT="hclecomm-customer-support-group"
+                PROCESS="com.adobe.fd.workspace.step.service.AssignFormStep"
+                PROCESS_AUTO_ADVANCE="false"
+                PROCESS_PARTICIPANT_TYPE="static"
+                PROVIDE_METADATA="true"
+                ROUTE_PROPERTYNAME="actionTaken"
+                SHOW_ACTION="true"
+                SHOW_ASSIGNEE="true"
+                SHOW_COMMENT="true"
+                SHOW_DOCUMENT_OF_COMPLETED_TASK="true"
+                SHOW_PRE_STEP_COMMENT_ATTACHMENT="true"
+                SHOW_RESET="false"
+                SHOW_SAVE="false"
+                SHOW_SUBMIT="true"
+                STATIC_ASSIGNEE="hclecomm-customer-support-group"
+                SUBTYPE="forms:assigntask"
+                TASK_PRIORITY="MEDIUM"
+                TIMEOUT_HANDLER="[,]"
+                USER_METADATA_RESOURCE="[,]"
+                WORK_ITEM_TYPE="AF_ASSIGN_STEP"
+                workflowStage="[,]"/>
+        </node2>
+        <node3
+            jcr:primaryType="cq:WorkflowNode"
+            title="Process"
+            type="PROCESS">
+            <metaData
+                jcr:primaryType="nt:unstructured"
+                PROCESS="com.hcl.ecomm.core.services.impl.UserComplaintFormWorkflowProcess"
+                PROCESS_ARGS="closed"
+                PROCESS_AUTO_ADVANCE="true"/>
+        </node3>
+        <node4
+            jcr:primaryType="cq:WorkflowNode"
+            title="End"
+            type="END">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node4>
+    </nodes>
+    <transitions jcr:primaryType="nt:unstructured">
+        <node0_x0023_node1
+            jcr:primaryType="cq:WorkflowTransition"
+            from="node0"
+            rule=""
+            to="node1">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node0_x0023_node1>
+        <node1_x0023_node2
+            jcr:primaryType="cq:WorkflowTransition"
+            from="node1"
+            rule=""
+            to="node2">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node1_x0023_node2>
+        <node2_x0023_node3
+            jcr:primaryType="cq:WorkflowTransition"
+            from="node2"
+            rule=""
+            to="node3">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node2_x0023_node3>
+        <node3_x0023_node4
+            jcr:primaryType="cq:WorkflowTransition"
+            from="node3"
+            to="node4">
+            <metaData jcr:primaryType="nt:unstructured"/>
+        </node3_x0023_node4>
+    </transitions>
+</jcr:root>
