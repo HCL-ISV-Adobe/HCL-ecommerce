@@ -1,5 +1,6 @@
 package com.hcl.ecomm.core.services.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.engine.EngineConstants;
 import org.osgi.framework.Constants;
@@ -62,7 +63,7 @@ public class MySqlServiceImpl implements MySqlService {
 			ps.setString(6, "Open");
 			int responseCode=ps.executeUpdate();
 			if (responseCode>0) {
-				triggerNotifyMail(first_Name, email);
+				triggerNotifyMail(first_Name, email, StringUtils.EMPTY);
 			} else {
 				LOG.error("Something went wrong while inserting in mysql db.");
 			}
@@ -82,10 +83,15 @@ public class MySqlServiceImpl implements MySqlService {
 		LOG.debug("userComplaintSubmission method end.");
 	}
 
-	private void triggerNotifyMail(String first_Name, String email) {
+	private void triggerNotifyMail(String first_Name, String email, String template) {
 		Map emailParams = new HashMap<>();
 		LOG.debug("triggerNotifyMail() methid start: Email="+email);
-		String templatePath = "/etc/notification/email/hclecomm/user-complaint-email-template.html";
+		String templatePath = StringUtils.EMPTY;
+		if(template.equals("closingComplaint")) {
+			 templatePath = "/etc/notification/email/hclecomm/user-complaint-resolved-email-template.html";	
+		} else {
+			 templatePath = "/etc/notification/email/hclecomm/user-complaint-email-template.html";
+		}
 		emailParams.put("receiveremail", email);
 		emailParams.put("firstname", first_Name);
 		customEmailService.sendEmail(templatePath, emailParams, email);
@@ -104,6 +110,49 @@ public class MySqlServiceImpl implements MySqlService {
 			LOG.error("Error while getConnection. Full error = {}", e);
 		}
 		return null;
+	}
+	
+	@Override
+	public void userComplaintUpdate(String first_Name, String last_Name, String email, String subject,
+			String complaint,String closingComment, String status) {
+
+		LOG.debug("userComplaintUpdate method start. email="+email);
+
+		Connection connection = null;
+
+		try {
+			connection = getConnection();
+			PreparedStatement ps = null;
+			String update = "UPDATE complaints SET closing_comment = ? , status = ? WHERE first_name = ? AND last_name = ? AND email = ? AND subject= ? AND complaint = ? ;";
+			ps = connection.prepareStatement(update);
+			ps.setString(1, closingComment);
+			ps.setString(2, status);
+
+			ps.setString(3, first_Name);
+			ps.setString(4, last_Name);
+			ps.setString(5, email);
+			ps.setString(6, subject);
+			ps.setString(7, complaint);
+			int responseCode=ps.executeUpdate();
+			if (responseCode>0) {
+				triggerNotifyMail(first_Name, email, "closingComplaint");
+			} else {
+				LOG.error("Something went wrong while updating complaint form in mysql db.");
+			}
+
+		} catch (Exception e) {
+			LOG.error("Error while executing th sql query. Error = {}", e);
+		} finally {
+			try {
+				if(null != connection && !connection.isClosed())
+				connection.close();
+			}
+			catch (SQLException e) {
+				LOG.error("Error while trying to close connection. SQLException = {}", e);
+			}
+		}
+		
+		LOG.debug("userComplaintUpdate method end.");
 	}
 
 }
