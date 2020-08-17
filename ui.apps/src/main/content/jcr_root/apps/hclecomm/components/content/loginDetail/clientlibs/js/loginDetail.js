@@ -92,9 +92,16 @@ async function validateChangePasswordForm(e) {
     let customerToken = '';
     let custId = '';
 	let userData = getUserCookie("hcluser");
+	let id='';
     if(userData != "") {
-         customerToken = JSON.parse(userData).customerToken;
-	 custId = JSON.parse(userData).custId;
+             customerToken = JSON.parse(userData).customerToken;
+    	     id = JSON.parse(userData).id;
+            if(typeof id !== "undefined"){
+    			custId = JSON.parse(userData).id;
+            }
+            else{
+                custId = JSON.parse(userData).custId;
+            }
     }
 
     const changePasswordData = {
