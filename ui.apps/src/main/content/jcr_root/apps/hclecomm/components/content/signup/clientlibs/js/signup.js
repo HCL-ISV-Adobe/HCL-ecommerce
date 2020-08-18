@@ -1,7 +1,7 @@
   const findRedriectUrl2 = function(domId) {
 		let redirectURL = "";
 		const params = new URLSearchParams(window.location.search);
-		const keys = ['sign-in.html', 'sign-up.html'];
+		const keys = ['signin.html', 'signup.html'];
 		if(params.has('referer')) {
 			if(!keys.some(k => params.get('referer').includes(k) )) {
 				redirectURL = params.get('referer');
@@ -133,13 +133,14 @@ function displayError(errorhtml, formElmName) {
 		  displayError(errorhtml, 'terms');
 		  return false;
 	  }
-	  if(value){
-		if(validateRecaptcha() == false) {
-			  errorhtml = '<span>please verify you are human!<span>';
-			  displayError(errorhtml, 'terms');
-			  return false;
-		  }
-		}
+	if(recaptchaValue){
+	if(validateRecaptcha() == false) {
+          errorhtml = '<span>please verify you are human!<span>';
+          displayError(errorhtml, 'terms');
+          return false;
+      }
+    }
+
 
 	const formData = {
 		firstname: document.signup_form.firstname.value,

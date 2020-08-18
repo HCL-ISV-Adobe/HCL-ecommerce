@@ -1,4 +1,3 @@
-
 if (document.contactus_form) {
     let formLabels = document.contactus_form.querySelectorAll('label');
     for (let i = 0; i < formLabels.length; i++) {
@@ -53,17 +52,17 @@ function validateContactFrom(e) {
     }
 
    
-    const ErrorMsgElement = document.getElementById('cmp-contactus-errormsg');
-    if(value){
-        if(validateRecaptcha() == false) {
-            ErrorMsgElement.style.visibility = "visible";
-            ErrorMsgElement.innerHTML = '<span>please verify you are human!<span>';
-            isValid = false;
-            return false;
-        } else {
-            ErrorMsgElement.style.visibility = "hidden";
-            ErrorMsgElement.innerHTML = '';
-        }
+	const ErrorMsgElement = document.getElementById('cmp-contactus-errormsg');
+    if(recaptchaValue){
+    if(validateRecaptcha() == false) {
+        ErrorMsgElement.style.visibility = "visible";
+        ErrorMsgElement.innerHTML = '<span>please verify you are human!<span>';
+         isValid = false;
+        return false;
+    } else {
+        ErrorMsgElement.style.visibility = "hidden";
+        ErrorMsgElement.innerHTML = '';
+    }
     }
 	
 	 if (isValid) {
