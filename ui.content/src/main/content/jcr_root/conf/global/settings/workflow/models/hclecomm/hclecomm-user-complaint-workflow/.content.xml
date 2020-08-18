@@ -3,7 +3,7 @@
     jcr:primaryType="cq:Page">
     <jcr:content
         cq:designPath="/libs/settings/wcm/designs/default"
-        cq:lastModified="{Date}2020-08-17T12:41:02.410+05:30"
+        cq:lastModified="{Date}2020-08-18T09:02:06.487+05:30"
         cq:lastModifiedBy="admin"
         cq:template="/libs/cq/workflow/templates/model"
         jcr:primaryType="cq:PageContent"
@@ -15,10 +15,11 @@
             <process
                 jcr:created="{Date}2020-08-16T17:20:22.700+05:30"
                 jcr:createdBy="admin"
-                jcr:lastModified="{Date}2020-08-16T22:43:41.115+05:30"
+                jcr:description="In this step we are notifying the user."
+                jcr:lastModified="{Date}2020-08-18T09:02:06.483+05:30"
                 jcr:lastModifiedBy="admin"
                 jcr:primaryType="nt:unstructured"
-                jcr:title="Process"
+                jcr:title="Post User Submission Process"
                 sling:resourceType="cq/workflow/components/model/process">
                 <metaData
                     jcr:primaryType="nt:unstructured"
@@ -81,10 +82,11 @@
             <process_402950857
                 jcr:created="{Date}2020-08-16T23:04:11.591+05:30"
                 jcr:createdBy="admin"
-                jcr:lastModified="{Date}2020-08-16T23:06:21.521+05:30"
+                jcr:description="In this process we are intimating the user about customer support action and complaint status"
+                jcr:lastModified="{Date}2020-08-18T09:01:09.400+05:30"
                 jcr:lastModifiedBy="admin"
                 jcr:primaryType="nt:unstructured"
-                jcr:title="Process"
+                jcr:title="Post Review Process"
                 sling:resourceType="cq/workflow/components/model/process">
                 <metaData
                     jcr:primaryType="nt:unstructured"

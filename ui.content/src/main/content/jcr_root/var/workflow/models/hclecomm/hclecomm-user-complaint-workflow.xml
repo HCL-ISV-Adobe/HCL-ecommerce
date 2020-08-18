@@ -7,8 +7,8 @@
     description="No Description"
     title="HCLecomm User Complaint Workflow">
     <metaData
-        cq:generatingPage="/conf/global/settings/workflow/models/hclecomm-user-complaint-workflow/jcr:content"
-        cq:lastModified="{Long}1597635995181"
+        cq:generatingPage="/conf/global/settings/workflow/models/hclecomm/hclecomm-user-complaint-workflow/jcr:content"
+        cq:lastModified="{Long}1597721618016"
         cq:lastModifiedBy="admin"
         jcr:primaryType="nt:unstructured"/>
     <nodes jcr:primaryType="nt:unstructured">
@@ -20,7 +20,8 @@
         </node0>
         <node1
             jcr:primaryType="cq:WorkflowNode"
-            title="Process"
+            description="In this step we are notifying the user."
+            title="Post User Submission Process"
             type="PROCESS">
             <metaData
                 jcr:primaryType="nt:unstructured"
@@ -54,7 +55,7 @@
                 IS_NEXT_STEP_DATA_ALLOWED="true"
                 IS_PREVIOUS_STEP_DATA_ALLOWED="true"
                 OUTPUT_COMBINED_DATAXML="FOLDER_PAYLOAD:Data.xml"
-                PARTICIPANT="hclecomm-customer-support-group"
+                PARTICIPANT="admin"
                 PROCESS="com.adobe.fd.workspace.step.service.AssignFormStep"
                 PROCESS_AUTO_ADVANCE="false"
                 PROCESS_PARTICIPANT_TYPE="static"
@@ -68,7 +69,7 @@
                 SHOW_RESET="false"
                 SHOW_SAVE="false"
                 SHOW_SUBMIT="true"
-                STATIC_ASSIGNEE="hclecomm-customer-support-group"
+                STATIC_ASSIGNEE="admin"
                 SUBTYPE="forms:assigntask"
                 TASK_PRIORITY="MEDIUM"
                 TIMEOUT_HANDLER="[,]"
@@ -78,7 +79,8 @@
         </node2>
         <node3
             jcr:primaryType="cq:WorkflowNode"
-            title="Process"
+            description="In this process we are intimating the user about customer support action and complaint status"
+            title="Post Review Process"
             type="PROCESS">
             <metaData
                 jcr:primaryType="nt:unstructured"
