@@ -13,4 +13,4 @@ CREATE TABLE `complaints` (
   `status` varchar(45) DEFAULT NULL,
   `closing_comment` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+)
