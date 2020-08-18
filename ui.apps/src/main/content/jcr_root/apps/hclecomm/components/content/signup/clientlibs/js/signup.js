@@ -133,7 +133,7 @@ function displayError(errorhtml, formElmName) {
 		  displayError(errorhtml, 'terms');
 		  return false;
 	  }
-	if(recaptchaValue){
+	if(recaptchaValue == true){
 		if(validateRecaptcha() == false) {
 			errorhtml = '<span>please verify you are human!<span>';
 			displayError(errorhtml, 'terms');

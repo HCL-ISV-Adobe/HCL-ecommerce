@@ -1,5 +1,5 @@
 var recaptchaValue = $('#recaptcha').data('custom-property');
-if(recaptchaValue){
+if(recaptchaValue == true){
 function validateRecaptcha(){
 
     var response = grecaptcha.getResponse();
