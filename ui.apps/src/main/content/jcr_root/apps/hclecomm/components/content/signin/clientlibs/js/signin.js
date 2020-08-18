@@ -3,7 +3,7 @@ let failedLoginCounter = 0;
 const findRedriectUrl = function(domId) {
 		let redirectURL = "";
 		const params = new URLSearchParams(window.location.search);
-		const keys = ['sign-in.html', 'sign-up.html'];
+		const keys = ['signin.html', 'signup.html'];
 		if(params.has('referer')) {
 			if(!keys.some(k => params.get('referer').includes(k) )) {
 				redirectURL = params.get('referer');
@@ -155,13 +155,16 @@ const handleHttpServerRequestJson = function (url, formdata) {
 	  document.login_form.password.focus();
 	  return false;
 	}
-	if(validateRecaptcha() == false && failedLoginCounter > 1) {
-		ErrorMsgElm.style.visibility = "visible";
-		ErrorMsgElm.innerHTML = "<span>please verify you are human!<span>";
-		  //errorhtml = '<span>please verify you are humann!<span>';
-		  //displayError(errorhtml, 'terms');
-		return false;
-	}
+
+	if(recaptchaValue == true){
+		if(validateRecaptcha() == false && failedLoginCounter > 1) {
+			ErrorMsgElm.style.visibility = "visible";
+			ErrorMsgElm.innerHTML = "<span>please verify you are human!<span>";
+			//errorhtml = '<span>please verify you are humann!<span>';
+			//displayError(errorhtml, 'terms');
+			return false;
+		}
+      }
 	const data = {
 		username: document.login_form.username.value,
 		password: document.login_form.password.value,

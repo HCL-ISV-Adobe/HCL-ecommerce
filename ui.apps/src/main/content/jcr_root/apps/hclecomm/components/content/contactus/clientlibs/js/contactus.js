@@ -1,4 +1,3 @@
-
 if (document.contactus_form) {
     let formLabels = document.contactus_form.querySelectorAll('label');
     for (let i = 0; i < formLabels.length; i++) {
@@ -54,14 +53,16 @@ function validateContactFrom(e) {
 
    
 	const ErrorMsgElement = document.getElementById('cmp-contactus-errormsg');
-    if(validateRecaptcha() == false) {
-        ErrorMsgElement.style.visibility = "visible";
-        ErrorMsgElement.innerHTML = '<span>please verify you are human!<span>';
-         isValid = false;
-        return false;
-    } else {
-        ErrorMsgElement.style.visibility = "hidden";
-        ErrorMsgElement.innerHTML = '';
+    if(typeof recaptchaValue !== 'undefined' && recaptchaValue == true){
+        if(validateRecaptcha() == false) {
+            ErrorMsgElement.style.visibility = "visible";
+            ErrorMsgElement.innerHTML = '<span>please verify you are human!<span>';
+            isValid = false;
+            return false;
+        } else {
+            ErrorMsgElement.style.visibility = "hidden";
+            ErrorMsgElement.innerHTML = '';
+        }
     }
 	
 	 if (isValid) {
