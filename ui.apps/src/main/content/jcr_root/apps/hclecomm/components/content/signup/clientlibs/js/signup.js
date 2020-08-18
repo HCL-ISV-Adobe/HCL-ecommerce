@@ -133,11 +133,13 @@ function displayError(errorhtml, formElmName) {
 		  displayError(errorhtml, 'terms');
 		  return false;
 	  }
-	if(validateRecaptcha() == false) {
-          errorhtml = '<span>please verify you are human!<span>';
-          displayError(errorhtml, 'terms');
-          return false;
-      }
+	  if(value){
+		if(validateRecaptcha() == false) {
+			  errorhtml = '<span>please verify you are human!<span>';
+			  displayError(errorhtml, 'terms');
+			  return false;
+		  }
+		}
 
 	const formData = {
 		firstname: document.signup_form.firstname.value,

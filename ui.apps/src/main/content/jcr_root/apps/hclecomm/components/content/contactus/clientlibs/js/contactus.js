@@ -53,15 +53,17 @@ function validateContactFrom(e) {
     }
 
    
-	const ErrorMsgElement = document.getElementById('cmp-contactus-errormsg');
-    if(validateRecaptcha() == false) {
-        ErrorMsgElement.style.visibility = "visible";
-        ErrorMsgElement.innerHTML = '<span>please verify you are human!<span>';
-         isValid = false;
-        return false;
-    } else {
-        ErrorMsgElement.style.visibility = "hidden";
-        ErrorMsgElement.innerHTML = '';
+    const ErrorMsgElement = document.getElementById('cmp-contactus-errormsg');
+    if(value){
+        if(validateRecaptcha() == false) {
+            ErrorMsgElement.style.visibility = "visible";
+            ErrorMsgElement.innerHTML = '<span>please verify you are human!<span>';
+            isValid = false;
+            return false;
+        } else {
+            ErrorMsgElement.style.visibility = "hidden";
+            ErrorMsgElement.innerHTML = '';
+        }
     }
 	
 	 if (isValid) {

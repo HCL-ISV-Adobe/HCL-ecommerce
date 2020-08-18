@@ -1,3 +1,9 @@
+<div>
+    <p id="recaptcha" data-custom-property="${pageProperties.isRecaptchaRequired}" > </p>
+    <sly data-sly-test = "${pageProperties.isRecaptchaRequired}">
+
 <div data-sly-use.model="com.hcl.ecomm.core.models.RecaptchaSiteKeyModel">
-         <div class = "g-recaptcha resize" data-sitekey=${model.siteKey}></div>
+<div class = "g-recaptcha resize" data-sitekey=${model.siteKey}></div>
+</div>
+</sly>
 </div>

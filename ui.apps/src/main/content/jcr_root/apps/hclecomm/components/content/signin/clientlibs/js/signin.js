@@ -155,12 +155,14 @@ const handleHttpServerRequestJson = function (url, formdata) {
 	  document.login_form.password.focus();
 	  return false;
 	}
-	if(validateRecaptcha() == false && failedLoginCounter > 1) {
-		ErrorMsgElm.style.visibility = "visible";
-		ErrorMsgElm.innerHTML = "<span>please verify you are human!<span>";
-		  //errorhtml = '<span>please verify you are humann!<span>';
-		  //displayError(errorhtml, 'terms');
-		return false;
+	if(value){
+		if(validateRecaptcha() == false && failedLoginCounter > 1) {
+			ErrorMsgElm.style.visibility = "visible";
+			ErrorMsgElm.innerHTML = "<span>please verify you are human!<span>";
+			  //errorhtml = '<span>please verify you are humann!<span>';
+			  //displayError(errorhtml, 'terms');
+			return false;
+		}
 	}
 	const data = {
 		username: document.login_form.username.value,
