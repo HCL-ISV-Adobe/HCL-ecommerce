@@ -134,11 +134,11 @@ function displayError(errorhtml, formElmName) {
 		  return false;
 	  }
 	if(recaptchaValue){
-	if(validateRecaptcha() == false) {
-          errorhtml = '<span>please verify you are human!<span>';
-          displayError(errorhtml, 'terms');
-          return false;
-      }
+		if(validateRecaptcha() == false) {
+			errorhtml = '<span>please verify you are human!<span>';
+			displayError(errorhtml, 'terms');
+			return false;
+		}
     }
 
 
