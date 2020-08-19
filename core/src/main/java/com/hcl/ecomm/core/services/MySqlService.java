@@ -4,6 +4,8 @@ public interface MySqlService {
     
     
     public void userComplaintSubmission(String first_Name, String last_Name, String email, String subject, String complaint); 
+    
+    public void userComplaintUpdate(String first_Name, String last_Name, String email, String subject, String complaint, String closingComment, String Status); 
  
 }
 

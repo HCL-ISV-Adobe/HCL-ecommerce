@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:designPath="/libs/settings/wcm/designs/default"
+        cq:lastModified="{Date}2020-08-18T09:02:06.487+05:30"
+        cq:lastModifiedBy="admin"
+        cq:template="/libs/cq/workflow/templates/model"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="HCLecomm User Complaint Workflow"
+        sling:resourceType="cq/workflow/components/pages/model">
+        <flow
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="foundation/components/parsys">
+            <process
+                jcr:created="{Date}2020-08-16T17:20:22.700+05:30"
+                jcr:createdBy="admin"
+                jcr:description="In this step we are notifying the user."
+                jcr:lastModified="{Date}2020-08-18T09:02:06.483+05:30"
+                jcr:lastModifiedBy="admin"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Post User Submission Process"
+                sling:resourceType="cq/workflow/components/model/process">
+                <metaData
+                    jcr:primaryType="nt:unstructured"
+                    PROCESS="com.hcl.ecomm.core.services.impl.UserComplaintFormWorkflowProcess"
+                    PROCESS_ARGS="/afData/afUnboundData/data/hide_support_section,no"
+                    PROCESS_AUTO_ADVANCE="true"/>
+            </process>
+            <afparticipantstep
+                jcr:created="{Date}2020-08-16T17:22:47.222+05:30"
+                jcr:createdBy="admin"
+                jcr:description="Create and assign a task based on an adaptive form, non-interactive PDF, or interactive communication"
+                jcr:lastModified="{Date}2020-08-17T12:41:02.393+05:30"
+                jcr:lastModifiedBy="admin"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="HCLecomm support review"
+                sling:resourceType="fd/workflow/components/dashboard/afParticipantStep">
+                <metaData
+                    jcr:primaryType="nt:unstructured"
+                    AF_PATH="/content/dam/formsanddocuments/hclecomm/user-complaint-form"
+                    ALLOW_OUT_OF_OFFICE="false"
+                    allowExplicitSharing="false"
+                    allowInboxSharing="false"
+                    DELEGATE_TO="assignee"
+                    DUEDATE_UNIT="OFF"
+                    DUEDATE_VALUE="[,]"
+                    DYNAMIC_ASSIGNEE="[,]"
+                    FORM_RESOLUTION="PATH"
+                    FORM_TYPE="AF"
+                    HISTORY_DOR="READONLY_AF"
+                    HTML_EMAIL_TEMPLATE_LOCATION="/libs/fd/dashboard/templates/email/htmlEmailTemplate.txt"
+                    icDataSourceType="PROVIDEDATADOCUMENT"
+                    INPUT_COMBINED_DATAXML="FOLDER_PAYLOAD:Data.xml"
+                    IS_ATTACHMENT_ALLOWED="false"
+                    IS_COMMENT_ALLOWED="false"
+                    IS_NEXT_STEP_DATA_ALLOWED="true"
+                    IS_PREVIOUS_STEP_DATA_ALLOWED="true"
+                    OUTPUT_COMBINED_DATAXML="FOLDER_PAYLOAD:Data.xml"
+                    PARTICIPANT="admin"
+                    PROCESS="com.adobe.fd.workspace.step.service.AssignFormStep"
+                    PROCESS_AUTO_ADVANCE="false"
+                    PROCESS_PARTICIPANT_TYPE="static"
+                    PROVIDE_METADATA="true"
+                    ROUTE_PROPERTYNAME="actionTaken"
+                    SHOW_ACTION="true"
+                    SHOW_ASSIGNEE="true"
+                    SHOW_COMMENT="true"
+                    SHOW_DOCUMENT_OF_COMPLETED_TASK="true"
+                    SHOW_PRE_STEP_COMMENT_ATTACHMENT="true"
+                    SHOW_RESET="false"
+                    SHOW_SAVE="false"
+                    SHOW_SUBMIT="true"
+                    STATIC_ASSIGNEE="admin"
+                    SUBTYPE="forms:assigntask"
+                    TASK_PRIORITY="MEDIUM"
+                    TIMEOUT_HANDLER="[,]"
+                    USER_METADATA_RESOURCE="[,]"
+                    WORK_ITEM_TYPE="AF_ASSIGN_STEP"
+                    workflowStage="[,]"/>
+            </afparticipantstep>
+            <process_402950857
+                jcr:created="{Date}2020-08-16T23:04:11.591+05:30"
+                jcr:createdBy="admin"
+                jcr:description="In this process we are intimating the user about customer support action and complaint status"
+                jcr:lastModified="{Date}2020-08-18T09:01:09.400+05:30"
+                jcr:lastModifiedBy="admin"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Post Review Process"
+                sling:resourceType="cq/workflow/components/model/process">
+                <metaData
+                    jcr:primaryType="nt:unstructured"
+                    PROCESS="com.hcl.ecomm.core.services.impl.UserComplaintFormWorkflowProcess"
+                    PROCESS_ARGS="closed"
+                    PROCESS_AUTO_ADVANCE="true"/>
+            </process_402950857>
+        </flow>
+    </jcr:content>
+</jcr:root>
