@@ -688,6 +688,7 @@ const onDeliveryMethodChange = (ele) =>{
         getAddressSection.style.display = "block";
         localStorage.removeItem('storeAddress');
     }
+window.scrollTo(0, 0);
 }
 
 const onSelectingStore = (storeAddressIndex) =>{
