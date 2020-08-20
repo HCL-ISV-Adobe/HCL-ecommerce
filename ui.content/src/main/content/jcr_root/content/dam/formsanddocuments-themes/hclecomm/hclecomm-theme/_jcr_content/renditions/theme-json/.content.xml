@@ -535,7 +535,7 @@
                     phone_x0023_default_x0023_ui="[paddingPopover:0px\, 0.625rem\, 0px\, 0.625rem,paddingLock:linkOff]"/>
                 <af_datepickerwidgetandtext
                     jcr:primaryType="nt:unstructured"
-                    default_x0023_default="[font-family:sans-serif]"/>
+                    default_x0023_default="[font-family:Arial]"/>
                 <af_wizardcontentarea
                     jcr:primaryType="nt:unstructured"
                     default_x0023_default="[padding-left:16%,padding-bottom:4rem,padding-right:3.5rem,padding-top:1rem]"
