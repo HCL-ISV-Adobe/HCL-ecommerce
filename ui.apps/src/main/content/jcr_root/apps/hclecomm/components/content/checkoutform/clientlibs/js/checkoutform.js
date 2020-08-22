@@ -1,6 +1,6 @@
 const getUserDeatils = {};
 //let cartId = 'aUETIXpuqYFyr9EEx1F7XjMXL4RBmBer';
-let checkoutcartId = ''
+let checkoutcartId = '';
 getHrefForCvvButton = '';
 getHrefForNewButton = '';
 let getExpiryMonth = '1';
@@ -11,6 +11,8 @@ let customerEmail = '';
 let deleveryOptions = '';
 let selectedCountry = '';
 let selectedState = '';
+let filterStateDetails = null;
+let selectHTMLstate = null;
 
 $(document).ready(function () {
 
@@ -129,6 +131,76 @@ $(document).ready(function () {
        getCountriesList();
     }
 });
+
+const mapUserFields = function (useraddressdetails){
+	const getAddressFilelds = $(".add-addr-feilds");
+    if(useraddressdetails && getAddressFilelds){
+        getAddressFilelds.toArray().forEach((addressfielditems) => {
+                                            switch(addressfielditems.name){
+            case 'First Name':  
+        addressfielditems.value = useraddressdetails[0].firstname;
+         break;
+
+            case 'Last Name':   
+        addressfielditems.value = useraddressdetails[0].lastname;
+         break;
+
+            case 'Pin Number':    
+        addressfielditems.value = useraddressdetails[0].postcode;
+         break;    
+
+            case 'City':    
+        addressfielditems.value = useraddressdetails[0].city;
+         break; 
+
+            case 'Street':    
+        addressfielditems.value = useraddressdetails[0].street.join();
+         break; 
+
+            case 'Phone Number':   
+        addressfielditems.value = useraddressdetails[0].telephone;
+         break; 
+
+         case 'Country':
+        debugger
+
+         let selectedcountryforuser=null;
+            let othercountryforuser=null;
+            let selectedcountrybyid="<option value= null />  select country </option>";
+  		const getCountryListSelectedItem = $(".add-new-address-form #country");
+countriesList.forEach(item => {
+            
+                if(useraddressdetails[0] && useraddressdetails[0].country_id===item.country_id){
+					selectedcountrybyid = "<option value='"+ item.country_id + "' />" + item.country_name + "</option>";
+                 getSelectedState(useraddressdetails[0].region.region_code,item)
+                    //updateStateList(useraddressdetails[0].country_id , null);
+                }
+                else{
+					 othercountryforuser+="<option value='"+ item.country_id + "' />" + item.country_name + "</option>";
+
+                }
+
+                selectedcountryforuser = selectedcountrybyid + othercountryforuser;
+
+            
+
+
+            });
+			if(getCountryListSelectedItem && selectedcountryforuser ) {
+                getCountryListSelectedItem[0].innerHTML = selectedcountryforuser;
+                
+            }
+         break; 
+        }
+
+
+
+
+console.log(addressfielditems);
+
+                                          })}
+	console.log(getAddressFilelds);
+}
 let countriesList = [];
 let doValidation = false;
 let submitForm = false;
@@ -181,7 +253,7 @@ const updateStateList = function(countryId,event) {
     onEnterDeatils(event);
 
     const stateELm = document.getElementById('state');
-    let selectHTMLstate = '<option value="none">Select State</option>';
+    selectHTMLstate = '<option value="none">Select State</option>';
     stateELm.innerHTML = selectHTMLstate;
     stateELm.disabled = true;
     if(countryId == "none") {
@@ -724,4 +796,25 @@ function closeStoreOptions(){
     getPlaceHolderDeliveryOption.css('display', 'none');
      $('.confirmation-page-deleivery-option').css('display','none');
 
+}
+function getSelectedState( region_code , item){
+    let selectedState = '<option value="none">Select State</option>';
+    let otherState = null;
+    let selectHTMLstate = null;
+    if(item && item.states){
+        item.states.forEach((stateitem) =>{
+                            if(stateitem.region_code === region_code){
+selectedState = "<option value='"+ stateitem.region_code + "' data-attribute='"+ stateitem.region_id +"'/>" + stateitem.state_name + "</option>";
+        }
+        else {
+            otherState = "<option value='"+ stateitem.region_code + "' data-attribute='"+ stateitem.region_id +"'/>" + stateitem.state_name + "</option>";
+        }
+
+
+                            }) ;
+selectHTMLstate = selectedState + otherState ;
+                const stateELm = document.getElementById('state');
+    			stateELm.disabled = false;
+         stateELm.innerHTML = selectHTMLstate;
+    }
 }
