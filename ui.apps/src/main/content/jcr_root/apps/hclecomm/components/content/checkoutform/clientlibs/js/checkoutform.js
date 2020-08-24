@@ -193,13 +193,7 @@ countriesList.forEach(item => {
          break; 
         }
 
-
-
-
-console.log(addressfielditems);
-
                                           })}
-	console.log(getAddressFilelds);
 }
 let countriesList = [];
 let doValidation = false;
