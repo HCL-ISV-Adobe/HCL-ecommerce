@@ -64,8 +64,14 @@ public class ProductDetailsServlet extends SlingSafeMethodsServlet {
                 if (productResponse.has("product_links")) {
                     related_products_sku = getRelatedProductSkus(productResponse.getJSONArray("product_links"));
                 }
-                if (productResponse.has("options")) {
-                    products_variations = getRelatedProductVariation(productResponse.getJSONArray("options").getJSONObject(0).getJSONArray("values"));
+                if(productResponse.has("options")) {
+                    if (productResponse.getJSONArray("options").length() != 0) {
+                        products_variations = getRelatedProductVariation(productResponse.getJSONArray("options").getJSONObject(0).getJSONArray("values"));
+                    } else {
+                        JSONObject jo = new JSONObject();
+                        jo.put("message", "Product Size and Price variations are not configured in magento");
+                        products_variations.put(jo);
+                    }
                 }
 
                 productObject.put("sku", productResponse.get("sku").toString());
