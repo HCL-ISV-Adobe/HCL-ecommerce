@@ -1,10 +1,13 @@
 package com.hcl.ecomm.core.services.impl;
 
+import com.day.cq.commons.Externalizer;
 import com.day.cq.commons.mail.MailTemplate;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.Rendition;
 import com.day.cq.mailer.MessageGateway;
 import com.day.cq.mailer.MessageGatewayService;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
 import com.day.cq.workflow.WorkflowException;
 import com.day.cq.workflow.WorkflowSession;
 import com.day.cq.workflow.exec.WorkItem;
@@ -75,6 +78,33 @@ public class CustomSendEmailWorkflowProcess implements WorkflowProcess {
 
             Node parentNode = item.getParent();
             String formPath = parentNode.getProperty("formPath").getString();
+
+            if (formPath.contains("contactus")) {
+                String extraPath = "/jcr:content/root/responsivegrid/contactus";     // To get the path of contact-us page
+                int removePath = formPath.lastIndexOf(extraPath);
+                String currentPagePath = formPath.substring(0, removePath);
+
+                PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+                assert pageManager != null;
+                Page currentPage = pageManager.getPage(currentPagePath);
+                Page parentPage = currentPage.getParent();
+
+                Iterator<Page> iterator = parentPage.listChildren();
+                String homePagePath = null;
+                while (iterator.hasNext()) {
+                    Page childPage = iterator.next();
+                    if (childPage.getName().equals("home")) {
+                        homePagePath = childPage.getPath();
+                        break;
+                    }
+                }
+                Externalizer externalizer = resourceResolver.adaptTo(Externalizer.class);  // To get the absolute path of home page
+                assert externalizer != null;
+                String homePageURL = externalizer.externalLink(resourceResolver, Externalizer.LOCAL, homePagePath) + ".html";
+
+                params.put("homePageURL", homePageURL);
+            }
+
             Node formPropertyNode = session.getNode(formPath);
             String attachmentPath = formPropertyNode.getProperty("attachment").getString();
             String templatePath = formPropertyNode.getProperty("templatePath").getString();

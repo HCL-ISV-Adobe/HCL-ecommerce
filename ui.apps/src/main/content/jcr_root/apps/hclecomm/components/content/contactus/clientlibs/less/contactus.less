@@ -1,21 +1,58 @@
 .contactus{
     position: relative;
-    .button{
-        margin-top: 50px;
+
+	.text-area {
+      min-width: 199px;
     }
+
+    .button{
+       margin-top: 2px;
+       @media only screen and (max-width: 768px) {
+			margin-left:5% !important;
+             .cancel-btn {
+                float:none;
+
+       		 }
+
+            .submit-btn {
+                float:none;
+
+       		 }
+        }
+     	 @media only screen and (max-width: 650px) {
+              margin-left:0%;
+              width: 10.666667% !important;
+              margin-top: 95px;
+			 button {
+                margin:10px 3px;
+             }
+
+            .submit-btn {
+				float:right;
+       		 }
+        }
+
+
+
+    }
+
     .cmp-contactus-errormsg{
         color: red;
         text-align: left;
         font-size: 11px;
-        width: 100%;
-        float: right;
         font-family: sans-serif;
         margin: 5px 0;
 		position: absolute;
-    	top: 330px;
+    	top: 310px;
+        left:10px;
         @media only screen and (max-width: 1024px) {
 			margin: 0;
-			top:500px;	
+			top:476px;	
+
+    	}
+
+        @media only screen and (max-width: 650px) {
+			top:468px;	
 
     	}
     }
