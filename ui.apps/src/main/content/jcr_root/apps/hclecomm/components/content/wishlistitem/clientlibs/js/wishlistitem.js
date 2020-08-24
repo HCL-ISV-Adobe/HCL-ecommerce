@@ -49,7 +49,9 @@ const wisthListUrl = window.location.href.includes("my-wishlist-bag.html");
  
 
         }
-
+       else{
+           $(".cmp-wishlist-item-count").css("display",'none');
+       }
 
      } 
      catch (e) {
