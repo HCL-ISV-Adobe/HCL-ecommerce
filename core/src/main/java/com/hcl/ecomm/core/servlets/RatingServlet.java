@@ -8,6 +8,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
@@ -53,7 +54,7 @@ public class RatingServlet extends SlingAllMethodsServlet {
                 JSONObject jsonPayload =  new JSONObject(payload);
                 if (isValidItem(jsonPayload)) {
                     JSONObject ratItem = jsonItemObj(jsonPayload);
-                    JSONObject ratingResponse = ratingService.saveRating(ratItem);
+                    JSONObject ratingResponse = ratingService.saveRating(ratItem,jsonPayload.getString("email"),jsonPayload.getString("sku"));
                     if (ratingResponse.has("message")) {
                         LOG.info("Rating Response is {}", ratingResponse);
                         responseObject.put("message", ratingResponse.get("message"));
@@ -93,8 +94,29 @@ public class RatingServlet extends SlingAllMethodsServlet {
             String  sku = request.getParameter("sku");
             List<Ratings> data = ratingService.getRatingDataSQL(sku);
             String ratingJson = new Gson().toJson(data);
+            LOG.info("ratingJSON is {}",ratingJson);
+            JSONArray responseStream = new JSONArray(ratingJson);
+            LOG.info("responseStream is {}",responseStream.toString());
+            JSONArray finalResp = new JSONArray();
+            JSONArray ratingArr = new JSONArray();
             LOG.info("Data is "+ data);
-            response.getWriter().write(ratingJson);
+            JSONObject avgObj = new JSONObject();
+            avgObj.put("avg-rating", responseStream.getJSONObject(0).get("rating"));
+                for (int i = 1; i < responseStream.length(); i++) {
+                    if(responseStream.getJSONObject(i).has("sku")) {
+                        JSONObject rateObj = new JSONObject();
+                        rateObj.put("rating", responseStream.getJSONObject(i).get("rating"));
+                        rateObj.put("sku", responseStream.getJSONObject(i).get("sku").toString());
+                        rateObj.put("title", responseStream.getJSONObject(i).get("title").toString());
+                        rateObj.put("description", responseStream.getJSONObject(i).get("description").toString());
+                        rateObj.put("customer", responseStream.getJSONObject(i).get("customer").toString());
+                        ratingArr.put(rateObj);
+                    }
+                }
+                finalResp.put(avgObj);
+                finalResp.put(ratingArr);
+
+            response.getWriter().write(finalResp.toString());
 
         }
         catch (Exception e){
@@ -120,6 +142,10 @@ public class RatingServlet extends SlingAllMethodsServlet {
         try {
             rateItem.put("sku", itemData.getString("sku"));
             rateItem.put("name", itemData.getString("name"));
+            rateItem.put("title", itemData.getString("title"));
+            rateItem.put("description", itemData.getString("description"));
+            rateItem.put("customer", itemData.getString("customer"));
+            rateItem.put("email", itemData.getString("email"));
             rateItem.put("rating", rating);
         } catch (JSONException e) {
             LOG.error("Error while executing. Error={}",e);
