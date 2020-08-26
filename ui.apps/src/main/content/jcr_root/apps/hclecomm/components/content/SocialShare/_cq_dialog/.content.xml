@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Social Sharing"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    helpPath="https://www.adobe.com/go/aem6_5_docs_component_en#Title - HTL">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+            margin="{Boolean}false"/>
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                    <SharingLabel
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                        fieldDescription="Leave empty to use the page title."
+                        fieldLabel="Sharing label text"
+                        name="./sharingLabel"/>
+                    <mailTitleText
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                        fieldLabel="Mail - Title Text"
+                        name="./mailTitleText"/>
+                    <mailSharingPath
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="cq/gui/components/coral/common/form/pagefield"
+                        fieldLabel="Mail - Sharing path"
+                        name="./mailSharingPath"/>
+                    <facebookTitleText
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                        fieldLabel="Facebook- Title Text"
+                        name="./facebookTitleText"/>
+                    <facebookSharingPath
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="cq/gui/components/coral/common/form/pagefield"
+                        fieldLabel="Facebook Sharing Path"
+                        name="./facebookSharingPath"/>
+                    <twitterTitleText
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                        fieldLabel="Twitter- Title Text"
+                        name="./twitterTitleText"/>
+                    <twitterSharingPath
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="cq/gui/components/coral/common/form/pagefield"
+                        fieldLabel="Twitter- Sharing Path"
+                        name="./twitterSharingPath"/>
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>
