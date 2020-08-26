@@ -32,6 +32,8 @@ public class ShippingInfo extends SlingAllMethodsServlet{
 
 	private static final long serialVersionUID = 175460834851290225L;
 	private static final Logger LOG = LoggerFactory.getLogger(ShippingInfo.class);
+	private String NOT_AVAILABLE="NA";
+	private String DEFAULT_MAIL="defaultstore@pickup.hcl.com";
 	
 	@Reference
 	private ShippingInfoService shippingInfoService;
@@ -100,10 +102,13 @@ public class ShippingInfo extends SlingAllMethodsServlet{
 		//JSONObject shippAddress = new JSONObject();
 		JSONObject billAddress = new JSONObject();
 		try {
-
+			if(shipData.getString("email").equalsIgnoreCase(NOT_AVAILABLE)){
+				billAddress.put("email", DEFAULT_MAIL);
+			}else{
+				billAddress.put("email", shipData.getString("email"));
+			}
 			billAddress.put("city", shipData.getString("city"));
 			billAddress.put("country_id", shipData.getString("country_id"));
-			billAddress.put("email", shipData.getString("email"));
 			billAddress.put("firstname", shipData.getString("firstname"));
 			billAddress.put("lastname", shipData.getString("lastname"));
 			billAddress.put("postcode", shipData.getString("postcode"));
