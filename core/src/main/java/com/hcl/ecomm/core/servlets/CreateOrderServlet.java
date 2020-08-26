@@ -103,7 +103,7 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 		JSONObject billAddress = new JSONObject();
 		try {
 			if(customerToken != null && !customerToken.isEmpty()) {
-				if(shipData.getString("email").equalsIgnoreCase(NOT_AVAILABLE) && !shipData.getString("email").isEmpty() ){
+				if(shipData.getString("email").equalsIgnoreCase(NOT_AVAILABLE) || shipData.getString("email").isEmpty() ){
 					billAddress.put("email", DEFAULT_MAIL);
 				}else{
 					billAddress.put("email", shipData.getString("email"));
