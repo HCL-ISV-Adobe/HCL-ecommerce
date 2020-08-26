@@ -55,8 +55,7 @@ public class AddToWishListServlet extends SlingAllMethodsServlet {
             if (StringUtils.isNotEmpty(payload)) {
                 JSONObject jsonPayload =  new JSONObject(payload);
                 if (isValidPayload(jsonPayload)) {
-                    JSONObject addToWishlistResponse=getAddToWishListResponse(("sku"),customerToken);
-                  //  JSONObject addToWishlistResponse = wishListService.addToWishList(jsonPayload.getString("sku"),customerToken);
+                    JSONObject addToWishlistResponse=getAddToWishListResponse(jsonPayload.getString("sku"),customerToken);
                     if (addToWishlistResponse.has("statusCode") && addToWishlistResponse.getInt("statusCode") == HttpStatus.OK_200) {
                         responseObject.put("message", addToWishlistResponse.getJSONObject("message"));
                         responseObject.put("status", Boolean.TRUE);
