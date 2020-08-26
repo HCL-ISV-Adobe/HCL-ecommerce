@@ -780,9 +780,7 @@ function setAddressDefaults() {
     getUserDeatils['telephone'] = 'NA';
     getUserDeatils['postcode'] = 'NA';
     getUserDeatils['city'] = 'NA';
-     const streetArr = [
-                'NA'
-            ];
+    const streetArr = ['NA'];
     getUserDeatils['street'] =streetArr;
     getUserDeatils['country_id'] = 'NA';
     getUserDeatils['region_code'] = 'NA';

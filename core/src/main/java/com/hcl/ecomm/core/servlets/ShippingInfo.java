@@ -102,7 +102,7 @@ public class ShippingInfo extends SlingAllMethodsServlet{
 		//JSONObject shippAddress = new JSONObject();
 		JSONObject billAddress = new JSONObject();
 		try {
-			if(shipData.getString("email").equalsIgnoreCase(NOT_AVAILABLE)){
+			if(shipData.getString("email").equalsIgnoreCase(NOT_AVAILABLE) && !shipData.getString("email").isEmpty()){
 				billAddress.put("email", DEFAULT_MAIL);
 			}else{
 				billAddress.put("email", shipData.getString("email"));
