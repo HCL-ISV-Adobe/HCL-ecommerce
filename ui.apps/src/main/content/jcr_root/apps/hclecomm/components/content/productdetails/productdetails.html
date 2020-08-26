@@ -1,10 +1,18 @@
 <div class='product-details-cmp'>
 	<div class='product-details-cmp__img aem-Grid aem-Grid--9 aem-Grid--default--12'>
 		<img class='product-details-cmp--product-img' src="${properties.fileReference}" alt="image" />
-	</div>
-	<div class='product-details-cmp__product-details aem-Grid aem-Grid--3 aem-Grid--default--12'> <b class='product-details-cmp__prduct-name'>${properties.productName} </b>
-       <div data-sly-resource="${'SocialShare' @ resourceType='hclecomm/components/content/SocialShare', decoration=true}"></div>
-		<p class='product-sku'>${properties.productSku}</p>
+	<div>
+            <div class="productName">
+                <b class='product-details-cmp__prduct-name'>${properties.productName} </b>
+            </div>
+               <div data-sly-resource="${'SocialShare' @ resourceType='hclecomm/components/content/SocialShare', decoration=true}"></div>
+        <div>
+        <div class="productSKU">
+            <p class='product-sku'>${properties.productSku}</p>
+        </div>
+
+
+
 		<div class='product-price-container'> <span class="product-details-cmp__prduct-price-sign">$</span>
 			<p class='product-details-cmp__prduct-price'></p>
 		</div>
