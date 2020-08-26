@@ -10,4 +10,5 @@
 	<filter root="/var/workflow/models/hclecomm" mode="merge"/>
 	<filter root="/content/forms/af/hclecomm" mode="merge"/>
 	<filter root="/content/dam/formsanddocuments/hclecomm" mode="merge"/>
+	<filter root="/content/dam/formsanddocuments-themes/hclecomm" mode="merge"/>
 </workspaceFilter>
