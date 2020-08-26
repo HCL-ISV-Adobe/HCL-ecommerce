@@ -137,39 +137,39 @@ const mapUserFields = function (useraddressdetails){
     if(useraddressdetails && getAddressFilelds){
         getAddressFilelds.toArray().forEach((addressfielditems) => {
                                             switch(addressfielditems.name){
-            case 'First Name':  
+            case 'First Name':
         addressfielditems.value = useraddressdetails[0].firstname;
          break;
 
-            case 'Last Name':   
+            case 'Last Name':
         addressfielditems.value = useraddressdetails[0].lastname;
          break;
 
-            case 'Pin Number':    
+            case 'Pin Number':
         addressfielditems.value = useraddressdetails[0].postcode;
-         break;    
+         break;
 
-            case 'City':    
+            case 'City':
         addressfielditems.value = useraddressdetails[0].city;
-         break; 
+         break;
 
-            case 'Street':    
+            case 'Street':
         addressfielditems.value = useraddressdetails[0].street.join();
-         break; 
+         break;
 
-            case 'Phone Number':   
+            case 'Phone Number':
         addressfielditems.value = useraddressdetails[0].telephone;
-         break; 
+         break;
 
          case 'Country':
-        
+
 
          let selectedcountryforuser=null;
             let othercountryforuser=null;
             let selectedcountrybyid="<option value= null />  select country </option>";
   		const getCountryListSelectedItem = $(".add-new-address-form #country");
 countriesList.forEach(item => {
-            
+
                 if(useraddressdetails[0] && useraddressdetails[0].country_id===item.country_id){
 					selectedcountrybyid = "<option value='"+ item.country_id + "' />" + item.country_name + "</option>";
                  getSelectedState(useraddressdetails[0].region.region_code,item)
@@ -182,15 +182,15 @@ countriesList.forEach(item => {
 
                 selectedcountryforuser = selectedcountrybyid + othercountryforuser;
 
-            
+
 
 
             });
 			if(getCountryListSelectedItem && selectedcountryforuser ) {
                 getCountryListSelectedItem[0].innerHTML = selectedcountryforuser;
-                
+
             }
-         break; 
+         break;
         }
 
                                           })}
@@ -780,8 +780,11 @@ function setAddressDefaults() {
     getUserDeatils['telephone'] = 'NA';
     getUserDeatils['postcode'] = 'NA';
     getUserDeatils['city'] = 'NA';
-    getUserDeatils['street'] = 'NA';
+    const streetArr = ['NA'];
+    getUserDeatils['street'] =streetArr;
     getUserDeatils['country_id'] = 'NA';
+    getUserDeatils['region_code'] = 'NA';
+    getUserDeatils['email'] = 'NA';
 }
 
 function closeStoreOptions(){
