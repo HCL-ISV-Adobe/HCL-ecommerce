@@ -27,15 +27,6 @@ $(document).ready(function() {
     let productDetail;
     try {
      productDetail = JSON.parse(this.responseText);
-       let swfMailTo = document.getElementById('swfMailTo');
- swfMailTo.href = "mailto:?"
- + "&subject=" + encodeURIComponent("I want to recommend this" + productDetail.name)
- + "&body=" + encodeURIComponent("I want to recommend this product at HCL.com" + productDetail.name + "Learn more:" + window.location.href);
- 
- let swfImageMailTo = document.getElementById('swfImageMailTo');
- swfImageMailTo.href = "mailto:?"
- + "&subject=" + encodeURIComponent("I want to recommend this" + productDetail.name)
- + "&body=" + encodeURIComponent("I want to recommend this product at HCL.com" + productDetail.name + "Learn more:" + window.location.href);
 	 prodName = productDetail.name;
      $('.product-details-cmp__prduct-price-sign').css("display", "inline-block");
      if(productDetail.sku) {
