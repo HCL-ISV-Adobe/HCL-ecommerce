@@ -22,7 +22,7 @@ public @interface MagentoServiceConfig {
   String servicePathCartUpdateItems = "/V1/guest-carts/";
   String guestCartShippingInformationPath = "/us/V1/guest-carts/{cartId}/shipping-information";
   String guestCartCreateOrderPath = "/us/V1/guest-carts/{cartId}/order";
-  String pincodeLocationPath="/content/dam/hclecomm/en/json/state+district+city.json";
+  String pincodeLocationPath="/content/dam/hclecomm/en/json/state_district_city.json";
     //Customer API
   String customerSignupPath = "/V1/customers";
   String customerSigninPath = "/V1/integration/customer/token";

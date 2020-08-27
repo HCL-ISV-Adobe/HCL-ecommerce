@@ -13,6 +13,7 @@ $( document ).ready(function() {
                     if (this.readyState == 4 && this.status == 200) {
 
                         userAddress = JSON.parse(this.responseText);
+                        mapUserFields(userAddress);
                         //getting address for Location component
 						getuserLocation(userAddress);
                         if (userAddress && userAddress.length > 0) {
