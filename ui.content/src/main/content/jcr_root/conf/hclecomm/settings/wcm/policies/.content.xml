@@ -575,6 +575,32 @@
                         </cq:styleGroups>
                     </policy_1596179436508>
                 </experiencefragment>
+				<title jcr:primaryType="nt:unstructured">
+                    <policy_1598433657373
+                        jcr:lastModified="{Date}2020-08-26T16:23:40.996+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Title Policy"
+                        sling:resourceType="wcm/core/components/policy/policy"
+                        allowedTypes="[h1,h2,h3,h4,h5,h6,p]"
+                        linkDisabled="false"
+                        type="h1">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <cq:styleGroups jcr:primaryType="nt:unstructured">
+                            <item0
+                                cq:styleGroupLabel="Styles"
+                                jcr:primaryType="nt:unstructured">
+                                <cq:styles jcr:primaryType="nt:unstructured">
+                                    <item0
+                                        cq:styleClasses="cmp-pdp-title"
+                                        cq:styleId="1598433698038"
+                                        cq:styleLabel="Title with Rating"
+                                        jcr:primaryType="nt:unstructured"/>
+                                </cq:styles>
+                            </item0>
+                        </cq:styleGroups>
+                    </policy_1598433657373>
+                </title>
             </content>
             <structure jcr:primaryType="nt:unstructured">
                 <page jcr:primaryType="nt:unstructured">
