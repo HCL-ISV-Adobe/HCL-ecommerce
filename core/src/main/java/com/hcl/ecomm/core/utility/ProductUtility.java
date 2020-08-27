@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 public class ProductUtility {
@@ -83,5 +85,17 @@ public class ProductUtility {
 			categoryList.add(id);
 		}
 		return categoryList;
+	}
+
+	public static String toBase64(String message) {
+		byte[] data;
+		try {
+			data = message.getBytes("UTF-8");
+			String base64Sms = Base64.encodeBase64String(data);
+			return base64Sms;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

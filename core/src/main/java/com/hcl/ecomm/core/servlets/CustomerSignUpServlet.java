@@ -31,7 +31,7 @@ import com.hcl.ecomm.core.services.CustomerService;
 		service = Servlet.class, 
 		property = { 
 				 Constants.SERVICE_DESCRIPTION + "= Customer Signup Servlet",
-				"sling.servlet.paths=/bin/hclecomm/customerSignup",
+				"sling.servlet.paths=/bin/hclecomm/customerSignup123",
 				"sling.servlet.method=" + HttpConstants.METHOD_POST,
 				"sling.servlet.extensions=json"})
 public class CustomerSignUpServlet extends SlingAllMethodsServlet{
