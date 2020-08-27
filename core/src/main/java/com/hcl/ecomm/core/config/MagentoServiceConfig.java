@@ -22,6 +22,7 @@ public @interface MagentoServiceConfig {
   String servicePathCartUpdateItems = "/V1/guest-carts/";
   String guestCartShippingInformationPath = "/us/V1/guest-carts/{cartId}/shipping-information";
   String guestCartCreateOrderPath = "/us/V1/guest-carts/{cartId}/order";
+  String pincodeLocationPath="/content/dam/hclecomm/en/json/state+district+city.json";
     //Customer API
   String customerSignupPath = "/V1/customers";
   String customerSigninPath = "/V1/integration/customer/token";
@@ -127,6 +128,9 @@ public @interface MagentoServiceConfig {
 
   @AttributeDefinition(name = "Customer Get Order Service Path", description = "This is the API path for creating order for customer", defaultValue = customerGetOrders, type = AttributeType.STRING )
   String customer_getOrder_string() default customerGetOrders;
+
+  @AttributeDefinition(name = "Pincode location", description = "This is the Dam path for pincode for state, district and city", defaultValue = {pincodeLocationPath} )
+  String getPincodeLocationPath_string() default pincodeLocationPath;
 
 }
 

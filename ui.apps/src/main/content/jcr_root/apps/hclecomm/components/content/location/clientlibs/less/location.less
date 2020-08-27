@@ -1,0 +1,136 @@
+.location-cmp-overlay
+{position: fixed;
+  width: 100%; 
+  display:none;
+  height: 100%; 
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); 
+  z-index: 99999; 
+  cursor: pointer; 
+    justify-content: center;
+    align-items: center;
+}
+
+.location-cmp-guest-user
+{
+max-width: 40rem;
+    margin: 0 auto;
+    background: #ffffff;
+    min-width: 25rem;
+}
+
+.location-cmp-body-go-to-sign-in
+{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.location-cmp-btn-go-to-sign-in
+{
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    padding: 10px;
+    background: #2979be;
+    color: white;
+    margin: 0 auto;
+    &:hover { 
+    background: #2979be;
+    color: white;
+    }
+}
+.location-cmp-body-pincode-wrapper
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.location-cmp-pincode-text
+{
+    padding: 10px 0;
+    padding-left: 10px;
+}
+.location-cmp-apply-btn
+{
+    width: 40%;
+}
+.location-cmp-guest-user-header
+{
+    padding: 15px 8px;
+    background: #2979be;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+.location-cmp-body-upper-container 
+{
+    padding: 15px 0px;
+    max-width: 30rem;
+    margin: 0 auto;
+    min-height: 100px;
+
+}
+.location-cmp-body-lower-container
+{
+    padding: 15px 10px;
+    min-height: 100px;
+}
+.location-cmp-pincode-validation
+{
+    color: #FF0000;
+    margin: 5px 0;
+    margin-left: 20px;
+}
+.location-cmp-header-icon
+{
+margin: 10px 0;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    width: 250px;
+    box-sizing: border-box;
+    word-break: break-all;
+    font-family: sans-serif;
+    background: #2979be;
+    border: 1px solid #165fab;
+    width: 200px;
+    padding: 10px 20px;
+    margin: 0px;
+    color: #fff;
+}
+.location-cmp-address-city
+{
+    margin:0 10px;
+}
+.location-cmp
+{
+    font-family: sans-serif;
+}
+.location-cmp-separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.location-cmp-separator::before, .location-cmp-separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid gray;
+}
+.location-cmp-separator::before {
+    margin-right: .25em;
+}
+.location-cmp-separator::after {
+    margin-left: .25em;
+}
+.location-cmp-user-single-address
+{
+    text-align:center;
+    &:last-child{
+	border-bottom:0px !important;
+    }
+}
