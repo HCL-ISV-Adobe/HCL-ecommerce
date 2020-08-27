@@ -10,13 +10,16 @@
 		<div class='product-details-cmp__prduct--description'>${properties.description @ context='html'}</div>
 		<sly data-sly-resource="${'accordion' @ resourceType='hclecomm/components/content/accordion', decoration=true}"></sly>
 		<p class="heading-product-item">${properties.fashionSize}</p>
-		<div data-sly-use.productsize="productdetailsuseapi.js">
+		 <div data-sly-use.productsize="productdetailsuseapi.js">
 			<ul data-sly-list.product="${productsize.sizeSelect.listChildren}" class='product-details-cmp__product-size'>
 				<li class='product-details-cmp__product-size--item' onclick="onSizeSelection()">${product.size}</li>
+			</ul> 
+            <ul class='product-details-cmp__product-size'>
+
 			</ul>
 			<p class="heading-product-item">${properties.selectedFashionSize} <span class='select-size heading-product-item '></span> 
 				<p>
-		</div>
+		</div> 
 		<p class="heading-product-item">${properties.quantity}</p>
 		 <div class="qty">
 			 <span class="minus" onclick="onQuantityChnage('-')">-</span>
