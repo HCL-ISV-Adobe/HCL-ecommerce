@@ -14,5 +14,5 @@ public interface MailChimpService {
 
     public String getMailChimpDomain();
 
-    public String mailChimpCustomerSignup(JSONObject customerDetails) throws UnsupportedEncodingException;
+    public JSONObject mailChimpCustomerSignup(JSONObject customerDetails) throws UnsupportedEncodingException;
 }

@@ -3,22 +3,19 @@ package com.hcl.ecomm.core.services.impl;
 import com.hcl.ecomm.core.config.MailChimpConfig;
 import com.hcl.ecomm.core.services.MailChimpService;
 import com.hcl.ecomm.core.utility.ProductUtility;
-import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.UnsupportedEncodingException;
 
 @Component(service = MailChimpService.class, immediate = true)
 @Designate(ocd = MailChimpConfig.class)
@@ -43,7 +40,6 @@ public class MailChimpServiceImpl implements MailChimpService {
     }
     @Override
     public String getMailChimpUsername() {
-
         return username;
     }
 
@@ -62,21 +58,16 @@ public class MailChimpServiceImpl implements MailChimpService {
         return domain;
     }
 
-
-    String responseStream = null;
+    JSONObject customerSignupResponse = new JSONObject();
 
     @Override
-    public String mailChimpCustomerSignup(JSONObject customerDetails) {
+    public JSONObject mailChimpCustomerSignup(JSONObject customerDetails) {
         String url = "https://" + serverPrefix + "." + domain + "lists/6bcf7b7a39/members/";
-        LOG.info("URL for Mailchimp :" + url);
 
         String authString = username + ":" + password;
-
         String authStringEnc = ProductUtility.toBase64(authString);
-
         String authorToken = "Basic " + authStringEnc;
         String finalToken = authorToken.replaceAll("\"", "");
-        LOG.info("Encoded authentication : "+authStringEnc);
         StringEntity customerInput = new StringEntity(customerDetails.toString(), ContentType.APPLICATION_JSON);
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -86,34 +77,31 @@ public class MailChimpServiceImpl implements MailChimpService {
         httpPost.setEntity(customerInput);
 
         try {
-
             CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
-            LOG.info("HTTP Response : "+httpResponse);
-            if (httpResponse.getStatusLine().getStatusCode() == 200) {
-                responseStream = EntityUtils.toString(httpResponse.getEntity());
-                LOG.info("Response : "+responseStream);
+            int statusCode = httpResponse.getStatusLine().getStatusCode();
+            if (HttpStatus.SC_OK == statusCode) {
+                customerSignupResponse.put("statusCode", statusCode);
+                customerSignupResponse.put("message", httpResponse.getEntity().getContent().toString());
             }
             else {
                 CloseableHttpResponse httpResponse1 = httpClient.execute(httpPost);
-                LOG.info("HTTP Response11111 : "+httpResponse1);
-                if (httpResponse1.getStatusLine().getStatusCode() == 200) {
-                    responseStream = EntityUtils.toString(httpResponse1.getEntity());
-                    LOG.info("Response1111 : "+responseStream);
-                }
-                else {
-                    responseStream = "Error in signing up new customer in mailchimp";
-                    LOG.info("Error Response111111 : "+responseStream);
+                Integer statusCode1 = httpResponse1.getStatusLine().getStatusCode();
+                if (HttpStatus.SC_OK == statusCode1) {
+                    customerSignupResponse.put("statusCode", statusCode1);
+                    customerSignupResponse.put("message", httpResponse1.getEntity().getContent().toString());
+                } else if(HttpStatus.SC_BAD_REQUEST == statusCode1){
+                    customerSignupResponse.put("statusCode", statusCode1);
+                    customerSignupResponse.put("message", httpResponse1.getEntity().getContent().toString());
+                    LOG.error("Error while MailChimp customer Signup. status code:{} and message={}",statusCode1,httpResponse1.getEntity().getContent().toString());
+                } else {
+                    LOG.error("Error while MailChimp customer Signup. status code:{}",statusCode1);
                 }
             }
-
         } catch (Exception e) {
-            LOG.error("Exception : "+e.getMessage());
-            e.printStackTrace();
+            LOG.error("Error while executing mailChimpCustomerSignup() method. Error={} ",e);
         }
-
-        return responseStream;
+        LOG.debug("MailChimpSignupObject method end  customerSignupResponse={}: ", customerSignupResponse);
+        return customerSignupResponse;
     }
-
-
 }
 

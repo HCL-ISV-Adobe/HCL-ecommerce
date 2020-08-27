@@ -6,6 +6,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
+import org.eclipse.jetty.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
@@ -14,14 +15,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.Servlet;
-import javax.servlet.ServletException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 @Component(service = Servlet.class,
         property = {
-                "sling.servlet.paths=/bin/hclecomm/customerSignup",
+                "sling.servlet.paths=/bin/hclecomm/mailChimpCustomerSignup",
                 "sling.servlet.method=" + HttpConstants.METHOD_POST,
                 "sling.servlet.extensions=json"
         }
@@ -34,10 +34,9 @@ public class MailChimpSignupServlet extends SlingAllMethodsServlet {
     private MailChimpService mailChimpService;
 
     @Override
-    protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
-        LOG.info("inside MailChimpSignupServlet doPost method");
-
-        String responseStream = null;
+    protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
+        LOG.debug("MailChimpSignupServlet doPost()  method start.");
+        JSONObject responseObject = new JSONObject();
 
         try {
             StringBuilder buffer = new StringBuilder();
@@ -53,18 +52,24 @@ public class MailChimpSignupServlet extends SlingAllMethodsServlet {
                 if (isValidPayload(jsonPayload)) {
 
                     JSONObject customerValidDetails = customerDetailsAligned(jsonPayload);
-                    responseStream = getMailChimpSignup(customerValidDetails);
-                    LOG.info("Response from MailChimp :" +responseStream);
+                    JSONObject mailChimpCustomerSignupResponse = getMailChimpSignup(customerValidDetails);
+                    if (mailChimpCustomerSignupResponse.has("statusCode") && mailChimpCustomerSignupResponse.getInt("statusCode") == HttpStatus.OK_200) {
+                        responseObject.put("message", mailChimpCustomerSignupResponse.getJSONObject("message"));
+                        responseObject.put("status", Boolean.TRUE);
+                    } else {
+                        responseObject.put("message", "something went wrong while MailChimp Customer Signup.");
+                        LOG.error("Error while MailChimp customer Signup. response:{}",mailChimpCustomerSignupResponse.toString());
+                    }
                 }
             }
-            response.getWriter().print(responseStream);
+            response.getWriter().print(responseObject);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        LOG.debug("MailChimpSignupServlet doPost()  method end.");
     }
 
-
-    private String getMailChimpSignup(JSONObject customerDetails) throws UnsupportedEncodingException {
+    private JSONObject getMailChimpSignup(JSONObject customerDetails) throws UnsupportedEncodingException {
         return mailChimpService.mailChimpCustomerSignup(customerDetails);
     }
 
@@ -79,7 +84,6 @@ public class MailChimpSignupServlet extends SlingAllMethodsServlet {
     private JSONObject customerDetailsAligned(JSONObject customerData){
         JSONObject customerSignup = new JSONObject();
         JSONObject customer = new JSONObject();
-
         try {
             customer.put("FNAME", customerData.getString("firstname"));
             customer.put("LNAME", customerData.getString("lastname"));
