@@ -20,21 +20,20 @@ public class PincodeLocationServlet extends SlingSafeMethodsServlet {
 
     private static final long serialVersionUID = 4016057296495129474L;
     private static final Logger LOG = LoggerFactory.getLogger(PincodeLocationServlet.class);
-    private static int flag=0;
 
     @Reference
     PincodeService pincodeService;
 
     protected void doGet(SlingHttpServletRequest req, SlingHttpServletResponse res)
     {
-        LOG.info("Inside PincodeLocationServlet doGet method");
+        LOG.debug("Inside PincodeLocationServlet doGet method");
         try{
             JSONArray responseStream =getPincodeLocation();
-            LOG.info("responseStream for getPincodeLocation() {}", responseStream.toString());
+            LOG.debug("responseStream for getPincodeLocation() {}", responseStream.toString());
             JSONArray pinres=new JSONArray();
             JSONObject pincontent=new JSONObject();
             String pincode=req.getParameter("Pincode");
-            LOG.info("pincode entered by user: ",pincode);
+            LOG.debug("pincode entered by user: ",pincode);
             for (int i = 0; i < responseStream.length(); i++)
             {
                 if(pincode.equals(responseStream.getJSONObject(i).get("Pincode")))
@@ -44,14 +43,9 @@ public class PincodeLocationServlet extends SlingSafeMethodsServlet {
                 pincontent.put("District",responseStream.getJSONObject(i).get("District"));
                 pincontent.put("State",responseStream.getJSONObject(i).get("State"));
                 pinres.put(pincontent);
-                flag++;
                 }
             }
-            LOG.info("value of flag : ",flag);
-            if (flag==0)
-            {   pincontent.put("Invalid Pincode","invalid Pincode");
-                pinres.put(pincontent);
-            }
+            
             res.setContentType("application/json");
             res.getWriter().write(pinres.toString());
         }
