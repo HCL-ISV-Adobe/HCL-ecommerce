@@ -28,7 +28,7 @@
             textIsRich="true"
             thankYouMessage="Thank you for submitting the form."
             thankYouOption="page"
-            themeRef="/content/dam/formsanddocuments-themes/reference-themes/canvas-3-0"
+            themeRef="/content/dam/formsanddocuments-themes/hclecomm/hclecomm-theme"
             useExistingAF="false"
             workflowModel="/var/workflow/models/hclecomm/hclecomm-user-complaint-workflow">
             <layout

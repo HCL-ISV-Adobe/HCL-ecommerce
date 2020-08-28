@@ -17,6 +17,7 @@
             dorType="none"
             formmodel="none"
             hasCustomThumbnail="{Boolean}false"
+			themeRef="/content/dam/formsanddocuments-themes/hclecomm/hclecomm-theme"
             title="User Complaint Form"/>
     </jcr:content>
 </jcr:root>

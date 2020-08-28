@@ -66,6 +66,10 @@
                                     cq:policy="hclecomm/components/content/experiencefragment/policy_1596179436508"
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="wcm/core/components/policies/mapping"/>
+							<title
+                                    cq:policy="hclecomm/components/content/title/policy_1598433657373"
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="wcm/core/components/policies/mapping"/>
                         </content>
                     </components>
                 </hclecomm>
