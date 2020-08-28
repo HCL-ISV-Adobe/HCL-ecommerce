@@ -3,47 +3,7 @@
     jcr:mixinTypes="[rep:AccessControllable]"
     jcr:primaryType="cq:Page">
     <rep:policy/>
-    <wcm jcr:primaryType="nt:unstructured">
-        <foundation jcr:primaryType="nt:unstructured">
-            <components jcr:primaryType="nt:unstructured">
-                <responsivegrid jcr:primaryType="nt:unstructubred">
-                    <content-default
-                        jcr:description="Policy for editable layout containers"
-                        jcr:lastModified="{Date}2020-04-21T12:44:51.668+05:30"
-                        jcr:lastModifiedBy="admin"
-                        jcr:primaryType="nt:unstructured"
-                        jcr:title="hclecomm Default"
-                        sling:resourceType="wcm/core/components/policy/policy"
-                        components="[/libs/wcm/foundation/components/responsivegrid,group:hclecomm.Content,/apps/hclecomm/components/form/container,group:hclecomm.Structure]"
-                        policyResourceType="wcm/foundation/components/responsivegrid">
-                        <cq:authoring jcr:primaryType="nt:unstructured">
-                            <assetToComponentMapping jcr:primaryType="nt:unstructured">
-                                <image
-                                    jcr:primaryType="nt:unstructured"
-                                    assetGroup="media"
-                                    assetMimetype="image/*"
-                                    droptarget="image"
-                                    resourceType="hclecomm/components/content/image"
-                                    type="Images"/>
-                            </assetToComponentMapping>
-                        </cq:authoring>
-                        <jcr:content
-                            jcr:primaryType="nt:unstructured"
-                            mergeList="{Boolean}true"/>
-                    </content-default>
-                    <policy_600116016309972
-                        jcr:lastModified="{Date}2020-04-23T16:01:50.387+05:30"
-                        jcr:lastModifiedBy="admin"
-                        jcr:primaryType="nt:unstructured"
-                        jcr:title="Hclecomm Content Policy"
-                        sling:resourceType="wcm/core/components/policy/policy"
-                        components="[group:hclecomm.Content]">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
-                    </policy_600116016309972>
-                </responsivegrid>
-            </components>
-        </foundation>
-    </wcm>
+    <wcm/>
     <hclecomm jcr:primaryType="nt:unstructured">
         <components jcr:primaryType="nt:unstructured">
             <form jcr:primaryType="nt:unstructured">
@@ -67,23 +27,23 @@
                 </container>
                 <text jcr:primaryType="nt:unstructured">
                     <policy_1594215389761
-                            cq:styleDefaultClasses="cmp-full-width-input"
-                            jcr:lastModified="{Date}2020-07-30T14:41:31.662+05:30"
-                            jcr:lastModifiedBy="admin"
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Form text Component"
-                            sling:resourceType="wcm/core/components/policy/policy">
+                        cq:styleDefaultClasses="cmp-full-width-input"
+                        jcr:lastModified="{Date}2020-07-30T14:41:31.662+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Form text Component"
+                        sling:resourceType="wcm/core/components/policy/policy">
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                         <cq:styleGroups jcr:primaryType="nt:unstructured">
                             <item0
-                                    cq:styleGroupLabel="Form Text Styles"
-                                    jcr:primaryType="nt:unstructured">
+                                cq:styleGroupLabel="Form Text Styles"
+                                jcr:primaryType="nt:unstructured">
                                 <cq:styles jcr:primaryType="nt:unstructured">
                                     <item0
-                                            cq:styleClasses="cmp-full-width-input"
-                                            cq:styleId="1594897899275"
-                                            cq:styleLabel="Full Width Input text Box"
-                                            jcr:primaryType="nt:unstructured"/>
+                                        cq:styleClasses="cmp-full-width-input"
+                                        cq:styleId="1594897899275"
+                                        cq:styleLabel="Full Width Input text Box"
+                                        jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item0>
                         </cq:styleGroups>
@@ -91,43 +51,43 @@
                 </text>
                 <button jcr:primaryType="nt:unstructured">
                     <policy_1042904026915865
-                            jcr:lastModified="{Date}2020-07-28T19:17:33.508+05:30"
-                            jcr:lastModifiedBy="admin"
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Form Button Policy"
-                            sling:resourceType="wcm/core/components/policy/policy">
+                        jcr:lastModified="{Date}2020-07-28T19:17:33.508+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Form Button Policy"
+                        sling:resourceType="wcm/core/components/policy/policy">
                         <jcr:content jcr:primaryType="nt:unstructured"/>
                         <cq:styleGroups jcr:primaryType="nt:unstructured">
                             <item0
-                                    cq:styleGroupLabel="Submit Button Styles"
-                                    jcr:primaryType="nt:unstructured">
+                                cq:styleGroupLabel="Submit Button Styles"
+                                jcr:primaryType="nt:unstructured">
                                 <cq:styles jcr:primaryType="nt:unstructured">
                                     <item0
-                                            cq:styleClasses="submit-btn"
-                                            cq:styleId="1594897730897"
-                                            cq:styleLabel="Submit button"
-                                            jcr:primaryType="nt:unstructured"/>
+                                        cq:styleClasses="submit-btn"
+                                        cq:styleId="1594897730897"
+                                        cq:styleLabel="Submit button"
+                                        jcr:primaryType="nt:unstructured"/>
                                     <item1
-                                            cq:styleClasses="submit-btn-primary"
-                                            cq:styleId="1595944016521"
-                                            cq:styleLabel="Submit Button Primary"
-                                            jcr:primaryType="nt:unstructured"/>
+                                        cq:styleClasses="submit-btn-primary"
+                                        cq:styleId="1595944016521"
+                                        cq:styleLabel="Submit Button Primary"
+                                        jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item0>
                             <item1
-                                    cq:styleGroupLabel="Cancel Button Styles"
-                                    jcr:primaryType="nt:unstructured">
+                                cq:styleGroupLabel="Cancel Button Styles"
+                                jcr:primaryType="nt:unstructured">
                                 <cq:styles jcr:primaryType="nt:unstructured">
                                     <item0
-                                            cq:styleClasses="cancel-btn"
-                                            cq:styleId="1594897783292"
-                                            cq:styleLabel="Cancel Button Primary"
-                                            jcr:primaryType="nt:unstructured"/>
+                                        cq:styleClasses="cancel-btn"
+                                        cq:styleId="1594897783292"
+                                        cq:styleLabel="Cancel Button Primary"
+                                        jcr:primaryType="nt:unstructured"/>
                                     <item1
-                                            cq:styleClasses="cancel-btn-secondary"
-                                            cq:styleId="1594897797744"
-                                            cq:styleLabel="Cancel Button Secondary"
-                                            jcr:primaryType="nt:unstructured"/>
+                                        cq:styleClasses="cancel-btn-secondary"
+                                        cq:styleId="1594897797744"
+                                        cq:styleLabel="Cancel Button Secondary"
+                                        jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item1>
                         </cq:styleGroups>
@@ -135,7 +95,8 @@
                 </button>
             </form>
             <content jcr:primaryType="nt:unstructured">
-			    <list jcr:primaryType="nt:unstructured">
+                <image jcr:primaryType="nt:unstructured"/>
+                <list jcr:primaryType="nt:unstructured">
                     <policy_1592474735653
                         jcr:lastModified="{Date}2020-06-18T23:30:00.190+05:30"
                         jcr:lastModifiedBy="admin"
@@ -149,7 +110,9 @@
                         linkItems="false"
                         showDescription="false"
                         showModificationDate="false">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <jcr:content
+                            jcr:mixinTypes="[]"
+                            jcr:primaryType="nt:unstructured"/>
                         <cq:styleGroups jcr:primaryType="nt:unstructured">
                             <item0
                                 cq:styleGroupLabel="Style"
@@ -170,7 +133,7 @@
                         </cq:styleGroups>
                     </policy_1592474735653>
                 </list>
-                                <carousel jcr:primaryType="nt:unstructured">
+                <carousel jcr:primaryType="nt:unstructured">
                     <policy_1588575545478
                         jcr:lastModified="{Date}2020-08-03T13:40:23.395+05:30"
                         jcr:lastModifiedBy="admin"
@@ -211,7 +174,9 @@
                         jcr:primaryType="nt:unstructured"
                         jcr:title="text policy"
                         sling:resourceType="wcm/core/components/policy/policy">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <jcr:content
+                            jcr:mixinTypes="[]"
+                            jcr:primaryType="nt:unstructured"/>
                         <rtePlugins jcr:primaryType="nt:unstructured">
                             <paraformat
                                 jcr:primaryType="nt:unstructured"
@@ -331,7 +296,9 @@
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Button Policy"
                         sling:resourceType="wcm/core/components/policy/policy">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <jcr:content
+                            jcr:mixinTypes="[]"
+                            jcr:primaryType="nt:unstructured"/>
                         <cq:styleGroups jcr:primaryType="nt:unstructured">
                             <item0
                                 cq:styleGroupLabel="Active Button  "
@@ -368,6 +335,11 @@
                                 cq:styleGroupLabel="Button Link Style"
                                 jcr:primaryType="nt:unstructured">
                                 <cq:styles jcr:primaryType="nt:unstructured">
+                                    <item3
+                                        cq:styleClasses="quaternary__disabled"
+                                        cq:styleId="1590512272517"
+                                        cq:styleLabel="Quaternary"
+                                        jcr:primaryType="nt:unstructured"/>
                                     <item0
                                         cq:styleClasses="btn-cmp-signin"
                                         cq:styleId="1591609647002"
@@ -383,7 +355,7 @@
                                         cq:styleId="1591609684335"
                                         cq:styleLabel="Logout"
                                         jcr:primaryType="nt:unstructured"/>
-									<item4
+                                    <item4
                                         cq:styleClasses="btn-cmp-account"
                                         cq:styleId="1595592177588"
                                         cq:styleLabel="My Account"
@@ -394,6 +366,16 @@
                                 cq:styleGroupLabel="Disable Button"
                                 jcr:primaryType="nt:unstructured">
                                 <cq:styles jcr:primaryType="nt:unstructured">
+                                    <item4
+                                        cq:styleClasses="btn-cmp-account"
+                                        cq:styleId="1595592177588"
+                                        cq:styleLabel="My Account"
+                                        jcr:primaryType="nt:unstructured"/>
+                                    <item5
+                                        cq:styleClasses="btn-cmp-location"
+                                        cq:styleId="1598254715412"
+                                        cq:styleLabel="Location"
+                                        jcr:primaryType="nt:unstructured"/>
                                     <item0
                                         cq:styleClasses="btn-primary__disabled"
                                         cq:styleId="1588078154761"
@@ -429,10 +411,12 @@
                         allowedHeadingElements="[h2,h3,h4,h5,h6]"
                         components="[/libs/wcm/foundation/components/responsivegrid,group:hclecomm.Content]"
                         headingElement="h3">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <jcr:content
+                            jcr:mixinTypes="[]"
+                            jcr:primaryType="nt:unstructured"/>
                     </policy_1588258216814>
                 </accordion>
-				<container jcr:primaryType="nt:unstructured">
+                <container jcr:primaryType="nt:unstructured">
                     <policy_1588584656785
                         jcr:lastModified="{Date}2020-07-21T21:17:09.586+05:30"
                         jcr:lastModifiedBy="admin"
@@ -444,7 +428,9 @@
                         backgroundImageEnabled="true"
                         columns="12"
                         components="[/libs/wcm/foundation/components/responsivegrid,group:hclecomm.Content]">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <jcr:content
+                            jcr:mixinTypes="[]"
+                            jcr:primaryType="nt:unstructured"/>
                         <cq:styleGroups jcr:primaryType="nt:unstructured">
                             <item0
                                 cq:styleGroupLabel="Styles"
@@ -489,7 +475,9 @@
                         jcr:title="Tab Component"
                         sling:resourceType="wcm/core/components/policy/policy"
                         components="[/libs/wcm/foundation/components/responsivegrid,group:hclecomm.Content]">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <jcr:content
+                            jcr:mixinTypes="[]"
+                            jcr:primaryType="nt:unstructured"/>
                         <cq:styleGroups jcr:primaryType="nt:unstructured">
                             <item0
                                 cq:styleGroupLabel="Tab Type"
@@ -520,7 +508,9 @@
                         sling:resourceType="wcm/core/components/policy/policy"
                         navigationRoot="/content/hclecomm"
                         structureDepth="2">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <jcr:content
+                            jcr:mixinTypes="[]"
+                            jcr:primaryType="nt:unstructured"/>
                         <cq:styleGroups jcr:primaryType="nt:unstructured">
                             <item0
                                 cq:styleGroupLabel="Language Navigation Style"
@@ -540,8 +530,8 @@
                             </item0>
                         </cq:styleGroups>
                     </policy_1592906108303>
-                </languagenavigation>    
-		<newsletter jcr:primaryType="nt:unstructured">
+                </languagenavigation>
+                <newsletter jcr:primaryType="nt:unstructured">
                     <policy_1594020188218
                         jcr:lastModified="{Date}2020-07-06T12:53:36.907+05:30"
                         jcr:lastModifiedBy="admin"
@@ -549,7 +539,9 @@
                         jcr:title="Form Container Policy"
                         sling:resourceType="wcm/core/components/policy/policy"
                         components="group:hclecomm.Form,group:hclecomm.Content">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <jcr:content
+                            jcr:mixinTypes="[]"
+                            jcr:primaryType="nt:unstructured"/>
                     </policy_1594020188218>
                 </newsletter>
                 <experiencefragment jcr:primaryType="nt:unstructured">
@@ -559,7 +551,9 @@
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Experience Fragment Policy"
                         sling:resourceType="wcm/core/components/policy/policy">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <jcr:content
+                            jcr:mixinTypes="[]"
+                            jcr:primaryType="nt:unstructured"/>
                         <cq:styleGroups jcr:primaryType="nt:unstructured">
                             <item0
                                 cq:styleGroupLabel="Styles"
@@ -618,7 +612,9 @@
                         sling:resourceType="wcm/core/components/policy/policy"
                         clientlibs="[hclecomm.site]"
                         clientlibsJsHead="hclecomm.dependencies">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <jcr:content
+                            jcr:mixinTypes="[]"
+                            jcr:primaryType="nt:unstructured"/>
                     </policy_content_page>
                 </page>
                 <footer jcr:primaryType="nt:unstructured">
@@ -630,7 +626,9 @@
                         jcr:title="Hclecomm Footer Policy"
                         sling:resourceType="wcm/core/components/policy/policy"
                         components="[/apps/hclecomm/components/content/image,/apps/hclecomm/components/content/separator,/apps/hclecomm/components/content/text,/apps/hclecomm/components/structure/navigation,/apps/hclecomm/components/content/backtotop,/apps/hclecomm/components/content/newsletter]">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <jcr:content
+                            jcr:mixinTypes="[]"
+                            jcr:primaryType="nt:unstructured"/>
                     </policy_1587530568542>
                 </footer>
                 <header jcr:primaryType="nt:unstructured">
@@ -640,7 +638,7 @@
                         jcr:primaryType="nt:unstructured"
                         jcr:title="hclecomm header policy"
                         sling:resourceType="wcm/core/components/policy/policy"
-                        components="[/apps/hclecomm/components/content/button,/apps/hclecomm/components/content/container,/apps/hclecomm/components/content/languagenavigation,/apps/hclecomm/components/content/minicart,/apps/hclecomm/components/content/title,/apps/hclecomm/components/content/wishlist,group:hclecomm.Structure]">
+                        components="[/apps/hclecomm/components/content/button,/apps/hclecomm/components/content/container,/apps/hclecomm/components/content/languagenavigation,/apps/hclecomm/components/content/minicart,/apps/hclecomm/components/content/title,/apps/hclecomm/components/content/wishlist,group:hclecomm.Structure,/apps/hclecomm/components/content/location]">
                         <jcr:content
                             jcr:mixinTypes="[]"
                             jcr:primaryType="nt:unstructured"/>
@@ -656,9 +654,11 @@
                         resultsSize="10"
                         searchRoot="/content/hclecomm"
                         searchTermMinimumLength="3">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                        <jcr:content
+                            jcr:mixinTypes="[]"
+                            jcr:primaryType="nt:unstructured"/>
                     </policy_1589453975454>
-                </search>				
+                </search>
             </structure>
         </components>
     </hclecomm>
