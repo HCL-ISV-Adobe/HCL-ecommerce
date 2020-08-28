@@ -11,6 +11,9 @@ $(document).ready(function() {
  $('.btn-product-card').addClass("btn-product-card-disabled");
  $(".btn-product-card").attr('disabled', 'disabled');
  prodSku = $(".product-sku").text();
+    if($('.product-sku').length ){
+	localStorage.setItem('prodSku',prodSku);
+    } 
  const firstSizeSelected = $(".product-details-cmp__product-size--item:first-child").text();
  $('.select-size').text(firstSizeSelected);
  if (prodSku) {

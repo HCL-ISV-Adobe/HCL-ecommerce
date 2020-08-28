@@ -7,8 +7,8 @@ xhttpReq.onreadystatechange = function() {
         let ratingResponse;
         try {
             ratingResponse = JSON.parse(this.responseText);
-
-            avgRating = Math.round(ratingResponse[0].rating * 2) / 2;
+            Object.values(ratingResponse[0]);
+            avgRating = Math.round(Object.values(ratingResponse[0]) * 2) / 2;
             document.getElementById("rating" + avgRating * 2).checked = true;
         } catch (e) {
             console.log(e)
@@ -21,8 +21,8 @@ xhttpReq.send();
 
 
 function submitRating(rating) {
-
-    let data = {
+ratingReview=rating;
+  /*  let data = {
         "sku": prodSku,
         "name": prodName,
         "rating": rating
@@ -34,4 +34,5 @@ function submitRating(rating) {
     xhttpPostReq.setRequestHeader("Content-Type", "application/json");
     xhttpPostReq.setRequestHeader("CustomerToken", custToken);
     xhttpPostReq.send(JSON.stringify(data));
+    */
 }
