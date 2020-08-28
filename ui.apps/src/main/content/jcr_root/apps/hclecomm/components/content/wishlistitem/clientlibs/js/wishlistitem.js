@@ -12,10 +12,13 @@ const wisthListUrl = window.location.href.includes("my-wishlist-bag.html");
     if( wishlistCustToken && wisthListUrl){
   xhttp.onreadystatechange = function() {
    if (this.readyState == 4 && this.status == 200) {
+       if(this.responseText){
+
     try {
      wishListArr = JSON.parse(this.responseText);
       const wishListContainer = $('.cmp-wish-list-container');
     if( wishListArr && wishListArr.length > 0){
+        $(".cmp-wishlist-item-count").css("display",'block');
          $('.wishlist-item-no-item-list').text('');
         $('.wishlist-item-no-item-list').addClass('toggle-wishlist-display');
         $('.wishlist-item-count').text(wishListArr.length);
@@ -49,15 +52,18 @@ const wisthListUrl = window.location.href.includes("my-wishlist-bag.html");
  
 
         }
-         else{
-           $(".cmp-wishlist-item-count").css("display",'none');
-       }
 
 
      } 
+
      catch (e) {
      console.log(e)
     }
+   }
+       else{
+           $(".cmp-wishlist-item-count").css("display",'none');
+       }
+
    }
 
   };
@@ -161,4 +167,3 @@ function onDeleteItem(itemId) {
 
   xhr.send(JSON.stringify(data));
  };
-
