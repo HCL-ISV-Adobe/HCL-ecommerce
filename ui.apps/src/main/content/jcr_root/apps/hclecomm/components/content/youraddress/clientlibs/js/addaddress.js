@@ -217,7 +217,7 @@ function onSaveNDeliverAddress(updateAddress,index) {
                 customer['email'] = JSON.parse(userData).email;
                  customer['firstname']=JSON.parse(userData).firstname;
                  customer['lastname']=JSON.parse(userData).lastname;
-                  customer['websiteId']=0;
+                  customer['websiteId']=1;
 
             }
 

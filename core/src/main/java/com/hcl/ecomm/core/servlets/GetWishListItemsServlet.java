@@ -44,19 +44,17 @@ public class GetWishListItemsServlet extends SlingSafeMethodsServlet {
              LOG.debug("responseStream is {}", responseStream.toString());
              if(responseStream.length()!= 0) {
                  JSONArray wishlistitems = responseStream.getJSONArray("items");
-                 //System.out.println(wishlistitems);
                  List<HashMap<String, Object>> list = new ArrayList<>();
                  JSONArray wishlistArray = null;
-                // System.out.println(wishlistitems.length());
                  if (wishlistitems != null) {
                      for (int i = 0; i < wishlistitems.length(); i++) {
                          HashMap<String, Object> itemdetails = new HashMap<String, Object>();
                          JSONObject Obj = wishlistitems.getJSONObject(i);
-                         LOG.info("wishlistitems is {}", Obj);
-                         itemdetails.put("item_id", Obj.get("item_id"));
-                         itemdetails.put("sku", Obj.get("sku"));
-                         itemdetails.put("name", Obj.get("name"));
-                         itemdetails.put("price", Obj.get("price"));
+                        LOG.debug("wishlistitems is {}", Obj);
+                         itemdetails.put("item_id", Obj.get("id"));
+                         itemdetails.put("sku", Obj.getJSONObject("product").get("sku"));
+                         itemdetails.put("name", Obj.getJSONObject("product").get("name"));
+                         itemdetails.put("price", Obj.getJSONObject("product").get("price"));
                          itemdetails.put("image_url", "https://www.hcltech.com/sites/default/files/styles/large/public/images/guideline_based1.png");
                          list.add(itemdetails);
                          wishlistArray = new JSONArray(list);
