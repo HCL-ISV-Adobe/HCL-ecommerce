@@ -1,0 +1,28 @@
+<div class ='location-cmp'>
+<div class ='location-cmp-header-icon' onClick="showUserAddress()">
+<i class="fa fa-map-marker" aria-hidden="true"></i>
+<span class='location-cmp-address-txt'> ${properties.iconname} </span>
+ </div>
+<div class='location-cmp-overlay'> 
+<div class='location-cmp-guest-user'>
+<div class='location-cmp-guest-user-header'>
+    <span id='location-cmp-your-location' data-custom-sign-in = "${properties.redirectpath}" data-custom-add-address = "${properties.addaddress}"> 
+        ${properties.iconname}</span><i onClick='onHideUserAddress()' class="fa fa-window-close"></i>
+
+</div>
+<div class='location-cmp-guest-user-body'> 
+<div class='location-cmp-body-upper-container'>
+
+<div class='location-cmp-body-go-to-sign-in'> <a class='location-cmp-btn-go-to-sign-in location-cmp-btn-sign-in-link'> Go to Sign-in</a> </div>
+</div>
+<div class="location-cmp-separator">OR</div>
+<div class='location-cmp-body-lower-container'> 
+<div class='location-cmp-body-go-to-sign-in location-cmp-body-pincode-wrapper'><input type='text' placeholder = 'Enter Pincode' onChange='onPincodeChange()' class='location-cmp-pincode-text'> 
+<button onClick ="onPincodeApply()" class='location-cmp-apply-btn'> OK </button></div>
+<p class='location-cmp-pincode-validation'></p>
+</div>
+</div>
+ </div> 
+ </div> 
+</div>
+
