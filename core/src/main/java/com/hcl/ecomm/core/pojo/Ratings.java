@@ -9,24 +9,7 @@ public class Ratings {
     private String title;
     private String description;
     private String customer;
-    //private float avgRating;
 
-
-   /* public float getUserRating() {
-        return userRating;
-    }
-
-    public void setUserRating(float userRating) {
-        this.userRating = userRating;
-    }
-
-    public float getAvgRating() {
-        return avgRating;
-    }
-
-    public void setAvgRating(float avgRating) {
-        this.avgRating = avgRating;
-    }*/
 
     public float getRating() {
         return rating;
@@ -77,8 +60,6 @@ public class Ratings {
         this.sku = sku;
     }
 
-
-
     @Override
     public String toString() {
         return "Ratings{" +
@@ -90,7 +71,5 @@ public class Ratings {
                 ", customer='" + customer + '\'' +
                 '}';
     }
-
-
 
 }

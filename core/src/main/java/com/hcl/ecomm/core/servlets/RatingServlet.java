@@ -94,12 +94,9 @@ public class RatingServlet extends SlingAllMethodsServlet {
             String  sku = request.getParameter("sku");
             List<Ratings> data = ratingService.getRatingDataSQL(sku);
             String ratingJson = new Gson().toJson(data);
-            LOG.info("ratingJSON is {}",ratingJson);
             JSONArray responseStream = new JSONArray(ratingJson);
-            LOG.info("responseStream is {}",responseStream.toString());
             JSONArray finalResp = new JSONArray();
             JSONArray ratingArr = new JSONArray();
-            LOG.info("Data is "+ data);
             JSONObject avgObj = new JSONObject();
             avgObj.put("avg-rating", responseStream.getJSONObject(0).get("rating"));
                 for (int i = 1; i < responseStream.length(); i++) {
