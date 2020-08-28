@@ -3,7 +3,7 @@
 }
 
 html {
-  font-family: 'Sans Serif, Arial';
+
   // background-color: #10171d;
   // color: #dfdfdf;
   --bg: #ffffff;
@@ -18,23 +18,23 @@ html[data-theme='dark'] {
 }
 
 body {
-background-color: var(--bg);
-position: relative;
+	background-color: var(--bg);
+  font-family: 'Sans Serif, Arial';
+	position: relative;
 }
 
 .root {
   color: var(--color-text);
 }
-
 .overlay{
-  background: rgba(0,0,0,0.5);
-  width:100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top:0;
-  z-index: 99999999;
-  bottom :0;
+    background: rgba(0,0,0,0.5);
+    width:100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top:0;
+    z-index: 99999999;
+    bottom :0;
 }
 .loader {
   border: 16px solid #f3f3f3;
@@ -47,10 +47,10 @@ position: relative;
   animation: spin 2s linear infinite;
   position: absolute;
   left: 0;
-  right: 0;
-  top: 40vh;
-  //bottom: 0;
-  margin: auto;
+    right: 0;
+    top: 40vh;
+    //bottom: 0;
+    margin: auto;
 }
 
 @-webkit-keyframes spin {
