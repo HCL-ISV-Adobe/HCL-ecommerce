@@ -87,7 +87,7 @@ public class CustomerSignUpServlet extends SlingAllMethodsServlet{
 					if (mailChimpCustomerSignupResponse.has("statusCode") && mailChimpCustomerSignupResponse.getInt("statusCode") == HttpStatus.OK_200) {
 						responseObject.put("MailChimp message", "customer signed up successfully.");
 					} else {
-						responseObject.put("message", "something went wrong while MailChimp Customer Signup.");
+						responseObject.put("MailChimp message", "something went wrong while MailChimp Customer Signup.");
 					}
 
 					//Adding customer to Magento
