@@ -50,7 +50,6 @@ public class MailChimpSignupServlet extends SlingAllMethodsServlet {
             if (StringUtils.isNotEmpty(payload)) {
                 JSONObject jsonPayload = new JSONObject(payload);
                 if (isValidPayload(jsonPayload)) {
-
                     JSONObject customerValidDetails = customerDetailsAligned(jsonPayload);
                     JSONObject mailChimpCustomerSignupResponse = getMailChimpSignup(customerValidDetails);
                     if (mailChimpCustomerSignupResponse.has("statusCode") && mailChimpCustomerSignupResponse.getInt("statusCode") == HttpStatus.OK_200) {

@@ -110,17 +110,18 @@ public class CustomerSignUpServlet extends SlingAllMethodsServlet{
 		}
 		LOG.debug("CustomerSignup doPost()  method end.");
 	}
-	public JSONObject getCustomerSignUp(JSONObject customerSignupObj){
-		return  customerService.customerSignup(customerSignupObj);
+
+	public JSONObject getCustomerSignUp(JSONObject customerSignupObj) {
+		return customerService.customerSignup(customerSignupObj);
 	}
 
-	private JSONObject getMailChimpSignup(JSONObject customerDetails) throws UnsupportedEncodingException {
+	public JSONObject getMailChimpSignup(JSONObject customerDetails) throws UnsupportedEncodingException {
 		return mailChimpService.mailChimpCustomerSignup(customerDetails);
 	}
 
 	private boolean isValidPayload(JSONObject jsonPayload) {
-		boolean isValidData=Boolean.TRUE;
-		if(!jsonPayload.has("email") && !jsonPayload.has("firstname") && !jsonPayload.has("lastname") && !jsonPayload.has("password")){
+		boolean isValidData = Boolean.TRUE;
+		if (!jsonPayload.has("email") && !jsonPayload.has("firstname") && !jsonPayload.has("lastname") && !jsonPayload.has("password")) {
 			isValidData = Boolean.FALSE;
 		}
 		return isValidData;
