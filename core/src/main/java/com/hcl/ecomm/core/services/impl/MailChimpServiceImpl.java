@@ -23,9 +23,6 @@ public class MailChimpServiceImpl implements MailChimpService {
 
     private static final Logger LOG = LoggerFactory.getLogger(MailChimpServiceImpl.class);
 
-    /*@Activate
-    private MailChimpConfig config;*/
-
     String username = null;
     String password = null;
     String serverPrefix = null;
