@@ -1,4 +1,5 @@
 let userAddress=null;
+let globalAddress=null;
 $( document ).ready(function() {
    let addressCustToken = null;
 
@@ -13,9 +14,12 @@ $( document ).ready(function() {
                     if (this.readyState == 4 && this.status == 200) {
 
                         userAddress = JSON.parse(this.responseText);
+						globalAddress=this.responseText;
                         mapUserFields(userAddress);
                         //getting address for Location component
-						getuserLocation(userAddress);
+                        if(userAddress){
+                            getuserLocation(userAddress);
+                        }
                         if (userAddress && userAddress.length > 0) {
                         $('.cmp-my-address--add-address').css('display', 'none');
                    const userALLSection = userAddress.map((userAddressItems,index) => {
@@ -27,7 +31,7 @@ $( document ).ready(function() {
                         	<p>${userAddressItems.street.join()}, ${userAddressItems.city}<p>
                         	<p>Post Code-${userAddressItems.postcode}<p>
                         	<p>Mob No - ${userAddressItems.telephone}<p>
-                                <a class ='cmp-my-address-update-user-address' onclick = "updateUserProfile('${index}')">Update</a>
+                                <a class ='cmp-my-address-update-user-address' onclick = "updateUserProfile('${index}','update_shipping')">Update</a>
 						 </div>
 
 						<div class ='cmp-my-address-users-address'>
@@ -36,7 +40,7 @@ $( document ).ready(function() {
                                 <p>${userAddressItems.street.join()}, ${userAddressItems.city}<p>
                         	<p>Post Code-${userAddressItems.postcode}<p>
                         	<p>Mob No - ${userAddressItems.telephone}<p>
-                              <a class ='cmp-my-address-update-user-address' onclick = "updateUserProfile('${index}')">Update</a>
+                              <a class ='cmp-my-address-update-user-address' onclick = "updateUserProfile('${index}','update_billing')">Update</a>
 						 </div>
 
                         `)})
@@ -207,7 +211,7 @@ const onClosePop = () =>{
 }
 
 
-const updateUserProfile = (index) =>{
+const updateUserProfile = (index,updateflag) =>{
 
     $('.cmp-my-address--user-update-form').css('display', 'block');
    const userUpdateForm = (
@@ -303,7 +307,7 @@ const updateUserProfile = (index) =>{
                     </div>
                 </div>
 
-    <button class = 'update-address-update-btn ' onclick = "onSaveNDeliverAddress('${userAddress[index]}','${index}')">Update Address</button>
+    <button class = 'update-address-update-btn ' onclick = "onSaveNDeliverAddress('${userAddress[index]}','${index}','${updateflag}')">Update Address</button>
 </div>
 
         `
