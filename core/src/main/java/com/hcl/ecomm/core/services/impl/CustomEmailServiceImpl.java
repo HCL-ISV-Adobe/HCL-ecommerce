@@ -187,6 +187,13 @@ public class CustomEmailServiceImpl implements CustomEmailService {
         if (params.containsKey("subject")) {
             email.setSubject(params.get("subject"));
         }
+        
+        if (params.containsKey("positveFeedbackUrl")) {
+        	email.setSubject(params.get("positveFeedbackUrl"));
+        }
+        if (params.containsKey("negativeFeedbackUrl")) {
+        	email.setSubject(params.get("negativeFeedbackUrl"));
+        }
         return email;
     }
 
