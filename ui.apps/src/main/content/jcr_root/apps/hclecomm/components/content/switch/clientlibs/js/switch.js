@@ -1,5 +1,4 @@
 $(function() {
-    //var checkbox = document.querySelector('input[name=theme]');
     var darkMode = localStorage.getItem('darkMode');
     if(darkMode == 'enabled') {
         document.documentElement.setAttribute('data-theme', 'dark');
