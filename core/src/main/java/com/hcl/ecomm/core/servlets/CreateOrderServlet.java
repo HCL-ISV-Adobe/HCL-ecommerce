@@ -67,7 +67,7 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 				LOG.info("CreateOrder iNfo ()  payload={}",jsonPayload);
 				if (isValidItem(jsonPayload)) {
 					JSONObject createOrderItem = jsonItemObj( jsonPayload,customerToken);
-					JSONObject createOrderItemResponse = getCreateOrderItem(createOrderItem, jsonPayload, customerToken);
+					JSONObject createOrderItemResponse = getCreateOrderItem(createOrderItem, jsonPayload, customerToken, jsonPayload.get("delivercharges").toString(), jsonPayload.get("coupondiscount").toString());
 					if (createOrderItemResponse.has("statusCode") && createOrderItemResponse.getInt("statusCode") == HttpStatus.SC_OK) {
 						LOG.info("createOrderItemResponse is {}" ,createOrderItemResponse);
 						responseObject.put("message", createOrderItemResponse.getJSONObject("message"));
@@ -85,9 +85,9 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 			LOG.error("Error Occured while executing create order using shipinfo. Full Error={} ", e);
 		}
 	}
-    public JSONObject getCreateOrderItem(JSONObject createOrderItem, JSONObject jsonPayload, String customerToken) throws JSONException {
-        return createOrderService.createOrderItem(createOrderItem, jsonPayload.getString("cartId"), customerToken);
-    }
+	public JSONObject getCreateOrderItem(JSONObject createOrderItem, JSONObject jsonPayload, String customerToken, String deliverCharges, String couponDiscount) throws JSONException {
+		return createOrderService.createOrderItem(createOrderItem, jsonPayload.getString("cartId"), customerToken, deliverCharges, couponDiscount);
+	}
 
 	private boolean isValidItem(JSONObject jsonPayload) {
 		boolean isValidItem=Boolean.TRUE;
