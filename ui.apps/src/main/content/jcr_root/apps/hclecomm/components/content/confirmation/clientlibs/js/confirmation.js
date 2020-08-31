@@ -100,8 +100,10 @@ $(document).ready(function () {
             target.innerHTML = prodcutDeatilsEle;
             subTotal.innerHTML = fiNalAmount;
             orderNumber.innerHTML = getOrderId;
-            customerName.innerHTML = getCustomerName;
-            customerADD.innerHTML = getCustomerAdd;
+            if(checkOutDeatils['firstname']!=='NA' && checkOutDeatils['lastname']!=='NA' && checkOutDeatils['street']!=='NA'  && checkOutDeatils['city']!=='NA' && checkOutDeatils['postcode']!=='NA'){
+ 				customerName.innerHTML = getCustomerName;
+           		customerADD.innerHTML = getCustomerAdd;
+            }
             customerCradDeatils.innerHTML = getCradDeatils;
             customerCodDetails.innerHTML = getCodDetails;
         }
