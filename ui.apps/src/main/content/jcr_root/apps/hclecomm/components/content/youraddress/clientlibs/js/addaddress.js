@@ -137,7 +137,7 @@ function onEnterDeatilsAdd(event,updatestate) {
     letValidateFieldAdd(userDetails, userDetailsValue, event,updatestate)
 }
 
-function onSaveNDeliverAddress(updateAddress,index) {
+function onSaveNDeliverAddress(updateAddress,index,updateflag) {
 
     let validationFeilds = true;
     let validateFormFields = true
@@ -264,6 +264,7 @@ function onSaveNDeliverAddress(updateAddress,index) {
 
         }
         else{
+            if(userAddress && userAddress.length > 1){
             if(index==='0'){
                  addresss.push(getUserDeatilsAddAddress);
                  addresss.push(userAddress[1]);
@@ -271,6 +272,26 @@ function onSaveNDeliverAddress(updateAddress,index) {
             else{
                  addresss.push(userAddress[0]);
                  addresss.push(getUserDeatilsAddAddress);
+            }
+            }
+            else{
+				delete userAddress[0].customer_id;
+				delete userAddress[0].id;
+                var global_address=JSON.parse(globalAddress);
+                delete global_address[0].customer_id;
+				delete global_address[0].id;
+                if(updateflag==='update_shipping'){
+					delete userAddress[0].default_billing;
+                    delete global_address[0].default_shipping;
+					addresss.push(userAddress[0]);
+                    addresss.push(global_address[0]);
+                }
+                else{
+                    delete userAddress[0].default_shipping;
+                    delete global_address[0].default_billing;
+                    addresss.push(global_address[0]);
+                    addresss.push(userAddress[0]);
+                }
             }
             customer['addresses']=addresss;
         }

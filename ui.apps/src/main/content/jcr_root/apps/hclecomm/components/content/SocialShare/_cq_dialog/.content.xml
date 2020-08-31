@@ -19,7 +19,6 @@
                     <SharingLabel
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/foundation/form/textfield"
-                        fieldDescription="Leave empty to use the page title."
                         fieldLabel="Sharing label text"
                         name="./sharingLabel"/>             
                     <facebookSharingPath

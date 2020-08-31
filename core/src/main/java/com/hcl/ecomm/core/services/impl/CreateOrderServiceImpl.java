@@ -16,6 +16,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -53,7 +54,7 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 	}
 
 	@Override
-	public JSONObject createOrderItem(JSONObject orderItem, String cartId, String customerToken) {
+	public JSONObject createOrderItem(JSONObject orderItem, String cartId, String customerToken, String deliverCharges, String couponDiscount) {
 
 		LOG.debug("createOrderItem method={}",orderItem,cartId);
 		String scheme = "http";
@@ -117,18 +118,30 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 					String orderRes = EntityUtils.toString(Httpresponse.getEntity());
 					JSONObject jsonRes = new JSONObject();
 					Map emailParams = new HashMap<>();
+
 					jsonRes = new JSONObject(orderRes);
 					if(jsonRes.length()!=0 && customerToken != null && !customerToken.isEmpty()) {
+						Integer subTotal = jsonRes.getInt("subtotal");
+						float grandTotal = subTotal.floatValue() + Float.parseFloat(deliverCharges) - Float.parseFloat(couponDiscount);
+						JSONObject billingAddress = jsonRes.getJSONObject("billing_address");
+
+						String streetAddress = billingAddress.getJSONArray("street").toString();
+						String city = billingAddress.get("city").toString();
+						String region = billingAddress.get("region").toString();
+						String country = billingAddress.get("country_id").toString();
+
 						emailParams.put("orderId", order);
-						emailParams.put("grandTotal", jsonRes.get("base_grand_total"));
-						emailParams.put("address",jsonRes.getJSONObject("billing_address").get("street"));
+						emailParams.put("grandTotal", grandTotal);
+						emailParams.put("address", streetAddress + ", " + city + ", " + region + ", " + country);
 
 						//send Email
 						String templatePath="/etc/notification/email/hclecomm/order-confirmation-email-template.html";
 						String smail=jsonRes.getString("customer_email");
 						String firstname=jsonRes.getString("customer_firstname");
+						String lastname=jsonRes.getString("customer_lastname");
 						emailParams.put("receiveremail",smail);
 						emailParams.put("firstname",firstname);
+						emailParams.put("lastname",lastname);
 						customEmailService.sendEmail(templatePath,emailParams,smail);
 					}
 				}else if(org.eclipse.jetty.http.HttpStatus.BAD_REQUEST_400 == statusCode){

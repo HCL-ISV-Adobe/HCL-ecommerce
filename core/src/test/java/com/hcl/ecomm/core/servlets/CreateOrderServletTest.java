@@ -36,7 +36,7 @@ class CreateOrderServletTest {
 
         JSONObject jsonObject = new JSONObject(getOrderResponse());
 
-        doReturn(jsonObject).when(createOrderServlet).getCreateOrderItem(any(), any(), anyString());
+        doReturn(jsonObject).when(createOrderServlet).getCreateOrderItem(any(), any(), anyString(), anyString(), anyString());
 
         createOrderServlet.doPut(request, response);
         verify(createOrderServlet, times(1)).doPut(request, response);
