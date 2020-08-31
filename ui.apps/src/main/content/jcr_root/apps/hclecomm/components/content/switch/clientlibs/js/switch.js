@@ -1,4 +1,5 @@
 $(function() {
+    if(checkmode !== "edit") { 
     var darkMode = localStorage.getItem('darkMode');
     if(darkMode == 'enabled') {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -28,4 +29,5 @@ $(function() {
 
         });
     });
+    } 
 });
