@@ -6,10 +6,8 @@ $(function() {
     }
     
     //if(checkmode && checkmode == "noEdit") {
-    console.log('checkmode - buttonjs', checkmode)
     if(checkmode !== "edit") {
         const userData = getUserCookie("hcluser");
-        console.log(userData)
         if(userData) {
             let customerName = (JSON.parse(userData).firstname)?JSON.parse(userData).firstname:"User";
             $('.signin').css('display','none');

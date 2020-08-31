@@ -1,7 +1,6 @@
 $(function() {
 
     if(document.querySelectorAll('.cmp-product-tileOverflow').length > 0) {
-       console.log("checkmode",checkmode);
        if(checkmode !== "edit"){
 
         const tnsSliders = document.querySelectorAll('.cmp-product-tileOverflow');
