@@ -1,9 +1,11 @@
 package com.hcl.ecomm.core.servlets;
 
 import java.io.BufferedReader;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.Servlet;
 
+import com.hcl.ecomm.core.services.MailChimpService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
@@ -45,7 +47,9 @@ public class CustomerSignUpServlet extends SlingAllMethodsServlet{
 	
 	@Reference
 	private CustomerService customerService;
-	
+
+	@Reference
+	private MailChimpService mailChimpService;
 	
 	  /**
      * doPost create new customer so that it can be persisted at their end.
@@ -77,6 +81,16 @@ public class CustomerSignUpServlet extends SlingAllMethodsServlet{
 				JSONObject jsonPayload =  new JSONObject(payload);
 				if (isValidPayload(jsonPayload)) {
 					JSONObject customerSignupObj = customerSignupObj(jsonPayload);
+					//Adding customer to Mailchimp
+					JSONObject customerValidDetails = customerDetailsAligned(jsonPayload);
+					JSONObject mailChimpCustomerSignupResponse = getMailChimpSignup(customerValidDetails);
+					if (mailChimpCustomerSignupResponse.has("statusCode") && mailChimpCustomerSignupResponse.getInt("statusCode") == HttpStatus.OK_200) {
+						responseObject.put("MailChimp message", "customer signed up successfully.");
+					} else {
+						responseObject.put("MailChimp message", "something went wrong while MailChimp Customer Signup.");
+					}
+
+					//Adding customer to Magento
 					JSONObject customerSignupResponse = getCustomerSignUp(customerSignupObj);
 					if (customerSignupResponse.has("statusCode") && customerSignupResponse.getInt("statusCode") == HttpStatus.OK_200) {
 						responseObject.put("message", customerSignupResponse.getJSONObject("message"));
@@ -96,13 +110,18 @@ public class CustomerSignUpServlet extends SlingAllMethodsServlet{
 		}
 		LOG.debug("CustomerSignup doPost()  method end.");
 	}
-	public JSONObject getCustomerSignUp(JSONObject customerSignupObj){
-		return  customerService.customerSignup(customerSignupObj);
+
+	public JSONObject getCustomerSignUp(JSONObject customerSignupObj) {
+		return customerService.customerSignup(customerSignupObj);
+	}
+
+	public JSONObject getMailChimpSignup(JSONObject customerDetails) throws UnsupportedEncodingException {
+		return mailChimpService.mailChimpCustomerSignup(customerDetails);
 	}
 
 	private boolean isValidPayload(JSONObject jsonPayload) {
-		boolean isValidData=Boolean.TRUE;
-		if(!jsonPayload.has("email") && !jsonPayload.has("firstname") && !jsonPayload.has("lastname") && !jsonPayload.has("password")){
+		boolean isValidData = Boolean.TRUE;
+		if (!jsonPayload.has("email") && !jsonPayload.has("firstname") && !jsonPayload.has("lastname") && !jsonPayload.has("password")) {
 			isValidData = Boolean.FALSE;
 		}
 		return isValidData;
@@ -119,6 +138,22 @@ public class CustomerSignUpServlet extends SlingAllMethodsServlet{
 			customerSignup.put("password", customerData.getString("password"));
 		} catch (JSONException e) {
 			LOG.error("Error while executing. Error={}",e);
+		}
+		return customerSignup;
+	}
+
+	private JSONObject customerDetailsAligned(JSONObject customerData){
+		JSONObject customerSignup = new JSONObject();
+		JSONObject customer = new JSONObject();
+		try {
+			customer.put("FNAME", customerData.getString("firstname"));
+			customer.put("LNAME", customerData.getString("lastname"));
+			customer.put("PHONE", customerData.getString("phone"));
+			customerSignup.put("merge_fields", customer);
+			customerSignup.put("email_address",customerData.getString("email") );
+			customerSignup.put("status","subscribed");
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
 		return customerSignup;
 	}

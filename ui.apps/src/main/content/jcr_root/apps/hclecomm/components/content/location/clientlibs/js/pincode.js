@@ -12,7 +12,7 @@ let userDataLoc = getUserCookie("hcluser");
                     userAddressLoc = userAddress;
                     const addressPlaceHolder = $('.location-cmp-address-txt');
                     const userAddressDetails = `<span class='location-cmp-address-city'>${userAddress[0].city}</span><span>${userAddress[0].postcode}</span>`;
-                    if (addressPlaceHolder && userAddressDetails) {
+                    if (addressPlaceHolder && userAddressDetails && addressPlaceHolder[0]) {
                         addressPlaceHolder[0].innerHTML = userAddressDetails;
 
                     }
