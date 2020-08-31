@@ -22,17 +22,28 @@ xhttpReq.send();
 
 function submitRating(rating) {
 ratingReview=rating;
-  /*  let data = {
+let userData = getUserCookie("hcluser");
+ if (userData == "" || typeof userData == 'undefined') {
+		customerEmail ='N/A';
+        customerName = 'guest';
+
+
+    let data = {
         "sku": prodSku,
         "name": prodName,
-        "rating": rating
+        "rating": ratingReview,
+        "customer": customerName,
+        "email": customerEmail,
+        "title":'N/A',
+        "description": 'N/A'
     }
     //sending data to server
     let xhttpPostReq = new XMLHttpRequest();
     let url = "/bin/hclecomm/ratinglist";
     xhttpPostReq.open("POST", url, true);
     xhttpPostReq.setRequestHeader("Content-Type", "application/json");
-    xhttpPostReq.setRequestHeader("CustomerToken", custToken);
-    xhttpPostReq.send(JSON.stringify(data));
-    */
+	xhttpPostReq.send(JSON.stringify(data));
+
+ }
+
 }

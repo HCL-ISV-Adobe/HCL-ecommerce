@@ -53,9 +53,12 @@ $(document).ready(function() {
                 ratingResponseReview = JSON.parse(this.responseText);
                 var ratingUser = ratingResponseReview[1];
                 var customerReview = "";
+                $(".review-button-link a").text(ratingUser.length +' ratings');
                 document.getElementById('customerReview').innerHTML = "";
                 i = 0;
-                for (ratingObj of ratingUser) {
+                var ratingUsers=ratingUser.filter(element => element.customer !="guest");
+                console.log("ratingUser is"+ratingUsers);
+                for (ratingObj of ratingUsers) {
 
                     switch (ratingObj.rating) {
                         case 0:
