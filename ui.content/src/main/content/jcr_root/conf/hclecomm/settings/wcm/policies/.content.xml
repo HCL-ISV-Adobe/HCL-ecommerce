@@ -302,6 +302,7 @@
                         <cq:styleGroups jcr:primaryType="nt:unstructured">
                             <item0
                                 cq:styleGroupLabel="Active Button  "
+								cq:styleGroupMultiple="true"
                                 jcr:primaryType="nt:unstructured">
                                 <cq:styles jcr:primaryType="nt:unstructured">
                                     <item0
@@ -328,6 +329,11 @@
                                         cq:styleClasses="quaternary"
                                         cq:styleId="1590511875429"
                                         cq:styleLabel="Quaternary"
+                                        jcr:primaryType="nt:unstructured"/>
+									<item5
+                                        cq:styleClasses="btn-rounded-corner"
+                                        cq:styleId="1598867831324"
+                                        cq:styleLabel="Rounded Corner"
                                         jcr:primaryType="nt:unstructured"/>
                                 </cq:styles>
                             </item0>
