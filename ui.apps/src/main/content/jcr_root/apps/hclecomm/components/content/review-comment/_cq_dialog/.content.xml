@@ -51,12 +51,7 @@
                                                     sling:resourceType="granite/ui/components/foundation/renderconditions/simple"
                                                     expression="${!cqDesign.linkDisabled}"/>
                                             </signinUrl>
-                                            <title
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                fieldLabel="Review Comments Title"
-                                                name="./title"/>
-                                        </items>
+										</items>
                                     </column>
                                 </items>
                             </columns>

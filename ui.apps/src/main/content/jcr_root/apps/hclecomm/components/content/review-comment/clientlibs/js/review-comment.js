@@ -3,10 +3,8 @@ $(document).ready(function() {
     let reviewFormLink = $('.review-form-link').attr('href');
     signinLink = $('.review-form-link').attr('loginUrl');
     //alert("reviewFormLink" +reviewFormLink);
-    $('#customerReview').hide();
-    $('.review-button-link').on("click", function() {
-        $('#customerReview').toggle();
-    });
+    $('#customReviewWrapper').hide();
+
 
 
 
@@ -53,7 +51,7 @@ $(document).ready(function() {
                 ratingResponseReview = JSON.parse(this.responseText);
                 var ratingUser = ratingResponseReview[1];
                 var customerReview = "";
-                $(".review-button-link a").text(ratingUser.length +' ratings');
+                //$(".review-button-link a").text(ratingUser.length +' ratings');
                 document.getElementById('customerReview').innerHTML = "";
                 i = 0;
                 var ratingUsers=ratingUser.filter(element => element.customer !="guest");
