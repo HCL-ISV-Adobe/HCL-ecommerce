@@ -1,0 +1,10 @@
+<div class="cmp-complaintfeedback">
+	<sly data-sly-use.complaintfeedback="com.hcl.ecomm.core.models.ComplaintFeedbackModel">
+		<sly data-sly-test="${complaintfeedback.satisfiedValue == 'yes'}">
+			<p>${properties.positiveFeedbackMessage}</p>
+		</sly>
+		<sly data-sly-test="${complaintfeedback.satisfiedValue == 'no'}">
+			<p>${properties.negativeFeedbackMessage}</p>
+		</sly>
+	</sly>
+</div>
