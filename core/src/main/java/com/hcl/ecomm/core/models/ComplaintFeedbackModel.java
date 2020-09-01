@@ -35,7 +35,7 @@ public class ComplaintFeedbackModel {
     	LOG.debug("ComplaintFeedbackModel complaintId ={} and satisfied={}",complaintId,satisfiedValue);
     	if (StringUtils.isNoneEmpty(complaintId) && StringUtils.isNoneEmpty(satisfiedValue)) {
     		if ("no".equalsIgnoreCase(satisfiedValue)) {
-    			status = "reopen";
+    			status = "Reopen";
 			}
     		mySqlService.userComplaintFeedback(status, complaintId);
 			

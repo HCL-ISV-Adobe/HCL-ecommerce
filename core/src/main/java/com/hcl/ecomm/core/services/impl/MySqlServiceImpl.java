@@ -1,35 +1,27 @@
 package com.hcl.ecomm.core.services.impl;
 
+import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
 import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.engine.EngineConstants;
-import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-
 import com.day.commons.datasource.poolservice.DataSourcePool;
+import com.hcl.ecomm.core.services.CommonService;
 import com.hcl.ecomm.core.services.CustomEmailService;
 import com.hcl.ecomm.core.services.MySqlService;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
-import java.sql.SQLException;
-import javax.sql.DataSource;
+import com.hcl.ecomm.core.utility.CommonUtils;
 
 @Component
 public class MySqlServiceImpl implements MySqlService {
@@ -41,6 +33,9 @@ public class MySqlServiceImpl implements MySqlService {
 	
 	@Reference
     CustomEmailService customEmailService;
+	
+	@Reference
+	CommonService commonService;
 
 	@Override
 	public String userComplaintSubmission(String first_Name, String last_Name, String email, String subject,
@@ -95,10 +90,19 @@ public class MySqlServiceImpl implements MySqlService {
 		Map emailParams = new HashMap<>();
 		LOG.debug("triggerNotifyMail() methid start: Email="+email);
 		String templatePath = StringUtils.EMPTY;
+		StringBuilder positivePage = new StringBuilder();
+		StringBuilder negativePage = new StringBuilder();
 		if(template.equals("closingComplaint")) {
+			try {
+				String feedbackPage=CommonUtils.getAbsolutePageUrl(commonService.getHclecommResourceResolver(), "/content/hclecomm/us/en/complaint-feedback.html").toString();
+				positivePage.append(feedbackPage).append("?wcmmode=disabled&satisfied=yes&complaintId=").append(complaintId);
+				negativePage.append(feedbackPage).append("?wcmmode=disabled&satisfied=no&complaintId=").append(complaintId);
+			} catch (URISyntaxException e) {
+				LOG.error("Error occured while getting absolute url");
+			}
 			 templatePath = "/etc/notification/email/hclecomm/user-complaint-resolved-email-template.html";	
-			 emailParams.put("positveFeedbackUrl", "http://localhost:4502/content/hclecomm/us/en/complaint-feedback.html?wcmmode=disabled&satisfied=yes&complaintId="+complaintId);
-			 emailParams.put("negativeFeedbackUrl", "http://localhost:4502/content/hclecomm/us/en/complaint-feedback.html?wcmmode=disabled&satisfied=no&complaintId="+complaintId);
+			 emailParams.put("positveFeedbackUrl", positivePage.toString());
+			 emailParams.put("negativeFeedbackUrl", negativePage.toString());
 			 emailParams.put("subject", "HCLecomm Complaint closed");
 		} else {
 			 templatePath = "/etc/notification/email/hclecomm/user-complaint-email-template.html";
@@ -124,8 +128,7 @@ public class MySqlServiceImpl implements MySqlService {
 	}
 	
 	@Override
-	public String userComplaintUpdate(String first_Name, String last_Name, String email, String subject,
-			String complaint,String closingComment, String status, String complaintId) {
+	public String userComplaintUpdate(String first_Name, String last_name, String email, String subject, String complaint,String  closingComment,String  status, String complaintId) {
 
 		LOG.debug("userComplaintUpdate method start. email="+email);
 		String responseCode = StringUtils.EMPTY;
@@ -200,5 +203,6 @@ public class MySqlServiceImpl implements MySqlService {
 		LOG.debug("userComplaintFeedback method end.");
 		return responseCode;
 	}
+	
 
 }

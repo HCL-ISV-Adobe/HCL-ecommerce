@@ -136,7 +136,7 @@ public class UserComplaintFormWorkflowProcess implements WorkflowProcess {
 					  dbcode = mySqlService.userComplaintSubmission(first_Name, last_name, email, subject, complaint);
 				} else {
 					String closingComment=  eElement.getElementsByTagName("complaint_closing_comment").item(0).getTextContent();
-					dbcode = mySqlService.userComplaintUpdate( first_Name,  last_name,  email,  subject,  complaint,  closingComment,  status,complaintId);
+					dbcode = mySqlService.userComplaintUpdate( first_Name,  last_name,  email,  subject,  complaint,  closingComment,  status, complaintId);
 				}
 			  }  
 		  }
