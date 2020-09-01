@@ -24,7 +24,7 @@
                 <metaData
                     jcr:primaryType="nt:unstructured"
                     PROCESS="com.hcl.ecomm.core.services.impl.UserComplaintFormWorkflowProcess"
-                    PROCESS_ARGS="/afData/afUnboundData/data/hide_support_section,no"
+                    PROCESS_ARGS="/afData/afUnboundData/data/hide_support_section,no,/afData/afUnboundData/data/complaint_id"
                     PROCESS_AUTO_ADVANCE="true"/>
             </process>
             <afparticipantstep
