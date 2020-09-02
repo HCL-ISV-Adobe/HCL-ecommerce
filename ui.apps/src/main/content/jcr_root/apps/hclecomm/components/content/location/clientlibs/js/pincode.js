@@ -31,7 +31,7 @@ const showUserAddress = () => {
     if (userAddressLoc && userAddressLoc.length > 0) {
         userAllSection = userAddressLoc.map((userAddressItems, index) => {
             return (
-                `<div class ='location-cmp-user-single-address'>
+                `<div class ='location-cmp-user-single-address' onclick = "onAddressSelect('${userAddressItems.postcode}','${userAddressItems.city}')">
                         	<p>${userAddressItems.firstname} ${userAddressItems.lastname}
                         	${userAddressItems.street.join()}, ${userAddressItems.city}</p>
                         	<p>Post Code-${userAddressItems.postcode}<p>
@@ -110,4 +110,15 @@ const onPincodeApply = () => {
 
 function onPincodeChange() {
     $('.location-cmp-pincode-validation').text(" ");
+}
+
+function onAddressSelect(pincode ,city){
+    localStorage.setItem('selectedPincode' , pincode );
+     const addressPlaceHolder = $('.location-cmp-address-txt');
+                    const userAddressDetails = `<span class='location-cmp-address-city'>${city}</span><span>${pincode}</span>`;
+                    if (addressPlaceHolder && userAddressDetails && addressPlaceHolder[0]) {
+                        addressPlaceHolder[0].innerHTML = userAddressDetails;
+                        onHideUserAddress();
+
+                    }
 }
