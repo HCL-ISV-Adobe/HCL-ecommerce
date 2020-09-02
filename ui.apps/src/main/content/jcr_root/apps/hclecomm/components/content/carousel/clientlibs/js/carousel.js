@@ -87,11 +87,16 @@ $(document).ready(function () {
     }
 
     function autoPlay(){
-         delay= (delay =='') ? 5000 :$(".carousel-multi .cmp-carousel").attr("data-cmp-delay");
+        let timedelay=5000;
+          if(checkmode == "edit"){
+            timedelay=20000;
+          }
+         delay= (delay =='') ? timedelay :$(".carousel-multi .cmp-carousel").attr("data-cmp-delay");
+        let intervalId=null;
+        if(!intervalId){
 
+      intervalId =  window.setInterval(function() {
 
-        window.setInterval(function() {
-        
         if($(".carousel-multi .cmp-carousel__action--play").hasClass('cmp-carousel__action--disabled')){
            
            var first = $('.cmp-carousel__item').first()
@@ -99,9 +104,8 @@ $(document).ready(function () {
             $('.cmp-carousel__item.active').removeClass('active').next().addClass('active');  
         }
 
-      //  }
         }, delay);
-
+        }
     }
     $(".carousel-multi .cmp-carousel__action--play").click(function(){
         autoPlay();
