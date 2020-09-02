@@ -132,8 +132,8 @@ function removeCoupon()
 {
 			const calculatedPrice = totalBagPrice - bagDiscount;
             $('.coupon-discount').css("display","none");
-            $('.order-price').text(calculatedPrice);
-            $('.total-price').text(calculatedPrice + deliveryCharges);
+            $('.order-price').text(calculatedPrice.toFixed(2));
+            $('.total-price').text((calculatedPrice + deliveryCharges).toFixed(2));
 			allowCouponOnce = true;
 }
 
