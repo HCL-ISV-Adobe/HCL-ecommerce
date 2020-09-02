@@ -1,1 +1,1 @@
-js/SocialShare.js
+js/socialshare.js
