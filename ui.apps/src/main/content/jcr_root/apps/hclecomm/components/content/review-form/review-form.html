@@ -1,0 +1,49 @@
+<div class="review-form">
+    <div class="review-form-container">
+        <div class="review-form-success">
+            <div class="review-button" data-sly-resource="${'review-button' @ resourceType='hclecomm/components/content/button', decoration=true}"></div>
+        </div>
+    </div>
+    <div class="container">
+        <form>
+            <div class="row">
+                <div class="col-25">
+                    <label class="review-label">Rating</label>
+                </div>
+                <div class="col-75">
+                    <sly data-sly-resource="${'ratings' @ resourceType='hclecomm/components/content/ratings', decoration=true}"></sly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="review_title" class="review-label">Title</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="review_title" name="review_title" placeholder="Title.." />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="review_name" class="review-label">Name</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="review_name" name="review_name" placeholder="Name" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="subject" class="review-label">Description</label>
+                </div>
+                <div class="col-75">
+                    <textarea id="review_description" name="review-description" placeholder="Description.."></textarea>
+                </div>
+            </div>
+
+            <div class="error error_show"></div>
+            <div class="row">
+                <button type="button" class="cmp-form-button submit-btn close">Submit</button>
+                <!-- <button type="button" value="Submit" class="close">-->
+            </div>
+        </form>
+    </div>
+</div>

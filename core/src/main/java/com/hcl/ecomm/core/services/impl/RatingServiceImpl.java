@@ -3,6 +3,7 @@ package com.hcl.ecomm.core.services.impl;
 import com.day.commons.datasource.poolservice.DataSourcePool;
 import com.hcl.ecomm.core.pojo.Ratings;
 import com.hcl.ecomm.core.services.RatingService;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -25,7 +26,7 @@ public class RatingServiceImpl implements RatingService {
 
     private static final Logger log = LoggerFactory.getLogger(RatingServiceImpl.class);
     DataSource dataSource = null;
-    String query = "";
+    //String query = "";
     PreparedStatement pstmt = null;
     PreparedStatement ps = null;
 
@@ -34,27 +35,59 @@ public class RatingServiceImpl implements RatingService {
     private DataSourcePool source;
 
     @Override
-    public JSONObject saveRating(JSONObject ratItem) {
-        boolean rowInserted = false;
+    public JSONObject saveRating(JSONObject ratItem,String email,String sku) {
+        boolean custRowInserted = false;
         JSONObject rateItemRes = new JSONObject();
         Connection connection = getConnection();
          try {
-
-            query = "INSERT INTO hclecomm.product_ratings(sku,name,rating) VALUES (?,?,?)";
-            pstmt = connection.prepareStatement(query);
-            pstmt.setString(1,ratItem.getString("sku"));
-            pstmt.setString(2,ratItem.getString("name"));
-            pstmt.setFloat(3, (float) ratItem.getDouble("rating"));
-            rowInserted = pstmt.executeUpdate() > 0;
-            if(rowInserted){
-                rateItemRes.put("message",rowInserted);
-            }
-            else{
-                rateItemRes.put("message",rowInserted);
-                log.error("Error while saving  the data : ");
-            }
-
-        } catch (Exception e) {
+            String custQuery="SELECT email from hclecomm.customer where email=?";
+             pstmt = connection.prepareStatement(custQuery);
+             pstmt.setString(1, email);
+             ResultSet rs = pstmt.executeQuery();
+             String reviewQuery="SELECT title,description from hclecomm.product_reviews  where sku =? and email=?";
+             pstmt = connection.prepareStatement(reviewQuery);
+             pstmt.setString(1, sku);
+             pstmt.setString(2, email);
+             ResultSet rs2 = pstmt.executeQuery();
+             if(!rs.next()) {
+                 String insertIntoCust = "INSERT INTO hclecomm.customer(name,email) VALUES (?,?)";
+                 pstmt = connection.prepareStatement(insertIntoCust);
+                 pstmt.setString(1, ratItem.getString("customer"));
+                 pstmt.setString(2, ratItem.getString("email"));
+                 custRowInserted = pstmt.executeUpdate() > 0;
+                 if (custRowInserted) {
+                     rateItemRes.put("message", custRowInserted);
+                 } else {
+                     rateItemRes.put("message", custRowInserted);
+                     log.error("Error while Inserting  the data : ");
+                 }
+                 insertIntoReview(ratItem,connection,rateItemRes);
+             }
+             else if (!rs2.next()){
+                 insertIntoReview(ratItem,connection,rateItemRes);
+             }
+             else{
+                 if(ratItem.getString("customer").equals("guest")){
+                     insertIntoReview(ratItem,connection,rateItemRes);
+                 }else {
+                     String updateReview = "UPDATE hclecomm.product_reviews set title=?,description=?,rating=? where sku =? and email=?";
+                     pstmt = connection.prepareStatement(updateReview);
+                     pstmt.setString(1, ratItem.getString("title"));
+                     pstmt.setString(2, ratItem.getString("description"));
+                     pstmt.setFloat(3, (float) ratItem.getDouble("rating"));
+                     pstmt.setString(4, ratItem.getString("sku"));
+                     pstmt.setString(5, ratItem.getString("email"));
+                     boolean ReviewUpdated = pstmt.executeUpdate() > 0;
+                     if (ReviewUpdated) {
+                         rateItemRes.put("message", ReviewUpdated);
+                     } else {
+                         rateItemRes.put("message", ReviewUpdated);
+                         log.error("Error while Updating  the data : ");
+                     }
+                     log.debug("inserted data is {}", ReviewUpdated);
+                 }
+             }
+         } catch (Exception e) {
              log.error("Error while saving  the data : " + e);
         }
          finally {
@@ -66,30 +99,79 @@ public class RatingServiceImpl implements RatingService {
                  log.error("Error while trying to close connection. SQLException = {}", e);
              }
          }
-        log.debug("inserted data is {}",rowInserted);
          return rateItemRes;
+    }
+
+    private JSONObject insertIntoReview(JSONObject ratItem,Connection connection,JSONObject rateItemRes) {
+        String insertIntoReview = "INSERT INTO hclecomm.product_reviews(sku,title,description,customer,email,name,rating) VALUES (?,?,?,?,?,?,?)";
+        try {
+            pstmt = connection.prepareStatement(insertIntoReview);
+            pstmt.setString(1, ratItem.getString("sku"));
+            pstmt.setString(2, ratItem.getString("title"));
+            pstmt.setString(3, ratItem.getString("description"));
+            pstmt.setString(4, ratItem.getString("customer"));
+            pstmt.setString(5, ratItem.getString("email"));
+            pstmt.setString(6, ratItem.getString("name"));
+            pstmt.setFloat(7, (float) ratItem.getDouble("rating"));
+            boolean reviewRowInserted = pstmt.executeUpdate() > 0;
+            if (reviewRowInserted) {
+                rateItemRes.put("message", reviewRowInserted);
+            } else {
+                rateItemRes.put("message", reviewRowInserted);
+                log.error("Error while Inserting  the data : ");
+            }
+        }
+        catch (Exception e) {
+            log.error("Error while saving  the data : " + e);
+        }
+        finally {
+            try {
+                if(null != connection && !connection.isClosed())
+                    connection.close();
+            }
+            catch (SQLException e) {
+                log.error("Error while trying to close connection. SQLException = {}", e);
+            }
+        }
+        return rateItemRes;
     }
 
     @Override
     public List<Ratings> getRatingDataSQL(String sku)  {
         List<Ratings> ratingsList = new ArrayList<Ratings>();
         Connection  connection = getConnection();
+        JSONArray getRatingRes= new JSONArray();
+
         try{
-                query = "SELECT sku,name,avg(rating) from hclecomm.product_ratings where sku=?";
+            String avgRating = "SELECT avg(rating) FROM hclecomm.product_reviews where sku=?";
+            pstmt = connection.prepareStatement(avgRating);
+            pstmt.setString(1, sku);
+            ResultSet rs = pstmt.executeQuery();
 
-                pstmt = connection.prepareStatement(query);
+            while (rs.next()) {
+                Ratings ratings = new Ratings();
+                ratings.setRating(rs.getFloat("avg(rating)"));
+                ratingsList.add(ratings);
+            }
+
+            String reviewComments = "SELECT ps.sku, ps.title,ps.description,ps.customer,ps.rating FROM hclecomm.product_reviews ps INNER JOIN hclecomm.customer c ON c.email = ps.email WHERE  ps.sku=?";
+
+                pstmt = connection.prepareStatement(reviewComments);
                 pstmt.setString(1, sku);
-                ResultSet rs = pstmt.executeQuery();
+                ResultSet rs2 = pstmt.executeQuery();
 
-                while (rs.next()) {
+                while (rs2.next()) {
 
                     Ratings ratings = new Ratings();
-                    ratings.setSku(rs.getString("sku"));
-                    ratings.setName(rs.getString("name"));
-                    ratings.setRating(rs.getFloat("avg(rating)"));
+                    ratings.setSku(rs2.getString("sku"));
+                    ratings.setTitle(rs2.getString("title"));
+                    ratings.setDescription(rs2.getString("description"));
+                    ratings.setCustomer(rs2.getString("customer"));
+                    ratings.setRating(rs2.getFloat("rating"));
                     ratingsList.add(ratings);
 
             }
+
         } catch (Exception e) {
             log.error("Error while getting the data : " + e);
         }

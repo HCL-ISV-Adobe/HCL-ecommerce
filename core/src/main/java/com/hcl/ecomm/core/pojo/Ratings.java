@@ -4,16 +4,12 @@ public class Ratings {
 
 
     private String name;
-     private float rating;
+    private float rating;
     private String sku;
+    private String title;
+    private String description;
+    private String customer;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public float getRating() {
         return rating;
@@ -21,6 +17,39 @@ public class Ratings {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSku() {
@@ -37,8 +66,10 @@ public class Ratings {
                 "name='" + name + '\'' +
                 ", rating=" + rating +
                 ", sku='" + sku + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", customer='" + customer + '\'' +
                 '}';
     }
-
 
 }
