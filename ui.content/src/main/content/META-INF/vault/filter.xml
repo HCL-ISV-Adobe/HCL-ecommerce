@@ -7,9 +7,9 @@
     <filter root="/content/experience-fragments/hclecomm" mode="merge"/>
 	<filter root="/oak:index/hclecommLuceneIndex" mode="merge"/>
     <filter root="/content/cq:tags/hclecommtags" mode="merge"/>
-	<filter root="/conf/global/settings/workflow/models/hclecomm" mode="merge"/>
-	<filter root="/var/workflow/models/hclecomm" mode="merge"/>
-	<filter root="/content/forms/af/hclecomm" mode="merge"/>
-	<filter root="/content/dam/formsanddocuments/hclecomm" mode="merge"/>
+	<filter root="/conf/global/settings/workflow/models/hclecomm" mode="update"/>
+	<filter root="/var/workflow/models/hclecomm" mode="update"/>
+	<filter root="/content/forms/af/hclecomm" mode="update"/>
+	<filter root="/content/dam/formsanddocuments/hclecomm" mode="update"/>
 	<filter root="/content/dam/formsanddocuments-themes/hclecomm" mode="merge"/>
 </workspaceFilter>
