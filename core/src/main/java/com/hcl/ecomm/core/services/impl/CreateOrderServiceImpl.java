@@ -2,12 +2,11 @@ package com.hcl.ecomm.core.services.impl;
 
 import com.hcl.ecomm.core.config.MagentoServiceConfig;
 import com.hcl.ecomm.core.services.CreateOrderService;
-
 import com.hcl.ecomm.core.services.CustomEmailService;
 import com.hcl.ecomm.core.services.LoginService;
 import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
-
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -17,6 +16,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ import java.util.Map;
 		enabled = true,
 		service = CreateOrderService.class)
 
-public class CreateOrderServiceImpl implements CreateOrderService{
+public class CreateOrderServiceImpl implements CreateOrderService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CreateOrderServiceImpl.class);
 
@@ -56,113 +57,134 @@ public class CreateOrderServiceImpl implements CreateOrderService{
 	@Override
 	public JSONObject createOrderItem(JSONObject orderItem, String cartId, String customerToken, String deliverCharges, String couponDiscount) {
 
-		LOG.debug("createOrderItem method={}",orderItem,cartId);
+		LOG.debug("createOrderItem method={}, cartID= {}", orderItem, cartId);
 		String scheme = "http";
-		String token="";
-		String url = "";
-		Integer statusCode=0;
+		String token = StringUtils.EMPTY;
+		String url = StringUtils.EMPTY;
+		int statusCode = 0;
 		JSONObject createOrderItemRes = new JSONObject();
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		CloseableHttpResponse httpResponse = null;
-		StringEntity input = new StringEntity(orderItem.toString(),ContentType.APPLICATION_JSON);
+		StringEntity input = new StringEntity(orderItem.toString(), ContentType.APPLICATION_JSON);
 		try {
 			String domainName = loginService.getDomainName();
-			if(customerToken != null && !customerToken.isEmpty()) {
+			if (customerToken != null && !customerToken.isEmpty()) {
 				token = customerToken;
-				url = scheme + "://" + domainName + config.customer_createOrder_string() ;
+				url = scheme + "://" + domainName + config.customer_createOrder_string();
 				HttpPost httpost = new HttpPost(url);
-				httpost.setHeader("Authorization", "Bearer " +token);
+				httpost.setHeader("Authorization", "Bearer " + token);
 				httpost.setEntity(input);
 
 				httpResponse = httpClient.execute(httpost);
-				LOG.debug("httpResponse is {}",httpResponse);
+				LOG.debug("httpResponse is {}", httpResponse);
 				statusCode = httpResponse.getStatusLine().getStatusCode();
 
-			}
-			else
-			{
+			} else {
 				String createOrderPath = getCreateOrderPath();
 				createOrderPath = createOrderPath.replace("{cartId}", cartId);
 				url = scheme + "://" + domainName + createOrderPath;
 				HttpPut httput = new HttpPut(url);
 				httput.setEntity(input);
 				httpResponse = httpClient.execute(httput);
-				LOG.debug("httpResponse is {}",httpResponse);
+				LOG.debug("httpResponse is {}", httpResponse);
 				statusCode = httpResponse.getStatusLine().getStatusCode();
 			}
-			LOG.debug("orderInfo url ={}",url);
+			LOG.debug("orderInfo url ={}", url);
 
-			if(org.eclipse.jetty.http.HttpStatus.OK_200 == statusCode){
+			if (org.eclipse.jetty.http.HttpStatus.OK_200 == statusCode) {
 				BufferedReader br = new BufferedReader(new InputStreamReader((httpResponse.getEntity().getContent())));
-				String order="";
+				String order = StringUtils.EMPTY;
 				String output;
 
 				while ((output = br.readLine()) != null) {
-
-					order +=output;
+					order += output;
 				}
 				JSONObject orderId = new JSONObject();
 				order = order.replace("\"", "");
 				/*if(customerToken != null && !customerToken.isEmpty()) {*/
-				LOG.debug("Get Order Detail for order Id: ",order);
+				LOG.debug("Get Order Detail for order Id: {}", order);
 
 				String authToken = loginService.getToken();
-				url = scheme + "://" + domainName + "/us/V1/orders/"+order;
-				LOG.info("createOrderInfo url ={}",url);
+				url = scheme + "://" + domainName + "/us/V1/orders/" + order;
+				LOG.info("createOrderInfo url ={}", url);
 				HttpGet httpGet = new HttpGet(url);
 				httpGet.setHeader("Content-Type", "application/json");
 				httpGet.setHeader("Authorization", "Bearer " + authToken);
 				CloseableHttpResponse Httpresponse = httpClient.execute(httpGet);
 				statusCode = Httpresponse.getStatusLine().getStatusCode();
-				if(org.eclipse.jetty.http.HttpStatus.OK_200 == statusCode){
+				if (org.eclipse.jetty.http.HttpStatus.OK_200 == statusCode) {
 					String orderRes = EntityUtils.toString(Httpresponse.getEntity());
-					JSONObject jsonRes = new JSONObject();
-					Map emailParams = new HashMap<>();
 
-					jsonRes = new JSONObject(orderRes);
-					if(jsonRes.length()!=0 && customerToken != null && !customerToken.isEmpty()) {
-						Integer subTotal = jsonRes.getInt("subtotal");
-						float grandTotal = subTotal.floatValue() + Float.parseFloat(deliverCharges) - Float.parseFloat(couponDiscount);
-						JSONObject billingAddress = jsonRes.getJSONObject("billing_address");
-
-						String streetAddress = billingAddress.getJSONArray("street").toString();
-						String city = billingAddress.get("city").toString();
-						String region = billingAddress.get("region").toString();
-						String country = billingAddress.get("country_id").toString();
-
-						emailParams.put("orderId", order);
-						emailParams.put("grandTotal", grandTotal);
-						emailParams.put("address", streetAddress + ", " + city + ", " + region + ", " + country);
+					JSONObject jsonRes = new JSONObject(orderRes);
+					if (jsonRes.length() != 0 && customerToken != null && !customerToken.isEmpty()) {
 
 						//send Email
-						String templatePath="/etc/notification/email/hclecomm/order-confirmation-email-template.html";
-						String smail=jsonRes.getString("customer_email");
-						String firstname=jsonRes.getString("customer_firstname");
-						String lastname=jsonRes.getString("customer_lastname");
-						emailParams.put("receiveremail",smail);
-						emailParams.put("firstname",firstname);
-						emailParams.put("lastname",lastname);
-						customEmailService.sendEmail(templatePath,emailParams,smail);
+						String templatePath = "/etc/notification/email/hclecomm/order-confirmation-email-template.html";
+						String smail = jsonRes.getString("customer_email");
+
+						customEmailService.sendEmail(templatePath, getEmailParameters(jsonRes, order, deliverCharges, couponDiscount), smail);
 					}
-				}else if(org.eclipse.jetty.http.HttpStatus.BAD_REQUEST_400 == statusCode){
-					LOG.error("Error while  getting customer Orders. status code:{} and message={}",statusCode,Httpresponse.getEntity().getContent().toString());
-				}else{
-					LOG.error("Error while getting customer orders. status code:{}",statusCode);
+				} else if (org.eclipse.jetty.http.HttpStatus.BAD_REQUEST_400 == statusCode) {
+					LOG.error("Error while  getting customer Orders. status code:{} and message={}", statusCode, Httpresponse.getEntity().getContent());
+				} else {
+					LOG.error("Error while getting customer orders. status code:{}", statusCode);
 				}
-				orderId.put("orderId",order);
+				orderId.put("orderId", order);
 				createOrderItemRes.put("statusCode", statusCode);
 				createOrderItemRes.put("message", orderId);
-			}else if(HttpStatus.SC_BAD_REQUEST == statusCode){
+			} else if (HttpStatus.SC_BAD_REQUEST == statusCode) {
 				createOrderItemRes.put("statusCode", statusCode);
 				createOrderItemRes.put("message", httpResponse.getEntity().getContent().toString());
-				LOG.error("Error while create Order Info . status code:{} and message={}",statusCode,httpResponse.getEntity().getContent().toString());
-			}else{
-				LOG.error("Error while create Order Info. status code:{}",statusCode);
+				LOG.error("Error while create Order Info . status code:{} and message={}", statusCode, httpResponse.getEntity().getContent());
+			} else {
+				LOG.error("Error while create Order Info. status code:{}", statusCode);
 			}
 		} catch (Exception e) {
-			LOG.error("createOrderCart method caught an exception " + e);
+			LOG.error("createOrderCart method caught an exception {0}", e);
 		}
-		LOG.debug("createOrderCart method {}: " + createOrderItemRes);
+		LOG.debug("createOrderCart method {}: ", createOrderItemRes);
 		return createOrderItemRes;
 	}
+
+	/*
+    This method takes json array of street address and returns as a String.
+     */
+	private String getAddressDetails(JSONArray streetAddress) throws JSONException {
+		String[] streetAddressArray = new String[streetAddress.length()];
+		for (int i = 0; i < streetAddressArray.length; i++) {
+			streetAddressArray[i] = streetAddress.getString(i);
+		}
+		return String.join(",", streetAddressArray);
+	}
+
+	/*
+    This method takes the jsonObject, order, deliveryCharges, couponDiscount and returns a map of containing email parameters.
+     */
+	private Map<String, String> getEmailParameters(JSONObject jsonRes, String order, String deliverCharges, String couponDiscount) throws JSONException {
+		Map<String, String> emailParams = new HashMap<>();
+		JSONObject billingAddress = jsonRes.getJSONObject("billing_address");
+		JSONArray streetAddress = billingAddress.getJSONArray("street");
+		String street = getAddressDetails(streetAddress);
+		String city = billingAddress.get("city").toString();
+		String region = billingAddress.get("region").toString();
+		String country = billingAddress.get("country_id").toString();
+		String postCode = billingAddress.get("postcode").toString();
+
+		int subTotal = jsonRes.getInt("subtotal");
+		float grandTotal = Float.parseFloat(String.valueOf(subTotal)) + Float.parseFloat(deliverCharges) - Float.parseFloat(couponDiscount);
+		DecimalFormat format = new DecimalFormat("0.00");
+		String subTotalDecimal = format.format(grandTotal);
+		String smail = jsonRes.getString("customer_email");
+		String firstname = jsonRes.getString("customer_firstname");
+		String lastname = jsonRes.getString("customer_lastname");
+		emailParams.put("receiveremail", smail);
+		emailParams.put("firstname", firstname);
+		emailParams.put("lastname", lastname);
+
+		emailParams.put("orderId", order);
+		emailParams.put("grandTotal", subTotalDecimal);
+		emailParams.put("address", street + ", " + city + ", " + region + ", " + country + ", " + postCode);
+		return emailParams;
+	}
+
 }
