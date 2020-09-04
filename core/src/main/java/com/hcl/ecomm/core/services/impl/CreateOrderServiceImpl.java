@@ -116,18 +116,15 @@ public class CreateOrderServiceImpl implements CreateOrderService {
 
                     JSONObject jsonRes = new JSONObject(orderRes);
                     JSONObject billingAddress = jsonRes.getJSONObject("billing_address");
-
+                    String smail = jsonRes.getString("customer_email");
                     if (jsonRes.length() != 0 && billingAddress.getString("firstname").equals("NA")) {
 
-                        //send Email
-                        String smail = jsonRes.getString("customer_email");
+                        //send Email for store pick up
                         customEmailService.sendEmail(EmailTemplateConstants.STORE_PICKUP_EMAIL_TEMPLATE, getEmailParameters(jsonRes, order, deliverCharges, couponDiscount, storeAddress), smail);
                     }
                     else if (jsonRes.length() != 0) {
 
-                        //send Email
-                        String smail = jsonRes.getString("customer_email");
-
+                        //send Email for shipping to address
                         customEmailService.sendEmail(EmailTemplateConstants.SHIPPING_ADDRESS_EMAIL_TEMPLATE, getEmailParameters(jsonRes, order, deliverCharges, couponDiscount, storeAddress), smail);
                     }
                 } else if (org.eclipse.jetty.http.HttpStatus.BAD_REQUEST_400 == statusCode) {
@@ -192,8 +189,9 @@ public class CreateOrderServiceImpl implements CreateOrderService {
         emailParams.put("address", street + ", " + city + ", " + region + ", " + country + ", " + postCode);
 
         // store pick up address
-        emailParams.put("storeAddress", storeAddress.toString());
-
+        if (storeAddress != null) {
+            emailParams.put("storeAddress", storeAddress.toString());
+        }
         return emailParams;
     }
 
