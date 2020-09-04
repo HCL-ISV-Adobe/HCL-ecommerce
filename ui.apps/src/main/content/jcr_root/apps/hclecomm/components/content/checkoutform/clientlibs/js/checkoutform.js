@@ -652,6 +652,7 @@ function onContinueCvv() {
                 var productDescriptionJSON = JSON.parse(localStorage.getItem("productDescription"));
                     skmuObj['delivercharges'] = productDescriptionJSON["delivercharges"];
                     skmuObj['coupondiscount'] = productDescriptionJSON["coupondiscount"];
+                    skmuObj['storeAddress'] = JSON.parse(localStorage.getItem("storeAddress"));
 
         const xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {

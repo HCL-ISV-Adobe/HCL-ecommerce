@@ -8,6 +8,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.framework.Constants;
@@ -67,7 +68,7 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 				LOG.info("CreateOrder iNfo ()  payload={}",jsonPayload);
 				if (isValidItem(jsonPayload)) {
 					JSONObject createOrderItem = jsonItemObj( jsonPayload,customerToken);
-					JSONObject createOrderItemResponse = getCreateOrderItem(createOrderItem, jsonPayload, customerToken, jsonPayload.get("delivercharges").toString(), jsonPayload.get("coupondiscount").toString());
+					JSONObject createOrderItemResponse = getCreateOrderItem(createOrderItem, jsonPayload, customerToken, jsonPayload.get("delivercharges").toString(), jsonPayload.get("coupondiscount").toString(), jsonPayload.getJSONObject("storeAddress"));
 					if (createOrderItemResponse.has("statusCode") && createOrderItemResponse.getInt("statusCode") == HttpStatus.SC_OK) {
 						LOG.info("createOrderItemResponse is {}" ,createOrderItemResponse);
 						responseObject.put("message", createOrderItemResponse.getJSONObject("message"));
@@ -85,8 +86,8 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 			LOG.error("Error Occured while executing create order using shipinfo. Full Error={} ", e);
 		}
 	}
-	public JSONObject getCreateOrderItem(JSONObject createOrderItem, JSONObject jsonPayload, String customerToken, String deliverCharges, String couponDiscount) throws JSONException {
-		return createOrderService.createOrderItem(createOrderItem, jsonPayload.getString("cartId"), customerToken, deliverCharges, couponDiscount);
+	public JSONObject getCreateOrderItem(JSONObject createOrderItem, JSONObject jsonPayload, String customerToken, String deliverCharges, String couponDiscount, JSONObject storeAddress) throws JSONException {
+		return createOrderService.createOrderItem(createOrderItem, jsonPayload.getString("cartId"), customerToken, deliverCharges, couponDiscount, storeAddress);
 	}
 
 	private boolean isValidItem(JSONObject jsonPayload) {
