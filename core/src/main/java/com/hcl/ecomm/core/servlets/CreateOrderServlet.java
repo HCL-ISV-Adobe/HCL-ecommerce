@@ -1,14 +1,12 @@
 package com.hcl.ecomm.core.servlets;
 
 import com.hcl.ecomm.core.services.CreateOrderService;
-import com.hcl.ecomm.core.services.DeleteCartItemService;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.framework.Constants;
@@ -68,7 +66,7 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 				LOG.info("CreateOrder iNfo ()  payload={}",jsonPayload);
 				if (isValidItem(jsonPayload)) {
 					JSONObject createOrderItem = jsonItemObj( jsonPayload,customerToken);
-					JSONObject createOrderItemResponse = getCreateOrderItem(createOrderItem, jsonPayload, customerToken, jsonPayload.get("delivercharges").toString(), jsonPayload.get("coupondiscount").toString(), jsonPayload.getJSONObject("storeAddress"));
+					JSONObject createOrderItemResponse = getCreateOrderItem(createOrderItem, jsonPayload, customerToken, jsonPayload.get("delivercharges").toString(), jsonPayload.get("coupondiscount").toString(), jsonPayload.has("storeAddress") ? jsonPayload.getJSONObject("storeAddress") : null);
 					if (createOrderItemResponse.has("statusCode") && createOrderItemResponse.getInt("statusCode") == HttpStatus.SC_OK) {
 						LOG.info("createOrderItemResponse is {}" ,createOrderItemResponse);
 						responseObject.put("message", createOrderItemResponse.getJSONObject("message"));
@@ -87,7 +85,7 @@ public class CreateOrderServlet extends SlingAllMethodsServlet {
 		}
 	}
 	public JSONObject getCreateOrderItem(JSONObject createOrderItem, JSONObject jsonPayload, String customerToken, String deliverCharges, String couponDiscount, JSONObject storeAddress) throws JSONException {
-		return createOrderService.createOrderItem(createOrderItem, jsonPayload.getString("cartId"), customerToken, deliverCharges, couponDiscount, storeAddress);
+			return createOrderService.createOrderItem(createOrderItem, jsonPayload.getString("cartId"), customerToken, deliverCharges, couponDiscount, storeAddress);
 	}
 
 	private boolean isValidItem(JSONObject jsonPayload) {
