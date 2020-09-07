@@ -4,13 +4,17 @@
   PRIMARY KEY (`email`));
   
   
-  CREATE TABLE `hclecomm`.`product_reviews` (
+ CREATE TABLE `hclecomm`.`product_reviews` (
   `sku` VARCHAR(45) NOT NULL,
   `title` VARCHAR(45) NULL,
-  `desc` VARCHAR(45) NULL,
+  `description` VARCHAR(45) NULL,
   `customer` VARCHAR(45) NOT NULL,
-	CONSTRAINT `email`
+  `email` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `rating`   FLOAT NOT NULL,
+  CONSTRAINT `email`
   FOREIGN KEY (`email`)
   REFERENCES `hclecomm`.`customer` (`email`)
   ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
+  ON UPDATE NO ACTION
+);
