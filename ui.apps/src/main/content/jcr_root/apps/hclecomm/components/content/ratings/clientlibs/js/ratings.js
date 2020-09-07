@@ -25,6 +25,9 @@ prodSku = $(".product-sku").text();
 xhttpReq.open("GET", "/bin/hclecomm/ratinglist?sku=" + prodSku, true);
 xhttpReq.send();
 
+$('.rate input').on('click',function(){
+submitRating(this.value);
+});
 
 function submitRating(rating) {
 ratingReview=rating;
