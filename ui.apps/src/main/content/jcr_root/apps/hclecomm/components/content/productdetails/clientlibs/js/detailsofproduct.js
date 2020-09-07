@@ -31,6 +31,7 @@ $(document).ready(function() {
     try {
      productDetail = JSON.parse(this.responseText);
 	 prodName = productDetail.name;
+	 localStorage.setItem('prodName',prodName);
      $('.product-details-cmp__prduct-price-sign').css("display", "inline-block");
      if(productDetail.sku) {
      $(".product-details-cmp__prduct-price").text(productDetail.price);
