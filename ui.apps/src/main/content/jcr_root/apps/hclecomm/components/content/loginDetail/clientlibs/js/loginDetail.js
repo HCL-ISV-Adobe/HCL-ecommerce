@@ -31,7 +31,7 @@ function changePasswordServerRequest(url, formdata) {
                 let error = "Server status failed. ";
                 if (data.message.error) {
                     console.log(data.message.error);
-                    error += data.message.error;
+                    error = data.message.error;
                 }
                 console.log(error);
                 const ErrorMsgElm = document.getElementById('cp-errormsg');
@@ -83,7 +83,7 @@ async function validateChangePasswordForm(e) {
         return false;
     }
     if (document.changePasswordForm.newpassword.value !== document.changePasswordForm.confirmpassword.value) {
-        errorhtml = '<span>Confirm password should be same as password<span>';
+        errorhtml = '<span>Confirm and new password do not match<span>';
         displaySettingError(errorhtml, 'confirmpassword');
         return false;
     }

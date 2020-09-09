@@ -87,7 +87,7 @@ public class CustomerChangePasswordServletTest {
     private String getSubmitResponse_else() {
         String submitResponse_else = "{\n" +
                 "    \"message\": {\n" +
-                "        \"error\": \"Current password not matching. Please try again\"\n" +
+                "        \"error\": \"Old password not matching. Please try again\"\n" +
                 "    },\n" +
                 "  \"statusCode\": 401\n" +
                 "}";
