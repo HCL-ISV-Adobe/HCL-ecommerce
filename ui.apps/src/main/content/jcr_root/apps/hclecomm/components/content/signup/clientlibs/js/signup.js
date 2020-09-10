@@ -51,7 +51,7 @@
 		if(status === true) {
 		  successSignUpCallback(data);
 		} else {
-		  let error = "Server status failed. ";
+		  let error = "Email Already Exist . Please Sign up using another email or Sign in with registered credentials.";
 		  if(data.message.error) {
 			console.log(data.message.error);
 			 error += data.message.error;
@@ -77,20 +77,36 @@ function displayError(errorhtml, formElmName) {
 	  const ErrorMsgElm = document.getElementById('cmp-signup-errormsg');
 	  ErrorMsgElm.innerHTML = "";
 	  ErrorMsgElm.style.visibility = "hidden";
+
 	  let errorhtml = "";
 	  var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
 	  var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	  var phoneno = /^\d{10}$/;
+      var alphaExp = /^[A-Za-z]+$/
+
 	  if (document.signup_form.firstname.value == "") {
 		  errorhtml = '<span>Please enter First Name<span>';
 		  displayError(errorhtml, 'firstname');
 		  return false;
 	  }
+
+	  else if (!document.signup_form.firstname.value.match(alphaExp)){
+      		  errorhtml = '<span>Invalid Characters in First Name field. Only Alphabets allowed.<span>';
+      		  displayError(errorhtml, 'firstname');
+      		  return false;
+      	  }
+
 	  if (document.signup_form.lastname.value == "") {
 		  errorhtml = '<span>Please enter Last Name<span>';
 		  displayError(errorhtml, 'lastname');
 		  return false;
 	  }
+  else if (!document.signup_form.lastname.value.match(alphaExp)){
+      		  errorhtml = '<span>Invalid Characters in Last Name field. Only Alphabets allowed.<span>';
+      		  displayError(errorhtml, 'lastname');
+      		  return false;
+      	  }
+
 	  if (document.signup_form.email.value == "") {
 		  errorhtml = '<span>Please enter Email<span>';
 		  displayError(errorhtml, 'email');
