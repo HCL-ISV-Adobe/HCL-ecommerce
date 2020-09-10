@@ -70,7 +70,7 @@ public class CustomerChangePasswordServlet extends SlingAllMethodsServlet {
                         responseObject.put("status", Boolean.TRUE);
                         jsonResponse.put("success", "Password Changed.");
                     } else if (changePasswordRes.has("statusCode") && changePasswordRes.getInt("statusCode") == HttpStatus.UNAUTHORIZED_401) {
-                        jsonResponse.put("error", "Current password not matching. Please try again");
+                        jsonResponse.put("error", "Old password not matching. Please try again");
                     } else if (changePasswordRes.has("statusCode") && changePasswordRes.getInt("statusCode") == HttpStatus.BAD_REQUEST_400) {
                         jsonResponse.put("error", "New Password lenth should be 8, one Upper char, One lower char and one digit.");
                     } else {
