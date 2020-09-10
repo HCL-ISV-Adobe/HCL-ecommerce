@@ -17,11 +17,21 @@ font-size:20px;
 line-height:22px;
 margin-top:25px;
 text-align : right;
+position: relative;
 
-@media (max-width: 650px){
-width: auto !important;
-margin-top:0;
-margin-left : 0 !important;
-text-align : inherit;
- }
+    div {
+        position: absolute;
+        right: 5px;
+        a {
+            margin: 0 5px;
+        }
+    }
+    
+    @media (max-width: 650px){
+        width: auto !important;
+        margin-top:0;
+        margin-left : 0 !important;
+        text-align : inherit;
+        position: static;
+    }
 }
