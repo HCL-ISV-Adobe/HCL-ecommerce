@@ -190,7 +190,7 @@ public class CreateOrderServiceImpl implements CreateOrderService {
 
         // store pick up address
         if (storeAddress != null) {
-           emailParams.put("storeAddress", storeAddress.getString("contact_name"));
+           emailParams.put("storeAddress", storeAddress.toString());
         }
         return emailParams;
     }
