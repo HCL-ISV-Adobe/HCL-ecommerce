@@ -520,7 +520,7 @@ function letValidateField(userDetails, userDetailsValue, event) {
                 return
             }
             getUserDeatils['country_id'] = userDetailsValue;
-            //getUserDeatils['country_name'] = $(".add-new-address-form #country option:selected").text();
+            getUserDeatils['country_name'] = $(".add-new-address-form #country option:selected").text();
             break;
 
         case 'State':
@@ -791,7 +791,6 @@ function setAddressDefaults() {
     getUserDeatils['street'] =streetArr;
     getUserDeatils['country_id'] = 'NA';
     getUserDeatils['region_code'] = 'NA';
-    getUserDeatils['email'] = 'NA';
 }
 
 function closeStoreOptions(){

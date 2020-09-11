@@ -170,7 +170,7 @@ public class CreateOrderServiceImpl implements CreateOrderService {
         String street = getAddressDetails(streetAddress);
         String city = billingAddress.get("city").toString();
         String region = billingAddress.get("region").toString();
-        String country = billingAddress.get("country_id").toString();
+        String country = billingAddress.get("country_name").toString();
         String postCode = billingAddress.get("postcode").toString();
 
         int subTotal = jsonRes.getInt("subtotal");
@@ -190,7 +190,7 @@ public class CreateOrderServiceImpl implements CreateOrderService {
 
         // store pick up address
         if (storeAddress != null) {
-            emailParams.put("storeAddress", storeAddress.toString());
+           emailParams.put("storeAddress", storeAddress.getString("contact_name"));
         }
         return emailParams;
     }
