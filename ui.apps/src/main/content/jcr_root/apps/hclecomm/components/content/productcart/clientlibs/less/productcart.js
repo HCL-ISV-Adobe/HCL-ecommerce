@@ -91,7 +91,7 @@ $(document).ready(function () {
                                                                 </div>
                                           <div class="cmp-cart-quantity">
                                             <span class="fa fa-minus"></span>
-                                       <input class="cmp-cart-qty-input" type="number" value=${item.qty} id="number" />
+                                       <input class="cmp-cart-qty-input" type="number" value=${item.qty} id="number" min="1"/>
                                              <span class="fa fa-plus"></span>
                                         </div>
 											<div class="cmp-cart-price" style="display:none">${item.price}</div>
